@@ -1,0 +1,12 @@
+<global>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin_Importador.xml</admin>
+		<admin>Admin_Importador_Multimodo.xml</admin>
+		<ajax>Admin_Importador_Multimodo.xml</ajax>
+	</layouts>
+	<routers>
+		<Admin_Importador_Router_Importador>administrator/importar</Admin_Importador_Router_Importador>
+	</routers>
+</global>

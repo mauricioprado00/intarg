@@ -1,0 +1,158 @@
+<?
+$x = new Granguia_Model_Config();
+if($this->hasIdToEdit()){
+	$x->setId($this->getIdToEdit());
+	$x->load();
+}
+else{
+	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
+		$x->loadFromArray(Core_Http_Post::getParameters('array'));
+	}
+}
+$x->addAutofilterOutput('utf8_decode');
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="id" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset>
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Variable</legend>
+	<fieldset>
+		<h3>Datos</h3>
+		<div>
+			<label>Nombre: </label>
+			<span>
+				<input class="<?=$id=md5(rand(1,1000))?>" type="text" maxlength="300" id="nombre" name="nombre" value="<?php echo htmlentities($x->getNombre()); ?>" />
+			</span>
+		</div>
+		<div>
+			<label>Valor: </label>
+			<span><?php 
+			if(strpos($x->getNombre(), 'text_')!==false||strpos($x->getNombre(), 'fck_')!==false){?> 
+				<textarea class="<?=$valor=$textarea=md5(rand(1,1000))?>" rows="20" cols="80" name="valor"><?php echo htmlentities($x->getValor())?></textarea><?php
+			}
+			elseif(strpos($x->getNombre(), 'cke_')!==false){?> 
+				<textarea class="<?=$valor=$textarea=md5(rand(1,1000))?> ckeditor" id="valor" name="valor" rows="20" cols="80" ><?php echo htmlentities(stripslashes($x->getValor()))?></textarea><?
+			}
+			elseif(strpos($x->getNombre(), 'img_')!==false){?>
+				<select name="valor"><?
+				$fr = new Base_FileFilterRetriever();
+				$fr->setExtensiones('png','jpg','gif','ico');
+				
+				$path = Admin_Config_Helper::getInstance()->getImgPath();
+				$path = Base_MagicHelper::PathResolve($path);
+				$fr->Start($path,null);
+				//$dir = scandir(CFG_PATH_ROOT.'/img');
+				$dir = $fr->getFilteredFiles();
+				foreach($dir as $file){
+					$file = implode('/', explode('\\', implode('', explode($path.'/', $file))));
+					$valor = str_replace(CFG_PATH_ROOT.'/', '', $file);
+					$selected = $valor==$x->getValor()?' selected="selected"':'';?> 
+					<option<?php echo $selected?> value="<?php echo $valor?>"><?php echo $file?></option><?php
+				}?> 
+				</select>
+				<label>O suba una nueva imagen: </label>
+				<input type="file" name="nueva_imagen"/><?php
+			}
+			elseif(strpos($x->getNombre(), 'cpkr_')!==false){
+				$color = $x->getValor();
+				$color = $color?$color:'black'; ?> 
+				<div class="colorSelector" style="background-color:#<?php print $color; ?>">
+				<input type="hidden" class="color_picker" maxlength="300" id="valor" name="valor" value="<?php echo htmlentities(utf8_decode($x->getValor()))?>" />
+				</div><?php
+			}
+			elseif(strpos($x->getNombre(), 'file_')!==false){?>
+				<select name="valor"><?
+				$fr = new Base_FileFilterRetriever();
+				//$fr->setExtensiones('png','jpg','gif','ico');
+				$path = Admin_Config_Helper::getInstance()->getFilePath();
+				$path = Base_MagicHelper::PathResolve($path);
+				$fr->Start($path,null);
+				//$dir = scandir(CFG_PATH_ROOT.'/img');
+				$dir = $fr->getFilteredFiles();
+				foreach($dir as $file){
+					$file = implode('/', explode('\\', implode('', explode($path.'/', $file))));
+					$valor = str_replace(CFG_PATH_ROOT.'/', '', $file);
+					$selected = $valor==$x->getValor()?' selected="selected"':'';?> 
+					<option<?php echo $selected?> value="<?php echo $valor?>"><?php echo $file?></option><?php
+				}?> 
+				</select>
+				<label>O suba un nuevo archivo: </label>
+				<input type="file" name="nuevo_archivo"/><?php
+			}
+			elseif(strpos($x->getNombre(), 'chk_')===0){?> 
+				<input type="hidden" name="valor" value="0" />
+				<input type="checkbox" class="<?=$valor=md5(rand(1,1000))?>" maxlength="300" id="valor" name="valor" value="1"<?php if($x->getValor()){?> checked="checked"<?}?> /><?php
+			}
+			else{?> 
+				<input type="text" class="<?=$valor=md5(rand(1,1000))?>" maxlength="300" id="valor" name="valor" value="<?php echo htmlentities($x->getValor())?>" /><?php
+			}
+			?> 
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+window.val = jQuery('.<?=$id?>').val();
+window.isFck = val.split('fck_').length>1;
+window.isCke = val.split('cke_').length>1;
+window.isCpkr = val.split('cpkr_').length>1;
+jQuery(document).ready(function(){
+	if(window.isFck){
+		$('.<?=$textarea?>').fck({
+			path: '<?echo $this->getSkinUrl('fckeditor')?>/',
+			toolbar:'Custom',
+			Height: 300,
+			Width: 650
+		});	
+	}
+	if(window.isCke){
+		jQuery('.<?=$textarea?>').ckeditor();//jQuery.ckeditor.overload();
+	}
+	if(window.isCpkr){
+		jQuery('.colorSelector').ColorPicker({
+			color: '#0000ff',
+			onShow: function (colpkr) {
+				jQuery(colpkr).fadeIn(500);
+				return false;
+			},
+			onHide: function (colpkr) {
+				jQuery(colpkr).fadeOut(500);
+				return false;
+			},
+			onChange: function (hsb, hex, rgb) {
+				//jQuery('.colorSelector').css('backgroundColor', '#' + hex);
+			},
+			onSubmit: function(hsb, hex, rgb, div){
+				jQuery(div).css('backgroundColor', '#' + hex);
+				jQuery('input', div).val(hex);
+				window.console.log(this.selector.parent().fadeOut(500));
+			}
+		});
+	}
+})
+function validar_agregar_usuario(formData, jqForm, options) {
+	var editing = <?php echo ($this->getIdToEdit()?'true':'false')?>;
+	if(window.isFck){
+		jQuery.fck.update();
+	}
+	if(window.isCke){
+		jQuery('.<?=$textarea?>').refresh();//jQuery.ckeditor.refresh();
+	}
+	try{
+		var errors = [];
+		if(jQuery('input[name=nombre]').val() == ''){
+			errors.push("Debe ingresar Nombre");
+		}
+		if(errors.length){
+			alert("Corrija los errores:\n\t- "+errors.join("\n\t- "));
+			return false;
+		}
+	}catch(e){
+		alert(e);
+		return(false);
+	}
+	return(true);
+}
+</script>

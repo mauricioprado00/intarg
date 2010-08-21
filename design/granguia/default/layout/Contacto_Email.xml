@@ -1,0 +1,5 @@
+<layout>
+	<email_contacto>
+		<template name="datos_contacto" template="contacto/email.phtml" />
+	</email_contacto>
+</layout>

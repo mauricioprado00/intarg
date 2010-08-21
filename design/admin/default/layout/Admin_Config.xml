@@ -1,0 +1,54 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>config</link_url>
+				<text>Configuraciones</text>
+				<title>Configuraciones</title>
+				<name>menu_admin_configuraciones</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_configuraciones">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>config/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>config/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+				<action method="addItem">
+					<link_url>config/backgrounds</link_url>
+					<text>Fondos</text>
+					<title>Fondos</title>
+				</action>
+				<action method="addItem">
+					<link_url>config/tools</link_url>
+					<text>Herramientas</text>
+					<title>Herramientas</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_config>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Config/XmlList"
+			name="xml_data_admin_config">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+				<!-- <fieldname>valor</fieldname> -->
+				<fieldname>valor</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>valor</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+		</block>
+	</datalist_admin_config>
+</layout>

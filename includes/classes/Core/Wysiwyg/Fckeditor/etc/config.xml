@@ -1,0 +1,8 @@
+<global>
+	<modules>
+	</modules>
+	<block>
+		<type>fckeditor</type>
+		<class>Core_Wysiwyg_Fckeditor_Block_Editor</class>
+	</block>
+</global>

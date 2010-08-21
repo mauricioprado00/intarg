@@ -1,0 +1,190 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 42;
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="banner_dinamico[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset>
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> BannerDinamico</legend>
+	<fieldset>
+		<h3>Datos</h3>
+		<div>
+			<label>Nombre: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('text')
+					->setMaxlength(255)
+					->setId('nombre')
+					->setName('banner_dinamico[nombre]')
+					->setValue($x->getNombre())
+					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<label>Contenido: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('textarea');
+				$input
+					//->setClass('ckeditor '.$desarrollo_class=md5(rand(1,1000)))
+					->setType('text')
+					->setId('contenido')
+					->setName('banner_dinamico[contenido]')
+					->setRows(20)
+					->setCols(80)
+					//->setValue($x->getNombre())
+					//->setData('data-campo', '<b>Nombre</b>')
+					//->setData('data-validator', '{empty:false}')
+					->setInnerHtml(htmlentities(stripslashes($x->getContenido())))
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<label>Tama&ntilde;o</label>
+			<span><?
+				$tamano_px_alto = 25;
+				$tamano_px_ancho = 30;
+				$border_size = 1;
+				$cantidad_maximo_filas = 6;
+				$cantidad_maximo_columnas = 4;
+				
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('hidden')
+					->setId('cantidad_espacios_vertical')
+					->setName('banner_dinamico[cantidad_espacios_vertical]')
+					->setValue($x->getCantidadEspaciosVertical())
+//					->setData('data-campo', '<b>Nombre</b>')
+//					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+				$input
+					->setType('hidden')
+					->setId('cantidad_espacios_horizontal')
+					->setName('banner_dinamico[cantidad_espacios_horizontal]')
+					->setValue($x->getCantidadEspaciosHorizontal())
+//					->setData('data-campo', '<b>Nombre</b>')
+//					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+				<style>
+					.selector_tamano{
+						border-collapse:collapse;
+					}
+					.selector_tamano_fila{
+						border-collapse:collapse;
+					}
+					.selector_tamano_celda{
+						text-align:center;
+						border-collapse:collapse;
+						width:<?php print $tamano_px_ancho; ?>px;
+						height:<?php print $tamano_px_alto; ?>px;
+						border:<?php print $border_size; ?>px solid black;
+						background-color:#DDDDFF;
+						cursor:pointer;
+					}
+					.selector_tamano_celda.selected{
+						background-color:#AAAAFF;
+						font-weight:bold;
+					}
+					.selector_tamano_celda.selecting{
+						background-color:#FFFFAA;
+					}
+					.selector_tamano_celda.disabled{
+						background-color:#EEEEEE;
+						cursor:default;
+					}
+				</style>
+				
+				<table class="selector_tamano"><?
+				for($i=0; $i<$cantidad_maximo_filas; $i++){?> 
+					<tr class="selector_tamano_fila"><?
+					for($j=0;$j<$cantidad_maximo_columnas;$j++){?> 
+						<td class="selector_tamano_celda"><?php print ($i+1).'x'.($j+1)?></td><?
+					}?> 
+					</tr><?
+				}?> 
+				</table>
+				<script>
+					function setTamano(ancho,alto){
+						jQuery('#cantidad_espacios_horizontal').val(ancho);
+						jQuery('#cantidad_espacios_vertical').val(alto);
+					}
+					jQuery(document).ready(function(){
+						var jqtabla = jQuery('.selector_tamano');
+						jqtabla.each(function(){
+							var jqthis = jQuery(this);
+							var jqfilas = jQuery('tr', this);
+							jqfilas.each(function(idx_fila, fila){
+								var jqthis = jQuery(this);
+								//window.console.log('fila '+idx_fila);
+								var jqcelda = jQuery('td', this);
+								jqcelda.each(function(idx_columna, celda){
+									var jqthis = jQuery(this);
+									//window.console.log('columna '+idx_columna);
+									this.idx_columna = idx_columna;
+									this.idx_fila = idx_fila;
+									jQuery(this).mouseover(function(){
+										jQuery('.selector_tamano_celda', jqtabla).removeClass('selecting');
+										var selector = 'tr:lt('+(this.idx_fila+1)+') td:lt('+(this.idx_columna+1)+')';
+										var jqfilas_highlight = jQuery('tr:lt('+(this.idx_fila+1)+')', jqtabla);
+										jQuery('td:lt('+(this.idx_columna+1)+')', jqfilas_highlight).addClass('selecting');
+									});
+									jQuery(this).click(function(){
+										jQuery('.selector_tamano_celda', jqtabla).removeClass('selected');
+										var selector = 'tr:lt('+(this.idx_fila+1)+') td:lt('+(this.idx_columna+1)+')';
+										var jqfilas_highlight = jQuery('tr:lt('+(this.idx_fila+1)+')', jqtabla);
+										jQuery('td:lt('+(this.idx_columna+1)+')', jqfilas_highlight).addClass('selected');
+										setTamano(this.idx_columna+1, this.idx_fila+1);
+									})
+								});
+							});
+						}).mouseout(function(){
+							jQuery('.selector_tamano_celda', this).removeClass('selecting');
+						});
+						//deshabilito click y los pinto
+						var disable_cells = [[1,1],[6,3]];//[[y,x],[y_2,x_2]]
+						jQuery('.selector_tamano_celda', jqtabla).removeClass('disabled');
+						//var selector = 'tr:lt('+(disable[1][0])+') td:lt('+(this.idx_columna+1)+')';
+						var jqfilas_highlight = jQuery('tr:gt('+(disable_cells[0][0]-1)+'):lt('+((disable_cells[1][0]-disable_cells[0][0])+1)+')', jqtabla);
+						var jqdisabled_cells = jQuery('td:gt('+(disable_cells[0][1]-1)+'):lt('+(disable_cells[1][1]-disable_cells[0][1]+1)+')', jqfilas_highlight);
+						jqdisabled_cells.addClass('disabled').unbind('click');
+						
+						//marco segun como este cargada
+						var ancho = parseInt(jQuery('#cantidad_espacios_horizontal').val());
+						var alto = parseInt(jQuery('#cantidad_espacios_vertical').val());
+						ancho = ancho?ancho:1;
+						alto = alto?alto:1;
+						var celda = jQuery('tr:eq('+(alto-1)+') td:eq('+(ancho-1)+')', jqtabla);
+						celda.click();
+					});
+				</script>
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+jQuery(document).ready(function(){
+	jQuery('#contenido').ckeditor();
+})
+
+function validar_agregar_banner_dinamico(formData, jqForm, options) {
+	jQuery('#contenido').ckeditor('refresh');
+	if(!validar(true)){
+		return false;
+	}
+	return(true);
+}
+</script>

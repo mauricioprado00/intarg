@@ -1,0 +1,69 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>categoria</link_url>
+				<text>Categorias</text>
+				<title>Categorias</title>
+				<name>menu_admin_categorias</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_categorias">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>categoria/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>categoria/tree</link_url>
+					<text>Arbol de categorias</text>
+					<title>Arbol de categorias</title>
+				</action>
+				<action method="addItem">
+					<link_url>categoria/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_categoria>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Categoria/XmlList"
+			name="xml_data_admin_categoria">
+			<!-- 
+			id, nombre, apellido, razon_social, dir, cod_post, ciudad, pais, tel, 
+			cel, mail, nac, categoria, pass, checked, web, msn, lastlogin
+			-->
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+				<fieldname>componente_url</fieldname>
+				<fieldname>es_default</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#categoria/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#categoria/addEdit/{!id}">editar</a>
+					<a href="#categoria/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el categoria seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#categoria/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#categoria/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#categoria/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_categoria>
+</layout>

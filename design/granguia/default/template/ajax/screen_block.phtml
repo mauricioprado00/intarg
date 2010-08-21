@@ -1,0 +1,49 @@
+<?
+Core_Http_Header::setResponse('pagina_sin_url', 'si');
+?>
+<div id="<?php print $id = $this->generateRandomId(); ?>"><?php print $this->getChildHtml(); ?></div>
+<script type="text/javascript">
+	setTimeout(function(){//esto hace que se ejecute despues de todo, incluso despues de
+	//la funcion manejadora de la respuesta ajax
+	//asi el ready se posiciona al final de todos los ready puestos allí
+		jQuery(document).ready(function(){
+			var jqform_container = jQuery(<?php print json_encode('#'.$id); ?>);
+			try{
+				jqform_container.ScreenBlock();
+			}
+			catch(e){
+				alert(e);
+			}
+		});
+	},1);
+</script><?php
+
+return;
+
+/*comentario multilinea re hackeado*/if(0)$b = <<<comentar_todo
+?>
+<script>
+<?
+
+$ret = array();
+foreach($this->getChild() as $children){
+	$html = $children->toHtml();
+	if(!$html){
+		echo str_repeat("\n", 10).'//'.$children->getJquerySelector().' has no html';
+		echo '/*';
+		//var_dump(array_keys($children->get))
+		echo '*/'.str_repeat("\n", 10);
+		continue;
+	}
+	if($children->hasJquerySelector()){?> 
+jQuery('<?php print $children->getJquerySelector(); ?>').html(<?php print json_encode($html); ?>);
+
+
+<?
+	}
+}
+?> 
+</script>
+comentar_todo;
+
+?>

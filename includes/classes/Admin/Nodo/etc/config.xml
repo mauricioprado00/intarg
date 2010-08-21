@@ -1,0 +1,20 @@
+<global>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin_Nodo.xml</admin>
+		<admin>Admin_Nodo_Multimodo.xml</admin>
+		<ajax>Admin_Nodo_Multimodo.xml</ajax>
+	</layouts>
+	<routers>
+		<Admin_Nodo_Router>administrator/nodo</Admin_Nodo_Router>
+	</routers>
+	<block>
+		<type>opciones_nodo</type>
+		<class>Admin_Nodo_Block_Opciones</class>
+	</block>
+	<block>
+		<type>selector_banners</type>
+		<class>Admin_Nodo_Block_SelectorBanners</class>
+	</block>
+</global>

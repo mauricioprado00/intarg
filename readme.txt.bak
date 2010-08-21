@@ -1,0 +1,43 @@
+
+
+este es el readme de el proyecto
+
+CREATE TABLE `bm_administrador` (
+  `id` int(11) NOT NULL auto_increment,
+  `username` varchar(50) collate utf8_unicode_ci NOT NULL,
+  `password` varchar(50) collate utf8_unicode_ci NOT NULL,
+  `nombre` varchar(50) collate utf8_unicode_ci NOT NULL,
+  `apellido` varchar(50) collate utf8_unicode_ci NOT NULL,
+  `ultimo_acceso` datetime default NULL,
+  `activo` varchar(1) collate utf8_unicode_ci default NULL,
+  `privilegios` varchar(20) collate utf8_unicode_ci default NULL,
+  PRIMARY KEY  (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+drop table if exists `bm_importacion`;
+CREATE TABLE `bm_importacion` (
+  `id` int(11) NOT NULL auto_increment,
+  `archivo` varchar(300) NOT NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+drop table if exists `bm_producto_importacion`;
+CREATE TABLE `bm_producto_importacion` (
+  `id` int(11) NOT NULL auto_increment,
+  `id_importacion` int(11) NOT NULL,
+  `codigo` varchar(50) NOT NULL,
+  `sinonimo` varchar(255) NOT NULL,
+  `descripcion` varchar(255) NOT NULL,
+  `rubro` varchar(255) NOT NULL,
+  `unidad` varchar(50) NOT NULL,
+  `existencia` decimal(20,2) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+hacer una clase de cual derive Db_Model_Abstract donde se puedan hacer consultas de vista de manera rapida, ej:
+$vista = new Db_Model_View(
+	array('bm_producto_importacion','pi','campo1','campo2','i.id'=>'id_importacion'),
+	array('bm_importacion','i','id','archivo'),
+);
+$lv = $vista->search();
+var_dump($lv[0]);=>
+Object(Core_Model_View(_data=>array('pi_campo1'=>'valor','pi_campo2'=>'valor2','i_archivo')))

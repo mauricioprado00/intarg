@@ -1,0 +1,194 @@
+<?
+$x = new Granguia_Model_Anuncio();
+if($this->hasIdToEdit()){
+	$x->setId($this->getIdToEdit());
+	$x->load();
+}
+else{
+	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
+		$x->loadFromArray(Core_Http_Post::getParameters('array'));
+	}
+}
+$x->addAutofilterOutput('utf8_decode');
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 42;
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="id" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Anuncio</legend>
+	<fieldset>
+		<h3>Informacion de Anuncio</h3>
+		<div>
+			<label>Nombre: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('nombre')
+					->setName('nombre')
+					->setValue($x->getNombre())
+					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<h3>Imagenes</h3>
+			<div style="display:inline;float:left;">
+				<label>Imagen Logo: </label>
+				<span><?
+					$src_real = $src = $x->getImagenLogo();
+					$src = $src?$this->getUrl($src):'';//$this->getSkinUrl('img/empty.gif');?> 
+					<img class="show_image_imagen_logo" src="<?php print $src; ?>" />
+					<input type="hidden" name="imagen_logo" value="<?php print $src_real; ?>" data-campo="<?php print htmlentities('<b>Imagen Logo</b>');?>" data-mensaje="Debe seleccionar una imagen para %field" data-validator="{empty:false}" />
+					<img class="addimg" data-wich="imagen_logo" src="<?php print $this->getSkinUrl('img/picture_search.png'); ?>" title="seleccionar imagen" />
+				</span>
+			</div>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Datos de contacto</h3>
+		<div>
+			<label>Telefono: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('text')
+					->setMaxlength(300)
+					->setId('telefono')
+					->setName('telefono')
+					->setValue($x->getTelefono())
+					->setData('data-campo', '<b>Telefono</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<label>Direcci&oacute;n: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('text')
+					->setMaxlength(300)
+					->setId('direccion')
+					->setName('direccion')
+					->setValue($x->getDireccion())
+					->setData('data-campo', '<b>Direcci&oacute;n</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<label>Email: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('text')
+					->setMaxlength(300)
+					->setId('email_contacto')
+					->setName('email_contacto')
+					->setValue($x->getEmailContacto())
+					->setData('data-campo', '<b>Email</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+//var imagenes = ['imagen_logo'/*,'deseleccionado','over'*/];
+//for(idx in imagenes){
+//	var wich = imagenes[idx];
+//	var xxx = 'window.onckfinder_'+wich+'=function(url){onckfinder(url,"'+wich+'");}';
+//	eval(xxx);
+//}
+function onckfinder(url,wich){
+	jQuery('[name='+wich+']').val(url);
+	jQuery('.show_image_'+wich).attr('src', url).removeAttr('width');
+}
+jQuery(document).ready(function(){
+	jQuery('.addimg').css('cursor','pointer').click(function(){
+		var jqthis = jQuery(this);
+		var wich = jqthis.attr('data-wich');
+//		var funcion = 'onckfinder_'+wich;
+//		//CKFinder.Popup('<?php print dirname($this->getSkinUrl('ckfinder/ckfinder.js')); ?>', null, null, funcion);
+//		CKFinder.Popup({
+//			SelectFunction:funcion,
+//			ResourceType:'LogoAnuncio',
+//			BasePath:'<?php print dirname($this->getSkinUrl('ckfinder/ckfinder.js')); ?>'
+//		});
+		var finder = new CKFinder();
+		finder.resourceType = 'LogoAnuncio';
+		finder.basePath = '<?php print dirname($this->getSkinUrl('ckfinder/ckfinder.js')); ?>';
+		finder.selectActionFunction = function(url, data){
+			return onckfinder(url,wich,data);
+		};
+		finder.popup();
+			//'<?php print dirname($this->getSkinUrl('ckfinder/ckfinder.js')); ?>', null, null, funcion);
+		try{
+			//ckFinderBrowseServer('', $(this).attr('id'), 'ckFinderAppendImageField', 'ckFinderShowThumbnails');
+		}
+		catch(e){alert(e);}
+		return(false);
+	})
+	jQuery.ckeditor.overload();
+	//$('.<?=$desarrollo_class?>').fck({
+//		path: '<?echo $this->getSkinUrl('fckeditor')?>/',
+//		toolbar:'Custom',
+//		Height: 300,
+//		Width: 650
+//	});	
+
+
+	jQuery('[class^=show_image_]').each(function(){
+		this.image_empty_src = '<?php print $image_empty_src; ?>';
+		this.image_empty_size = <?php print $image_empty_size+0; ?>; 
+		var jqthis = jQuery(this);
+		var jqimage = jqthis;
+		var jqpapa = jqthis.parents('div:first');
+		var jqinput = jQuery('input', jqpapa);
+		jqpapa.css('position','relative');
+		var jqclear = jQuery('<div style="cursor:pointer;display:none;position:absolute;bottom:0;width:16px;height:16px;background-image:url(\'<?php print $this->getSkinUrl('img/delete2.png'); ?>\')"></div>');
+		jqpapa.append(jqclear);
+		jqclear.click(function(){
+			jqimage.attr('src',jqimage[0].image_empty_src);
+			jqimage.attr('width', jqimage[0].image_empty_size);
+			jqinput.val('');
+			jQuery(this).hide();
+		});
+		//alert(jqimage.attr('src'));
+		var curr_src = jqimage.attr('src');
+		if(curr_src=='' || curr_src==null){
+			jqclear.click();
+		}
+		jqthis.timemouse({
+			mouseover: function(){
+				if(jqimage[0].image_empty_src == jqimage.attr('src')){
+					return;
+				}
+				jqclear.show();
+			},
+			mouseout: function(){
+				jqclear.hide();
+			}, 
+			time: 800
+		})
+		;
+	});
+})
+function validar_agregar_anuncio(formData, jqForm, options) {
+	if(!validar({
+		donde: '#<?php print $id_fielset; ?>',
+		estatico:true})){
+		return false;
+	}
+	return(true);
+}
+</script>

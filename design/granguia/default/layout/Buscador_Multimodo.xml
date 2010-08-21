@@ -1,0 +1,9 @@
+<layout>
+	<busqueda>
+		<reference name="contenido_principal">
+			<resultado_busqueda name="resultado_busqueda">
+				<block type="template" name="list_entity_template" template="nodo/list/search_item.phtml" />
+			</resultado_busqueda>
+        </reference>
+	</busqueda>
+</layout>

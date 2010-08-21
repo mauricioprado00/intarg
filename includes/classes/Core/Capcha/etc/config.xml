@@ -1,0 +1,9 @@
+<global>
+	<routers>
+		<Core_Capcha_Router>capcha</Core_Capcha_Router>
+	</routers>
+	<block>
+		<type>capcha</type>
+		<class>Core_Capcha_Block_Capcha</class>
+	</block>
+</global>

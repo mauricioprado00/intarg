@@ -1,0 +1,39 @@
+<?
+if(!$this->hasPagina())
+	return;
+
+$html =  c($pagina=$this->getPagina())->getContenidoHtml();
+if($this->hasStrtr()){
+	$html = strtr($html, $this->getStrtr());
+}
+//var_dump();
+if($pagina->getTituloInterno()){
+	echo '<div class="titulo_interno">'.$pagina->getTitulo().'</div>';
+}
+echo c(new Core_Html_Tag_Custom('div'))
+	->setInnerHtml($html)
+	->setClass('desarrollo'.($pagina->getTituloInterno()?' desarrollo_con_titulo':''))
+	->getHtml();
+return;
+echo '<div class="desarrollo">';
+echo $html;
+echo '</div>';
+return;
+//esto que sigue es provisional, ya voy a ver una mejor forma en backend y no tener que hacer esta chanchada aca
+echo strtr($html, array('src="'=>'src="'.$this->getUrl()));
+
+
+return;
+?>
+				<div class="wrapper_peft_subfooter" id="publicidad_abajo">
+                    <p><a href="#"><img src="<?php echo $this->getSkinUrl("img/banner_recorridos.jpg") ?>" width="759" height="58" /></a></p>
+                    <p><a href="#"><img src="<?php echo $this->getSkinUrl("img/banner_alquiler.jpg") ?>" width="759" height="58" /></a></p>
+                    <p><a href="#"><img width="759" height="58" src="<?php echo $this->getSkinUrl("img/banner_eventos.jpg") ?>" /></a></p>
+                    <p>
+                        <a href="#">
+                            <img width="370" height="58" src="<?php echo $this->getSkinUrl("img/banner_profesionales.jpg") ?>"/>  
+                            <img width="370" height="58" src="<?php echo $this->getSkinUrl("img/banner_servicios.jpg") ?>"/>
+                        </a>
+                    </p>
+                </div>
+                

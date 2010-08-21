@@ -1,0 +1,74 @@
+<layout>
+	<list_admin_cronjob_result>
+	<!--
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/cronjob_result/addEdit,id"
+			toolbar_delete_url="administrator/cronjob_result/delete,id">
+		</reference>
+		-->
+		<reference name="listado_datos_grid"
+			caption="Listado de CronjobResult"
+			source="administrator/cronjob_result/datalist"
+			sort_name="id"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<!--
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+				-->
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Tipo</title>
+				<name>name</name>
+				<index>name</index>
+				<width>165</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inicio</title>
+				<name>inicio</name>
+				<index>inicio</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Fin</title>
+				<name>fin</name>
+				<index>fin</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Resultado</title>
+				<name>resultado</name>
+				<index>resultado</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Salida</title>
+				<name>salida</name>
+				<index>salida</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_cronjob_result>
+</layout>

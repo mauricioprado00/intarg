@@ -1,0 +1,91 @@
+<layout>
+	<list_admin_user>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/user/addEdit,id"
+			toolbar_delete_url="administrator/user/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de administradores"
+			source="administrator/user/datalist"
+			sort_name="username"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Username</title>
+				<name>username</name>
+				<index>username</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Apellido</title>
+				<name>apellido</name>
+				<index>apellido</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Activo</title>
+				<name>activo</name>
+				<index>activo</index>
+				<width>50</width>
+				<align>right</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Privilegios</title>
+				<name>privilegios</name>
+				<index>privilegios</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Ultimo Acceso</title>
+				<name>ultimo_acceso</name>
+				<index>ultimo_acceso</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_user>
+	<addedit_admin_user>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="user/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_usuario" 
+				method="post">
+				<block name="user_add_edit_form" type="template" template="user/add.phtml" />
+			</block>
+		</reference>
+	</addedit_admin_user>
+</layout>

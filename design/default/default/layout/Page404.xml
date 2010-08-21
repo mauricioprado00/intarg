@@ -1,0 +1,5 @@
+<layout>
+	<default>
+		<block type="Page/html_document" name="html_document" template="page/404.phtml" />
+	</default>
+</layout>

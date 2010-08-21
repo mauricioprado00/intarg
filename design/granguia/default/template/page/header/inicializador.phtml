@@ -1,0 +1,59 @@
+	
+	<script charset="utf8" type="text/javascript" ><?/*útf8*/?>
+	if(window.console==null){
+		window.console = {
+			log: function(){}
+		}
+	} 
+	/* <![CDATA[ */
+		UrlHelper.setBaseUrl('<?php print $this->getUrl(); ?>');
+		UrlHelper.setHomeLinkUrl(<?php print json_encode(Granguia_Model_Nodo::getHomeNodo()->getPathUrl()); ?>);
+	/* ]]> */
+	</script>
+	<?php $x = Granguia_Model_Config::findConfigValue('pagina/head/text_attach'); if(isset($x))echo $x; ?>
+	<style><?php
+	$vars = array('color'=>'cpkr_', 'imagen'=>'img_', 'repetir_imagen'=>'chk_');
+	$posiciones = array('abajo', 'derecha');
+	$valores=array();
+	foreach($posiciones as $prefijo){
+		foreach($vars as $var=>$varpref){
+			$varname = 'background/'.$prefijo.'/'.$varpref.$var;
+			$config = Granguia_Model_Config::findConfig($varname);
+			//var_dump($varname, $config->getValor());
+			$valores[$varname] = $config->getValor(); 
+		}
+	}
+	//var_dump(array_keys($valores));
+	/*
+	background/abajo/cpkr_color
+	background/abajo/img_imagen
+	background/abajo/chk_repetir_imagen
+	background/derecha/cpkr_color
+	background/derecha/img_imagen
+	background/derecha/chk_repetir_imagen
+	*/
+
+	if(isset($valores['background/derecha/cpkr_color'],$valores['background/derecha/img_imagen'],$valores['background/derecha/chk_repetir_imagen'])){
+		$color = $valores['background/derecha/cpkr_color'];
+		$imagen = $valores['background/derecha/img_imagen'];
+		$repeat = $valores['background/derecha/chk_repetir_imagen'];
+		$imagen = $imagen?'url('.$this->getUrl(dirname($imagen).'/'.rawurlencode(basename($imagen))).')':'none';
+		$repeat = $repeat?'repeat':'no-repeat';
+		?>
+	.wrapper_right,.banner_abajo{
+		background:#<?php print $color; ?> <?php print $imagen; ?> <?php print $repeat; ?> right top;;
+	}<?
+	}
+	
+	if(isset($valores['background/abajo/cpkr_color'],$valores['background/abajo/img_imagen'],$valores['background/abajo/chk_repetir_imagen'])){
+		$color = $valores['background/abajo/cpkr_color'];
+		$imagen = $valores['background/abajo/img_imagen'];
+		$repeat = $valores['background/abajo/chk_repetir_imagen'];
+		$imagen = $imagen?'url('.$this->getUrl(dirname($imagen).'/'.rawurlencode(basename($imagen))).')':'none';
+		$repeat = $repeat?'repeat':'no-repeat'; ?> 
+	.wrapper_peft_subfooter{
+		background:#<?php print $color; ?> <?php print $imagen; ?> <?php print $repeat; ?> right top;;
+	}<?	
+	}
+	?> 
+	</style>

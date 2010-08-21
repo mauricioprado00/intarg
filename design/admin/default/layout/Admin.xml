@@ -1,0 +1,141 @@
+<layout>
+	<default>
+		<block type="Page/html_document" name="html_document">
+			<block type="Page/html_head" name="html_head">
+				<container name="scripts_multimodo" />
+				<!-- <action named_args="true" method="addJs"> asi se usa para uqe los parametros lleven nombres (debe existir el metodo addJs_named_args que tiene 1 argumento(array de parametros))-->
+				<action method="addJs">
+					<!-- 
+					<script>js/jquery-1.2.3.js</script> -->
+					<!-- 
+					<script>js/jquery-1.3.2.min.js</script> 
+					<script>js/jquery-1.3.2.min.js</script> 
+					<script>js/jquery-1.3.2.min.js</script> 
+					-->
+					<!-- hace lio con la version actual de blockui -->
+					<script>jquery-ui-1.8.1.custom/development-bundle/jquery-1.4.2.js</script>
+					<script>js/admin.js</script>
+					<script>js/ie_menu_fix.js</script>
+				</action>
+				
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.core.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.widget.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.mouse.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.sortable.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.tabs.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.datepicker.js</script>
+				<css>jquery-ui-1.8.1.custom/development-bundle/themes/base/jquery.ui.all.css</css>
+				<script charset="utf8">js/ScreenBlock.js</script>
+				<action method="addJs" in="modo_ajax">
+					<script>js/helper_url_ajax.js</script>
+				</action>
+				<action method="addJs" in="!modo_ajax">
+					<script>js/helper_url_normal.js</script>
+				</action>
+				<action method="addCss">
+					<script>css/estilos.css</script>
+					<script>css/nav_v.css</script>
+				</action>
+				<action named_args="true" method="addCss">
+					<script>css/estilos_ie6.css</script>
+					<if>if IE 6</if>
+				</action>
+				<action method="addCss">
+					<script>jqGrid/themes/jqModal.css</script>
+					<script>jqGrid/themes/basic/grid.css</script><!--
+					<script>jqGrid/themes/coffee/grid.css</script>
+					<script>jqGrid/themes/green/grid.css</script>
+					<script>jqGrid/themes/sand/grid.css</script>
+					<script>jqGrid/themes/steel/grid.css</script>-->
+				</action>
+				<action method="addJs"><!-- 
+					<script>jqGrid/jquery.jqGrid.js</script> -->
+					<script>jqGrid/jqGridInclude.js</script>
+					<script>jqGrid/js/jqModal.js</script>
+					<script>jqGrid/js/jqDnR.js</script>
+				</action>
+				<!-- <script charset="UTF-8">js/jQuery/jquery.blockUI.js</script> -->
+				<script charset="UTF-8">js/jQuery/jquery.blockUI-2.33.js</script>
+				<script>js/jQuery/jquery.FCKEditor.js</script>
+				<script charset="UTF-8">js/jQuery/jquery.ckeditor.js</script>
+				<script charset="UTF-8">js/jQuery/simpleTree/jquery.simple.tree.js</script>
+				<css charset="UTF-8">js/jQuery/simpleTree/jquery.simple.tree.css</css>
+				<script  charset="UTF-8">ckeditor/ckeditor.js</script>
+				<script  charset="UTF-8">ckfinder/ckfinder.js</script>
+				<script>validador/validador.js</script>
+				<css>validador/validador.css</css>
+				<script>js/jQuery/jquery.timemouse.js</script>
+				<script>js/jQuery/jquery.iconize.js</script>
+				<css>css/iconize.css</css>
+				<script>js/compatibilidad.js</script>
+				<template template="ckeditor/config.phtml" />
+				<block type="template" template="page/inlinejs/jqgrid.phtml" />
+				<!--
+				<script charset="utf8">js/jQuery/jquery-ui-1.7.1.sortable.min.js</script> ya esta integrado en el jquery-ui
+				-->
+				<script>js/jQuery/jquery.scrollTo-min.js</script>
+				<script>js/jQuery/jquery.multivalidator-1.1.js</script>
+				<script>js/jQuery/jquery.disabler.js</script>
+				<css>css/messages.css</css>
+				<script  charset="UTF-8">colorpicker/js/colorpicker.js</script>
+				<css>colorpicker/css/colorpicker.css</css>
+				<css>colorpicker/css/layout1.css</css>
+			</block>
+			<block type="Page/html_body" name="html_body">
+				<block type="Core/Template" name="html_body_content" template="page/main.phtml">
+					<block name="contenedor_top" />
+					<block name="contenedor_left" >
+						<block type="Admin/Menu" name="menu_admin">
+						</block>
+					</block>
+					<block name="contenedor_main" >
+						<block name="contenedor_mensajes" type="Admin/Messages" />
+						<block name="message_container" type="Admin/MessageContainer">
+							<action method="requestMessageContainerTo">
+								<class>Admin_App</class>
+								<method>getMessageContainer</method>
+							</action>
+						</block>
+					</block>
+				</block>
+				<container name="scripts_multimodo_bottom" />
+			</block>
+		</block>
+	</default>
+	<modo_ajax>
+		<reference name="html_head">
+			<action method="addJs">
+				<script>js/jQuery/jquery.form.js</script>
+			</action>
+		</reference>
+	</modo_ajax>
+	<entity_list>
+		<reference name="contenedor_main">
+			<block name="listado_datos" type="template" template="page/listado_datos.phtml">
+				<block 	type="Jqgrid/grid"
+						name="listado_datos_grid"
+						caption="Titulo por defecto"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			datatype="xml"
+			row_number="20"
+			full_width="false"
+			width="1150"
+			height="100%"
+			row_list="10,20,30"
+			view_records="false"
+						>
+				</block>
+				<!-- source="administrator/user/datalist"-->
+				<!-- algo viejo y feo 
+				<block type="template" 
+					name="entity_list_body"
+					source="administrator/user/datalist" 
+					template="listado/default.phtml" /> -->
+			</block>
+		</reference>
+	</entity_list>
+</layout>

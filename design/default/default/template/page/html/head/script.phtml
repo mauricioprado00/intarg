@@ -1,0 +1,36 @@
+<?
+$extra_attrs = array();
+if($this->hasCharset())
+	$extra_attrs[] = 'charset="'.$this->getCharset().'"';
+$extra_attrs = implode(' ', $extra_attrs);
+$extra_attrs = $extra_attrs?' '.$extra_attrs:'';
+if($this->hasIf()){?> 
+	<!--[<?=$this->getIf()?>]><?
+}
+
+if($this->getInlineScript()){?> 
+	<script<?php print $extra_attrs; ?> type="text/javascript" data-uid="<?php print $this->getUid(); ?>"> 
+	<?=$this->getInlineContent()?> 
+	</script><?
+}
+else{
+	$src = $this->getSkinUrl($file = $this->getInlineContent());
+	if($src===null){?> 
+	<script type="text/javascript" data-uid="<?php print $this->getUid(); ?>">
+		try{
+		}
+		catch(e){
+			window.console.log('No Existe el archivo de skin <?=$file?>');
+		}
+	</script><?
+	}
+	else{
+?> 
+	<script<?php print $extra_attrs; ?> type="text/javascript" src="<?=$src.($this->hasVersion()?'?'.$this->getVersion():'');?>" data-uid="<?php print $this->getUid(); ?>"></script><?
+		
+	}
+}
+if($this->hasIf()){
+	echo "\n\t<![endif]-->";
+	
+}?>

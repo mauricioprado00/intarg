@@ -1,0 +1,91 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>menu</link_url>
+				<text>Menu</text>
+				<title>Menu</title>
+				<name>menu_admin_menu</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_menu">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>menu/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>menu/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_menu>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Menu/XmlList"
+			name="xml_data_admin_menu">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>activo</fieldname>
+				<fieldname>texto</fieldname>
+				<fieldname>title</fieldname>
+				<fieldname>id_nodo</fieldname>
+				<fieldname>url_externa</fieldname>
+				<fieldname>orden</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			
+<!--			
+			<action method="addAutofilterFieldOutput">
+				<fieldname>orden</fieldname>
+				<filter>Core_String_Helper::concat</filter>
+				<param1><![CDATA[</div>]]></param1>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>orden</fieldname>
+				<filter>Core_String_Helper::prepend</filter>
+				<param1><![CDATA[<a href="#menu/listar/kradkk">cambiar: ]]></param1>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>orden</fieldname>
+				<filter>Core_String_Helper::memorize</filter>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>orden</fieldname>
+				<filter>Core_String_Helper::remember</filter>
+				<param><![CDATA[<a href="#menu/listar/kradkk/%s">cambiar: %s</a>]]></param>
+				<param>2</param>
+			</action>
+   -->
+			<action method="addAutofilterFieldOutput">
+				<fieldname>orden</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[<a href="#ordenar" onclick="ordenarMenu(this,{!id}); return false;">cambiar: {!orden}</a>]]></param>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#menu/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#menu/addEdit/{!id}">editar</a>
+					<a href="#menu/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el menu seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#menu/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#menu/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#menu/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_menu>
+</layout>

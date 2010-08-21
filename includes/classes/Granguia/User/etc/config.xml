@@ -1,0 +1,17 @@
+<global>
+	<block>
+		<type>user_form_register</type>
+		<class>Granguia_User_Block_Form_Register</class>
+	</block>
+	<block>
+		<type>user_form_login</type>
+		<class>Granguia_User_Block_Form_Login</class>
+	</block>
+	<routers>
+		<Granguia_User_Router_User>usuario</Granguia_User_Router_User>
+	</routers>
+	<layouts>
+		<frontend>User.xml</frontend>
+		<!-- <email>User_Email.xml</email> -->
+	</layouts>
+</global>

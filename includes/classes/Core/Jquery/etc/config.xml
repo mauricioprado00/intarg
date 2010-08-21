@@ -1,0 +1,14 @@
+<global>
+	<block>
+		<type>document_ready</type>
+		<class>Core_Jquery_Block_DocumentReadyScript</class>
+	</block>
+	<block>
+		<type>document_ready_container</type>
+		<class>Core_Jquery_Block_DocumentReady</class>
+	</block>
+	<layouts>
+		<admin>Jquery.xml</admin>
+		<ajax>Jquery.xml</ajax>
+	</layouts>
+</global>

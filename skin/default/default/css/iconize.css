@@ -1,0 +1,92 @@
+.show_iconized_16{
+	background-image:url(../img/16x16/generic.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_compress{
+	background-image:url(../img/16x16/compress.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_picture{
+	background-image:url(../img/16x16/picture.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_film{
+	background-image:url(../img/16x16/film.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_folder{
+	background-image:url(../img/16x16/folder.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_pdf{
+	background-image:url(../img/16x16/pdf.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_php{
+	background-image:url(../img/16x16/php.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_ppt{
+	background-image:url(../img/16x16/ppt.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_rar{
+	background-image:url(../img/16x16/rar.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_txt{
+	background-image:url(../img/16x16/txt.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_xls{
+	background-image:url(../img/16x16/xls.png);
+	background-repeat:no-repeat;
+}
+
+
+/*48x48*/
+
+.show_iconized_48{
+	background-image:url(../img/48x48/generic.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_compress{
+	background-image:url(../img/48x48/compress.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_picture{
+	background-image:url(../img/48x48/picture.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_film{
+	background-image:url(../img/48x48/film.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_folder{
+	background-image:url(../img/48x48/folder.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_pdf{
+	background-image:url(../img/48x48/pdf.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_php{
+	background-image:url(../img/48x48/php.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_ppt{
+	background-image:url(../img/48x48/ppt.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_rar{
+	background-image:url(../img/48x48/rar.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_txt{
+	background-image:url(../img/48x48/txt.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_xls{
+	background-image:url(../img/48x48/xls.png);
+	background-repeat:no-repeat;
+}

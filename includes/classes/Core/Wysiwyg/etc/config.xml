@@ -1,0 +1,6 @@
+<global>
+	<modules>
+		<core_wysiwyg_fckeditor/>
+		<core_wysiwyg_ckeditor/>
+	</modules>
+</global>

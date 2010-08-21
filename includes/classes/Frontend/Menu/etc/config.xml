@@ -1,0 +1,6 @@
+<global>
+	<block>
+		<type>datos_utiles</type>
+		<class>Frontend_Menu_Block_DatosUtiles</class>
+	</block>
+</global>

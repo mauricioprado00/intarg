@@ -1,0 +1,29 @@
+<?
+if($this->hasIf()){?> 
+	<!--[<?=$this->getIf()?>]><?
+}
+
+if($this->getInlineScript()){?> 
+	<style data-uid="<?php print $this->getUid(); ?>"> 
+	<?=$this->getInlineContent()?> 
+	</style><?
+}
+else{
+	$src = $this->getSkinUrl($file = $this->getInlineContent());
+	if($src===null){?> 
+		<script type="text/javascript" data-uid="<?php print $this->getUid(); ?>">
+			try{
+			}
+			catch(e){
+				window.console.log('No Existe el archivo de skin <?=$file?>');
+			}
+		</script><?
+	}
+	else{?> 
+	<link rel="stylesheet" type="text/css" href="<?=$src.($this->hasVersion()?'?'.$this->getVersion():'');?>" data-uid="<?php print $this->getUid(); ?>" /><?
+	}
+}
+if($this->hasIf()){
+	echo "\n\t<![endif]-->";
+	
+}?>

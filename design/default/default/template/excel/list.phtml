@@ -1,0 +1,24 @@
+<?php
+$listado = $this->getListado();
+if(!$listado)
+	return;
+	
+?>
+<table>
+	<thead>
+		<tr><?php
+			foreach($this->getTitulos() as $titulo):?> 
+			<th><?php print htmlentities(utf8_decode($titulo)); ?></th><?php
+			endforeach;?> 
+		</tr>
+	</thead>
+	<tbody><?php
+		foreach($listado as $info): ?> 
+		<tr><?php 
+			foreach($this->getCampos() as $campo): ?> 
+			<td><?php print $info->getData($campo); ?></td><?php 
+			endforeach;?> 
+		</tr><?php 
+		endforeach;?>
+	</tbody>
+</table>

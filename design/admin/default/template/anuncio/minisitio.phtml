@@ -1,0 +1,136 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 42;
+?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Anuncio</legend>
+	<fieldset>
+		<h3><?php print htmlentities('Configuración'); ?></h3>
+		<div>
+			<label>Estado: </label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+				$select
+					->setId('tiene_minisitio')
+					->setName('anuncio[tiene_minisitio]')
+				;
+				$html = '';
+				if($this->hasOpcionesMinisitio())
+					foreach($this->getOpcionesMinisitio() as $o){
+						$option = new Core_Html_Tag_Custom('option');
+						$option
+							->setValue($o->getId())
+							->setInnerHtml($o->getNombre())
+						;
+						if($o->getId()==$x->getTieneMinisitio())
+							$option->setSelected('selected');
+						$html .= $option->getHtml();
+					}
+				
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?> 
+			</span>
+		</div>
+		<div class="texto_minisitio">
+			<label>Texto del Link en el Visor<span style="font-weight: normal; font-size: 12px;">(vacio utiliza texto por defecto)</span>: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(255)
+					->setSize(50)
+					->setType('text')
+					->setId('texto_minisitio')
+					->setName('anuncio[texto_minisitio]')
+					->setValue($x->getData('texto_minisitio'))
+					//->setData('data-campo', '<b>Url Externa</b>')
+					//->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+		</div>
+		<div class="contenedor_minisitio">
+			<label>Desarrollo: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('textarea');
+				$input
+					//->setClass('cke '.$desarrollo_class=md5(rand(1,1000)))
+					//->setType('text')
+					->setId('minisitio')
+					->setName('anuncio[minisitio]')
+					->setRows(20)
+					->setCols(80)
+					//->setValue($x->getNombre())
+					//->setData('data-campo', '<b>Nombre</b>')
+					//->setData('data-validator', '{empty:false}')
+					->setInnerHtml(htmlentities(stripslashes($x->getMinisitio())))
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+		</div>
+		<div class="url_externa">
+			<label>Url externa: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(255)
+					->setSize(100)
+					->setType('text')
+					->setId('url_minisitio')
+					->setName('anuncio[url_minisitio]')
+					->setValue($x->getUrlMinisitio())
+					//->setData('data-campo', '<b>Url Externa</b>')
+					//->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+jQuery(document).ready(function(){
+	jQuery('#tiene_minisitio')
+		.change(function(){
+			var jqthis = jQuery(this);
+			var tiene = parseInt(jqthis.val());
+			var jqtexto_minisitio = jQuery('.texto_minisitio');
+			var jqminisitio = jQuery('.contenedor_minisitio');
+			var jqurl_externa = jQuery('.url_externa');
+			jqtexto_minisitio.setDisable(tiene==0);
+			jqminisitio.setDisable(tiene!=1);
+			jqurl_externa.setDisable(tiene!=2);
+		})
+	;
+	jQuery('#minisitio').ckeditor({
+			instanceReady:function(){
+				jQuery('#tiene_minisitio').change();
+			}
+	});
+	//esto es viejo, no hay que hacer mas esta chanchada
+	//jQuery.ckeditor.overload();
+});
+
+function validar_agregar_anuncio_minisitio(formData, jqForm, options) {
+	jQuery('#minisitio').ckeditor('refresh');
+	//window.console.log(jQuery('.cke').text(),formData);
+	if(!validar_estatico_en('#<?php print $id_fielset; ?>')){
+		tabpanelfocus(jQuery('#<?php print $id_fielset; ?>'));
+		return false;
+	}
+	return(true);
+}
+</script>

@@ -1,0 +1,72 @@
+<div class="contenedor_ordenador" style="cursor:default;padding:20px;">
+	<!-- este es el ordenador del banner_dinamico con id <?php print $this->getIdBannerDinamico(); ?>
+	-->
+	<h2>Ordene los items arrastrandolos</h2>
+	<div class="item_sort_box">
+		<ul class="lista_banner_dinamico_ordenable"><?
+			if($this->hasBannersCarrousel())
+				foreach($this->getBannersCarrousel() as $banner_dinamico){
+					$li = new Core_Html_Tag_Custom('li');
+					$li
+						->setData('data-id', $banner_dinamico->getId())
+						->setInnerHtml(htmlentities(utf8_decode($banner_dinamico->getNombre())))
+					;
+//					if($banner_dinamico->getId()==$this->getIdBannerDinamico()){
+//						$li->setClass('ordenable');
+//					}
+					echo $li->getHtml();
+				}?> 
+		</ul>
+	</div>
+	<script>
+		window.intentos = 0;
+		function iniciar_ordenador(){
+			if(window.intentos++>20){
+				alert("error <?php print __FILE__.' linea '.__LINE__; ?>");
+				return;
+			}
+			var jqlista = jQuery('.lista_banner_dinamico_ordenable');
+			var jqlis = jQuery('li', jqlista);
+			if((jqlis.length<=0) || (jqlista.parents('body:first').length<=0)){
+				setTimeout(iniciar_ordenador, 150);
+				return;
+			}
+			//window.console.log(jqlis);
+			jqlis.css('cursor', 'move');
+			var jqedit = jQuery('[data-id=<?php print $this->getIdBannerDinamico(); ?>]', jqlista).css('font-weight','bold');
+			//window.console.log(jqedit);
+			jqlista
+				.sortable({
+					change:function(){
+						//window.console.log('change');
+					},
+					start:function(){
+						//window.console.log('start');
+					},
+					update:function(){
+						jQuery('.ordenando').toggle();
+						var ids = [];
+						jQuery('.lista_banner_dinamico_ordenable li').each(function(){
+							ids.push(jQuery(this).attr('data-id'));
+						})
+						ids = ids.join(',');
+						jQuery.get('<?php print $this->getUrl('administrator/ajax/banner_dinamico/setorden/'); ?>'+ids,
+						function(){
+							jQuery('.ordenando').toggle();
+						});
+					}
+				})
+			;
+			setTimeout(function(){
+				jqlista.scrollTo(jqedit);
+			}, 1);
+		}
+		jQuery(document).ready(function(){
+			iniciar_ordenador();
+		});
+	</script>
+	<br />
+	<center class="ordenando" style="display:none;">
+		<div class="loading1"></div>
+	</center>
+</div>

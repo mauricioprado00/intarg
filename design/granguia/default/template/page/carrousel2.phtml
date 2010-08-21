@@ -1,0 +1,36 @@
+<div id="wrappper_banners_carrousel">
+	<div class="stepcarousel stepcarousel2">
+		<div class="contenedor_carousel"><?php
+           $aBanners = $this->getBannersCarrousel();
+	
+           if($aBanners) {
+               foreach($aBanners As $oBanner) {
+               	
+	        /*
+			<img title="<?php echo $oBanner->getTitle() ?>" alt="<?php echo $oBanner->getTitle() ?>" src="<?php echo $this->getUrl($oBanner->getImagenBanner()) ?>" />
+			*/
+			if(!file_exists($file = CFG_PATH_ROOT.'/'.$oBanner->getImagenBanner()))
+				continue;
+			list($width, $height) = getimagesize($file);
+			$img = new Core_Html_Tag_Custom('img');
+			$img
+				->setAlt($oBanner->getTitle())
+				->setTitle($oBanner->getTitle())
+				->setSrc($this->getUrl($oBanner->getImagenBanner()))
+				->setWidth($width)
+				->setHeight($height)
+			;
+			
+			echo Core::getInstance()->create('Frontend_Html_Link')
+				->setHref($this->getUrl(Frontend_BannerCarrousel_Helper::getInstance()->getSearchLinkUrl($oBanner->getId())))
+				->setTarget('_blank')
+				->setInnerHtml($img)
+				->setNeverAjax()
+				->getHtml()
+			; 
+			
+		    }
+	    }?> 
+		</div>
+	</div>
+</div>

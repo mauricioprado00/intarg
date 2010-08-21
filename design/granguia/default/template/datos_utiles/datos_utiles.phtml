@@ -1,0 +1,28 @@
+<ul class="desplegableDatosUtiles">
+    <?php
+    $aItemsMenu = $this->getItemsMenu();
+	foreach($aItemsMenu As $oItem) {
+	    $link = new Frontend_Html_Link();
+	    if(!$oItem->canBeAjax())
+	    	$link->setNeverAjax();
+	    else{
+			if($oItem->getScreenblock())
+				$link->setScreenBlock(true);
+		}
+	    if($oItem->esDescargable())
+	    	$link->setDescargable(true);
+	    if(!$url = $oItem->getInternalUrl()){
+	        $url = $oItem->getUrlExterna();
+	        $link->setTarget('_blank');
+	    }
+	    else{
+	        $url = $this->getUrl($url);
+	        //$target = '_self';
+	    }
+	    print '<li>'.($link
+	    	->setTitle(utf8_decode($oItem->getTitle()))
+			->setHref($url)
+			->setInnerHtml($oItem->getTexto())->getHtml()).'</li>';
+    }
+    ?>
+</ul>

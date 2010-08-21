@@ -1,0 +1,11 @@
+﻿<layout><!-- útf8 -->
+	<default>
+		<block type="Page/html_document" name="html_document">
+			<block type="Page/html_head" name="html_head" title="Gran Guía de Córdoba">
+			</block>
+			<block type="Page/html_body" name="html_body" >
+				
+			</block>
+		</block>
+	</default>
+</layout>

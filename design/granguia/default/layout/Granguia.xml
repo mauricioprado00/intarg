@@ -1,0 +1,120 @@
+﻿<layout><!-- útf8 -->
+	<default>
+		<block type="Page/html_document" name="html_document">
+			<block compress_scripts="1" type="Page/html_head" name="html_head" title="Gran Guía de Córdoba">
+                <css>css/skin.css</css>
+                <css>css/banners.css</css>
+                <css>css/menu.css</css>
+                <css>css/css.css</css>
+				<css>jquery.plugins/menu.css</css> 
+                <css>jquery.plugins/jquery.hoverscroll-0.2.2.css</css>
+				<script charset="utf8">js/component.js</script>
+                <!-- no les gusto, fucking crazy ppl
+					<css>css/rounded.css</css>
+				-->
+                <!--
+				<script charset="utf8">js/jquery-1.2.3.js</script>
+				-->
+				<script charset="utf8">jquery-ui-1.8.1.custom/development-bundle/jquery-1.4.2.js</script>
+				<script charset="UTF-8">js/jQuery/jquery.blockUI-2.33.js</script>
+				<!-- este es el easing -->
+				<script charset="utf8">jquery-ui-1.8.1.custom/development-bundle/ui/jquery.effects.core.js</script>
+                <script charset="utf8">js/jQuery/jquery.stepcarousel.js</script>
+                <script charset="utf8">js/jQuery/jquery.jclock.js</script>
+                <script charset="utf8">js/UrlHelper.js</script>
+                <script charset="utf8">js/frontend.js</script>
+                <template template="page/header/inicializador.phtml" uid="inicializador" />
+                <!-- esto es para el menu
+				<css>jquery.plugins/demo.css</css>
+				-->
+                <script charset="utf8">jquery.plugins/jquery.accordion.js</script>
+                <script charset="utf8">jquery.plugins/jquery.hoverscroll-0.2.2.js</script>
+                <script charset="utf8">jquery.plugins/jquery.mousewheel.js</script>
+                <script charset="utf8">js/ScreenBlock.js</script>
+                <!--
+                <script charset="utf8">jquery.plugins/jScrollPane.js</script>
+                <script charset="utf8">jquery.plugins/jquery.dimensions.js</script>
+                -->
+			</block>
+			<block type="Page/html_body" name="html_body" html_class="thrColFixHdr">
+				<template template="page/principal.phtml">
+					<wrapper html_id="wrapper_top" name="wrapper_top">
+	                    <block name="header">
+	                    	<template name="template_header" template="page/header.phtml" />
+						</block>
+					</wrapper>
+					<wrapper class="wrapper_middle" name="wrapper_middle">
+						<wrapper html_class="wrapper_left" name="wrapper_left">
+							<wrapper html_class="wrapper_left_subheader" name="wrapper_left_subheader">
+								<banner_carrousel template="page/carrousel2.phtml" />
+								<template name="mainmenu" template="page/mainmenu.phtml">
+									<datos_utiles name="DatosUtiles"/>
+								</template>
+							</wrapper>
+							<wrapper name="contenido_principal" html_id="mainContent"></wrapper>
+							<wrapper html_class="wrapper_peft_subfooter" name="wrapper_peft_subfooter">
+								<wrapper html_style="height:1px;"></wrapper>
+								<wrapper html_id="publicidad_abajo">
+									<pagina_view nombre_interno="links_pie_de_mapa" /><!-- esto cargaria una pagina directametne de la db con el nombre o id que le proveas aca -->
+								</wrapper>
+							</wrapper>
+						</wrapper>
+						<wrapper html_class="wrapper_right" name="wrapper_right">
+							<wrapper html_class="banner_lateral banner_container" name="banner_lateral">
+								<!-- <template template="dummy/banner_dinamico_derecha.phtml" /> -->
+								<visor_banners_dinamicos posicion="derecha" />
+								<!-- aca tendrias que crearte un bloque de tipo banner_dinamico_view que lo tendrias que definir en un modulo 
+								BannerDinamico dentro de frontend, para testear le podes harcodear un id de nodo, fijate que la clase ya tiene los metodos
+								getBannersDinamicosDerecha y getNodoBannersDinamicosAbajo que funcionan. seria algo asi:
+								<banner_dinamico_view posicion="derecha" />  
+								 -->
+							</wrapper>
+						</wrapper>
+					</wrapper>
+					<wrapper html_class="wrapper_bottom" name="wrapper_bottom">
+						<wrapper html_class="banner_abajo banner_container" name="banner_abajo">
+							<!-- <template template="dummy/banner_dinamico_abajo.phtml" /> -->
+							<visor_banners_dinamicos posicion="abajo" />
+							<!-- idem, seria
+							<banner_dinamico_view posicion="abajo" />
+							 -->
+						</wrapper>
+					</wrapper>
+				</template>
+				<wrapper html_style="display:none;">
+					<wrapper html_class="ajax_load_message">
+						<pagina_view nombre_interno="ajax_load_message" />
+					</wrapper>
+				</wrapper>
+				<!-- <wrapper html_class="ajax_return_area" html_style="display:none;"></wrapper> -->
+				<block type="frontend/config" variable="pagina/body/text_attach" />
+			</block>
+		</block>
+	</default>
+	<pageloader>
+		<block type="Page/html_document" name="html_document">
+		<!--
+		compress_scripts="1" 
+		-->
+			<block
+			 
+			type="Page/html_head" name="html_head" title="Gran Guía de Córdoba">
+                <css>css/skin.css</css>
+                <css>css/banners.css</css>
+                <css>css/menu.css</css>
+                <css>css/css.css</css>
+				<script charset="utf8">jquery-ui-1.8.1.custom/development-bundle/jquery-1.4.2.js</script>
+                <script charset="utf8">js/ScreenBlock.js</script>
+                <script charset="utf8">js/UrlHelper.js</script>
+                <template template="page/header/inicializador.phtml" uid="inicializador" />
+                <script charset="utf8">js/pageloader.js</script>
+			</block>
+			<block type="Page/html_body" name="html_body" html_class="thrColFixHdr">
+				<wrapper html_class="pageloader">
+					<pagina_view nombre_interno="page_loader" />
+				</wrapper>
+				<wrapper html_class="loadarea" />
+			</block>
+		</block>
+	</pageloader>
+</layout>

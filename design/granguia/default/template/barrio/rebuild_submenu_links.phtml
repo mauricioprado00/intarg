@@ -1,0 +1,18 @@
+<script type="text/javascript">
+<?
+{
+    $selectedBarrio = Core_App::getInstance()->getBarrio();
+    $oCategoria = Core_App::getInstance()->getCategoria();
+    foreach($this->getBarrios() As $oBarrio) {
+            if(!get_class($oBarrio)){
+                //var_dump($oBarrio);
+                continue;
+            }?> 
+jQuery('#my-list li a[data-id_barrio=<?php print $oBarrio->getId(); ?>]').attr('href',<?php print json_encode('#'.$oCategoria->getLinkUrl($oBarrio)); ?>); <?
+			continue;
+    }
+}
+?> 
+jQuery('#my-list li a[data-id_barrio!=<?php print c($barrio = Core_App::getInstance()->getBarrio())->getId(); ?>]').removeClass('selectedBarrio')
+jQuery('#my-list li a[data-id_barrio=<?php print c($barrio)->getId(); ?>]').addClass('selectedBarrio')
+</script>

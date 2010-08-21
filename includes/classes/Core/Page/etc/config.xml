@@ -1,0 +1,18 @@
+<global>
+	<block>
+		<type>input_hidden</type>
+		<class>Core_Page_Block_Html_Tag_Input_Hidden</class>
+	</block>
+	<block>
+		<type>meta</type>
+		<class>Core_Page_Block_Html_Head_Meta</class>
+	</block>
+	<block>
+		<type>script</type>
+		<class>Core_Page_Block_Html_Head_Script</class>
+	</block>
+	<block>
+		<type>css</type>
+		<class>Core_Page_Block_Html_Head_Css</class>
+	</block>
+</global>

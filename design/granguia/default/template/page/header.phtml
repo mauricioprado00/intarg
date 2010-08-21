@@ -1,0 +1,29 @@
+<div id="logo_gg">
+	<?php
+	echo c($this->appendBlock('<pagina_view name="pagina_view" nombre_interno="cabecera_logo" />'))->toHtml();
+	/*<img src="<?php print $this->getSkinUrl('img/logo.jpg'); ?>" />*/
+	?>
+</div>
+<div id="banner">
+	<?php
+	echo c($this->appendBlock('<pagina_view name="pagina_view" nombre_interno="cabecera_banner" />'))->toHtml();
+	/*<img width="555" alt="<?php print htmlentities('Gran guía de Córdoba')?>" height="110" src="<?php echo $this->getSkinUrl("img/banner_arriba.jpg") ?>"/>*/
+	?>
+</div>
+<div id="hora">
+<?/** /?>
+    <!-- #BeginDate format:fcSw1m -->Martes, 18 Mayo, 2010  22:02<!-- #EndDate -->
+<?/**/?>
+    <?php echo utf8_encode(str_replace('?', 'de', ucwords(strftime("%A %d ? %B ? %Y")))) . ' <span class="jclock"></span>'; ?>
+	
+<div style="float:right;margin-left:10px;">
+		<div id="TT_m1KBco6sW4aoZ7"><h2><a href="http://www.tutiempo.net/">El tiempo</a></h2><a href="http://www.tutiempo.net/tiempo/Cordoba_Aerodrome/SACO.htm">El tiempo en Cordoba Aerodrome</a></div>
+		<script type="text/javascript" src="http://www.tutiempo.net/TTapi/cc/m1KBco6sW4aoZ7"></script>
+	</div> 
+</div>
+<div id="busqueda">
+    <form action="<?php print $this->getUrl(Frontend_Buscador_Helper::getInstance()->getSearchLinkUrlAnuncios()); ?>">
+		<span class="buttoncontainer"><input type="submit" value="BUSCAR" id="button"/></span>
+        <input type="text" id="textfield" name="q"/>
+    </form>
+</div>

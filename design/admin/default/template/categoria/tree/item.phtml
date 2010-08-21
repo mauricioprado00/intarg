@@ -1,0 +1,73 @@
+<?
+	$deep = $this->hasRecurseLevel()?$this->getRecurseLevel():0;
+	$obj = null;
+	$childs = null;
+	$item = $this->getItem();
+	if(is_object($item)){
+		$obj = $item;
+	}
+	elseif(is_array($item)){
+		if(isset($item['item'])){
+			$obj = $item['item'];
+			//$html .= $obj->getTitle();
+		}
+		if(isset($item['childs'])){
+			$childs = $item['childs'];
+		}
+	}
+	$html = '';
+	$open_link = false;
+	$attributes = array();
+	$root = false;
+	$current_item = false;
+	if($obj!==null){
+		$selected = $obj->getId()==$this->getSelectedId();
+		if($selected){
+			$html .= '<span class="active">'.$obj->getNombre().'</span>';
+			if($this->hasChildIsSelected())
+				$this->setChildIsSelected($this->getChildIsSelected()+1);
+			else
+				$this->setChildIsSelected(1);
+		}
+		else{$html .= '<span>'.$obj->getNombre().'</span>';}
+		
+		$attributes['id'] = $obj->getId();
+		$root = $obj->getId()==0;
+		$current_item = $obj->getId()==$this->getCurrentId();
+		if($current_item)
+			return;
+		if($root){
+			$attributes['class'] = 'root';
+		}
+	}
+	if($childs!==null){
+		$this->setRecurseLevel($deep+1);
+		$child_html = '';
+		$select_count = $this->getChildIsSelected();
+		foreach($item['childs'] as $subitem){
+			$this->setItem($subitem);
+			$child_html .= $this->getHtml();
+		}
+		if($select_count<$this->getChildIsSelected()){
+			$open_link = true;
+		}
+		//$this->setChildIsSelected($open_link);
+		if($child_html)
+			$html .= '<ul>'.$child_html.'</ul>';
+		$this->setRecurseLevel($deep);
+	}
+	if($open_link===true&&$root===false){
+		$attributes['class'] = 'open';
+		//$attributes['data-root'] = $root+0;
+	}
+	//$attributes['data-open-link'] = $obj->getId();
+	//$attributes['data-open-link'] = $this->getSelectedId();
+	foreach($attributes as $attr=>&$val){
+		$val = $attr.'="'.htmlentities($val).'"';
+	}unset($val);
+	$attributes = implode(' ', $attributes);
+	$attributes = $attributes?' '.$attributes:'';
+	if($html){?> 
+		<li<?php print $attributes; ?>><?php echo $html; ?></li><?
+	}
+?>

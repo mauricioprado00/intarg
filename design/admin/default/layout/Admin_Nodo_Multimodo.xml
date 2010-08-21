@@ -1,0 +1,101 @@
+<layout>
+	<list_admin_nodo>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/nodo/addEdit,id"
+			toolbar_delete_url="administrator/nodo/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Nodo"
+			source="administrator/nodo/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dirección</title>
+				<name>path_url</name>
+				<index>path_url</index>
+				<width>250</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Tags</title>
+				<name>tags</name>
+				<index>tags</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Tipo de Nodo</title>
+				<name>id_tipo_nodo</name>
+				<index>id_tipo_nodo</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Home</title>
+				<name>es_home</name>
+				<index>es_home</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Activa</title>
+				<name>es_activa</name>
+				<index>es_activa</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_nodo>
+	<addedit_admin_nodo>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="nodo/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_nodo,validar_seleccionar_banners" 
+				method="post">
+				<tabset>
+					<tab title="Nodo">
+						<opciones_nodo name="nodo_add_edit_form" />
+					</tab>
+					<tab title="Organizar banners">
+						<selector_banners name="nodo_add_edit_form" validator_js_name="validar_seleccionar_banners" fieldnames="nodo[banners_dinamicos]" />
+					</tab>
+				</tabset>
+				<!-- 
+					<block name="nodo_add_edit_form" type="template" template="nodo/add.phtml" ></block>
+				-->
+			</block>
+		</reference>
+	</addedit_admin_nodo>
+</layout>

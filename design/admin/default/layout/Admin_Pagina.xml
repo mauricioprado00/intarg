@@ -1,0 +1,60 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>pagina</link_url>
+				<text>Pagina</text>
+				<title>Pagina</title>
+				<name>menu_admin_pagina</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_pagina">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>pagina/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>pagina/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_pagina>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Pagina/XmlList"
+			name="xml_data_admin_pagina">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>titulo</fieldname>
+				<fieldname>nombre_interno</fieldname>
+				<fieldname>id_nodo</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#pagina/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#pagina/addEdit/{!id}">editar</a>
+					<a href="#pagina/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el pagina seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#pagina/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#pagina/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#pagina/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_pagina>
+</layout>

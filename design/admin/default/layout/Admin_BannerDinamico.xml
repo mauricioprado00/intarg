@@ -1,0 +1,60 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>banner_dinamico</link_url>
+				<text>BannerDinamico</text>
+				<title>BannerDinamico</title>
+				<name>menu_admin_banner_dinamico</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_banner_dinamico">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>banner_dinamico/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>banner_dinamico/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_banner_dinamico>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_BannerDinamico/XmlList"
+			name="xml_data_admin_banner_dinamico">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+				<fieldname>cantidad_espacios_vertical</fieldname>
+				<fieldname>cantidad_espacios_horizontal</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#banner_dinamico/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#banner_dinamico/addEdit/{!id}">editar</a>
+					<a href="#banner_dinamico/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el banner_dinamico seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#banner_dinamico/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#banner_dinamico/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#banner_dinamico/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el banner_dinamico seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_banner_dinamico>
+</layout>

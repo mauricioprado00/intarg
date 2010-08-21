@@ -1,0 +1,5 @@
+<?php
+$top = $this->hasScrollTop()?$this->getScrollTop():325;
+$left = $this->hasScrollTop()?$this->getScrollLeft():0;
+?>
+<script type="text/javascript">window.scroll(<?php print (int)$left; ?>,<?php print (int)$top; ?>);</script>

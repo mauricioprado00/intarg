@@ -1,0 +1,15 @@
+.cart_ver_contenido .cart-content-producto .col1{
+	padding-top:0px;
+}
+.show_filtros{
+	z-index:-100;
+	position:absolute;
+}
+/*.advanced_search_form_use_blockui .filtro_marca_image,#ie8#fix{
+	bottom:-35px;
+}*/
+
+.ingreso{
+	height:10px;
+}
+

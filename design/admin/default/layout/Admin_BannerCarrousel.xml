@@ -1,0 +1,75 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>banner_carrousel</link_url>
+				<text>BannerCarrousel</text>
+				<title>BannerCarrousel</title>
+				<name>menu_admin_banner_carrousel</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_banner_carrousel">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>banner_carrousel/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>banner_carrousel/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_banner_carrousel>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_BannerCarrousel/XmlList"
+			name="xml_data_admin_banner_carrousel">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>activo</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+				<fieldname>title</fieldname>
+				<fieldname>url_click</fieldname>
+				<fieldname>orden</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>activo</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>orden</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[<a href="#ordenar" onclick="ordenarMenu(this,{!id}); return false;">cambiar: {!orden}</a>]]></param>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#banner_carrousel/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#banner_carrousel/addEdit/{!id}">editar</a>
+					<a href="#banner_carrousel/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el banner_carrousel seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#banner_carrousel/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#banner_carrousel/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#banner_carrousel/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el banner_carrousel seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>activo</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<div class="listado_activo_{!es_activa}"></div>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_banner_carrousel>
+</layout>

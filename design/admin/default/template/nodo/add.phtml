@@ -1,0 +1,188 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+
+?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>"><?if($this->getIdToEdit()):?>
+<input type="hidden" name="nodo[id_tipo_nodo]" value="<?=$x->getIdTipoNodo()?>" />
+<input type="hidden" name="nodo[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Nodo</legend>
+	<fieldset>
+		<h3>SEO</h3>
+		<div>
+			<label>Direcci&oacute;n: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('text')
+					->setMaxlength(255)
+					->setId('path_url')
+					//->setReadonly('readonly')
+					//->setStyle('background-color:#DDDDDD;')
+					->setName('nodo[path_url]')
+					->setValue($x->getPathUrl())
+					->setData('data-campo', '<b>Direcci&oacute;n</b>')
+					//->setData('data-validator', '{empty:false,url_nodo:null}')
+					->setData('data-validator', '{url_nodo:null}')
+				;
+				if($this->hasReadonlyPathUrl()){
+					$input->setReadonly('readonly');
+				}
+				echo $input->getHtml();
+			?> 
+			</span>
+		</div>
+		<div>
+			<label>tags: </label>
+			<span><?
+			$input = new Core_Html_Tag_Custom('textarea');
+			$input
+				//->setType('text')
+				->setMaxlength(20)
+				->setId('tags')
+				->setName('nodo[tags]')
+				->setRows(7)
+				//->setValue($x->getTextoContacto())
+				->setData('data-campo', '<b>Tags</b>')
+				->setData('data-validator', '{empty:false}')
+				->setData('data-mensaje', 'Debe cargar uno o mas %field separados por comas')
+				->setInnerHtml(htmlentities($x->getTags()))
+			;
+			echo $input->getHtml();
+			?> 
+			</span>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Interno</h3>
+		<div>
+			<label>Tipo de Nodo:</label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+				$select
+					//->setMaxlength(300)
+					//->setType('text')
+					->setId('id_tipo_nodo')
+					->setDisabled('disabled')
+					->setStyle('background-color:#DDDDDD;')
+					//->setName('id_tipo_nodo')
+					//->setValue($x->getNombre())
+					//->setData('data-campo', '<b>Nombre</b>')
+					//->setData('data-validator', '{empty:false}')
+				;
+				$html = '';
+				if($this->hasTiposNodos())
+					foreach($this->getTiposNodos() as $tipo){
+						$option = new Core_Html_Tag_Custom('option');
+						$option
+							->setValue($tipo->getId())
+							->setInnerHtml($tipo->getNombre())
+						;
+						if($tipo->getId()==$x->getIdTipoNodo())
+							$option->setSelected('selected');
+						$html .= $option->getHtml();
+					}
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?> 
+			</span>
+		</div>
+		<div>
+			<label>&iquest;Es home?:</label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('checkbox')
+					->setId('es_home')
+					->setName('nodo[es_home]')
+					->setValue('1')
+				;
+				if($x->getEsHome())
+					$input->setChecked('checked');
+				echo $input->getHtml();
+			?>
+			</span>
+			<label>&iquest;Est&aacute; activa?</label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('checkbox')
+					->setId('es_activa')
+					->setName('nodo[es_activa]')
+					->setValue('1')
+				;
+				if($x->getEsActiva())
+					$input->setChecked('checked');
+				echo $input->getHtml();
+			?> 
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery('#es_activa', '#<?php print $id_fielset; ?>').change(function(){
+		var checked = this.checked;
+		if(!checked)
+			jQuery('#path_url, #tags', '#<?php print $id_fielset; ?>').attr('disabled', 'disabled');
+		else jQuery('#path_url, #tags', '#<?php print $id_fielset; ?>').removeAttr('disabled');
+	}).change();
+});
+function mensaje_valida_url_nodo(valor, params, errores_acumulados){
+	if(valor=='')
+		return null;
+	//alert("validando: "+valor);
+	var mensaje = null;
+	var data = {};
+	jQuery('#<?php print $id_fielset; ?> [name]').each(function(){
+		var jqthis = jQuery(this);
+		var name = jqthis.attr('name');
+		var value = jqthis.val();
+		data[name] = value;
+	});
+	if(errores_acumulados.length==0){
+		jQuery.ajax({
+			type: "POST",
+			url: '<?php print $this->getUrl($this->getValidationLinkUrl()); ?>',
+			data: data,
+			success: function(data){
+				try{
+					eval('mensaje = '+data+';');
+				}catch(e){}
+//				window.console.log(data);
+//				window.console.log(mensaje);
+				//alert("este es el retorno ajax");
+			},
+			//dataType: type
+			async:false,
+			kradkk:1
+		});
+	}
+	return mensaje;
+	return {mensaje:"La %field es incorrecta", addFieldName:true};
+	return null;
+	//return 'todo mal';
+	return {mensaje:"La %field es incorrecta", addFieldName:true};
+}
+
+function validar_agregar_nodo(formData, jqForm, options) {
+	if(!validar({
+		donde: '#<?php print $id_fielset; ?>',
+		estatico:true
+	})){
+		tabpanelfocus(jQuery('#<?php print $id_fielset; ?>'));
+		return false;
+	}
+	return(true);
+}
+window.validar_agregar_nodo.wait_message = "Aguarde mientras se validan los datos del nodo";
+</script>

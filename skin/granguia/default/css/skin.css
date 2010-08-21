@@ -1,0 +1,43 @@
+.stepcarousel{
+    position: relative; /*leave this value alone*/
+    /*border-top: 3px solid #bebeca;
+    border-bottom: 3px solid #bebeca;*/
+    border-top: 3px solid #e9e7ea;
+    border-bottom: 3px solid #e9e7ea;
+    background-color:#e9e7ea;
+    overflow: scroll; /*leave this value alone*/
+    width: 758px; /*Width of Carousel Viewer itself*/
+    height: 50px; /*Height should enough to fit largest content's height*/
+}
+
+.stepcarousel .belt{
+    position: absolute; /*leave this value alone*/
+    left: 0;
+    top: 0;
+}
+
+.stepcarousel .panel{
+    float: left; /*leave this value alone*/
+    overflow: hidden; /*clip content that go outside dimensions of holding panel DIV*/
+    /*margin: 10px; /*margin around each panel*/
+    width: 120px; /*Width of each panel holding each content. If removed, widths should be individually defined on each content DIV then. */
+}
+.stepcarousel2{
+	overflow:hidden;
+	text-align:center;
+	padding-left:15px;
+	width:743px;/*758px-15px*/
+	position:relative;
+}
+.stepcarousel2 a{
+	margin-right:15px;
+	display:inline-block;
+	height:50px;
+	overflow:hidden;
+}
+.stepcarousel2 .contenedor_carousel{
+	position:absolute;
+	top:0;
+	left:0;
+	background-color:#E9E7EA;
+}

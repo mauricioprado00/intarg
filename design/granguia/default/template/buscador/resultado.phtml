@@ -1,0 +1,67 @@
+<?
+$mensaje = new Core_Html_Tag_Custom('h1');
+$termino = new Core_Html_Tag_Custom('i');
+$termino
+	->setInnerHtml(htmlentities(utf8_decode($this->getTerminoBusqueda())))
+;
+if(!$this->searchCount()){
+	echo $mensaje
+		->setInnerHtml(htmlentities('No hay resultados con el termino de búsqueda ').$termino->getHtml())
+		->getHtml()
+	;
+	return;
+}
+?> 
+<div class="resultado_busqueda"><?
+	$from = $this->getMaxItems()*$this->getPagina() + 1;
+	$to = count($this->getEntityes())+$from - 1;
+	echo $mensaje
+		->setInnerHtml('Resultados para '.$termino->getHtml().' '.$from.' a '.$to.' de '.$this->searchCount().' resultados ')
+		->getHtml()
+	;
+
+	?> 
+	
+	<ul class="items">
+	<?while($this->moveNext()){?> 
+	<li><?=$this->entityToHtml()?></li><?
+	}?> 
+	</ul><?
+
+if($this->getCantidadPaginas()!=1){?>
+	<ul class="paginas"><?
+	//$pi = $this->getPaginationInfo();
+	$pagination_info = $this->getPaginationInfo($this->getPagina(), $this->getCantidadPaginas(), 4, 2);
+	foreach($pagination_info as $pi){
+		$pagina_actual = $pi->getPagina()===null;
+		$pagina = $pi->getPagina();
+		$label = $pi->getLabel();
+		
+		$a = new Frontend_Html_Link();
+		if(!$pagina_actual)
+			$a->setHref(
+				$this->getUrl(Frontend_Buscador_Helper::getInstance()->getSearchLinkUrlAnuncios(true, $pagina))
+			);
+		else $a->setClass('seleccionada');
+		echo '<li>'.
+			//->setData()
+			$a
+			->setInnerHtml($pi->getLabel())
+			->getHtml()
+			.'</li>'
+		;
+	}?> 
+	<li style="clear:both;"></li>
+	</ul><?
+}?> 
+</div>
+<?
+return;
+?>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery('.resultado_busqueda ul.items li a').click(function(){
+			window.scroll(0,325);
+		});
+	})
+</script>

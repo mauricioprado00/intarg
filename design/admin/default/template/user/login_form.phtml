@@ -1,0 +1,32 @@
+<?
+$messages = Core_App::getMessages('loginerror');
+
+?>
+<fieldset style="width:50%; margin-top:170px;">
+<legend>Ingreso al Sistema</legend><?
+	if($messages)
+	foreach($messages as $message){?> 
+	<b><?=$message?></b><?	
+	}
+?> 
+<form name="form1" method="post" >
+<span class="oneField">
+    <label for="user" class="preField">Usuario</label>
+    <input name="username" type="text" class="required" id="user" value="" size="" />
+    <span class="reqMark">*</span><br />
+</span>
+
+<span class="oneField">
+    <label for="pass" class="preField">Password</label>
+
+    <input name="password" type="password" class="required" id="pass" value="" size="" />
+    <span class="reqMark">*</span><br />
+</span>
+
+<span class="oneField">
+    <label class="loginN"></label>
+</span>
+
+<input name="btn_login" type="submit" id="btn_login" value="Entrar">
+</form>
+</fieldset>

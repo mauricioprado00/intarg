@@ -1,0 +1,16 @@
+<?
+if($messages = $this->getMessages()){?> 
+<div><?
+	foreach($messages as $message){?> 
+		<div class="canhide message_box message_<?=$message->getTipo()?>"><?=$message->getMessage()?></div><?
+	}?> 
+</div>
+<script>
+jQuery(function(){
+	jQuery(".canhide").click(function() {
+		jQuery(this).fadeOut(700);
+	});
+})
+</script><?
+}
+?>

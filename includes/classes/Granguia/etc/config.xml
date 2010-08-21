@@ -1,0 +1,17 @@
+<global>
+	<routers>
+		<!--<Admin_Router_Admin>administrator</Admin_Router_Admin>-->
+	</routers>
+	<modules>
+		<Granguia_User />
+	</modules>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<frontend>Custom.xml</frontend>
+		<frontend>Home.xml</frontend>
+		<!-- <frontend>Catalog.xml</frontend> -->
+		<frontend>News.xml</frontend>
+		<!--  <email>Email.xml</email> -->
+	</layouts>
+</global>

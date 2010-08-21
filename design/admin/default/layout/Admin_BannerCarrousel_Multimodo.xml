@@ -1,0 +1,97 @@
+<layout><!-- útf8 -->
+	<list_admin_banner_carrousel>
+		<reference in="superadmin" name="contenedor_main">
+			<template name="ordenador_banner_carrousel" template="banner_carrousel/ordenador.phtml" />
+		</reference>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/banner_carrousel/addEdit,id"
+			toolbar_delete_url="administrator/banner_carrousel/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de BannerCarrousel"
+			source="administrator/banner_carrousel/datalist"
+			sort_name="orden"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title></title>
+				<name>activo</name>
+				<index>activo</index>
+				<width>18</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Descripcion</title>
+				<name>title</name>
+				<index>title</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Url destino</title>
+				<name>url_click</name>
+				<index>url_click</index>
+				<width>250</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Orden</title>
+				<name>orden</name>
+				<index>orden</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_banner_carrousel>
+	<addedit_admin_banner_carrousel>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="banner_carrousel/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_banner_carrousel" 
+				method="post">
+				<block name="banner_carrousel_add_edit_form" type="template" template="banner_carrousel/add.phtml" ></block>
+			</block>
+		</reference>
+	</addedit_admin_banner_carrousel>
+	<ordenar_banner_carrousel>
+		<template template="banner_carrousel/ordenar_banners.phtml" name="ordenar_banner_carrousel" />
+	</ordenar_banner_carrousel>
+</layout>

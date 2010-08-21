@@ -1,0 +1,203 @@
+<?
+$x = new Granguia_User_Model_User();
+if($this->hasIdToEdit()){
+	$x->setId($this->getIdToEdit());
+	$x->load();
+}
+else{
+	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
+		$x->loadFromArray(Core_Http_Post::getParameters('array'));
+	}
+}
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="id" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset>
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Forma de Pago</legend>
+	<fieldset>
+		<h3>Datos de Acceso</h3>
+		<div>
+			<label>Username: </label>
+			<span>
+				<input type="text" maxlength="20" name="username" value="<?=$x->getData('username')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Password: </label>
+			<span>
+				<input type="password" maxlength="20" id="password" name="password" value="" />
+			</span>
+		</div>
+		<div>
+			<label>Repetir Password: </label>
+			<span>
+				<input type="password" maxlength="20" id="password2" value="" />
+			</span>
+		</div>
+		<div>
+			<label>Activo: </label>
+			<span>
+				<select name="activo">
+					<option value="1"<?=$x->getActivo()=='1'?' selected="selected"':''?>>Si</option>
+					<option value="0"<?=$x->getActivo()=='0'?' selected="selected"':''?>>No</option>
+				</select>
+			</span>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Datos Personales</h3>
+		<div>
+			<label>Nombre: </label>
+			<span>
+				<input type="text" maxlength="20" name="nombre" value="<?=$x->getData('nombre')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Apellido: </label>
+			<span>
+				<input type="text" maxlength="20" name="apellido" value="<?=$x->getData('apellido')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Pa&iacute;s: </label>
+			<span>
+				<input type="text" maxlength="20" name="pais" value="<?=$x->getData('pais')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Provincia: </label>
+			<span>
+				<input type="text" maxlength="20" name="provincia" value="<?=$x->getData('provincia')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Localidad: </label>
+			<span>
+				<input type="text" maxlength="20" name="localidad" value="<?=$x->getData('localidad')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Domicilio: </label>
+			<span>
+				<input type="text" maxlength="20" name="domicilio" value="<?=$x->getData('domicilio')?>" />
+			</span>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Contacto</h3>
+		<div>
+			<label>Email: </label>
+			<span>
+				<input type="text" maxlength="20" name="email" value="<?=$x->getData('email')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Telefono: </label>
+			<label>C&oacute;digo &Aacute;rea</label>
+			<span>
+				<input type="text" maxlength="20" name="telefono_cod_area" value="<?=$x->getData('telefono_cod_area')?>" />
+			</span>
+			<label>N&uacute;mero</label>
+			<span>
+				<input type="text" maxlength="20" name="telefono_numero" value="<?=$x->getData('telefono_numero')?>" />
+			</span>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Su Moto</h3>
+		<div>
+			<label>Moto: </label>
+			<span>
+				<input type="text" maxlength="20" name="moto" value="<?=$x->getData('moto')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Marca: </label>
+			<span>
+				<input type="text" maxlength="20" name="moto_marca" value="<?=$x->getData('moto_marca')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Modelo: </label>
+			<span>
+				<input type="text" maxlength="20" name="moto_modelo" value="<?=$x->getData('moto_modelo')?>" />
+			</span>
+		</div>
+		<div>
+			<label>A&ntilde;o: </label>
+			<span>
+				<input type="text" maxlength="20" name="moto_anio" value="<?=$x->getData('moto_anio')?>" />
+			</span>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Marketing</h3>
+		<div>
+			<label>Newsletter: </label>
+			<span>
+				<select name="newsletter">
+					<option value="1"<?=$x->getNewsletter()=='1'?' selected="selected"':''?>>Si</option>
+					<option value="0"<?=$x->getNewsletter()=='0'?' selected="selected"':''?>>No</option>
+				</select>
+			</span>
+		</div>
+		<div>
+			<label>Marca Favorita 1: </label>
+			<span>
+				<input type="text" maxlength="20" name="marca_favorita1" value="<?=$x->getData('marca_favorita1')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Marca Favorita 2: </label>
+			<span>
+				<input type="text" maxlength="20" name="marca_favorita2" value="<?=$x->getData('marca_favorita2')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Marca Favorita 3: </label>
+			<span>
+				<input type="text" maxlength="20" name="marca_favorita3" value="<?=$x->getData('marca_favorita3')?>" />
+			</span>
+		</div>
+	</fieldset>
+
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+function validar_agregar_usuario(formData, jqForm, options) {
+	var editing = <?php echo ($this->getIdToEdit()?'true':'false')?>;
+	try{
+		var errors = [];
+		if(jQuery('input[name=username]').val() == ''){
+			errors.push("Debe ingresar un Username");
+		}
+		if(!editing && jQuery('input[name=password]').val() == ''){
+			errors.push("Debe ingresar un Password");
+		}
+		if(!editing && jQuery('input[id=password2]').val() == ''){
+			errors.push("Debe confirmar el Password");
+		}
+		if(jQuery('input[name=password]').val() != jQuery('input[id=password2]').val()){
+			errors.push("Los Password no coinciden");
+		}
+		if(jQuery('select[name=activo]').val() == ''){
+			errors.push("Debe seleccionar un Estado");
+		}
+		if(jQuery('input[name=nombre]').val() == ''){
+			errors.push("Debe ingresar Nombre");
+		}
+		if(jQuery('input[name=apellido]').val() == ''){
+			errors.push("Debe ingresar un apellido");
+		}
+		if(errors.length){
+			alert("Corrija los errores:\n\t- "+errors.join("\n\t- "));
+			return false;
+		}
+	}catch(e){
+		alert(e);
+		return(false);
+	}
+	return(true);
+}
+</script>

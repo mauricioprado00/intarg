@@ -1,0 +1,5 @@
+<global>
+	<routers>
+		<Admin_Sitemap_Router>administrator/sitemap</Admin_Sitemap_Router>
+	</routers>
+</global>

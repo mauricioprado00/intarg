@@ -1,0 +1,12 @@
+<global>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin_CronjobResult.xml</admin>
+		<admin>Admin_CronjobResult_Multimodo.xml</admin>
+		<ajax>Admin_CronjobResult_Multimodo.xml</ajax>
+	</layouts>
+	<routers>
+		<Admin_CronjobResult_Router>administrator/cronjob_result</Admin_CronjobResult_Router>
+	</routers>
+</global>

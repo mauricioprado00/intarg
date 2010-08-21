@@ -1,0 +1,29 @@
+<div class="<?php print $id = $this->generateRandomId(); ?>" style="display:none;">
+	<div class="selector_fechas">
+		<h3>Seleccione periodo de exportaci&oacute;n:</h3>
+		<br />
+		<label>Fecha desde</label>
+		<input data-campo="Fecha desde" data-validator="{empty:false}" class="datepicker" />
+		<label>Fecha hasta</label>
+		<input data-campo="Fecha hasta" data-validator="{empty:false}" class="datepicker" />
+		<br /><br />
+		<input type="button" value="Descargar" />
+	</div>
+</div>
+<script>
+jQuery(document).ready(function(){
+	jQuery(<?php print json_encode(".$id .datepicker"); ?>).datepicker({ dateFormat: 'dd/mm/yy' });
+	jQuery(<?php print json_encode(".$id .selector_fechas input[type=button]"); ?>).click(function(){
+		var url = <?php print json_encode($this->getUrl($this->getLinkUrl()))?>;
+		if(validar({donde: '.selector_fechas',estatico:true})){
+			jQuery.ScreenBlock(false);
+			var fecha_desde = jQuery(<?php print json_encode(".$id .selector_fechas input:eq(0)"); ?>).val();
+			var fecha_hasta = jQuery(<?php print json_encode(".$id .selector_fechas input:eq(1)"); ?>).val();
+			window.open(url+'/'+fecha_desde.split('/').join('-')+'/'+fecha_hasta.split('/').join('-'));
+		}
+	});
+});
+function exportarAExcel(){
+	jQuery('.selector_fechas').ScreenBlock();
+}
+</script>

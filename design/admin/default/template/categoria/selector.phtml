@@ -1,0 +1,64 @@
+<ul class="<?php print $id = ('simpleTree_'.$this->generateRandomId())?>" id="EstructuraMenu"><?php
+	$name = $this->generateRandomId();
+	$item_template = $this->appendBlock('<template  name="'.$name.'" template="categoria/tree/item.phtml" />');
+	//$item_template = $this->getChild('tree_iterator');
+	$item_template->setSelectedId($this->hasSelectedId()?$this->getSelectedId():-1);
+	$item_template->setCurrentId($this->hasDisabledBranch()?$this->getDisabledBranch():-1);
+	$tree = Admin_Categoria_Helper::getTree($this->getRootName());
+	foreach($tree as $item){
+		$item_template->setItem($item);
+		echo $item_template->getHtml();
+	}
+	?> 
+</ul>
+<script>
+(function (jqcontrol, jqtarget){
+	jqcontrol.addClass('simpleTree');//para que tome los estilos
+	<? if($this->hasSelectableRoot()&&$this->getSelectableRoot()): ?> 
+	jQuery('.root span').css('cursor','pointer')
+		.click(function(){
+			jQuery('li .active', jqcontrol).removeClass('active');
+			jQuery(this).addClass('active');
+			if(jqtarget!=null)
+				jqtarget.val(0);
+		});
+	<? endif; ?> 
+	try{
+	    simpleTreeCollection = jqcontrol.simpleTree({
+	    		drag:false,
+	            autoclose: true,
+	            animate:true,
+	            docToFolderConvert:true,
+	            afterClick:function(node){
+	            	var selected_id = jQuery('li .active', jqcontrol).parents('li:first').attr('id');
+	                //alert("text-"+$('span:first',node).text());
+	                if(jqtarget!=null)
+	                	jqtarget.val(selected_id);
+	            },
+	            afterDblClick:function(node){
+	                //alert("text-"+$('span:first',node).text());
+	            },
+	            afterMove:function(destination, source, pos){
+	//                $.post(
+	//                        CONF_URL_MODULO + '/?o=acciones',
+	//                        {
+	//                          accion:'organizarMenu',
+	//                          IdMenuItem:source.attr('id'),
+	//                          MenuItemPadreId:destination.attr('id'),
+	//                          Orden:pos,
+	//                          Menu:$('#EstructuraMenu').serializelist()
+	//                        }
+	//                );
+	            },
+	            afterAjax:function()
+	            {
+	                //alert('Loaded');
+	            }
+	    });
+	    jQuery('img.trigger').css('border','none');
+    }
+    catch(e){alert(e);}
+    //window.console.log(simpleTreeCollection);
+    
+})(jQuery('.<?php print $id; ?>'),jQuery('<?php print $this->getTarget(); ?>'));
+</script>

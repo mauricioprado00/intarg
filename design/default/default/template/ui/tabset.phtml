@@ -1,0 +1,44 @@
+<?
+$id_tabset = $this->generateRandomId();
+?>
+<div id="<?php print $id_tabset; ?>">
+	<ul>
+		<?
+			$tabs_ids = array();
+			foreach($this->getChild() as $idx=>$child){
+				if(is_a($child, 'Core_Ui_Block_Tab')){
+					$tabs_ids[$idx] = $id_tab = $this->generateRandomId();
+					$a = new Core_Html_Tag_Custom('a');
+					$title = $child->hasTitle()?$child->getTitle():'No title';
+					$a
+						->setHref('#'.$id_tab)
+						->setInnerHtml($title)
+					;
+					$li = new Core_Html_Tag_Custom('li');
+					echo $li
+						->setInnerHtml($a->getHtml())
+						->getHtml()
+					;
+				}
+			}
+		?>
+	</ul>
+	<?
+		foreach($this->getChild() as $idx=>$child){
+			if(is_a($child, 'Core_Ui_Block_Tab')){
+				$id_tab = $tabs_ids[$idx];
+				$div = new Core_Html_Tag_Custom('div');
+				echo $div
+					->setId($id_tab)
+					->setInnerHtml($child->toHtml())
+					->getHtml()
+				;
+			}
+		}
+	?>
+</div>
+<script type="text/javascript">
+$(function() {
+	$("#<?php print $id_tabset; ?>").tabs();
+});
+</script>

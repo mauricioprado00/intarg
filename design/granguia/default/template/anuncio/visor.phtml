@@ -1,0 +1,71 @@
+<?
+$anuncio_destacado = $this->getAnuncioDestacado();
+//$info = $anuncio_destacado->getMapInformation()->getData();
+$default_texts = array(
+	'contacto_normal'=>Granguia_Model_Config::findConfigValue('visor_anuncio/default/contacto_normal', 'Contacto'),
+	'contacto_boliche'=>Granguia_Model_Config::findConfigValue('visor_anuncio/default/contacto_boliche', 'Arma tu Lista'),
+	'link_minisitio'=>Granguia_Model_Config::findConfigValue('visor_anuncio/default/link_minisitio', 'Ver Minisitio'),
+);
+if($anuncio_destacado){/*?> 
+	<img src="<?php echo $this->getSkinUrl("img/miniatura.jpg") ?>" width="191" height="187" /><?*/
+	$anuncio_destacado->addAutofilterOutput('utf8_decode');
+	//$info = $anuncio_destacado->getMapInformation();
+	$img = new Core_Html_Tag_Custom('img');
+//	echo $anuncio_destacado->getId();
+//	echo '-'.$anuncio_destacado->getTieneMinisitio();
+	echo $img
+		->setAlt($anuncio_destacado->getNombre())
+		->setTitle($anuncio_destacado->getNombre())
+		->setSrc($this->getUrl($anuncio_destacado->getImagenLogo()))
+		->setWidth(191)
+		->setHeight(187)
+		->getHtml();
+	;
+	echo '<div class="bottombox">';
+	if($anuncio_destacado->getTieneMinisitio()){
+		if($anuncio_destacado->getEsMinisitioInterno())
+			$url = $this->getUrl($anuncio_destacado->crearUrlInternaMinisitio());
+		else $url = $anuncio_destacado->getUrlMinisitio();
+		$link = new Frontend_Html_Link();
+		echo $link
+			->setClass('link_minisitio')
+			->setNeverAjax()
+			->setTarget('_blank')
+			->setHref($url)
+			->setInnerHtml($anuncio_destacado->getTextoMinisitio()?$anuncio_destacado->getTextoMinisitio():htmlentities($default_texts['link_minisitio']))
+			->getHtml();
+		;
+	}
+	if($anuncio_destacado->tieneContacto()){
+		$link = new Frontend_Html_Link();
+		$tipo_contacto = $anuncio_destacado->esContactoBoliche()?'boliche':'comun';
+		$texto = null;
+		if(!trim($texto = htmlentities($anuncio_destacado->getLabelContacto()))){
+			$texto = $anuncio_destacado->esContactoBoliche()?htmlentities($default_texts['contacto_normal']):htmlentities($default_texts['contacto_boliche']);
+		}
+		$url = $this->getUrl($anuncio_destacado->getUrlContacto());
+		echo $link
+			->setClass('link_contacto link_contacto_'.$tipo_contacto)
+			->setHref($url)
+			->setInnerHtml($texto)
+			->getHtml();
+		;
+	}
+	echo '</div>';
+}
+else{
+	//
+	if($visor_vacio = $this->appendBlock('<pagina_view nombre_interno="visor_vacio" />')){
+		echo $visor_vacio->toHtml();
+	}
+	else{
+		echo "<br /><br />Seleccione un punto del mapa";
+	}
+}
+?> 
+<script>
+jQuery(document).ready(function(){
+	VisorAnuncio.setContenedor('#miniatura').setTextos(<?php print json_encode($default_texts); ?>);
+	//window.console.log(VisorAnuncio.getInstance());
+})
+</script>

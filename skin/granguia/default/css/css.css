@@ -1,0 +1,501 @@
+@charset "utf-8";
+/*reset todo*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p,
+blockquote, pre, a, abbr, acronym, address, big,
+cite, code, del, dfn, em, font, img,
+ins, kbd, q, s, samp, small, strike,
+strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+center, u, b, i {
+     margin: 0;
+     padding: 0;
+     border: 0;
+     outline: 0;
+     /*font-weight: normal;
+     font-style: normal;*/
+     font-size: 100%;
+     font-family: inherit;
+     vertical-align: baseline
+}
+
+body {
+     line-height: 1
+}
+
+:focus {
+     outline: 0
+}
+
+ol, ul {
+     list-style: none
+}
+
+table {
+     border-collapse: collapse;
+     border-spacing: 0
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+     content: ""
+}
+
+blockquote, q {
+     quotes: "" ""
+}
+
+input, textarea {
+     margin: 0;
+     padding: 0
+}
+a{
+	color:white;
+}
+a:visited{
+	color:gray;
+}
+hr {
+     margin: 0;
+     padding: 0;
+     border: 0;
+     color: #000;
+     background-color: #000;
+     height: 1px
+}
+/*reset todo*/
+
+
+
+body  {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	margin: 0; /* es recomendable ajustar a cero el margen y el relleno del elemento body para lograr la compatibilidad con la configuración predeterminada de los diversos navegadores */
+	padding: 0;
+	color: #FFFFFF;
+	background-color: #EFEFEF;
+	background-image:url(../img/bgbody.png);
+	background-repeat:repeat-y;
+	background-position:50% 0;
+    }
+#wrapper {
+	width: 1000px; /* esto anula text-align: center en el elemento body. */
+	background-color: #01019D;
+	margin-right: auto;
+	margin-left: auto;
+} 
+#wrapper_top {
+	height:196px;
+	overflow:hidden;
+}
+.wrapper_middle{
+	height:1049px;
+}
+.wrapper_bottom{
+	
+}
+/*hijos de .wrapper_middle*/
+	.wrapper_left{
+		width:772px;
+		float:left;
+		height:100%;
+	}
+	.wrapper_right{
+		width:228px;
+		float:left;
+		height:100%;
+	}
+
+/*hijos de #wrapper_top*/
+	#wrapper_top{
+		/*background-image:url(../../../granguia/default/img/logo.jpg);
+		background-repeat:no-repeat;
+		padding-left:441px;
+		*/
+		text-align:right;
+	}
+	#wrapper_top #logo_gg{
+		float:left;
+		width:441px;
+		height:186px;
+		overflow:hidden;
+	}
+	#wrapper_top #banner {
+		float:right;
+		width: 555px;
+		padding-top: 5px;
+		height: 110px;
+		overflow:hidden;
+	}
+	#hora{
+		float:right;
+		font-family: "Trebuchet MS", Tahoma, Arial;
+		color: #FFFFFF;
+		font-size: 20px;
+		width: 555px;
+		text-align: right;
+		padding-top: 5px;
+		padding-right: 0px;
+	}
+	#busqueda {
+		float:right;
+		width: 555px;
+		text-align: right;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		height: 50px;
+	}
+		#busqueda .buttoncontainer{
+			background-color: #2CD230;
+			display:inline-block;
+			vertical-align:top;
+		}
+		#busqueda .buttoncontainer:hover{
+			background-color:#4CE250;
+		}
+		#busqueda #button {
+			background:none;
+			background-image:url(../img/vitre_h32.png);
+			border:none;
+			font-family: "Trebuchet MS", Tahoma, Arial;
+			font-size: 22px;
+			font-weight: bold;
+			color: #FFFFFF;
+			padding-bottom: 0px;
+			padding-right: 13px;
+			padding-left: 13px;
+			margin: 0px;
+			height: 32px;
+			width: 125px;
+		}
+		#busqueda #textfield {
+			font-family: "Trebuchet MS", Tahoma, Arial;
+			font-size: 18px;
+			color: #666666;
+			width: 420px;
+			margin: 0px 0px 0px -11px;
+			padding: 0px;
+			border-style: solid;
+			border-color: black;
+			border-width: 1px 1px 1px 0px;
+			height: 31px;
+		}
+	/*hijos de .wrapper_left*/
+	.wrapper_left_subheader{
+		height:153px;/**/
+		/*height:118px;/*muevo el menu de barrio adentro de main content*/
+		/*overflow:hidden; Mat*/
+	}
+		/*hijos de .wrapper_left_subheader*/
+		#wrappper_banners_carrousel{
+			height:63px;
+			overflow:hidden;
+		}
+	#mainContent {
+		height: 560px;
+		text-align: center;
+		padding-top: 15px;
+		margin: 0px;
+	}
+	.wrapper_left_subheader{height:125px;}
+	#wrapper #submenu {height:25px;padding-bottom:9px;padding-top:0;}
+	#mainContent{padding-top:10px;height:594px}
+	.wrapper_peft_subfooter{clear:both;}
+	#my-list li{display:inline;font-size:20px;}/**/
+
+	.wrapper_left_subfooter{
+		height:321px;
+		/*margin-top:36px;*/
+		overflow:hidden;
+	}
+		/*hijos de .wrapper_left_subfooter*/
+		#publicidad_abajo{
+			height: auto;
+			width: 760px;
+		}
+		#publicidad_abajo p{
+			margin:22px 0 0 0;
+		}
+		/*hijos de #mainContent*/
+		#sidebar1{
+			float: left;
+			width: 202px;
+			height: auto;
+			text-align: left;
+		}
+			
+			#sidebar1 #menu {
+				font-family: "Trebuchet MS", Tahoma, Arial;
+				font-size: 14px;
+				font-weight: normal;
+				/*color: #FFFFFF;*/
+				height: 372px;
+				overflow:hidden;
+				width: 192px;
+				/*padding-left:5px;*/
+			}
+			#sidebar1 #menu ul li:hover{
+				background-color: #DDDDFF;
+				font-weight:bold;
+			}
+			#sidebar1 #menu ul li a, #sidebar1 #menu ul li a:visited{
+				font-family: 'lucida grande',helvetica,verdana,arial,sans-serif;
+				font-size: 12.8px;
+				font-weight: 400;
+				font-style: normal;
+				color: #333333;
+				color:black;
+				text-decoration:none;
+				display:block;
+				padding-left:5px;
+			}
+			#sidebar1 #menu .basic a.selected {
+				font-weight:bold;
+				color:black;
+				background-color:#FFFF00;
+			}
+			#sidebar1 #menu ul li a.seleccionado{
+				color:red;
+			}
+			#sidebar1 #menu .basic{
+				border: 1px solid #999999;
+			}
+			#sidebar1 .filtro, #sidebar1 .filtro2{
+				border-color: #999999;
+			}
+			#sidebar1 #menu .basic div > a {
+				background-color:#01019D;
+				color:white;
+				border-top: none;
+			}
+			#sidebar1 #miniatura {
+				margin: 0px;
+				padding: 0px;
+				height: 187px;
+				overflow:hidden;
+				position:relative;
+			}
+			#sidebar1 #miniatura .bottombox {
+				font-size:9px;
+				position:absolute;
+/*				width:100%;*/
+				text-align:center;
+				left:0;
+bottom:0;
+height:24px;
+line-height:24px;
+border:1px solid black;
+width:189px;
+background-color:white;
+			}
+			#sidebar1 #miniatura .bottombox a{
+				color:#01019D;
+				font-size:11.5px;
+				padding:0 3px 0 3px;
+				font-weight:bold;
+				/*display:block;
+				float:left;
+				line-height:24px;*/
+			}
+			
+			#sidebar1 #miniatura .bottombox a.link_minisitio{
+				border-right:1px solid black;
+			}
+			#sidebar1 #miniatura .bottombox a:hover{
+				color:#25CF26;
+			}
+			#sidebar1 #miniatura a {
+			}
+		.contenedor_mapa{
+			float:left;
+			height:560px;
+			overflow:hidden;
+			width:556px;
+		}
+/*hijos de .wrapper_bottom*/
+	#footer {
+		padding-top: 0;
+		padding-bottom: 0;
+		clear: both;
+	} 
+	#footer #linha_abajo {
+		border-top-width: 2px;
+		border-top-style: solid;
+		border-top-color: #FFFFFF;
+		clear: both;
+		margin-top: 10px;
+		width: 1000px;
+		float: left;
+		margin-bottom: 0px;
+		padding-bottom: 0px;
+		height: 5px;
+	}
+    .thrColFixHdr #footer p {
+    	padding: 10px 0; /* el relleno de este elemento creará espacio, de la misma forma que lo haría el margen, sin el problema de la contracción de márgenes */
+    }
+    .regularBarrio{
+    	color:#FFF !important;
+    }
+    .selectedBarrio {
+    	color:yellow !important;
+    }
+    #my-list li a{
+        text-decoration:none;
+        font-family:"Trebuchet MS",Tahoma,Arial;
+		font-size:24px;
+    }
+
+
+
+
+
+/*buscador*/
+.resultado_busqueda .items li{
+	text-align:left;
+	margin-bottom:6px;
+}
+.resultado_busqueda .items a{
+	color:orange;
+	font-weight:bold;
+}
+.resultado_busqueda .items a:visited{
+	font-weight:normal;
+}
+.resultado_busqueda .paginas li{
+	display:inline;
+	margin: 0 2px;
+}
+.resultado_busqueda .paginas li .seleccionada{
+	font-weight:bold;
+}
+.resultado_busqueda li .titulo{
+	
+}
+.resultado_busqueda li .descripcion{
+	
+}
+.resultado_busqueda li .direccion{
+	color: yellow;
+}
+.resultado_busqueda li span{
+	font-size: 11px;
+}
+.resultado_busqueda li span a{
+	text-decoration:none;
+}
+
+
+
+
+/*contacto*/
+.contacto_mensaje{
+	cursor:default;
+}
+.contacto_mensaje input[type=button]{
+	background-color:#444444;
+	border:0 none;
+	color:#EEEEEE;
+	font-family:arial;
+	font-size:19px;
+	padding:0 13px;
+}
+.contacto_mensaje .mensaje{
+	color:#7777AA;
+	font-family:serif;
+	font-size:27px;
+	margin-bottom:13px;	
+	border-bottom:1px dashed black;
+	border-style:dashed;
+	padding-bottom:17px;
+}
+.contacto_mensaje div input + input{
+	margin-left:6px;
+}
+.contacto_mensaje .capcha_container img{
+	margin-bottom:7px;
+	border:1px solid black;
+}
+.contacto_mensaje .capcha_container input{
+	border: 3px solid #888888;
+	padding:2px;
+	font-family:Verdana;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+
+#mainContent #nodo_pagina{
+	width:758px;
+}
+#mainContent #nodo_pagina .titulo_interno{
+	float:left;
+	clear:both;
+	display:inline;
+	text-transform:uppercase;
+	padding:0 5px 1px 0;
+	/*
+	height:18px;
+	border:2px solid #EFF241;
+	border-top:0;border-left:0;
+	*/
+	border:none;
+	border-right:4px solid #E9E7EA;
+	font-family:"Trebuchet MS",Tahoma,Arial;
+	font-size:24px;
+	font-weight:bold;
+	text-decoration:none;
+	height:31px;
+	
+}
+#mainContent #nodo_pagina .desarrollo{
+	clear:both;
+	/*
+	border:2px solid #EFF241;
+	border-top:0;border-right:0;
+	*/
+	border:4px solid #E9E7EA;
+	border-right:none;
+	overflow:hidden;
+	overflow-y:scroll;
+	height:592px;
+}
+#mainContent #nodo_pagina .desarrollo_con_titulo{
+	/*height:571px;*/
+	height:554px;
+}
+
+
+#menu .basic div>a{
+	background-image:none!important;
+}
+
+
+/*fondos*/
+#busqueda{
+	height:40px;
+}
+#wrapper_top{
+	height:186px;
+}
+.wrapper_left{
+	margin-top:10px;
+}
+.wrapper_right{
+	/*padding-top:10px;*/
+	padding:10px 8px 9px;
+	margin:0 -8px;
+}
+.banner_abajo{
+	margin-top:0;
+	padding-top:5px;
+	padding-right:8px;
+}
+.wrapper_peft_subfooter{
+	padding-bottom:5px;
+}
+#publicidad_abajo>.desarrollo>p:first{
+	margin:0;
+}
+
+/*pageloader*/
+.pageloader{
+	height: 200px; width: 1020px; margin: 175px auto auto; text-align: center;
+}

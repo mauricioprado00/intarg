@@ -1,0 +1,21 @@
+<layout>
+	<simple>
+		<block type="Page/html_document" name="html_document">
+			<block type="Page/html_head" name="html_head">
+				<!-- <action named_args="true" method="addJs"> asi se usa para uqe los parametros lleven nombres (debe existir el metodo addJs_named_args que tiene 1 argumento(array de parametros))-->
+				<action method="addJs">
+					<script>js/jquery-1.2.3.pack.js</script>
+				</action>
+				<action method="addCss">
+					<script>css/estilos.css</script>
+				</action>
+			</block>
+			<block type="Page/html_body" name="html_body">
+				<block type="Core/Template" name="html_body_content" template="page/simple.phtml">
+					<block name="contenedor_top" />
+					<block name="contenedor_main" />
+				</block>
+			</block>
+		</block>
+	</simple>
+</layout>

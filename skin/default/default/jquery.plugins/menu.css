@@ -1,0 +1,66 @@
+#menu{
+	color:black;
+	/*background-color:white;*/
+	/*border:1px solid black;*/
+}
+#menu .basic  {
+	/*width: 260px;*/
+	font-family: verdana;
+	border: 1px solid black;
+}
+#menu .basic div {
+	background-color: #eee;
+}
+
+#menu .basic p {
+	margin-bottom : 10px;
+	border: none;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 10px;
+	margin: 0px;
+	padding: 10px;
+}
+#menu .basic div>a {
+	cursor:pointer;
+	display:block;
+	padding:5px;
+	margin-top: 0;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 12px;
+	color: black;
+	background-color: #00a0c6;
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #999;
+	
+	background-image: url("AccordionTab0.gif");
+}
+
+#menu .basic a:hover {
+	background-color: white;
+	background-image: url("AccordionTab2.gif");
+}
+#menu .basic a.selected {
+	color: black;
+	background-color: #80cfe2;
+	background-image: url("AccordionTab2.gif");
+}
+@media print {
+	#menu .basic div, #menu #list2 dd, #menu #list3 div{
+		display: block!important;
+		height: auto!important
+	}
+}
+
+.filtro,.filtro2{
+	height:15px;
+	border:1px solid black;
+	border-bottom:none;
+	color:#777777;
+	font-family:Verdana;
+	font-size:17px;
+	font-weight:bold;
+	height:20px;
+	width:190px;
+}

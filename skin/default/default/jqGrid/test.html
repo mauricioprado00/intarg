@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<script type="text/javascript" src="http://localhost/bigmotorcicle/skin/default/default/jqGrid/jquery.js"></script>
+<script type="text/javascript" src="http://localhost/bigmotorcicle/skin/default/default/jqGrid/jquery.jqGrid.js"></script>
+<script type="text/javascript" src="http://localhost/bigmotorcicle/skin/default/default/jqGrid/js/jqModal.js"></script>
+<script type="text/javascript" src="http://localhost/bigmotorcicle/skin/default/default/jqGrid/js/jqDnR.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="http://localhost/bigmotorcicle/skin/default/default/jqGrid/themes/jqModal.css" />
+<link rel="stylesheet" type="text/css" media="screen" title="basic" href="http://localhost/bigmotorcicle/skin/default/default/jqGrid/themes/basic/grid.css" />
+<link rel="stylesheet" type="text/css" href="http://localhost/bigmotorcicle/skin/default/default/jqGrid/themes/coffee/grid.css" title="coffee" media="screen" />
+<link rel="stylesheet" type="text/css" href="http://localhost/bigmotorcicle/skin/default/default/jqGrid/themes/green/grid.css" title="green" media="screen" />
+<link rel="stylesheet" type="text/css" href="http://localhost/bigmotorcicle/skin/default/default/jqGrid/themes/sand/grid.css" title="sand" media="screen" />
+<link rel="stylesheet" type="text/css" href="http://localhost/bigmotorcicle/skin/default/default/jqGrid/themes/steel/grid.css" title="steel" media="screen" />
+</head>
+<body>
+este es el listado de cosas
+<table id="list1" class="scroll" cellpadding="0" cellspacing="0"></table>
+<div id="pager1" class="scroll" style="text-align:center;"></div> 
+
+<script>
+jQuery("#list1").jqGrid({
+   	url:'server.php?q=1',
+	datatype: "xml",
+   	colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
+   	colModel:[
+   		{name:'id',index:'id', width:55},
+   		{name:'invdate',index:'invdate', width:90},
+   		{name:'name',index:'name', width:100},
+   		{name:'amount',index:'amount', width:80, align:"right"},
+   		{name:'tax',index:'tax', width:80, align:"right"},		
+   		{name:'total',index:'total', width:80,align:"right"},		
+   		{name:'note',index:'note', width:150, sortable:false}		
+   	],
+   	rowNum:10,
+   	rowList:[10,20,30],
+   	imgpath: '"http://localhost/bigmotorcicle/skin/default/default/js/jqGrid-3.4.4/themes/basic/images',
+   	pager: jQuery('#pager1'),
+   	sortname: 'id',
+    viewrecords: true,
+    sortorder: "desc",
+    caption:"XML Example",
+    editurl:"someurl.php"
+}).navGrid('#pager1',{edit:false,add:false,del:false}); 
+</script>
+</body> 
+</html>

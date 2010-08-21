@@ -1,0 +1,12 @@
+<global>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin_BannerDinamico.xml</admin>
+		<admin>Admin_BannerDinamico_Multimodo.xml</admin>
+		<ajax>Admin_BannerDinamico_Multimodo.xml</ajax>
+	</layouts>
+	<routers>
+		<Admin_BannerDinamico_Router>administrator/banner_dinamico</Admin_BannerDinamico_Router>
+	</routers>
+</global>

@@ -1,0 +1,60 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>archivo</link_url>
+				<text>Archivo</text>
+				<title>Archivo</title>
+				<name>menu_admin_archivo</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_archivo">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>archivo/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>archivo/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_archivo>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Archivo/XmlList"
+			name="xml_data_admin_archivo">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+				<fieldname>path_archivo</fieldname>
+				<fieldname>id_nodo</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#archivo/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#archivo/addEdit/{!id}">editar</a>
+					<a href="#archivo/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el archivo seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#archivo/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#archivo/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#archivo/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_archivo>
+</layout>

@@ -1,0 +1,179 @@
+#menu * { margin: 0; padding: 0; }
+
+#menu { font-family: 'lucida grande', helvetica, verdana, arial, sans-serif }
+#menu { margin: 0; padding: 0; font-size: small; color: #333 }
+#menu h1, #menu h2 { font-family: 'trebuchet ms', verdana, arial; padding: 10px; margin: 0 }
+#menu h1 { font-size: large }
+#menu h3 { margin-top: .5em; }
+#menu #main { padding: 1em; }
+#menu #banner { padding: 15px; background-color: #06b; color: white; font-size: large; border-bottom: 1px solid #ccc;
+    background: url(bg.gif) repeat-x; text-align: center }
+#menu #banner a { color: white; }
+#menu fieldset { padding: 8px; }
+#menu legend { font-weight: bold; }
+
+#menu pre { margin-bottom: 1em; }
+    
+#menu .jscom, .mix htcom   { color: #4040c2; }
+#menu .com      { color: green; }
+#menu .regexp   { color: maroon; }
+#menu .string   { color: teal; }
+#menu .keywords { color: blue; }
+#menu .global   { color: #008; }
+#menu .numbers  { color: #880; }
+#menu .comm     { color: green; }
+#menu #menu .tag      { color: blue; }
+#menu .entity   { color: blue; }
+#menu .string   { color: teal; }
+#menu .aname    { color: maroon; }
+#menu .avalue   { color: maroon; }
+#menu .jquery   { color: #00a; }
+#menu .plugin   { color: red; }
+
+#menu li { list-style-type: none; }
+#menu .basic, #list2, #list3, #navigation { width:20em; }
+
+#menu #log { position:fixed; bottom: 0; right:1em; text-align:right; }
+#menu #switch { position: fixed; bottom: 0; right: 15em; }
+
+#menu .basic  {
+	width: 260px;
+	font-family: verdana;
+	border: 1px solid black;
+}
+#menu .basic div {
+	background-color: #eee;
+}
+
+#menu .basic p {
+	margin-bottom : 10px;
+	border: none;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 10px;
+	margin: 0px;
+	padding: 10px;
+}
+#menu .basic a {
+	cursor:pointer;
+	display:block;
+	padding:5px;
+	margin-top: 0;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 12px;
+	color: black;
+	background-color: #00a0c6;
+	border-top: 1px solid #FFFFFF;
+	border-bottom: 1px solid #999;
+	
+	background-image: url("AccordionTab0.gif");
+}
+#menu .basic a:hover {
+	background-color: white;
+	background-image: url("AccordionTab2.gif");
+}
+#menu .basic a.selected {
+	color: black;
+	background-color: #80cfe2;
+	background-image: url("AccordionTab2.gif");
+}
+
+#menu #list2 {
+	height: 178px;
+	border: 1px solid #eee;
+	overflow: hidden;
+}
+#menu #list2 .red {
+	color: red;
+	background-color: red;
+}
+#menu #list2 .green {
+	color: green;
+	background-color: green;
+}
+#menu #list2 .blue {
+	color: blue;
+	background-color: blue;
+}
+#menu #list2 dd { height: 130px; overflow: hidden; }
+
+#menu #list3 { border: 1px solid #111; }
+#menu #list3 div.selected .title { font-weight: bold; }
+#menu #list3 div div {
+	border-left:8px solid #6699CC;
+	padding: 5px;
+}
+#menu #list3 div.title {
+	border: 1px solid #3366AA;
+	background-color: #6699CC;
+	padding: 10px;
+	cursor: pointer;
+}
+#menu #list3 div.selected {
+	border-bottom: none;
+}
+
+#menu #navigation {
+	border:1px solid #5263AB;
+	margin:0px;
+	padding:0px;
+	text-indent:0px;
+	background-color:#E2E2E2;
+	width:200px;
+}
+#menu #navigation a.head {
+	cursor:pointer;
+	border:1px solid #CCCCCC;
+	background:#5263AB url(collapsed.gif) no-repeat scroll 3px 4px;
+	color:#FFFFFF;
+	display:block;
+	font-weight:bold;
+	margin:0px;
+	padding:0px;
+	text-indent:14px;
+	text-decoration: none;
+}
+#menu #navigation a.head:hover {
+	color:#FFFF99;
+}
+#menu #navigation a.selected {
+	background-image: url(expanded.gif);
+}
+#menu #navigation a.current {
+	background-color:#FFFF99;
+}
+#menu #navigation ul {
+	border-width:0px;
+	margin:0px;
+	padding:0px;
+	text-indent:0px;
+}
+#menu #navigation li {
+	list-style:none outside none; display:inline;
+}
+#menu #navigation li li a {
+	color:#000000;
+	display:block;
+	text-indent:10px;
+	text-decoration: none;
+}
+#menu #navigation li li a:hover {
+	background-color:#FFFF99;
+	color:#FF0000;
+}
+
+#menu #wizard {
+	width: 200px;
+	border: 1px solid black;
+}
+#menu #wizard .title {
+	background-color:#DDDDDD;
+}
+
+@media print {
+	#menu .basic div, #menu #navigation ul, #menu #list2 dd, #menu #list3 div{
+		display: block!important;
+		height: auto!important
+	}
+}

@@ -1,0 +1,99 @@
+<?
+if($this->hasObjectToEdit()){
+	$x = $this->getObjectToEdit();
+}
+else{
+	$x = new Core_Object();
+}
+$x->addAutofilterOutput('utf8_decode');
+$prefijo = $this->hasPrefijo()?$this->getPrefijo():'generic';
+
+?>
+<fieldset>
+	<legend>Fondo de secci&oacute;n</legend>
+	<div>
+		<label>Color: </label>
+		<span><?
+		{
+			$color = $x->getColorFondo();
+			$color = $color?$color:'black';
+			?> 
+			<div class="colorSelector" style="background-color:#<?php print $color; ?>">
+			<input type="hidden" class="color_picker" maxlength="300" id="valor" name="background[<?php print $prefijo; ?>][color]" value="<?php echo htmlentities(utf8_decode($color))?>" />
+			</div><?php
+		}?> 
+		</span>
+		<label>Imagen: </label>
+		<span>
+			<select name="background[<?php print $prefijo; ?>][imagen]"><?
+			$imagen_usada = $x->getImagenFondo();
+			
+			$fr = new Base_FileFilterRetriever();
+			$fr->setExtensiones('png','jpg','gif');
+			
+			$path = Admin_Config_Helper::getInstance()->getImgPath();
+			$path = Base_MagicHelper::PathResolve($path);
+			$fr->Start($path,null);
+			//$dir = scandir(CFG_PATH_ROOT.'/img');
+			$dir = $fr->getFilteredFiles();
+			foreach($dir as $file){
+				$file = implode('/', explode('\\', implode('', explode($path.'/', $file))));
+				$valor = str_replace(CFG_PATH_ROOT.'/', '', $file);
+				$selected = $valor==$imagen_usada?' selected="selected"':'';?> 
+				<option<?php echo $selected?> value="<?php echo $valor?>"><?php echo $file?></option><?php
+			}?> 
+			</select>
+			<label>O suba una nueva imagen: </label>
+			<input type="file" name="background[<?php print $prefijo; ?>][nueva_imagen]"/>
+		</span>
+		<label>Repetir imagen: </label>
+		<span>
+			<input type="hidden" name="background[<?php print $prefijo; ?>][repetir_imagen]" value="0"/>
+			<input type="checkbox" name="background[<?php print $prefijo; ?>][repetir_imagen]"<?php print ($x->getRepetirImagen())?' checked="checked"':''; ?> value="1"/>
+		</span>
+	</div>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+jQuery(document).ready(function(){
+	jQuery('.colorSelector').ColorPicker({
+		color: '#0000ff',
+		onShow: function (colpkr) {
+			jQuery(colpkr).fadeIn(500);
+			return false;
+		},
+		onHide: function (colpkr) {
+			jQuery(colpkr).fadeOut(500);
+			return false;
+		},
+		onChange: function (hsb, hex, rgb) {
+			//jQuery('.colorSelector').css('backgroundColor', '#' + hex);
+		},
+		onSubmit: function(hsb, hex, rgb, div){
+			jQuery(div).css('backgroundColor', '#' + hex);
+			jQuery('input', div).val(hex);
+			this.selector.parent().fadeOut(500);
+			//window.console.log();
+		}
+	});
+})
+function validar_background(formData, jqForm, options) {
+	return true;
+//	try{
+//		var errors = [];
+//		if(jQuery('input[name=nombre]').val() == ''){
+//			errors.push("Debe ingresar Nombre");
+//		}
+//		if(errors.length){
+//			alert("Corrija los errores:\n\t- "+errors.join("\n\t- "));
+//			return false;
+//		}
+//	}catch(e){
+//		alert(e);
+//		return(false);
+//	}
+//	return(true);
+}
+</script>

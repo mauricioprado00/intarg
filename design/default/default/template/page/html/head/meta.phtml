@@ -1,0 +1,9 @@
+<?
+	$meta = new Core_Html_Tag_Custom('meta');
+	foreach($this->getData() as $key=>$value){
+		if(strpos($key, 'html_')!==0)
+			continue;
+		$meta->setData(substr($key, 5), $value);
+	}
+	echo "\t".$meta->getHtml()."\n";
+?>

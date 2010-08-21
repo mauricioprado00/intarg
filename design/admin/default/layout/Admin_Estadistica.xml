@@ -1,0 +1,555 @@
+<layout><!-- es útf8 -->
+
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>estadistica</link_url>
+				<text>Estadística</text>
+				<title>Estadística</title>
+				<name>menu_admin_estadistica</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_estadistica">
+			<block type="Admin/Menu" name="submenu_estadistica">
+			</block>
+		</reference>
+	</default>
+	
+	<!-- <acceso_categoria> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_acceso_categoria</link_url>
+				<text>Accesos a Categorías</text>
+				<title>Listado Acceso a Categoría Diario</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_acceso_categoria>
+		<block type="Admin_Estadistica/XmlList_AccesoCategoria"
+			name="xml_data_admin_estadistica_acceso_categoria">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>nombre_categoria</fieldname>
+				<fieldname>subcategoria</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_acceso_categoria>
+	<excel_admin_estadistica_acceso_categoria>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>id_categoria</campo>
+				<titulo>Id Categoría</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_categoria</campo>
+				<titulo>Nombre Categoría</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>subcategoria</campo>
+				<titulo>¿Es click en subcategoría?</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_acceso_categoria>
+	<!-- </acceso_categoria> -->
+
+	<!-- <acceso_sesion> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_acceso_sesion</link_url>
+				<text>Accesos de Sesiones</text>
+				<title>Listado Cantidad de Accesos por Sesion Diario</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_acceso_sesion>
+		<block type="Admin_Estadistica/XmlList_AccesoSesion"
+			name="xml_data_admin_estadistica_acceso_sesion">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>ip</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_acceso_sesion>
+	<excel_admin_estadistica_acceso_sesion>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>ip</campo>
+				<titulo>ip</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_acceso_sesion>
+	<!-- </acceso_sesion> -->
+
+	<!-- <acceso_sesion_url> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_acceso_sesion_url</link_url>
+				<text>Accesos por URL</text>
+				<title>Listado Cantidad de Accesos por Url Diario</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_acceso_sesion_url>
+		<block type="Admin_Estadistica/XmlList_AccesoSesionUrl"
+			name="xml_data_admin_estadistica_acceso_sesion_url">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>url</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_acceso_sesion_url>
+	<excel_admin_estadistica_acceso_sesion_url>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>url</campo>
+				<titulo>URL</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_acceso_sesion_url>
+	<!-- </acceso_sesion_url> -->
+	
+	<!-- <click_anuncio> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_click_anuncio</link_url>
+				<text>Clicks por Anuncio Diario</text>
+				<title>Listado Cantidad de Clicks a Anuncios Diario</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_click_anuncio>
+		<block type="Admin_Estadistica/XmlList_ClickAnuncio"
+			name="xml_data_admin_estadistica_click_anuncio">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>nombre_anuncio</fieldname>
+				<fieldname>nombre_barrio</fieldname>
+				<fieldname>nombre_categoria</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_click_anuncio>
+	<excel_admin_estadistica_click_anuncio>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>id_anuncio</campo>
+				<titulo>Id Anuncio</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_anuncio</campo>
+				<titulo>Nombre Anuncio</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>id_barrio</campo>
+				<titulo>Id Barrio</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_barrio</campo>
+				<titulo>Nombre Barrio</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>id_categoria</campo>
+				<titulo>Id Categoria</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_categoria</campo>
+				<titulo>Nombre Categoria</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_click_anuncio>
+	<!-- </click_anuncio> -->
+	
+	<!-- <click_anuncio_barrio> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_click_anuncio_barrio</link_url>
+				<text>Clicks a Anuncio por Barrio</text>
+				<title>Listado Cantidad de Clicks en Anuncios por Barrio Diario</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_click_anuncio_barrio>
+		<block type="Admin_Estadistica/XmlList_ClickAnuncioBarrio"
+			name="xml_data_admin_estadistica_click_anuncio_barrio">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>nombre_barrio</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_click_anuncio_barrio>
+	<excel_admin_estadistica_click_anuncio_barrio>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>id_barrio</campo>
+				<titulo>Id Barrio</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_barrio</campo>
+				<titulo>Nombre Barrio</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_click_anuncio_barrio>
+	<!-- </click_anuncio_barrio> -->
+	
+	<!-- <click_anuncio_categoria> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_click_anuncio_categoria</link_url>
+				<text>Clicks a Anuncio por Categoria</text>
+				<title>Listado Cantidad de Clicks en Anuncios por Categoria Diario</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_click_anuncio_categoria>
+		<block type="Admin_Estadistica/XmlList_ClickAnuncioCategoria"
+			name="xml_data_admin_estadistica_click_anuncio_categoria">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>nombre_categoria</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_click_anuncio_categoria>
+	<excel_admin_estadistica_click_anuncio_categoria>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>id_categoria</campo>
+				<titulo>Id Categoria</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_categoria</campo>
+				<titulo>Nombre Categoria</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_click_anuncio_categoria>
+	<!-- </click_anuncio_categoria> -->
+	
+	<!-- <click_banner_carrousel> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_click_banner_carrousel</link_url>
+				<text>Clicks Banners Carrousel</text>
+				<title>Listado Cantidad de Clicks BannerCarrousel</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_click_banner_carrousel>
+		<block type="Admin_Estadistica/XmlList_ClickBannerCarrousel"
+			name="xml_data_admin_estadistica_click_banner_carrousel">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>nombre_banner_carrousel</fieldname>
+				<fieldname>url</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_click_banner_carrousel>
+	<excel_admin_estadistica_click_banner_carrousel>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_banner_carrousel</campo>
+				<titulo>Banner Carrousel</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>url</campo>
+				<titulo>URL</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_click_banner_carrousel>
+	<!-- </click_banner_carrousel> -->
+	
+	<!-- <click_banner_dinamico> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_click_banner_dinamico</link_url>
+				<text>Clicks Banners Dinamico</text>
+				<title>Listado Cantidad de Clicks BannerDinamico</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_click_banner_dinamico>
+		<block type="Admin_Estadistica/XmlList_ClickBannerDinamico"
+			name="xml_data_admin_estadistica_click_banner_dinamico">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>nombre_banner_dinamico</fieldname>
+				<fieldname>url</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_click_banner_dinamico>
+	<excel_admin_estadistica_click_banner_dinamico>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_banner_dinamico</campo>
+				<titulo>Banner Dinamico</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>url</campo>
+				<titulo>URL</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_click_banner_dinamico>
+	<!-- </click_banner_dinamico> -->
+	
+	<!-- <click_minisitio> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_click_minisitio</link_url>
+				<text>Clicks Minisitio</text>
+				<title>Listado Cantidad de Clicks Minisitio</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_click_minisitio>
+		<block type="Admin_Estadistica/XmlList_ClickMinisitio"
+			name="xml_data_admin_estadistica_click_minisitio">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>nombre_anuncio</fieldname>
+				<fieldname>url</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_click_minisitio>
+	<excel_admin_estadistica_click_minisitio>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>id_anuncio</campo>
+				<titulo>Id Anuncio</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_anuncio</campo>
+				<titulo>Anuncio</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>url</campo>
+				<titulo>URL</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_click_minisitio>
+	<!-- </click_minisitio> -->
+	
+	<!-- <inicio_sesion> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_inicio_sesion</link_url>
+				<text>Inicios Sesion</text>
+				<title>Listado de Cantidad de Sesiones Diárias</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_inicio_sesion>
+		<block type="Admin_Estadistica/XmlList_InicioSesion"
+			name="xml_data_admin_estadistica_inicio_sesion">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>cantidad</fieldname>
+				<fieldname>dia</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_inicio_sesion>
+	<excel_admin_estadistica_inicio_sesion>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>cantidad</campo>
+				<titulo>Cantidad</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>dia</campo>
+				<titulo>Día</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_inicio_sesion>
+	<!-- </inicio_sesion> -->
+	
+	<!-- <contador> -->
+	<default>
+		<reference name="submenu_estadistica">
+			<action method="addItem">
+				<link_url>estadistica/listar_contador</link_url>
+				<text>Live data</text>
+				<title>Listado analítico de información online</title>
+			</action>
+		</reference>
+	</default>
+	<datalist_admin_estadistica_contador>
+		<block type="Admin_Estadistica/XmlList_Contador"
+			name="xml_data_admin_estadistica_contador">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>nombre_tipo</fieldname>
+				<fieldname>info1</fieldname>
+				<fieldname>info2</fieldname>
+				<fieldname>fecha</fieldname>
+			</action>
+		</block>
+	</datalist_admin_estadistica_contador>
+	<excel_admin_estadistica_contador>
+		<excel name="excel">
+			<action method="agregarColumna">
+				<campo>id</campo>
+				<titulo>Id</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>id_tipo</campo>
+				<titulo>Id Tipo</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>nombre_tipo</campo>
+				<titulo>Tipo</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>info1</campo>
+				<titulo>Info 1</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>info2</campo>
+				<titulo>Info 2</titulo>
+			</action>
+			<action method="agregarColumna">
+				<campo>fecha</campo>
+				<titulo>Timestamp</titulo>
+			</action>
+		</excel>
+	</excel_admin_estadistica_contador>
+	<!-- </contador> -->
+
+</layout>

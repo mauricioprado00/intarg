@@ -1,0 +1,41 @@
+<?php 
+$classes = array('capcha_container');
+if($this->hasUseHoverCapchaClass()&&$this->getUseHoverCapchaClass()) 
+	$classes[] = 'capcha_container_overable';
+$classes = implode(' ', $classes);
+?> 
+<div id="<?php print $id = $this->generateRandomId(); ?>" class="<?php print $classes; ?>" style="<?php print $this->getStyle(); ?>">
+<img src="<?php print $this->getUrl(Core_Capcha_Helper::getUrlShow()); ?>" />
+<br />
+<input autocomplete="off" type="text" class="<?php print $this->getInputClass(); ?>" name="<?php print $this->getRequestName(); ?>" size="<?php print $this->getSize(); ?>" />
+<div style="clear:both"></div>
+</div><?
+if($this->hasUseHoverCapchaClass()&&$this->getUseHoverCapchaClass()){?> 
+<script>
+	jQuery(document).ready(function(){
+		jQuery('#<?php print $id; ?>')
+			.mouseover(function(){
+				if(!this.count_hover)
+					this.count_hover = 0;
+				this.count_hover ++;
+				jQuery(this).addClass('capcha_container_hover');
+			})
+			.mouseout(function(){
+				this.count_hover --;
+				this.count_hover = this.count_hover<0?0:this.count_hover;
+				var that = this;
+				setTimeout(
+					function(){
+						if(that.count_hover==0)
+							jQuery(that).removeClass('capcha_container_hover');
+					},
+					500
+				);
+			})
+		;
+	})
+
+</script><?
+	
+}
+?>

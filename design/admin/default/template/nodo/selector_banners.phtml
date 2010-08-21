@@ -1,0 +1,429 @@
+<?
+	$cantidad_derecha = 6;
+	$alto_banner = 70;
+	$cantidad_abajo = 4;
+	$ancho_banner = 150;
+
+?> 
+	<style>
+	.connectedSortable li{
+		list-style-type:none;
+		float:left;
+	}
+	</style>
+	<script type="text/javascript">
+	$(function() {
+		$(".connectedSortable").sortable({
+			connectWith: '.connectedSortable'
+		})//.disableSelection();
+	});
+	</script>
+
+	
+	<fieldset id="<?php print $id_control = $this->generateRandomId(); ?>">
+		<legend>Disposici&oacute;n: </legend>
+		<table style="border-collapse:collapse;float:left;">
+			<tr>
+				<td><?{
+					$lista_ul = new Core_Html_Tag_Custom('ul');
+					$lista_ul
+						->setClass('contenedor_banners_no_usados connectedSortable')
+						->setStyle('float:left;width:'.($ancho_banner * ($cantidad_abajo-1)).'px;height:'.($cantidad_derecha * $alto_banner).'px;display:block;overflow-y:scroll;overflow-x:hidden;')
+						->setInnerHtml('')
+					;
+					$banner_dinamicos = $this->getBannersDinamicos();
+					if(isset($banner_dinamicos)){
+						foreach($banner_dinamicos as $banner_dinamico){
+							$width = $hspace = $banner_dinamico->getCantidadEspaciosHorizontal();
+							$height = $vspace = $banner_dinamico->getCantidadEspaciosVertical();
+							$xsize = $width;
+							$ysize = $height;
+							$height *= $alto_banner;
+							$width *= 150;
+							$height -= 2;//bordes
+							$width -= 2;//bordes
+							
+							$elemento_li = new Core_Html_Tag_Custom('li');
+							$elemento_li
+								->setData(
+									'data-banner', 
+									json_encode(array(
+										'id_nodo_banner_dinamico'=>null,
+										'id_banner_dinamico'=>$banner_dinamico->getId(),
+										'width'=>$hspace,
+										'height'=>$vspace
+									))
+								)
+								->setStyle('height:'.$height.'px;width:'.$width.'px;')
+								->setClass('ui-state-default')
+								->setInnerHtml($banner_dinamico->getNombre().'<br />'.$xsize.'x'.$ysize)
+							;
+							$lista_ul->appendInnerHtml($elemento_li);
+						}
+					}
+					echo $lista_ul->getHtml();
+				}?> 
+				</td>
+				<td><?{
+					$lista_ul = new Core_Html_Tag_Custom('ul');
+					$lista_ul
+						->setClass('contenedor_banners_derecha connectedSortable contenedor_banners')
+						->setStyle('height:'.($cantidad_derecha * $alto_banner).'px;width:'.($ancho_banner).'px;background-color:#FFDDFF;border:1px solid #DDFFFF;')
+						->setInnerHtml('')
+					;
+					$nodos_banner_dinamicos = $this->getNodoBannersDerecha();
+					if(isset($nodos_banner_dinamicos)){
+						foreach($nodos_banner_dinamicos as $nodo_banner_dinamico){
+							if(!$nodo_banner_dinamico->getIdBannerDinamico()){//es aleatorio
+								$texto_banner = 'Aleatorio';
+								$hspace = $nodo_banner_dinamico->getCantidadEspaciosHorizontal();
+								$vspace = $nodo_banner_dinamico->getCantidadEspaciosVertical();
+								$banner_data = array(
+									'id_nodo_banner_dinamico'=>$nodo_banner_dinamico->getId(),
+									//'id_banner_dinamico'=>$banner_dinamico->getId()
+								);
+							}
+							else{//es banner normal
+								$banner_dinamico = $nodo_banner_dinamico->getBannerDinamico();
+								if(!$banner_dinamico)
+									continue;
+								$texto_banner = $banner_dinamico->getNombre();
+								$hspace = $banner_dinamico->getCantidadEspaciosHorizontal();
+								$vspace = $banner_dinamico->getCantidadEspaciosVertical();
+								$banner_data = array(
+									'id_nodo_banner_dinamico'=>$nodo_banner_dinamico->getId(),
+									'id_banner_dinamico'=>$banner_dinamico->getId()
+								);
+								
+							}
+							$width = $hspace;
+							$height = $vspace;
+							$height *= $alto_banner;
+							$width *= $ancho_banner;
+							$height -= 2;//bordes
+							$width -= 2;//bordes
+							
+							$banner_data['width'] = $hspace;
+							$banner_data['height'] = $vspace;
+							
+							$elemento_li = new Core_Html_Tag_Custom('li');
+							$elemento_li
+								->setData(
+									'data-banner', 
+									json_encode($banner_data)
+								)
+								->setStyle('height:'.$height.'px;width:'.$width.'px;')
+								->setClass('ui-state-highlight')
+								->setInnerHtml($texto_banner.'<br />'.$hspace.'x'.$vspace)
+							;
+							$lista_ul->appendInnerHtml($elemento_li);
+						}
+					}
+					echo $lista_ul->getHtml();
+				}?> 
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><?{
+					$lista_ul = new Core_Html_Tag_Custom('ul');
+					$lista_ul
+						->setClass('contenedor_banners_abajo connectedSortable contenedor_banners')
+						->setStyle('height:'.$alto_banner.'px;background-color:#FFDDFF;border:1px solid #DDFFFF;')
+						->setInnerHtml('')
+					;
+					$nodos_banner_dinamicos = $this->getNodoBannersAbajo();
+					if(isset($nodos_banner_dinamicos)){
+						foreach($nodos_banner_dinamicos as $nodo_banner_dinamico){
+							if(!$nodo_banner_dinamico->getIdBannerDinamico()){//es aleatorio
+								$texto_banner = 'Aleatorio';
+								$hspace = $nodo_banner_dinamico->getCantidadEspaciosHorizontal();
+								$vspace = $nodo_banner_dinamico->getCantidadEspaciosVertical();
+								$banner_data = array(
+									'id_nodo_banner_dinamico'=>$nodo_banner_dinamico->getId(),
+									//'id_banner_dinamico'=>$banner_dinamico->getId()
+								);
+							}
+							else{//es banner normal
+								$banner_dinamico = $nodo_banner_dinamico->getBannerDinamico();
+								if(!$banner_dinamico)
+									continue;
+								$texto_banner = $banner_dinamico->getNombre();
+								$hspace = $banner_dinamico->getCantidadEspaciosHorizontal();
+								$vspace = $banner_dinamico->getCantidadEspaciosVertical();
+								$banner_data = array(
+									'id_nodo_banner_dinamico'=>$nodo_banner_dinamico->getId(),
+									'id_banner_dinamico'=>$banner_dinamico->getId()
+								);
+								
+							}
+							$width = $hspace;
+							$height = $vspace;
+							$height *= $alto_banner;
+							$width *= $ancho_banner;
+							$height -= 2;//bordes
+							$width -= 2;//bordes
+							
+							$banner_data['width'] = $hspace;
+							$banner_data['height'] = $vspace;
+							
+							$elemento_li = new Core_Html_Tag_Custom('li');
+							$elemento_li
+								->setData(
+									'data-banner', 
+									json_encode($banner_data)
+								)
+								->setStyle('height:'.$height.'px;width:'.$width.'px;')
+								->setClass('ui-state-highlight')
+								->setInnerHtml($texto_banner.'<br />'.$hspace.'x'.$vspace)
+							;
+							$lista_ul->appendInnerHtml($elemento_li);
+						}
+					}
+					echo $lista_ul->getHtml();
+				}?> 
+				</td>
+			</tr>
+		</table>
+		<div style="float:left;margin-left:50px;width:200px;">
+		<?
+				$tamano_px_alto = 25;
+				$tamano_px_ancho = 30;
+				$border_size = 1;
+				$cantidad_maximo_filas = 6;
+				$cantidad_maximo_columnas = 4;
+		?> 
+			<style>
+				.selector_tamano{
+					border-collapse:collapse;
+				}
+				.selector_tamano_fila{
+					border-collapse:collapse;
+				}
+				.selector_tamano_celda{
+					text-align:center;
+					border-collapse:collapse;
+					width:<?php print $tamano_px_ancho; ?>px;
+					height:<?php print $tamano_px_alto; ?>px;
+					border:<?php print $border_size; ?>px solid black;
+					background-color:#DDDDFF;
+					cursor:pointer;
+				}
+				.selector_tamano_celda.selected{
+					background-color:#AAAAFF;
+					font-weight:bold;
+				}
+				.selector_tamano_celda.selecting{
+					background-color:#FFFFAA;
+				}
+				.selector_tamano_celda.disabled{
+					background-color:#EEEEEE;
+					cursor:default;
+				}
+			</style>
+			<table border="1" style="border-collapse:collapse;">
+				<tr>
+					<td>
+						<a class="crear_banner">Crear baner aleatorio</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<table class="selector_tamano"><?
+						for($i=0; $i<$cantidad_maximo_filas; $i++){?> 
+							<tr class="selector_tamano_fila"><?
+							for($j=0;$j<$cantidad_maximo_columnas;$j++){?> 
+								<td class="selector_tamano_celda"><?php print ($i+1).'x'.($j+1)?></td><?
+							}?> 
+							</tr><?
+						}?> 
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<ul class="lista_banner_aleatorio"></ul>
+					</td>
+					
+				</tr>
+			</table>
+			<!-- 
+			<td>
+						<ul class="trash" style="height:200px;width:200px;background-color:red;"></ul>
+					</td>
+					-->
+			<script>
+				function setTamano(ancho,alto){
+					var html_banner = '';
+					var json_data = '{"width":"'+ancho+'","height":"'+alto+'"}';
+					var estilo = 'width:'+(ancho*<?php print $ancho_banner; ?>-2)+'px;height:'+(alto*<?php print $alto_banner; ?>-2)+'px;';
+					html_banner = '<li data-banner='+json_data+' style="'+estilo+'" class="ui-state-default">aleatorio<br />'+ancho+'x'+alto+'</li>';
+					//window.console.log(html_banner);
+					jQuery('.lista_banner_aleatorio')
+						.replaceWith('<ul class="lista_banner_aleatorio">'+html_banner+'</ul>')
+					;
+					jQuery('.lista_banner_aleatorio')
+						.sortable({
+							connectWith: '.connectedSortable'
+						})//.disableSelection();
+				}
+				jQuery(document).ready(function(){
+					jQuery('.trash')
+						.sortable();
+					var jqtabla = jQuery('.selector_tamano');
+					jqtabla.each(function(){
+						var jqthis = jQuery(this);
+						var jqfilas = jQuery('tr', this);
+						jqfilas.each(function(idx_fila, fila){
+							var jqthis = jQuery(this);
+							//window.console.log('fila '+idx_fila);
+							var jqcelda = jQuery('td', this);
+							jqcelda.each(function(idx_columna, celda){
+								var jqthis = jQuery(this);
+								//window.console.log('columna '+idx_columna);
+								this.idx_columna = idx_columna;
+								this.idx_fila = idx_fila;
+								jQuery(this).mouseover(function(){
+									jQuery('.selector_tamano_celda', jqtabla).removeClass('selecting');
+									var selector = 'tr:lt('+(this.idx_fila+1)+') td:lt('+(this.idx_columna+1)+')';
+									var jqfilas_highlight = jQuery('tr:lt('+(this.idx_fila+1)+')', jqtabla);
+									jQuery('td:lt('+(this.idx_columna+1)+')', jqfilas_highlight).addClass('selecting');
+								});
+								jQuery(this).click(function(){
+									jQuery('.selector_tamano_celda', jqtabla).removeClass('selected');
+									var selector = 'tr:lt('+(this.idx_fila+1)+') td:lt('+(this.idx_columna+1)+')';
+									var jqfilas_highlight = jQuery('tr:lt('+(this.idx_fila+1)+')', jqtabla);
+									jQuery('td:lt('+(this.idx_columna+1)+')', jqfilas_highlight).addClass('selected');
+									setTamano(this.idx_columna+1, this.idx_fila+1);
+								})
+							});
+						});
+					}).mouseout(function(){
+						jQuery('.selector_tamano_celda', this).removeClass('selecting');
+					});
+					//deshabilito click y los pinto
+					var disable_cells = [[1,1],[6,3]];//[[y,x],[y_2,x_2]]
+					jQuery('.selector_tamano_celda', jqtabla).removeClass('disabled');
+					//var selector = 'tr:lt('+(disable[1][0])+') td:lt('+(this.idx_columna+1)+')';
+					var jqfilas_highlight = jQuery('tr:gt('+(disable_cells[0][0]-1)+'):lt('+((disable_cells[1][0]-disable_cells[0][0])+1)+')', jqtabla);
+					var jqdisabled_cells = jQuery('td:gt('+(disable_cells[0][1]-1)+'):lt('+(disable_cells[1][1]-disable_cells[0][1]+1)+')', jqfilas_highlight);
+					jqdisabled_cells.addClass('disabled').unbind('click');
+					
+					//marco segun como este cargada
+					var ancho = parseInt(jQuery('#cantidad_espacios_horizontal').val());
+					var alto = parseInt(jQuery('#cantidad_espacios_vertical').val());
+					ancho = ancho?ancho:1;
+					alto = alto?alto:1;
+					var celda = jQuery('tr:eq('+(alto-1)+') td:eq('+(ancho-1)+')', jqtabla);
+					celda.click();
+				});
+			</script>
+		</div>
+		<div style="clear:both;"></div>
+		<div class="contendor_hiddens"></div>
+		<div class="controls">
+			<input type="submit" value="Guardar"/>
+		</div>
+	</fieldset>
+	<script>
+//		jQuery(function(){
+//			jQuery('.test').click(function(){
+//				actualizarCampos();
+//			});
+//		});
+		function <?php print $this->getValidatorJsName(); ?>(formData, jqForm, options){
+			
+			var resultado = (function (){
+				var errores = [];
+				var jqcontenedor_hiddens = jQuery('.contendor_hiddens').html('');
+				var cantidades = {derecha:0,abajo:0}; 
+				jQuery('.contenedor_banners_abajo li').attr('posicion-banner','abajo');
+				jQuery('.contenedor_banners_derecha li').attr('posicion-banner','derecha');
+				var overflow = {derecha:false,abajo:false};
+				if(errores.length==0){
+					jQuery('.contenedor_banners_derecha li,.contenedor_banners_abajo li').each(function(){
+						var data = jQuery(this).attr('data-banner');
+						try{
+							eval('data='+data+';');
+						}catch(e){
+							return;
+						}
+						var posicion = jQuery(this).attr('posicion-banner');
+						if(posicion=='derecha'){
+							cantidades['derecha'] += 1 * data.height;
+							if(data.width>1){
+								overflow['derecha'] = true;
+							}
+						}
+						else if(posicion=='abajo'){
+							cantidades['abajo'] += 1 * data.width;
+							if(data.height>1){
+								overflow['abajo'] = true;
+							}
+						}
+						var send_data = {
+							posicion: posicion,
+						};
+						if(data.id_nodo_banner_dinamico)
+							send_data.id = data.id_nodo_banner_dinamico;
+						if(data.id_banner_dinamico){//banner normal
+							send_data.id_banner_dinamico = data.id_banner_dinamico;
+						}
+						else{//es aleatorio
+							send_data.width = data.width;
+							send_data.height = data.height;
+						}
+							
+							
+						var json_data = [];
+						for(campo in send_data)
+							json_data.push('"'+campo+'":"'+send_data[campo]+'"');
+						json_data = '{'+json_data.join(',')+'}';
+						jQuery('<input type="hidden" name="<?php print $this->getFieldnames(); ?>[addedit][]" />')
+							.val(json_data)
+							.appendTo(jqcontenedor_hiddens);
+						return;
+//						jQuery('<input type="hidden" name="<?php print $this->getFieldnames(); ?>[addedit][]" value="{&quot;posicion&quot;:&quot;'+(posicion)+'&quot;,&quot;id_banner_dinamico&quot;:&quot;'+(data.id_banner_dinamico)+'&quot;'+(data.id_nodo_banner_dinamico?','+'&quot;id&quot;'+':'+data.id_nodo_banner_dinamico:'')+'}" />')
+//							.appendTo(jqcontenedor_hiddens);
+					});
+					//contenedor_banners_no_usados
+					jQuery('.contenedor_banners_no_usados li').each(function(){
+						var data = jQuery(this).attr('data-banner');
+						try{
+							eval('data='+data+';');
+						}catch(e){
+							return;
+						}
+						if(data.id_nodo_banner_dinamico==null || !data.id_nodo_banner_dinamico){
+							return;
+						}
+						jQuery('<input type="hidden" name="<?php print $this->getFieldnames(); ?>[eliminar][]" value="{&quot;id&quot;'+':'+data.id_nodo_banner_dinamico+'}" />')
+							.appendTo(jqcontenedor_hiddens);
+					});
+				}
+				if(cantidades['derecha']><?php print $cantidad_maximo_filas; ?>){
+					errores.push('Hay demasiados banners en el bloque lateral.');
+				}
+				if(overflow['derecha']){
+					errores.push('Hay banners muy anchos en el bloque lateral.');
+				}
+				if(cantidades['abajo']><?php print $cantidad_maximo_columnas; ?>){
+					errores.push('Hay demasiados banners en el bloque inferior.');
+				}
+				if(overflow['abajo']){
+					errores.push('Hay banners muy altos en el bloque inferior.');
+				}
+				if(errores.length){
+					jqcontenedor_hiddens.html('');
+					validar(true, errores);
+					return false;
+				}
+				return true;
+			})();
+			if(!resultado){
+//			if(!validar_estatico_en('#<?php print $id_control; ?>')){
+				tabpanelfocus(jQuery('#<?php print $id_control; ?>'));
+				return false;
+			}
+			return(true);
+		}
+	</script>

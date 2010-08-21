@@ -1,0 +1,38 @@
+<?
+$lf = $this->getListFields();
+$vf = $this->getVirtualFields();
+	$data = $this->getDatos();
+?><rows>
+<page><?=$this->getPage()?></page>
+<total><?=$this->getTotal()?></total>
+<records><?=$this->getRecords()?></records><?
+	if($data)
+	foreach($data as $item){?> 
+	<row id="<?=$item->getId()?>"><?
+		if(!isset($lf)||!count($lf)){
+			foreach($item->setData($var, '')->getData() as $var=>$value){
+			if(in_array($var, $vf)):?> 
+		<cell><![CDATA[<?=$item->getData($var)?>]]></cell><?
+			elseif($value!==null):?> 
+		<cell><![CDATA[<?=$value?>]]></cell><?
+			else:?> 
+		<cell><![CDATA[]]></cell><?
+			endif;
+			}
+		}
+		else{
+			foreach($lf as $var){
+				$value = $item->getData($var);
+			if(in_array($var, $vf)):?> 
+		<cell><![CDATA[<?=$item->setData($var, '')->getData($var)?>]]></cell><?
+			elseif($value!==null):?> 
+		<cell><![CDATA[<?=$this->outputFilter($value)?>]]></cell><?
+			else:?> 
+		<cell><![CDATA[]]></cell><?
+			endif;
+			}
+		}?> 
+	</row><?
+	}
+?> 
+</rows>

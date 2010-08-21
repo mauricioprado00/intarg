@@ -1,0 +1,10 @@
+Options +FollowSymlinks
+php_value magic_quotes_gpc Off
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	#RewriteRule (^(?!app_index[.]php)(?!index[.]php)(?!skin[/].*)(?!foro[/].*)(?!img[/].*)(?!frontend/app_index.php)(?!administrator(/.*)?).*)$ /granguia/frontend/app_index.php
+	RewriteRule (^(?!app_index[.]php)(?!sitemap[.]xml)(?!index[.]php)(?!skin[/].*)(?!foro[/].*)(?!img[/].*)(?!frontend/app_index.php)(?!administrator(/.*)?).*)$ /inta/app_index.php
+	RewriteRule (^administrator(/.*)?)$ /inta/app_index.php
+	
+</IfModule>
+ErrorDocument 404 /this_will_never_happen_if_mod_rewrite_is_on_check_mod_rewrite_module_for_apache_on_http_conf_file.php

@@ -1,0 +1,28 @@
+<?php 
+
+$banners_dinamicos = $this->getBannersDinamicos();
+if(!$banners_dinamicos){
+	if(!Core_Http_Header::isAjaxRequest())//(si es ajax al devolver contenido se pisan los banners)
+		echo "no hay banners";
+	return;
+}
+$cantidad = count($banners_dinamicos);
+$i = 0;
+foreach($banners_dinamicos as $banner_dinamico){
+	$banner_dinamico->linksMode(false);
+	Core_App::getUrlModel()->autofilterFieldOutput($banner_dinamico, 'contenido');
+	$v = $banner_dinamico->getCantidadEspaciosVertical();
+	$h = $banner_dinamico->getCantidadEspaciosHorizontal();
+	$ultimo = $cantidad == ++$i;
+	$clase = 's_'.$v.'x'.$h.($ultimo?' last':''); ?> 
+	<div class="contenedor_banner_dinamico <?php print $clase; ?>">
+		<?echo $banner_dinamico->getContenido();?> 
+	</div><?
+}
+?>
+<div style="clear:both;"></div>
+<script>
+jQuery(document).ready(function(){
+	jQuery('.contenedor_banner_dinamico [href]').attr('target', '_blank');
+})
+</script>

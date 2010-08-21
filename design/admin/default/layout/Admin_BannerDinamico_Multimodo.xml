@@ -1,0 +1,78 @@
+<layout>
+	<list_admin_banner_dinamico>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/banner_dinamico/addEdit,id"
+			toolbar_delete_url="administrator/banner_dinamico/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de BannerDinamico"
+			source="administrator/banner_dinamico/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>300</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Altura</title>
+				<name>cantidad_espacios_vertical</name>
+				<index>cantidad_espacios_vertical</index>
+				<width>30</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Ancho</title>
+				<name>cantidad_espacios_horizontal</name>
+				<index>cantidad_espacios_horizontal</index>
+				<width>30</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_banner_dinamico>
+	<addedit_admin_banner_dinamico>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="banner_dinamico/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_banner_dinamico" 
+				method="post">
+				<block name="banner_dinamico_add_edit_form" type="template" template="banner_dinamico/add.phtml" ></block>
+			</block>
+		</reference>
+	</addedit_admin_banner_dinamico>
+	<ordenar_banner_dinamico>
+		<template template="banner_dinamico/ordenar_banners.phtml" name="ordenar_banner_dinamico" />
+	</ordenar_banner_dinamico>
+</layout>
