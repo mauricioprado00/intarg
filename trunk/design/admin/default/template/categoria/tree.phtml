@@ -1,0 +1,100 @@
+<?
+$tree = $this->getTree();
+
+?>
+<div style="padding:0 5px;">
+	<table style="border-collapse:collapse; background-color:white;">
+		<tbody>
+			<tr class="Header">
+				<td class="HeaderLeft"><div style="width:14px;"></div></td>
+				<th>Arbol de categorias</th>
+			</tr>
+			<tr>
+				<td colspan="2">
+				<div class="contenedor_listado_datos" style="padding:0;">
+					<div class="userdata" style="padding-bottom:2px;">
+						<a href="<?php print $this->getUrl(Admin_Categoria_Helper::getLinkUrlAdd()); ?>/-/tree"><input type="button" value="Agregar" /></a>
+						<input class="btn_modificar" type="button" value="Modificar" /> 
+						<input class="btn_eliminar" type="button" value="Eliminar" />
+					</div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"><ul class="simpleTree" id="EstructuraMenu"><?php
+	$item_template = $this->getChild('tree_iterator');
+	$item_template->setSelectedId(-1);
+	$item_template->setCurrentId(-1);
+	foreach($tree as $item){
+		$item_template->setItem($item);
+		echo $item_template->getHtml();
+	}
+	
+	?></ul></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<script>
+function getSelectedId(){
+	var selected_id = jQuery('.simpleTree li .active').parents('li:first').attr('id');
+	return(selected_id);
+}
+jQuery(document).ready(function(){
+	jQuery('.btn_eliminar').click(function(){
+		var id = getSelectedId();
+		if(!id){
+			alert("seleccione una categoria primero");
+			return;
+		}
+		if(!confirm('seguro que desea eliminar la categoria seleccionada'))
+			return;
+		HelperUrl().goUrl('<?php print $this->getUrl(Admin_Categoria_Helper::getLinkUrlDelete('')); ?>'+id+'/tree');
+	})
+	jQuery('.btn_modificar').click(function(){
+		var id = getSelectedId();
+		if(!id){
+			alert("seleccione una categoria primero");
+			return;
+		}
+		HelperUrl().goUrl('<?php print $this->getUrl(Admin_Categoria_Helper::getLinkUrlEdit('')); ?>'+id+'/tree');
+	})
+	mkTree();
+})
+var simpleTreeCollection;
+function mkTree()
+{
+	try{
+	    simpleTreeCollection = $('.simpleTree').simpleTree({
+	            autoclose: true,
+	            animate:true,
+	            docToFolderConvert:true,
+	            afterClick:function(node){
+	                //alert("text-"+$('span:first',node).text());
+	            },
+	            afterDblClick:function(node){
+	                //alert("text-"+$('span:first',node).text());
+	            },
+	            afterMove:function(destination, source, pos){
+	                jQuery.post(
+	                        '<?php print $this->getUrl(Admin_Categoria_Helper::getLinkUrlChangeParent());  ?>',
+	                        {
+	                          //accion:'organizarMenu',
+	                          id:source.attr('id'),
+	                          id_categoria_padre:destination.attr('id'),
+	                          orden:pos
+	                          //Menu:$('#EstructuraMenu').serializelist()
+	                        }
+	                );
+	            },
+	            afterAjax:function()
+	            {
+	                //alert('Loaded');
+	            }
+	    });
+	    jQuery('img.trigger').css('border','none');
+    }
+    catch(e){alert(e);}
+    //window.console.log(simpleTreeCollection);
+}
+</script>

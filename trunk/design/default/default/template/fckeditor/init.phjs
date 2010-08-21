@@ -1,0 +1,3 @@
+
+jQuery('#<?php print $this->getEditor()->getHtmlId()?>');
+window.console.log('#<?php print $this->getEditor()->getHtmlId()?>');

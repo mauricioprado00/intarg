@@ -1,0 +1,56 @@
+.banner_abajo{
+	text-align:left;
+	height: 170px;
+	width: 1000px;
+	float: left;
+	margin-top: 15px;
+}
+.banner_container .s_1x1{
+	width:228px;
+	height:159px;
+}
+.banner_container .s_2x1{
+	width:228px;
+	height:337px;/* 159 * 2 + 19 * (2 - 1) */
+}
+.banner_container .s_3x1{
+	width:228px;
+	height:515px;/* 159 * 3 + 19 * (3 - 1) *//*+178*/ 
+}
+.banner_container .s_4x1{
+	width:228px;
+	height:693px;/* 159 * 4 + 19 * (4 - 1) *//*+178*/
+}
+.banner_container .s_5x1{
+	width:228px;
+	height:871px;/* 159 * 5 + 19 * (5 - 1) *//*+178*/
+}
+.banner_container .s_6x1{
+	width:228px;
+	height:1049px;/* 159 * 6 + 19 * (6 - 1) *//*+178*/
+}
+.banner_container .s_1x2{
+	width:485px;/* 228 * 2 + 29 * (2 - 1) */
+	height:159px;
+}
+.banner_container .s_1x3{
+	width:742px;/* 228 * 3 + 29 * (3 - 1) */
+	height:159px;
+}
+.banner_container .s_1x4{
+	width:999px;/* 228 * 4 + 29 * (4 - 1) */
+	height:159px;
+}
+.contenedor_banner_dinamico{
+	float:left;
+	overflow:hidden;
+}
+.banner_abajo .contenedor_banner_dinamico{
+	margin-right:29px;
+}
+.banner_lateral .contenedor_banner_dinamico{
+	margin-bottom:19px;
+}
+.banner_container .last{
+	margin:0;
+}

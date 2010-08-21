@@ -1,0 +1,48 @@
+<layout>
+	<login_page>
+		<reference name="contenedor_main">
+			<block type="Core/Template" name="login_form" template="user/login_form.phtml" />
+		</reference>
+	</login_page>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>user</link_url>
+				<text>Administradores</text>
+				<title>Administradores</title>
+				<name>menu_admin_usuarios</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_usuarios">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>user/list</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>user/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_user>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_User/XmlList"
+			name="xml_data_admin_user">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>username</fieldname>
+				<fieldname>nombre</fieldname>
+				<fieldname>apellido</fieldname>
+				<fieldname>activo</fieldname>
+				<fieldname>privilegios</fieldname>
+				<fieldname>ultimo_acceso</fieldname>
+			</action>
+		</block>
+	</datalist_admin_user>
+</layout>

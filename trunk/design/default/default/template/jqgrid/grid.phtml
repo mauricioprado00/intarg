@@ -1,0 +1,179 @@
+<?
+$this->generarRandomId();
+$table_id = $this->getTableId();//$id.'_list';
+$pager_id = $this->getPagerId();//$id.'_pager';
+$table_container_id = $this->getTableContainerId();//$id.'_container';
+$button_container = $this->getButtonContainerId();//$id.'_button_container';
+$colNames = array();
+$colModel = array();
+;
+$parametros = array();
+if($this->hasColumns())
+foreach($this->getColumns() as $columna){
+	$colNames[] = $columna->getTitle();
+	$colModel[] = $columna->getData();
+}
+$parametros = array(
+	'url'=>$this->getUrl($this->getSource()).'?',
+	'datatype'=>$this->getDatatype(),
+	'colNames'=>$colNames,
+	'colModel'=>$colModel,
+	'rowNum'=>$this->getRowNumber(),
+	'rowList'=>$this->getRowList(),
+	'imgpath'=>$this->getImgPath(),
+	'sortname'=>$this->getSortName(),
+	'viewrecords'=>$this->getViewRecords(),
+	'sortorder'=>$this->getSortOrder(),
+	'caption'=>$this->getCaption(),
+	'page'=>$this->getPage()
+);
+if($this->hasToolbar()){
+	$parametros['toolbar'] = array(
+		true,
+		$this->getToolbar()
+	);
+}
+if($this->hasWidth()){
+	$parametros['width'] = $this->getWidth();
+}
+if($this->hasHeight()){
+	$parametros['height'] = $this->getHeight();
+}
+if($this->hasEditUrl()){
+	$parametros['editurl'] = $this->getEditUrl();
+}
+$more_params = array(
+	'edit'=>$this->getCanEdit(),
+	'add'=>$this->getCanAdd(),
+	'del'=>$this->getCanDelete(),
+);
+
+
+?>
+<div id="<?=$table_container_id?>">
+<table id="<?=$table_id?>" class="scroll" cellpadding="0" cellspacing="0"></table>
+<div id="<?=$pager_id?>" class="scroll" style="text-align:center;"></div>
+</div>
+<div id="<?=$button_container?>">
+<?
+foreach($this->getButtons() as $button){
+	$action_url = $button->hasActionUrl()?' action_url="'.htmlentities($button->getActionUrl()).'"':'';
+	$action_js = $button->hasActionJs()?' action_js="'.htmlentities($button->getActionJs()).'"':'';?> 
+	<input type="BUTTON" _require_selection="<?=$button->getRequireSelection()?>" class="boton_custom" value="<?=$button->getTitulo()?>" <?=$action_url.$action_js?> /><?
+} 
+if($this->hasToolbarEditUrl()&&count($this->getToolbarEditUrl())==2){?> 
+	<input type="BUTTON" id="editar_seleccionado" value="Editar" /><?
+}
+if($this->hasToolbarDeleteUrl()&&count($this->getToolbarDeleteUrl())==2){?> 
+	<input type="BUTTON" id="eliminar_seleccionado" value="Eliminar" /><?
+}?> 
+</div>
+<script>
+function getGrid(el){
+	if(el.jquery==null)
+		el = jQuery(el)
+	return el.parents('[jqgrid]:first');
+}
+jQuery(document).ready(function(){
+	$("#badata").click(function(){
+		jQuery("#addgrid").editGridRow("new",{height:280,reloadAfterSubmit:false});
+	});
+
+	var params = <?=json_encode($parametros)?>;
+	params.editurl = 'index.php?x=1&';
+	var more_params = <?=json_encode($more_params)?>;
+	params.pager = jQuery('#<?=$pager_id?>');
+	<? if($this->hasFullWidth()&&$this->getFullWidth()){?> 
+	params.width = new Number(parseInt(jQuery('#<?=$table_container_id?>').parent().css('width')))-40;<?
+	}?> 
+	//window.console.log(more_params,params);
+	//window.console.log(jQuery("#<?=$table_id?>"),jQuery("#<?=$pager_id?>"));
+	jQuery("#<?=$table_id?>").attr('jqgrid','si').jqGrid(params).navGrid('#<?=$pager_id?>',more_params);
+	
+	<? if($this->hasFullWidth()&&$this->getFullWidth()&&false){?> 
+	jQuery('.grid_hdiv, #t_<?=$table_id?>, .GridHeader, .grid_htable, .grid_bdiv, #<?=$table_id?>, #<?=$pager_id?>','#<?=$table_container_id?>')
+		.css('width', '100%');<?
+	}?> 
+	
+	<? if($this->hasToolbarEditUrl()&&count($this->getToolbarEditUrl())==2){
+		$editdata=$this->getToolbarEditUrl();?> 
+	jQuery("#editar_seleccionado")
+		.unbind('click')
+		.click( function(){
+			var id = jQuery("#<?=$table_id?>").getGridParam('selrow');
+			if(id){
+				var ret = jQuery("#<?=$table_id?>").getRowData(id);
+				HelperUrl().goUrl("<?=$this->getUrl($editdata[0])?>/"+ret.<?=$editdata[1]?>);
+			} else { alert("Seleccione una fila");}
+		})
+		.appendTo('#t_<?=$table_id?>');<?
+		
+	}?> 
+	<? if($this->hasToolbarDeleteUrl()&&count($this->getToolbarDeleteUrl())==2){
+		$deletedata=$this->getToolbarDeleteUrl();?> 
+	jQuery("#eliminar_seleccionado")
+		.unbind('click')
+		.click( function(){
+			try{
+			var id = jQuery("#<?=$table_id?>").getGridParam('selrow');
+			}catch(e){window.console.log('maldita grilla <?=$table_id?>');}
+			if(id){
+				//window.console.log(jQuery("#<?=$table_id?>"));
+				var ret = jQuery("#<?=$table_id?>").getRowData(id);
+				//window.console.log(ret);
+				HelperUrl().goUrl("<?=$this->getUrl($deletedata[0])?>/"+ret.<?=$deletedata[1]?>);
+			} else { alert("Seleccione una fila");}
+		})
+		.appendTo('#t_<?=$table_id?>');<?
+	}?> 
+	jQuery("#<?=$button_container?> .boton_custom[action_url]")
+		.unbind('click')
+		.click( function(){
+			var id = false;
+			try{
+				id = jQuery("#<?=$table_id?>").getGridParam('selrow');
+			}catch(e){window.console.log('maldita grilla <?=$table_id?>');}
+			var require_selection = jQuery(this).attr('_require_selection');
+			var url = jQuery(this).attr('action_url').toString().split(",");
+			if(require_selection=='auto'){
+				require_selection = url.length>1;
+			}
+			else{
+				require_selection = require_selection == 'true'?true:false;
+			}
+			if(!require_selection || id){
+				var new_url = url.join('');
+				if(require_selection){
+					var ret = jQuery("#<?=$table_id?>").getRowData(id);
+					new_url = url[0];
+					for(idx in url){
+						if(idx==0)
+							continue;
+						if(ret[url[idx]]==null){
+							new_url += url[idx];
+							continue;
+						}
+						new_url += '/'+ret[url[idx]];
+					}
+				}
+				var rx = new RegExp('(#%([^%]*)%#)');
+				while(rx.test(new_url)){
+					var arr_match = new_url.match(rx);
+					new_url = new_url.replace(rx,jQuery("#<?=$table_id?>").getGridParam(arr_match[2]));
+				}
+				HelperUrl().goUrl(new_url);
+				//HelperUrl().goUrl("<?=$this->getUrl($deletedata[0])?>/"+ret.<?=$deletedata[1]?>);
+			} else { alert("Seleccione una fila");}
+		})
+		.appendTo('#t_<?=$table_id?>');
+	{jQuery("#<?=$button_container?> .boton_custom[action_js]")
+		.click(function(){
+			eval(jQuery(this).attr('action_js'));
+		})
+		.appendTo('#t_<?=$table_id?>')
+	}
+}) 
+</script>
+
+
+ 

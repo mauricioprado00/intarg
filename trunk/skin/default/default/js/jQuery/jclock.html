@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+  <title>jQuery plugin: jclock</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="keywords" content="jquery,plugin,jclock,clock,sparling" />
+  <meta name="description" content="jQuery plugin: jclock" />
+	
+  <link rel="stylesheet" href="jquerydocs.css" type="text/css" media="screen"/>
+
+</head>
+
+<body id="home" class="log">
+
+  <div id="container">
+
+    <!--<div id="header">
+      <div id="subtitle">
+      </div>
+    </div>-->
+    
+    <div id="navmenu">
+      <!-- a title="title" href="link">Name</a> -->
+    </div>
+
+    <!-- Main content -->
+    <div id="maincol">
+
+      <div class="col">
+        <div class="entry">
+          <div class="entrybody">
+       
+            <h1>jQuery plugin: jClock</h1>
+	    <p><strong>Current version:</strong> 1.2.0<br />
+            <strong>Filesize:</strong> 2591 bytes<br />
+
+            <strong>License:</strong> MIT/GPL</p>
+            <h3>Files:</h3>
+            <p><a title="Source Code" href="http://plugins.jquery.com/files/jquery.jclock-1.2.0.js.txt">Download jClock plugin 1.2.0</a><br />
+            <p><a title="Source Code" href="http://github.com/dsparling/jclock/tree/master">Download jClock plugin 2.0.1</a> (new)<br />
+
+            <h3>Dependencies</h3>
+            <ul>
+
+              <li><a href="http://jquery.com">jQuery</a></li>
+            </ul>
+
+            <h3>Articles</h3>
+            <ul>
+              <li><a href="http://www.jsdemos.com/2008/01/10/make-an-iphone-in-javascript-using-jquery/" target="_blank">Make an iPhone in JavaScript using jQuery</a>
+            </ul>
+
+            <h3>Documentation</h3>
+            <ul id="docs">
+
+              <li class="method"><span class="fn">jClock()</span><br />
+              <li class="method"><span class="fn">jClock(options)</span><br />
+              <div class="more">
+              <div class="desc">
+
+              <h3>Options</h3>
+              <ul class="options">
+
+                <li>timeNotation (String): Type of time display: '24h' or '12h' ('12hh' inserts leading 0). Default: '24h'</li>
+                <li>am_pm (Boolean): true/false. If true, displays A.M./P.M. Default: false (12h timeNotaion only)</li>
+                <li>utc (Boolean): true/false. If true, shows time using UTC. Defaul: false</li>
+                <li>utc_offset (Number): If specified, sets offset from UTC, negative or positive. Default: 0</li>
+
+                <li>fontFamily (String): If specified, sets CSS fontFamily. Default: null</li>
+                <li>fontSize (Number): If specified, sets CSS fontSize. Default: null</li>
+                <li>foreground (String): If specified, sets CSS foreground color. Default: null</li>
+                <li>background (String): If specified, sets CSS background color. Default: null</li>
+              </ul>
+
+              <!-- Start Example -->
+
+              <div class="example">
+              <h3>Example 1:</h3>
+              <p>Basic clock, no options</p>
+
+              <pre>
+&lt;html>
+&lt;head>
+  &lt;title>jclock&lt;/title>
+
+  &lt;script type="text/javascript" src="jquery-1.2.1.min.js">&lt;/script>
+  &lt;script type="text/javascript" src="jquery.jclock.js">&lt;/script>
+
+  &lt;script type="text/javascript">
+    $(function($) {
+      $('.jclock').jclock();
+    });
+  &lt;/script>
+
+&lt;/head>
+
+&lt;body>
+
+&lt;div class="jclock">&lt;/div>
+
+&lt;/body>
+&lt;/html>
+              </pre>
+        
+              <a href="jclock1.html">Demo Example 1</a>
+              </div>
+              <!-- End Example -->
+
+
+              <!-- Start Example -->
+
+              <div class="example">
+              <h3>Example 2:</h3>
+              <p>Clock, non-UTC, with options</p>
+
+              <pre>
+&lt;html>
+&lt;head>
+  &lt;title>jclock&lt;/title>
+
+  &lt;script type="text/javascript" src="jquery-1.2.1.min.js">&lt;/script>
+  &lt;script type="text/javascript" src="jquery.jclock.js">&lt;/script>
+
+  &lt;script type="text/javascript">
+    $(function($) {
+      var options = {
+        timeNotation: '12h',
+        am_pm: true,
+        fontFamily: 'Verdana, Times New Roman',
+        fontSize: '20px',
+        foreground: 'yellow',
+        background: 'red'
+      }
+      $('.jclock').jclock(options);
+    });
+  &lt;/script>
+
+&lt;/head>
+
+&lt;body>
+
+&lt;div class="jclock">&lt;/div>
+
+&lt;/body>
+&lt;/html>
+
+              </pre>
+
+              <a href="jclock2.html">Demo Example 2</a>
+              </div>
+              <!-- End Example -->
+
+              <!-- Start Example -->
+
+              <div class="example">
+              <h3>Example 3:</h3>
+              <p>Clock, UTC</p>
+
+              <pre>
+
+&lt;html>
+&lt;head>
+  &lt;title>jclock</title>
+
+  &lt;script type="text/javascript" src="jquery-1.2.1.min.js">&lt;/script>
+  &lt;script type="text/javascript" src="jquery.jclock.js">&lt;/script>
+
+  &lt;script type="text/javascript">
+    $(function($) {
+      var options = {
+        utc: true
+      }
+      $('.jclock').jclock(options);
+    });
+  &lt;/script>
+
+&lt;/head>
+
+&lt;body>
+
+&lt;div class="jclock">&lt;/div>
+
+&lt;/body>
+&lt;/html>
+
+              </pre>
+
+              <a href="jclock3.html">Demo Example 3</a>
+
+              </div>
+              <!-- End Example -->
+
+
+              <!-- Start Example -->
+              <div class="example">
+              <h3>Example 4:</h3>
+              <p>Multiple clocks using different time zone offsets</p>
+
+              <pre>
+
+&lt;html>
+&lt;head>
+  &lt;title>jclock&lt;/title>
+
+  &lt;script type="text/javascript" src="jquery-1.2.1.min.js">&lt;/script>
+  &lt;script type="text/javascript" src="jquery.jclock.js">&lt;/script>
+
+  &lt;script type="text/javascript">
+    $(function($) {
+      var optionsEST = {
+        utc: true,
+        utc_offset: -5
+      }
+      $('#jclock1').jclock(optionsEST);
+
+      var optionsCST = {
+        utc: true,
+        utc_offset: -6
+      }
+      $('#jclock2').jclock(optionsCST);
+
+      var optionsIndia = {
+        utc: true,
+        utc_offset: 5.5
+      }
+      $('#jclock3').jclock(optionsIndia);
+
+    });
+  &lt;/script>
+
+&lt;/head>
+
+&lt;body>
+
+&lt;p>EST: &lt;span id="jclock1">&lt;/span>&lt;/p>
+
+&lt;p>CST: &lt;span id="jclock2">&lt;/span>&lt;/p>
+
+&lt;p>India: &lt;span id="jclock3">&lt;/span>&lt;/p>
+
+&lt;/body>
+&lt;/html>
+
+              </pre>
+
+              <a href="jclock4.html">Demo Example 4</a>
+              </div>
+
+              <!-- End Example -->
+
+
+              <!-- Start Example -->
+              <div class="example">
+              <h3>Example 5:</h3>
+              <p>Styled clocks (first clock uses jquery.corner.js)</p>
+
+              <pre>
+
+&lt;html>
+&lt;head>
+  &lt;title>jclock&lt;/title>
+
+  &lt;style type="text/css">
+    body {
+      font: Verdana,Arial,sans-serif;
+      /* An explicit background color is required for Safari. */
+      /* Otherwise your corner chunks will come out black!    */
+      background: #f8f0e0;
+    }
+    div.corner, div.nocorner { 
+      width: 10em; 
+      padding: 20px; 
+      margin: 1em;
+      background: #f00; 
+      color: #000; 
+      text-align: center; 
+      font: verdana, arial, sans-serif;
+    }
+  &lt;/style>
+
+  &lt;script type="text/javascript" src="jquery-1.2.1.min.js">&lt;/script>
+  &lt;script type="text/javascript" src="jquery.jclock.js">&lt;/script>
+  &lt;script type="text/javascript" src="jquery.corner.js">&lt;/script>
+
+  &lt;script type="text/javascript">
+    $(function($) {
+
+      var options = {
+        timeNotation: '12h',
+        am_pm: true,
+        fontFamily: 'Verdana, Times New Roman',
+        fontSize: '20px',
+        foreground: 'yellow',
+        background: 'red'
+      }
+      $('.jclock').jclock(options);
+
+      $('.corner').corner("30px");
+
+    });
+  &lt;/script>
+
+&lt;/head>
+
+&lt;body>
+ 
+
+&lt;p>&lt;div class="corner">&lt;div class="jclock">&lt;/div>&lt;/div>&lt;/p>
+
+&lt;p>&lt;div class="nocorner">&lt;div class="jclock">&lt;/div>&lt;/div>&lt/p>
+
+&lt;/body>
+
+&lt;/html>
+
+              </pre>
+
+              <a href="jclock5.html">Demo Example 5</a>
+
+              </div>
+              <!-- End Example -->
+
+
+
+
+            </li>
+            </ul>
+
+          </div>
+        </div>
+
+      </div>  	
+    </div>
+    <!-- The main content column ends  -->
+
+    <!-- begin sidebar -->
+    <div id="navcol">
+    </div>
+    <!-- end sidebar -->
+
+    <!-- begin footer -->
+
+    <div id="footer">
+
+      Doug Sparling (C) 2009
+    </div>
+</div>
+
+</body>
+</html>

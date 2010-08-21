@@ -1,0 +1,45 @@
+<?php
+$ent = $this->getEntity();
+$link = new Frontend_Html_Link();
+$ti = $ent->getTypeInstance();
+
+$url = $ti->getBusquedaTituloLink();
+if($url!=$ent->getPathUrl())
+	$link->setNeverAjax();
+if(strpos($url,'http:')===false)
+	$url = $this->getUrl($url);
+echo $link
+	->setClass('titulo') 
+	->setHref($url)
+	->setInnerHtml($ent->getBusquedaTitulo())
+	->getHtml()
+;
+$links = $ti->getBusquedaEnlaces();
+$p = new Core_Html_Tag_Custom('p');
+if($links){
+	$span = new Core_Html_Tag_Custom('span');
+	$html = '';
+	foreach($links as $link){
+		$enlace = new Frontend_Html_Link();
+		$url = $link->getLink();
+		if(strpos($url,'http:')===false)
+			$url = $this->getUrl($url);
+		$enlace
+			->setHref($url)
+			->setInnerHtml(htmlentities($link->getLabel()))
+		;
+		$html .= ' - ' . $enlace->getHtml();
+	}
+	echo $span->setInnerHtml($html)->getHtml();
+}
+echo $p
+	->setClass('descripcion')
+	->setInnerHtml($ent->getBusquedaDescripcion())
+	->getHtml()
+;
+$p = new Core_Html_Tag_Custom('p');
+echo $p
+	->setClass('direccion')
+	->setInnerHtml($this->getUrl($ent->getPathUrl()))
+	->getHtml()
+;

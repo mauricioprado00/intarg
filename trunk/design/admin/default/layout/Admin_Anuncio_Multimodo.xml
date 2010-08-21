@@ -1,0 +1,112 @@
+<layout>
+	<list_admin_anuncio>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/anuncio/addEdit,id"
+			toolbar_delete_url="administrator/anuncio/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Anuncio"
+			source="administrator/anuncio/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Telefono</title>
+				<name>telefono</name>
+				<index>telefono</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Direccion</title>
+				<name>direccion</name>
+				<index>direccion</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Email</title>
+				<name>email_contacto</name>
+				<index>email_contacto</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_anuncio>
+	<addedit_admin_anuncio>
+		<reference name="contenedor_main">
+		<!-- muy importante agregar ajax_method="ajaxSubmit" para que se pueda actualizar antes de enviar (ckeditor) -->
+			<block 
+				type="Admin/AddEditForm"
+				action_url="anuncio/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				ajax_method="ajaxSubmit"
+				validador_js="validar_agregar_anuncio_datos,validar_agregar_anuncio_ubicacion,validar_agregar_horario_anuncio_contacto,validar_agregar_anuncio_contacto,validar_agregar_anuncio_minisitio,validar_agregar_nodo"
+				method="post" 
+				name="formulariox">
+				<!-- 
+				
+						<template name="anuncio_add_edit_form" template="anuncio/ubicacion.phtml">
+							<template name="tree_iterator" template="categoria/tree/item.phtml" />
+						</template>
+				-->
+				<tabset>
+					<tab title="Datos de empresa">
+						<template name="anuncio_add_edit_form" template="anuncio/datos.phtml" />
+					</tab>
+					<tab title="Ubicación">
+						<template name="anuncio_add_edit_form" template="anuncio/ubicacion.phtml" />
+					</tab>
+					<tab title="Horario">
+						<template name="horario_anuncio_add_edit_form" template="anuncio/horario.phtml" />
+					</tab>
+					<tab title="Contacto público">
+						<template name="anuncio_add_edit_form" template="anuncio/contacto.phtml" />
+					</tab>
+					<tab title="Minisitio">
+						<template name="anuncio_add_edit_form" template="anuncio/minisitio.phtml" />
+					</tab>
+					<tab title="Nodo">
+						<opciones_nodo name="nodo_add_edit_form" />
+						<!-- <template name="nodo_add_edit_form" template="anuncio/nodo.phtml" /> -->
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_anuncio>
+</layout>

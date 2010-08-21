@@ -1,0 +1,9 @@
+<?
+if($messages = $this->getAllMessages()){?> 
+<div><?
+	foreach($messages as $message){?> 
+		<div class="canhide message_box message_<?=$message->getTipo()?>"><?=$message->getMessage()?></div><?
+	}?> 
+</div><?
+}
+?>

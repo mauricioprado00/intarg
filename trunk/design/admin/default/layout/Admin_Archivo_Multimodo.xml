@@ -1,0 +1,82 @@
+<layout>
+	<list_admin_archivo>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/archivo/addEdit,id"
+			toolbar_delete_url="administrator/archivo/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Archivo"
+			source="administrator/archivo/datalist"
+			sort_name="nombre"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>250</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Path archivo</title>
+				<name>path_archivo</name>
+				<index>path_archivo</index>
+				<width>250</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nodo</title>
+				<name>id_nodo</name>
+				<index>id_nodo</index>
+				<width>250</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_archivo>
+	<addedit_admin_archivo>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="archivo/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_archivo,validar_agregar_nodo" 
+				method="post">
+				<tabset>
+					<tab title="Datos de Archivo">
+						<template name="archivo_add_edit_form" template="archivo/add.phtml" />
+					</tab>
+					<tab title="Nodo">
+						<opciones_nodo name="nodo_add_edit_form" />
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_archivo>
+</layout>

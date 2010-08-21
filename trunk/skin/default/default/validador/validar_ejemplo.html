@@ -1,0 +1,96 @@
+<html>
+	<head>
+		<script charset="ISO-8859-1" type="text/javascript" src="validador.js?1.2.0.1.1"></script> 
+		<link rel="stylesheet" type="text/css" href="validador.css?1.2.0.1.1" />
+		<script src="http://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+		      // Load jQuery
+		      google.load("jquery", "1.2.6");
+		      google.setOnLoadCallback(function() {
+					function load_blockui(){
+						jQuery('head').append('<scri'+'pt type="text/javascript" src="http://github.com/malsup/blockui/raw/master/jquery.blockUI.js"></scri'+'pt>');
+					}
+					if(jQuery.blockUI == null){
+						load_blockui();
+					}
+		      });
+		</script>
+		<script>
+			function dovalidar(){
+				var res = validar();
+				jQuery('#resultado').html(!res?'corregi wacho...':'ok pasate el test');
+			}
+			function dovalidar_estatico(){
+				var res = validar(true);
+				jQuery('#resultado').html(!res?'corregi wacho...':'ok pasate el test');
+			}
+			function dovalidar_negativos(){
+				var res = validar_en('.negativos',true, ['es igual pero con un parametro mas']);
+				jQuery('#resultado').html(!res?'corregi wacho...':'ok pasate el test');
+			}
+			function dovalidar_negativos_conestilo(){
+				var res = validar_en('.negativos',true, ['pasale otro param entonces'],{'border-left':'7px solid gray'});
+				jQuery('#resultado').html(!res?'corregi wacho...':'ok pasate el test');
+			}
+			function dovalidar_negativos_conopciones(){
+				var res = validar_en('.negativos',true, ['otro param mas'],{'border-left':'7px solid gray'},{fadeIn:3000});
+				jQuery('#resultado').html(!res?'corregi wacho...':'ok pasate el test');
+			}
+			
+			function dovalidar_ajax(){
+				jQuery.get('./validar_ejemplo.html',{},function(data){
+					var miserroresajax = ['ah y no te olvides de otrar cosas ajax','ajá asi funciona'];
+					var res = validar(false, miserroresajax);
+					jQuery('#resultado').html(!res?'corregi wacho...':'ok pasate el test');
+				});
+			}
+			function doputo(){
+				show_errores(['sos gay'],true);
+			}
+			
+			
+			
+			//este es un tipo de validación especial personalizada
+			function mensaje_valida_especial(valor,parametros){
+				//si da bien hay que devolver null  y si no el mensaje
+				return 'nunca esta bien';
+			}
+		</script>
+	</head>
+	<body>
+		<form>
+			<label>Hora</label><input type="text" data-campo="Hora" data-validator="{hora:true,empty:false}" /><br />
+			<label>Decimal con coma</label><input type="text" data-campo="Decimal con coma" data-validator="{decimal:[null,','],empty:false}" /><br />
+			<label>Decimal con punto</label><input type="text" data-campo="Decimal con punto" data-validator="{decimal:[null,'.'],empty:false}" /><br />
+			<label>Decimal con coma presicion 3</label><input type="text" data-campo="Decimal con coma presicion 3" data-validator="{decimal:[3,','],empty:false}" /><br />
+			<label>Entero</label><input type="text" data-campo="Entero" data-validator="{entero:null,empty:false}" /><br />
+			<label>Entero 5 digitos</label><input type="text" data-campo="Float presicion 3" data-validator="{entero:5,empty:false}" /><br />
+			<div class="negativos">
+			<label>Negativo o cero</label><input type="text" data-campo="Negativo o cero" data-validator="{entero:null,empty:false,lte:0}" /><br />
+			<label>Negativo</label><input type="text" data-campo="Negativo" data-validator="{entero:null,empty:false,lt:0}" /><br />
+			</div>
+			<label>Positivo o cero</label><input type="text" data-campo="Positivo o cero" data-validator="{entero:null,empty:false,gte:0}" /><br />
+			<label>Positivo</label><input type="text" data-campo="Positivo" data-validator="{entero:null,empty:false,gt:0}" /><br />
+			<label>Porcentaje</label><input type="text" data-campo="Porcentaje" data-validator="{porcentaje:true}" /><br />
+			<label>Fecha con label negrita</label><input type="text" data-campo="&lt;b&gt;Fecha&lt;/b&gt;" data-validator="{fecha:true,empty:false}" /><br />
+			<label>Fecha con mensaje personalizado</label><input type="text" data-campo="Fecha con mensaje personalizado" data-mensaje-empty="por favor no la pongas vacía" data-mensaje-fecha="clavale una fecha please" data-validator="{fecha:true,empty:false}" /><br />
+			<label>Todas juntas</label><input type="text" data-campo="&lt;b&gt;Todas juntas&lt;/b&gt;" data-validator="{fecha:true,empty:false,decimal:[3,','], entero:5, lt:8, porcentaje:true, hora:true}" /><br />
+			<label>Todas mensaje personalizado generico y específico</label><input type="text" data-campo="todas" data-mensaje="uh loco mete las cosas bien en el ultimo campo" data-mensaje-empty="ta vacio el ultimo campo" data-validator="{empty:false,fecha:true,decimal:[3,','], entero:5, lt:8, porcentaje:true, hora:true}" /><br />
+			<label>Mas sobre mensajes personalizados</label><input type="text" data-campo="&lt;b&gt;nombre del campo&lt;/b&gt;" data-mensaje="esta mal el campo %field" data-validator="{empty:false,fecha:true,decimal:[3,','], entero:5, lt:8, porcentaje:true, hora:true}" /><br />
+			<label>Campo especial</label><input type="text" data-campo="&lt;b&gt;nombre del campo&lt;/b&gt;" data-validator="{especial:true}" /><br />
+			<input type="button" onclick="return dovalidar()" value="validar con autotiempo" /><br />
+			<input type="button" onclick="return dovalidar_estatico()" value="validar estatico" /><br />
+			<input type="button" onclick="return dovalidar_ajax()" value="ah si, y con ajax como haces?" /><br />
+			<input type="button" onclick="return dovalidar_negativos()" value="y si quiero validar solo algunos campos nomas?" /><br />
+			<input type="button" onclick="return dovalidar_negativos_conestilo()" value="y si quiero estilizar el css del blockui?" /><br />
+			<input type="button" onclick="return dovalidar_negativos_conopciones()" value="y si quiero cambiar las opciones del blockui además del estilo?" /><br />
+			<input type="button" onclick="return doputo()" value="y si no me gusta esto que hiciste?" /><br />
+		</form>
+		resultado: <div id="resultado"></div>
+		<br />
+		Proximamente <ul>
+			<li>componente para jquery (no esperen sentados)</li>
+			<li>mas validadores (email, etc)</li>
+		</ul>
+	</body>
+</html>

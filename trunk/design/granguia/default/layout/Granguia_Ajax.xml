@@ -1,0 +1,36 @@
+﻿<layout><!-- útf8 -->
+	<default on="ajax_mode" when="!accion(screenblock)">
+		<template name="window_scroller" template="page/scroller.phtml" scroll_top="325">
+			<action in="barrio" method="setScrollTop">
+				<scroll_top>365</scroll_top>
+			</action>
+			<action in="busqueda" method="setScrollTop">
+				<scroll_top>325</scroll_top>
+			</action>
+		</template>
+	</default>
+	<default>
+		<!-- 
+		<template template="ajax/jsappend.phtml">
+			<block jquery_selector="head" name="html_head"></block>
+		</template>
+		-->
+		<template name="mainmenu" template="page/mainmenu_ajax.phtml" />
+		<template template="ajax/component_loader.phtml" name="html_head">
+		</template>
+		<template template="ajax/jsassign.phtml">
+			<block xjquery_selector=".wrapper_left_subheader" name="wrapper_left_subheader"></block>
+			<block jquery_selector=".banner_lateral" name="banner_lateral">
+				<visor_banners_dinamicos posicion="derecha" />
+			</block>
+			<block jquery_selector=".banner_abajo" name="banner_abajo">
+				<visor_banners_dinamicos posicion="abajo" />
+			</block>
+			<block jquery_selector="#mainContent" name="contenido_principal">
+				<action when="accion(screenblock)" method="setJquerySelector">
+					<target>.screenblockContainer</target>
+				</action>
+			</block>
+		</template>
+	</default>
+</layout>

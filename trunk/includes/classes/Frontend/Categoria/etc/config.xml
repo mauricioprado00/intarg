@@ -1,0 +1,15 @@
+<global>
+	<modules>
+	</modules>
+	<!--<routers>
+		<Frontend_Barrio_Router>barrio</Frontend_Barrio_Router>
+	</routers>-->
+	<block>
+		<type>menu_categorias</type>
+		<class>Frontend_Categoria_Block_Menu</class>
+	</block>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+	</layouts>
+</global>

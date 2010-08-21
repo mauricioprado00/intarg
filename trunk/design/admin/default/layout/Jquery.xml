@@ -1,0 +1,16 @@
+<layout>
+	<default>
+		<reference name="scripts_multimodo">
+			<document_ready_container name="global_document_ready" />
+		</reference>
+		<reference name="scripts_multimodo_bottom">
+			<document_ready_container name="global_document_ready_bottom" />
+		</reference>
+<!--
+		<reference name="global_document_ready_bottom">
+			<document_ready inline_script="true">alert("ok funciona");</document_ready>
+			<document_ready inline_script="true">//jeje funca de 10</document_ready>
+		</reference>
+		-->
+	</default>
+</layout>

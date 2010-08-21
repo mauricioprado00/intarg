@@ -1,0 +1,12 @@
+<global>
+	<block>
+		<type>novedad_content_view</type>
+		<class>Granguia_Novedad_Block_View</class>
+	</block>
+	<routers>
+		<Granguia_Novedad_Router>novedad</Granguia_Novedad_Router>
+	</routers>
+	<layouts>
+		<frontend>Novedad.xml</frontend>
+	</layouts>
+</global>

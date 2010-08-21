@@ -1,0 +1,133 @@
+#manu {
+	border-top-width: 2px;
+	border-top-style: solid;
+	border-top-color: #FFFFFF;
+	margin-top: 10px;
+	padding-top: 10px;
+
+	width: 759px;
+	height: 40px;
+	
+	text-align:center;
+	/*overflow:hidden;Mat*/
+}
+
+#manu>div{
+	font-family: "Trebuchet MS", Tahoma, Arial;
+	font-size: 22px;
+	font-weight: bold;
+	background-color: #BB0001;
+	display: block;
+	color: #FFFFFF;
+	float: left;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	height: 30px;
+	position:relative;
+}
+#manu a{
+    text-decoration:none;
+    font-family: "Trebuchet MS", Tahoma, Arial;
+	font-size: 24px;
+	font-weight: bold;
+	color: #FFFFFF;
+}
+#manu>div>a{
+	display:block;
+	position:absolute;
+	height:100%;
+	width:100%;
+	top:0;
+	left:0;
+	line-height:39px;
+	background-image:url(../img/vitre_h40.png);
+}
+#manu>div.seleccionado{
+	background-color: #2CD230;
+}
+#wrapper #submenu {
+	width: 759px;
+	padding-top: 10px;
+}
+#manu .separador_btn {
+	border-right-width: 2px;
+	border-right-style: solid;
+	border-right-color: #FFFFFF;
+	display: block;
+	width: 3px;
+	float: left;
+	height: 25px;
+	padding: 0px;
+	margin-right: 5px;
+	margin-left: 2px;
+	margin-top: 5px;
+	background:none;
+}
+#manu #btn_inicio {
+	width: 150px;
+}
+#manu #btn_datos {
+	width: 150px;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+#manu #btn_quienes {
+	width: 200px;
+	padding-right: 12px;
+	padding-left: 12px;
+}
+#manu #btn_contactos {
+	width: 121px;
+	padding-right: 23px;
+	padding-left: 23px;
+}
+
+#manu>div.seleccionado:hover{
+	background-color:#4CE250;
+}
+
+#manu>div:hover{
+    background-color:#DD0001;
+}
+
+
+.desplegableDatosUtiles{
+
+}
+#manu .desplegableDatosUtiles a{
+	font-size:16px;
+}
+#btn_datos>div{
+	width:100%;
+}
+#btn_datos{
+    position:relative;
+}
+#btn_datos > div{
+    display:none;
+    position:absolute;
+    z-index:999999;
+    top:40px;
+    left:0px;
+    background-color:#BB0001;
+    border-top:solid black 4px;
+}
+#btn_datos:hover > div{
+    display:block;
+}
+#btn_datos:hover > div:hover{
+    background-color:#DD0001;
+}
+#btn_datos:hover > div ul li:hover{
+    background-color:#2CD230 !important;
+}
+
+#manu #btn_datos {
+	width:175px;
+}
+#manu #btn_quienes{
+	width:180px
+}
+#manu #btn_contactos{
+	width:115px;
+}

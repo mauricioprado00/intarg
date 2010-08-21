@@ -1,0 +1,70 @@
+<layout>
+	<list_admin_user>
+		<reference name="listado_datos_grid"
+			caption="Listado de administradores"
+			source="administrator/user/datalist"
+			sort_name="username"
+			sort_order="asc"
+			can_edit="true"
+			can_add="true"
+			can_delete="true"
+			full_width="false">
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Username</title>
+				<name>username</name>
+				<index>username</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Apellido</title>
+				<name>apellido</name>
+				<index>apellido</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Activo</title>
+				<name>activo</name>
+				<index>activo</index>
+				<width>50</width>
+				<align>right</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Privilegios</title>
+				<name>privilegios</name>
+				<index>privilegios</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Ultimo Acceso</title>
+				<name>ultimo_acceso</name>
+				<index>ultimo_acceso</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_user>
+</layout>

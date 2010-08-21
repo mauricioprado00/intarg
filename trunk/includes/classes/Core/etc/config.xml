@@ -1,0 +1,44 @@
+<global>
+	<modules>
+		<granguia />
+		<frontend />
+		<jqgrid />
+		<admin>
+			<global>
+				
+			</global>
+		</admin>
+		<core_jquery/>
+		<core_page/>
+		<core_capcha/>
+		<users>
+			<global>
+			</global>
+		</users>
+		<db />
+		<mysql />
+		<core_wysiwyg/>
+		<core_ui/>
+	</modules>
+	<block>
+		<type>container</type>
+		<class>Core_Block_Container</class>
+	</block>
+	<block>
+		<type>template</type>
+		<class>Core_Block_Template</class>
+	</block>
+	<block>
+		<type>wrapper</type>
+		<class>Core_Block_Wrapper</class>
+	</block>
+	<block>
+		<type>excel</type>
+		<class>Core_Block_Excel</class>
+	</block>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<frontend>Frontend.xml</frontend>
+	</layouts>
+</global>

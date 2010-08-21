@@ -1,0 +1,170 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="menu[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset>
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Menu</legend>
+	<fieldset>
+		<h3>Datos</h3>
+		<div>
+			<label>Activo: </label>
+			<span><?
+				echo c($input = new Core_Html_Tag_Custom('input'))
+					->setType('hidden')
+					->setName('menu[activo]')
+					->setValue('0')
+					->getHtml();
+				if($x->getData('activo')){
+					$input->setChecked('checked');
+				}
+				echo $input
+					->setType('checkbox')
+					->setId('activo')
+					->setValue('1')
+					->getHtml()
+				;
+			?>	
+			</span>
+			<label>Texto: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				echo $input->setType('text')
+					->setMaxlength(300)
+					->setId('texto')
+					->setName('menu[texto]')
+					->setValue($x->getData('texto'))
+					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-validator', '{empty:false}')
+					->getHtml()
+			?>	
+			</span>
+			<label>Descripcion: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				echo $input->setType('text')
+					->setMaxlength(300)
+					->setSize(40)
+					->setId('title')
+					->setName('menu[title]')
+					->setValue($x->getData('title'))
+					->setData('data-campo', '<b>Descripcion</b>')
+					->setData('data-validator', '{empty:false}')
+					->getHtml()
+			?>	
+			</span>
+			<label>Nodo Asociado:</label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+				$select
+					//->setMaxlength(300)
+					//->setType('text')
+					->setId('id_nodo')
+					->setMultiple('multiple')
+					->setSize(10)
+					->setStyle('padding:0 7px 0 5px;min-width:260px;')
+					//->setDisabled('disabled')
+					//->setStyle('background-color:#DDDDDD;')
+					->setName('menu[id_nodo]')
+					//->setValue($x->getNombre())
+					//->setData('data-campo', '<b>Nombre</b>')
+					//->setData('data-validator', '{empty:false}')
+				;
+				$html = '';
+				$tipo = '';
+				if($this->hasOpcionesNodos()){
+					$opciones = $this->getOpcionesNodos();
+					reset($opciones);
+					$nodo = current($opciones);
+					do{
+						$optgroup = new Core_Html_Tag_Custom('optgroup');
+						$tipo = $nodo->getTipo();
+						$optgroup->setLabel($tipo);
+						$group_html = '';
+						do{
+							$option = new Core_Html_Tag_Custom('option');
+							$option
+								->setValue($nodo->getId())
+								->setInnerHtml($nodo->getNombre())
+							;
+							if($nodo->getId()==$x->getIdNodo())
+								$option->setSelected('selected');
+							$group_html .= $option->getHtml();
+						}while(($nodo = next($opciones)) && ($nodo->getTipo()==$tipo));
+						$optgroup->setInnerHtml($group_html);
+						$html .= $optgroup->getHtml();
+					}while($nodo);
+				}
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?> 
+			</span>
+			<div><label>Popup Interno: </label>
+				<span><?
+					echo c($input = new Core_Html_Tag_Custom('input'))
+						->setType('hidden')
+						->setName('menu[screenblock]')
+						->setValue('0')
+						->getHtml();
+					if($x->getData('screenblock')){
+						$input->setChecked('checked');
+					}
+					echo $input
+						->setType('checkbox')
+						->setId('screenblock')
+						->setValue('1')
+						->getHtml()
+					;
+				?>	
+				</span>
+			</div>
+			<div>
+				<label>Url Externa: </label>
+				<span><?
+					$input = new Core_Html_Tag_Custom('input');
+					echo $input->setType('text')
+						->setMaxlength(255)
+						->setSize(40)
+						->setNombre('texto')
+						->setId('url_externa')
+						->setName('menu[url_externa]')
+						->setValue($x->getData('url_externa'))
+						->setData('data-campo', '<b>Url Externa</b>')
+						->setData('data-validator', '{empty:false}')
+						->getHtml()
+				?>	
+				</span>
+			</div>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+jQuery(document).ready(function(){
+	jQuery('#id_nodo').change(function(){
+		var url_externa = this.value=='';
+		jQuery('#screenblock').parents('div:first').setDisable(url_externa);
+		jQuery('#url_externa').parents('div:first').setDisable(!url_externa);
+//		if(!url_externa){
+//			jQuery('#url_externa').attr('disabled','disabled');
+//		}
+//		else{
+//			jQuery('#url_externa').removeAttr('disabled');
+//		}
+	}).change();
+})
+function validar_agregar_menu(formData, jqForm, options) {
+	if(!validar(true)){
+		return false;
+	}
+	return(true);
+}
+</script>

@@ -1,0 +1,87 @@
+<?
+if(!($this->checkData())){
+	echo "error en la carga del mapa, faltan datos";
+	return;
+}
+$categoria = $this->getCategoria();
+$barrio = $this->getBarrio();
+$anuncios = $this->getAnuncios();
+$url_imagen_mapa = $barrio->getImagenMapa();//$this->getUrl($barrio->getImagenMapa());
+//$base_url = $this->getUrl();
+if(!$anuncios){
+//	$link = new Frontend_Html_Link();
+//	$link->setHref()
+	//var_dump($mensaje->getData());
+
+	$mensaje = new Core_Object(array('barrio'=>$barrio->getNombre(), 'categoria'=>$categoria->getNombre()));
+	$conf = Granguia_Model_Config::findConfigValue('barrios/cke_mensaje_sin_anuncios', utf8_encode('no hay anuncios publicados en el barrio <i>{!barrio}</i> en la categoría <i>{!categoria}</i>'));	
+	echo $mensaje->DataStrtr(null, $conf);
+	if($barrios = $this->getSugerencias()){
+		echo '<br />Sugerencias: <ul>';
+		foreach($barrios as $barrio){
+			echo '<li>';
+			$link = new Frontend_Html_Link();
+			echo $link
+				->setHref($this->getUrl($categoria->getLinkUrl($barrio)))
+				->setInnerHtml($barrio->getNombre())
+				->getHtml()
+			;
+			echo '</li>';
+		}
+		echo '</ul>';
+	}
+	
+	//echo strtr(utf8_encode("no hay anuncios publicados en el barrio <i>{!barrio}</i> en la categoría"));
+	return;
+}
+$id_contendor = $this->generateRandomId();
+//var_dump($anuncios);
+/*<img src="<?php echo $this->getUrl($barrio->getImagenMapa()) ?>" />*/
+$contenedor = new Core_Html_Tag_Custom('div');
+echo $contenedor
+	->setClass($id_contendor)
+	->setInnerHtml('')
+	->getHtml()
+;
+
+$anuncio_destacado = Core_App::getInstance()->getAnuncioDestacado();
+$arr_anuncios = array();
+foreach($anuncios as $anuncio){
+	$info = $anuncio->getMapInformation();
+	$destacado = isset($anuncio_destacado) && $anuncio->getId()==$anuncio_destacado->getId()?1:0;
+	$info->setDestacado($destacado);
+	$arr_anuncios[] = $info->getData();
+	//var_dump(array_keys($anuncio->getData()));
+}
+$tipos_puntos = array();
+foreach((array)$this->getTiposPuntos() as $tipo_punto){
+	$tipos_puntos[] = $tipo_punto->getMapInformation()->getData();
+	//var_dump(array_keys($tipo_punto->getData()));
+}
+
+/**
+@todo: agregar links escondidos para que google indexe los anuncios listados y los enlaces al minisitio
+*/
+
+?> 
+<script>
+(function(){
+	var mapa = new MapaBarrio(<?php print json_encode(array(
+		'contenedor'=>'.'.$id_contendor,//selector jQuery
+		'id_barrio'=>$barrio->getId(),
+		'url_imagen_mapa'=>$url_imagen_mapa,
+		'tipos_puntos'=>$tipos_puntos,
+		//'base_url'=>$base_url,
+		'anuncios'=>$arr_anuncios
+	)); ?>);
+	mapa.draw();
+	mapa.setUrlContador(<?php print json_encode($this->getUrl(Granguia_Model_Anuncio::getUrlContadorClicks())); ?>);
+	mapa = null;
+})();
+//window.console.log(mapa);
+</script>
+<?
+
+return;
+?>
+<img src="<?php echo $this->getSkinUrl("img/mapa.jpg") ?>" width="556" height="560" />

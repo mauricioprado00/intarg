@@ -1,0 +1,22 @@
+<script type="text/javascript">
+	function ordenarCronjobResult(elemento, id_cronjob_result){
+		jQuery.blockUI({
+			message: 'Cargando ordenador...<br /><center><div class="loading1"></div></center>'
+		});
+		jQuery.get(
+			'<?php print $this->getUrl('administrator/ajax/cronjob_result/ordenar/'); ?>'+id_cronjob_result,
+			function(data){
+				var mensaje = jQuery(data);
+				var jqcierra = jQuery('<input class="ordenando" type="button" value="cerrar" />').appendTo(mensaje);
+				jqcierra.click(function(){
+					getGrid(elemento).trigger("reloadGrid");
+					jQuery.unblockUI();
+				})
+				jQuery.blockUI({
+					message: mensaje,
+					centerY:true
+				});
+			}
+		);
+	}
+</script>

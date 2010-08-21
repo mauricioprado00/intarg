@@ -1,0 +1,68 @@
+<?
+$id = $this->getNameInLayout();
+$table_id = $id.'_list';
+$pager_id = $id.'_pager';
+$table_container_id = $id.'_container';
+$colNames = array();
+$colModel = array();
+;
+$parametros = array();
+if($this->hasColumns())
+foreach($this->getColumns() as $columna){
+	$colNames[] = $columna->getTitle();
+	$colModel[] = $columna->getData();
+}
+$parametros = array(
+	'url'=>$this->getUrl($this->getSource()).'?',
+	'datatype'=>$this->getDatatype(),
+	'colNames'=>$colNames,
+	'colModel'=>$colModel,
+	'rowNum'=>$this->getRowNumber(),
+	'rowList'=>$this->getRowList(),
+	'imgpath'=>$this->getImgPath(),
+	'sortname'=>$this->getSortName(),
+	'viewrecords'=>$this->getViewRecords(),
+	'sortorder'=>$this->getSortOrder(),
+	'caption'=>$this->getCaption(),
+);
+if($this->hasWidth()){
+	$parametros['width'] = $this->getWidth();
+}
+if($this->hasHeight()){
+	$parametros['height'] = $this->getHeight();
+}
+if($this->hasEditUrl()){
+	$parametros['editurl'] = $this->getEditUrl();
+}
+$more_params = array(
+	'edit'=>$this->getCanEdit(),
+	'add'=>$this->getCanAdd(),
+	'del'=>$this->getCanDelete(),
+);
+
+
+?>
+<div id="<?=$table_container_id?>">
+<table id="<?=$table_id?>" class="scroll" cellpadding="0" cellspacing="0"></table>
+<div id="<?=$pager_id?>" class="scroll" style="text-align:center;"></div>
+</div>
+<script>
+jQuery(document).ready(function(){
+	var params = <?=json_encode($parametros)?>;
+	var more_params = <?=json_encode($more_params)?>;
+	params.pager = jQuery('#<?=$pager_id?>');
+	<? if($this->hasFullWidth()&&$this->getFullWidth()){?> 
+	//params.width = new Number(parseInt(jQuery('#<?=$table_id?>').parent().css('width')))-80;
+	//alert(params.width);<?
+	}?> 
+	//window.console.log(more_params,params);
+	//window.console.log(jQuery("#<?=$table_id?>"),jQuery("#<?=$pager_id?>"));
+	jQuery("#<?=$table_id?>").jqGrid(params).navGrid('#<?=$pager_id?>',more_params);
+	
+	<? if($this->hasFullWidth()&&$this->getFullWidth()){?> 
+	jQuery('.grid_hdiv, .GridHeader, .grid_htable, .grid_bdiv, #<?=$table_id?>, #<?=$pager_id?>','#<?=$table_container_id?>')
+		.css('width', '100%');<?
+	}?> 
+}) 
+</script>
+ 

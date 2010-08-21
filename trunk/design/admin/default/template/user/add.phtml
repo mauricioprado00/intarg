@@ -1,0 +1,143 @@
+<?
+$x = new Admin_User_Model_User;
+if($this->hasIdToEdit()){
+	$x->setId($this->getIdToEdit());
+	$x->load();
+
+}
+else{
+	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
+		$x->loadFromArray(Core_Http_Post::getParameters('array'));
+	}
+}
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="id" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset>
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo Usuario<?else:?>Editar Usuario<?endif;?> Administrador</legend>
+	<fieldset>
+		<h3>Datos de Acceso</h3>
+		<div>
+			<label>Username: </label>
+			<span>
+				<input type="text" maxlength="20" name="username" value="<?=$x->getData('username')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Password: </label>
+			<span>
+				<input type="password" maxlength="20" id="password" name="password" value="" />
+			</span>
+		</div>
+		<div>
+			<label>Repetir Password: </label>
+			<span>
+				<input type="password" maxlength="20" id="password2" value="" />
+			</span>
+		</div>
+		<div>
+			<label>Activo: </label>
+			<span>
+				<select name="activo">
+					<option value="1"<?=$x->getActivo()=='1'?' selected="selected"':''?>>Si</option>
+					<option value="0"<?=$x->getActivo()=='0'?' selected="selected"':''?>>No</option>
+				</select>
+			</span>
+		</div>
+		<div>
+			<label>Privilegios: </label>
+			<span>
+				<select name="privilegios"><?
+				$privilegios = $x->listarPrivilegios();
+				foreach($privilegios as $privilegio){
+					$checked = $x->getPrivilegios()==$privilegio->getId()?' selected="selected"':''?> 
+					<option value="<?=$privilegio->getId()?>"<?=$checked?>><?=$privilegio->getNombre()?></option><?
+				}?> 
+				</select>
+			</span>
+		</div>
+		<div>
+			<label>Agencia: </label>
+			<span><?
+				$agencia = new Inta_Model_Agencia();
+				$agencias = $agencia->search();
+				$html_select = '';
+				foreach($agencias as $agencia){
+					$option = c(new Core_Html_Tag_Custom('option'))
+						->setValue($agencia->getId())
+						->setInnerHtml($agencia->getNombre())
+					;
+					if($agencia->getId()==$x->getIdAgencia())
+						$option->setSelected('selected');
+					$html_select .= $option->getHtml();
+				}
+				echo c(new Core_Html_Tag_Custom('select'))
+					->setName('id_agencia')
+					->setId('id_agencia')
+					->setInnerHtml($html_select)
+					->getHtml()
+				;
+			?> 
+			</span>
+		</div>
+	</fieldset>
+	
+	<fieldset>
+		<h3>Datos Personales</h3>
+		<div>
+			<label>Nombre: </label>
+			<span>
+				<input type="text" maxlength="20" name="nombre" value="<?=$x->getData('nombre')?>" />
+			</span>
+		</div>
+		<div>
+			<label>Apellido: </label>
+			<span>
+				<input type="text" maxlength="20" name="apellido" value="<?=$x->getData('apellido')?>" />
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+function validar_agregar_usuario(formData, jqForm, options) {
+	var editing = <?php echo ($this->getIdToEdit()?'true':'false')?>;
+	try{
+		var errors = [];
+		if(jQuery('input[name=username]').val() == ''){
+			errors.push("Debe ingresar un Username");
+		}
+		if(!editing && jQuery('input[name=password]').val() == ''){
+			errors.push("Debe ingresar un Password");
+		}
+		if(!editing && jQuery('input[id=password2]').val() == ''){
+			errors.push("Debe confirmar el Password");
+		}
+		if(jQuery('input[name=password]').val() != jQuery('input[id=password2]').val()){
+			errors.push("Los Password no coinciden");
+		}
+		if(jQuery('select[name=activo]').val() == ''){
+			errors.push("Debe seleccionar un Estado");
+		}
+		if(jQuery('select[name=privilegios]').val() == ''){
+			errors.push("Debe seleccionar un Privilegio");
+		}
+		if(jQuery('input[name=nombre]').val() == ''){
+			errors.push("Debe ingresar un Nombre");
+		}
+		if(jQuery('input[name=apellido]').val() == ''){
+			errors.push("Debe ingresar un apellido");
+		}
+		if(errors.length){
+			alert("Corrija los errores:\n\t- "+errors.join("\n\t- "));
+			return false;
+		}
+	}catch(e){
+		alert(e);
+		return(false);
+	}
+}
+
+
+</script>

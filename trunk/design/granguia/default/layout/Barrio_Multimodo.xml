@@ -1,0 +1,48 @@
+<layout>
+	<barrio when="!accion(BARRIO_TIPO_NODO_ANTERIOR)|!modo(ajax_mode)|accion(GG_CLICK_COUNTER_EQ_0)">
+	<!-- si no es ajax, o el ajax anterior no fue un barrio, 
+		entonces tengo que cargar todo el marco html que contiene el mapa y el menu de categorias, etc
+		o si no hicieron click en la pagina (f5quearon) para asi queda marcado
+	-->
+		<reference name="html_head">
+			<script charset="utf8">js/barrio.js</script>
+			<script charset="utf8">js/anuncio.js</script>
+		</reference>
+		<reference name="contenido_principal">
+			<block name="vista_barrio">
+				<submenu_barrios name="submenu_barrios" />
+				<wrapper html_id="sidebar1">
+					<menu_categorias name="menu" template="categoria/menu2.phtml" />
+					<wrapper html_id="miniatura">
+						<visor_anuncio name="visor_anuncio"/>
+					</wrapper>
+				</wrapper>
+				<wrapper html_class="contenedor_mapa">
+					<mapa name="mapa" />
+				</wrapper>
+            </block>
+        </reference>
+		<reference name="wrapper_left_subheader">
+			
+		</reference>
+	</barrio>
+	<barrio in="BARRIO_TIPO_NODO_ANTERIOR" on="ajax_mode">
+		<!--
+		<template template="page/scroller.phtml" scroll_top="325" />
+		-->
+		<reference name="html_head">
+			<script charset="utf8">js/barrio.js</script>
+			<script charset="utf8">js/anuncio.js</script>
+		</reference>
+		<menu_categorias name="menu" template="categoria/rebuild_menu_links2.phtml" />
+		<submenu_barrios name="submenu_barrios" template="barrio/rebuild_submenu_links.phtml"/>
+		<template template="ajax/jsassign.phtml">
+			<block jquery_selector=".contenedor_mapa" name="banner_lateral">
+				<mapa name="mapa" />
+			</block>
+			<block jquery_selector="#miniatura">
+				<visor_anuncio name="visor_anuncio"/>
+			</block>
+		</template>
+	</barrio>
+</layout>

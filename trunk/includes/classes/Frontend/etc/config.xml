@@ -1,0 +1,20 @@
+<global>
+	<modules>
+		<Frontend_Barrio/>
+		<Frontend_Categoria/>
+		<Frontend_Pagina/>
+		<Frontend_Anuncio/>
+		<Frontend_BannerDinamico/>
+		<Frontend_Buscador/>
+		<Frontend_BannerCarrousel/>
+		<Frontend_Menu/>
+		<Frontend_Contacto/>
+	</modules>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<granguia>Granguia.xml</granguia>
+		<ajax_mode>Granguia_Ajax.xml</ajax_mode>
+		<simple>Granguia_Simple.xml</simple>
+	</layouts>
+</global>

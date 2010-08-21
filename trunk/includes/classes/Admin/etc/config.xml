@@ -1,0 +1,46 @@
+<global>
+	<modules>
+		<Admin_User/>
+		<!--<cosas_de_inta>-->
+		<Admin_Agencia/>
+		<!--</cosas_de_inta>-->
+		<!--<cosas_de_granguia>-->
+		<Admin_Estadistica/>
+		<Admin_TipoPunto/>
+		<Admin_Categoria/>
+		<Admin_Barrio/>
+		<Admin_Archivo/>
+		<Admin_Menu/>
+		<Admin_Pagina/>
+		<Admin_Anuncio/>
+		<Admin_Nodo/>
+		<Admin_BannerCarrousel/>
+		<Admin_BannerDinamico/>
+		<Admin_Config/>
+		<Admin_CronjobResult/>
+		<Admin_Sitemap />
+		<!--</cosas_de_granguia>-->
+<!--
+		<Admin_Importador/>
+		<Admin_Ciudad/>
+		<Admin_MetodoEnvio/>
+		<Admin_FormaPago/>
+		<Admin_MarcaImagen/>
+		<Admin_CiudadCodigoPostal/>
+		<Admin_Cliente/>
+		<Admin_Venta/>
+		<Admin_Novedad/>
+		<Admin_Testimonio/>
+		-->
+	</modules>
+	<routers>
+		<Admin_Router_Admin>administrator</Admin_Router_Admin>
+	</routers>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin.xml</admin>
+		<ajax>Admin_Ajax.xml</ajax>
+		<admin>Simple.xml</admin>
+	</layouts>
+</global>

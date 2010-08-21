@@ -1,0 +1,10 @@
+<script>
+jQuery(document).ready(function(){
+	if(jQuery('#manu #btn_datos').hasClass('seleccionado'))
+		return;
+	jQuery('#manu .seleccionado').removeClass('seleccionado');<?php
+	if($this->hasSelectedItem()):?> 
+	jQuery('#manu #<?php print $this->getSelectedItem(); ?>').addClass('seleccionado');<?
+	endif;?> 
+});
+</script>

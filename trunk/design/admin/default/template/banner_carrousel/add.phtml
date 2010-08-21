@@ -1,0 +1,174 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 42;
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="banner_carrousel[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset>
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> BannerCarrousel</legend>
+	<fieldset>
+		<h3>Datos</h3>
+		<div>
+			<label>Nombre: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('text')
+					->setMaxlength(255)
+					->setId('nombre')
+					->setName('banner_carrousel[nombre]')
+					->setValue($x->getNombre())
+					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<label>Descripcion: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('text')
+					->setMaxlength(255)
+					->setSize(40)
+					->setId('title')
+					->setName('banner_carrousel[title]')
+					->setValue($x->getTitle())
+					//->setData('data-campo', '<b>Nombre</b>')
+					//->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<label>Url Destino: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('text')
+					->setMaxlength(255)
+					->setSize(40)
+					->setId('nombre')
+					->setName('banner_carrousel[url_click]')
+					->setValue($x->getUrlClick())
+					//->setData('data-campo', '<b>Url</b>')
+					//->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<label>&iquest;Est&aacute; activo?</label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('checkbox')
+					->setId('es_activa')
+					->setName('banner_carrousel[es_activa]')
+					->setValue('1')
+				;
+				if($x->getEsActiva())
+					$input->setChecked('checked');
+				echo $input->getHtml();
+			?> 
+			</span>
+			<h3>Imagenes</h3>
+			<div style="display:inline;float:left;">
+				<label>Imagen Normal: </label>
+				<span><?
+					$src_real = $src = $x->getImagenBanner();
+					$src = $src?$this->getUrl($src):'';//$this->getSkinUrl('img/empty.gif');?> 
+					<?php print $this->getImagenDeseleccionado(); ?> 
+					<img class="show_image_banner" src="<?php print $src; ?>" />
+					<input type="hidden" id="imagen_banner" name="banner_carrousel[imagen_banner]" value="<?php print $src_real; ?>" data-campo="<?php print htmlentities('<b>Imagen de Banner</b>');?>" data-mensaje="Debe seleccionar una imagen para %field" data-validator="{empty:false}" />
+					<img class="addimg" data-wich="banner" src="<?php print $this->getSkinUrl('img/picture_search.png'); ?>" title="seleccionar imagen" />
+				</span>
+			</div>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+//var imagenes = ['banner'];
+//for(idx in imagenes){
+//	var wich = imagenes[idx];
+//	var xxx = 'window.onckfinder_'+wich+'=function(url){onckfinder(url,"'+wich+'");}';
+//	eval(xxx);
+//}
+function onckfinder(url,wich){
+	jQuery('#imagen_'+wich+'').val(url.split('<?php print $this->getUrl(); ?>').join(''));
+	jQuery('.show_image_'+wich).attr('src', url).removeAttr('width');
+}
+jQuery(document).ready(function(){
+	jQuery('.addimg').css('cursor','pointer').click(function(){
+		var jqthis = jQuery(this);
+		var wich = jqthis.attr('data-wich');
+		//var funcion = 'onckfinder_'+wich;
+		//CKFinder.Popup('<?php print dirname($this->getSkinUrl('ckfinder/ckfinder.js')); ?>', null, null, funcion);
+		//finder.selectFunction = funcion;
+		var finder = new CKFinder();
+		finder.resourceType = 'BannerCarrousel';
+		finder.basePath = '<?php print dirname($this->getSkinUrl('ckfinder/ckfinder.js')); ?>';
+		finder.selectActionFunction = function(url, data){
+			return onckfinder(url,wich,data);
+		};
+		finder.popup();
+			//'<?php print dirname($this->getSkinUrl('ckfinder/ckfinder.js')); ?>', null, null, funcion);
+		try{
+			//ckFinderBrowseServer('', $(this).attr('id'), 'ckFinderAppendImageField', 'ckFinderShowThumbnails');
+		}
+		catch(e){alert(e);}
+		return(false);
+	});
+
+
+	jQuery('[class^=show_image_]').each(function(){
+		this.image_empty_src = '<?php print $image_empty_src; ?>';
+		this.image_empty_size = <?php print $image_empty_size+0; ?>; 
+		var jqthis = jQuery(this);
+		var jqimage = jqthis;
+		var jqpapa = jqthis.parents('div:first');
+		var jqinput = jQuery('input', jqpapa);
+		jqpapa.css('position','relative');
+		var jqclear = jQuery('<div style="cursor:pointer;display:none;position:absolute;bottom:0;width:16px;height:16px;background-image:url(\'<?php print $this->getSkinUrl('img/delete2.png'); ?>\')"></div>');
+		jqpapa.append(jqclear);
+		jqclear.click(function(){
+			jqimage.attr('src',jqimage[0].image_empty_src);
+			jqimage.attr('width', jqimage[0].image_empty_size);
+			jqinput.val('');
+			jQuery(this).hide();
+		});
+		//alert(jqimage.attr('src'));
+		var curr_src = jqimage.attr('src');
+		if(curr_src=='' || curr_src==null){
+			jqclear.click();
+		}
+		jqthis.timemouse({
+			mouseover: function(){
+				if(jqimage[0].image_empty_src == jqimage.attr('src')){
+					return;
+				}
+				jqclear.show();
+			},
+			mouseout: function(){
+				jqclear.hide();
+			}, 
+			time: 800
+		})
+		;
+
+	});
+})
+function validar_agregar_banner_carrousel(formData, jqForm, options) {
+	if(!validar(true)){
+		return false;
+	}
+	return(true);
+}
+</script>

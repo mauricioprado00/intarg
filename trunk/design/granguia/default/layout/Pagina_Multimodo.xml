@@ -1,0 +1,9 @@
+<layout>
+	<nodo_pagina>
+		<reference name="contenido_principal">
+			<wrapper html_id="nodo_pagina">
+				<pagina_view name="pagina_view" />
+			</wrapper>
+        </reference>
+	</nodo_pagina>
+</layout>

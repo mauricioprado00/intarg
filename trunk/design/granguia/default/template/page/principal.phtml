@@ -1,0 +1,21 @@
+    <div id="wrapper">
+        <?php print $this->getChildHtml('wrapper_top'); ?>
+        <?php print $this->getChildHtml('wrapper_middle'); ?> 
+        <?php print $this->getChildHtml('wrapper_bottom'); ?> 
+        <div id="footer">
+            <div id="linha_abajo"></div>
+            <div id="publicidad_pie" style="position:relative;">
+            	<div align="left" style="position:absolute;left:0;top:7px;">
+            		<?php
+						echo c($this->appendBlock('<pagina_view name="pagina_view" nombre_interno="pagina_pie_izquierda" />'))->toHtml();
+					?>
+				</div>
+                <div align="right">
+                	<?php
+						echo c($this->appendBlock('<pagina_view name="pagina_view" nombre_interno="pagina_pie" />'))->toHtml();
+						/*<img src="<?php echo $this->getSkinUrl("img/wa.jpg") ?>" width="204" height="132" />*/
+					?> 
+				</div>
+            </div>
+        </div>
+    </div>

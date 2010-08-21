@@ -1,0 +1,2 @@
+2010-08-18
+creo la base de datos. (sql/tablas.txt)

@@ -1,0 +1,211 @@
+<?
+$categorias = $this->getCategorias();
+if(!$categorias){
+	echo 'error en el listado de categorias';
+	return;
+}
+$id = $this->generateRandomId();
+$id_categoria_seleccionada = null;
+if($categoria_seleccionada = Core_App::getInstance()->getCategoria()){
+	$id_categoria_seleccionada = $categoria_seleccionada->getId();
+}
+$reveal_level = null;
+?>
+<div id="menu">
+	<input type="text" size="20" class="filtro" data-target="#menu .<?php print $id; ?>"/>
+	<div class="basic <?php print $id; ?>" ><?php
+		$current_level = 0;
+		foreach($categorias[0]['childs'] as $tree_item_primer_nivel){
+			$categoria = $categoria_primer_nivel = $tree_item_primer_nivel['item'];
+			if($nodo = $categoria->getNodo()){
+				$tags = $nodo->getTags();
+			} else $tags = ''; 
+			$tags = $categoria->getTerminosBuscables(',');
+			if(!isset($tree_item_primer_nivel['childs'])){
+				
+				$link_url = $categoria->getLinkUrl(Core_App::getInstance()->getBarrio());
+				$link = new Frontend_Html_Link();
+				$link
+					->setHref($this->getUrl($link_url))
+					->setInnerHtml($categoria->getNombre())
+					->setData('data-busqueda', $tags)
+					->setData('data-id_categoria', $categoria->getId())
+				;
+				$seleccionado = $categoria->getId()==$categoria_seleccionada->getId()?' class="selected"':'';
+				$div = new Core_Html_Tag_Custom('div');
+				if($categoria->getId()==$categoria_seleccionada->getId()){
+					$div->setClass('selected');
+					$link->setClass('selected');
+					$reveal_level = $current_level;
+				}
+				$div->setInnerHtml($link->getHtml());
+				echo $div->getHtml();
+			}
+			else{
+			?> 
+			<div>
+				<a data-busqueda="<?php print htmlentities($tags); ?>"><?php print htmlentities(utf8_decode($categoria->getNombre()));?>:</a>
+				<div>
+					<ul><?
+			foreach($tree_item_primer_nivel['childs'] as $tree_item_segundo_nivel){
+				$categoria = $categoria_segundo_nivel = $tree_item_segundo_nivel['item'];
+				$link_url = $categoria->getLinkUrl(Core_App::getInstance()->getBarrio());
+				$link = new Frontend_Html_Link();
+				$link
+					->setHref($this->getUrl($link_url))
+					->setInnerHtml($categoria->getNombre())
+					->setData('data-id_categoria', $categoria->getId())
+				;
+				if($id_categoria_seleccionada==$categoria->getId()){
+					if(!isset($reveal_level))
+						$reveal_level = $current_level;
+					$link->setClass('seleccionado');
+				}
+				echo '<li>'.$link->getHtml().'</li>';
+			}?> 
+					</ul> 
+				</div> 
+			</div><?
+			}
+			$current_level++;
+		}
+		//<div><a data-busqueda="pizza,empanadas,lomitos,milanesas,comidas">comidas:</a><div><ul><li>Sub/comidas 0/0</li><li>Sub/comidas 0/1</li><li>Sub/comidas 0/2</li><li>Sub/comidas 0/3</li><li>Sub/comidas 0/4</li><li>Sub/comidas 0/5</li><li>Sub/comidas 0/6</li><li>Sub/comidas 0/7</li><li>Sub/comidas 0/8</li><li>Sub/comidas 0/9</li></ul></div></div><div><a data-busqueda="computadora,monitor,lcd,mouse,teclado,informatica">informatica:</a><div><ul><li>Sub/informatica 1/0</li><li>Sub/informatica 1/1</li><li>Sub/informatica 1/2</li><li>Sub/informatica 1/3</li><li>Sub/informatica 1/4</li><li>Sub/informatica 1/5</li><li>Sub/informatica 1/6</li><li>Sub/informatica 1/7</li><li>Sub/informatica 1/8</li><li>Sub/informatica 1/9</li></ul></div></div><div><a data-busqueda="computadora,monitor,lcd,mouse,teclado,copia informatica">copia informatica:</a><div><ul><li>Sub/copia informatica 2/0</li><li>Sub/copia informatica 2/1</li><li>Sub/copia informatica 2/2</li><li>Sub/copia informatica 2/3</li><li>Sub/copia informatica 2/4</li><li>Sub/copia informatica 2/5</li><li>Sub/copia informatica 2/6</li><li>Sub/copia informatica 2/7</li><li>Sub/copia informatica 2/8</li><li>Sub/copia informatica 2/9</li></ul></div></div><div><a data-busqueda="fiambres,quesos,leche,galletas,despensa,cigarrillos,almacen">almacen:</a><div><ul><li>Sub/almacen 3/0</li><li>Sub/almacen 3/1</li><li>Sub/almacen 3/2</li><li>Sub/almacen 3/3</li><li>Sub/almacen 3/4</li><li>Sub/almacen 3/5</li><li>Sub/almacen 3/6</li><li>Sub/almacen 3/7</li><li>Sub/almacen 3/8</li><li>Sub/almacen 3/9</li></ul></div></div><div><a data-busqueda="cortes,peinados,tintura,peluquería">peluquería:</a><div><ul><li>Sub/peluquería 4/0</li><li>Sub/peluquería 4/1</li><li>Sub/peluquería 4/2</li><li>Sub/peluquería 4/3</li><li>Sub/peluquería 4/4</li><li>Sub/peluquería 4/5</li><li>Sub/peluquería 4/6</li><li>Sub/peluquería 4/7</li><li>Sub/peluquería 4/8</li><li>Sub/peluquería 4/9</li></ul></div></div><div><a data-busqueda="pantalones,jeans,remeras,buzos,camisetas,zapatos,ropa">ropa:</a><div><ul><li>Sub/ropa 5/0</li><li>Sub/ropa 5/1</li><li>Sub/ropa 5/2</li><li>Sub/ropa 5/3</li><li>Sub/ropa 5/4</li><li>Sub/ropa 5/5</li><li>Sub/ropa 5/6</li><li>Sub/ropa 5/7</li><li>Sub/ropa 5/8</li><li>Sub/ropa 5/9</li></ul></div></div><div><a data-busqueda="pizza,empanadas,milanesas,asado,choripan,lasagna,restaurant">restaurant:</a><div><ul><li>Sub/restaurant 6/0</li><li>Sub/restaurant 6/1</li><li>Sub/restaurant 6/2</li><li>Sub/restaurant 6/3</li><li>Sub/restaurant 6/4</li><li>Sub/restaurant 6/5</li><li>Sub/restaurant 6/6</li><li>Sub/restaurant 6/7</li><li>Sub/restaurant 6/8</li><li>Sub/restaurant 6/9</li></ul></div></div><div><a data-busqueda=",Categoria 7">Categoria 7:</a><div><ul><li>Sub/Categoria 7 7/0</li><li>Sub/Categoria 7 7/1</li><li>Sub/Categoria 7 7/2</li><li>Sub/Categoria 7 7/3</li><li>Sub/Categoria 7 7/4</li><li>Sub/Categoria 7 7/5</li><li>Sub/Categoria 7 7/6</li><li>Sub/Categoria 7 7/7</li><li>Sub/Categoria 7 7/8</li><li>Sub/Categoria 7 7/9</li></ul></div></div><div><a data-busqueda=",Categoria 8">Categoria 8:</a><div><ul><li>Sub/Categoria 8 8/0</li><li>Sub/Categoria 8 8/1</li><li>Sub/Categoria 8 8/2</li><li>Sub/Categoria 8 8/3</li><li>Sub/Categoria 8 8/4</li><li>Sub/Categoria 8 8/5</li><li>Sub/Categoria 8 8/6</li><li>Sub/Categoria 8 8/7</li><li>Sub/Categoria 8 8/8</li><li>Sub/Categoria 8 8/9</li></ul></div></div><div><a data-busqueda=",Categoria 9">Categoria 9:</a><div><ul><li>Sub/Categoria 9 9/0</li><li>Sub/Categoria 9 9/1</li><li>Sub/Categoria 9 9/2</li><li>Sub/Categoria 9 9/3</li><li>Sub/Categoria 9 9/4</li><li>Sub/Categoria 9 9/5</li><li>Sub/Categoria 9 9/6</li><li>Sub/Categoria 9 9/7</li><li>Sub/Categoria 9 9/8</li><li>Sub/Categoria 9 9/9</li></ul></div></div><div><a data-busqueda=",Categoria 10">Categoria 10:</a><div><ul><li>Sub/Categoria 10 10/0</li><li>Sub/Categoria 10 10/1</li><li>Sub/Categoria 10 10/2</li><li>Sub/Categoria 10 10/3</li><li>Sub/Categoria 10 10/4</li><li>Sub/Categoria 10 10/5</li><li>Sub/Categoria 10 10/6</li><li>Sub/Categoria 10 10/7</li><li>Sub/Categoria 10 10/8</li><li>Sub/Categoria 10 10/9</li></ul></div></div><div><a data-busqueda=",Categoria 11">Categoria 11:</a><div><ul><li>Sub/Categoria 11 11/0</li><li>Sub/Categoria 11 11/1</li><li>Sub/Categoria 11 11/2</li><li>Sub/Categoria 11 11/3</li><li>Sub/Categoria 11 11/4</li><li>Sub/Categoria 11 11/5</li><li>Sub/Categoria 11 11/6</li><li>Sub/Categoria 11 11/7</li><li>Sub/Categoria 11 11/8</li><li>Sub/Categoria 11 11/9</li></ul></div></div><div><a data-busqueda=",Categoria 12">Categoria 12:</a><div><ul><li>Sub/Categoria 12 12/0</li><li>Sub/Categoria 12 12/1</li><li>Sub/Categoria 12 12/2</li><li>Sub/Categoria 12 12/3</li><li>Sub/Categoria 12 12/4</li><li>Sub/Categoria 12 12/5</li><li>Sub/Categoria 12 12/6</li><li>Sub/Categoria 12 12/7</li><li>Sub/Categoria 12 12/8</li><li>Sub/Categoria 12 12/9</li></ul></div></div><div><a data-busqueda=",Categoria 13">Categoria 13:</a><div><ul><li>Sub/Categoria 13 13/0</li><li>Sub/Categoria 13 13/1</li><li>Sub/Categoria 13 13/2</li><li>Sub/Categoria 13 13/3</li><li>Sub/Categoria 13 13/4</li><li>Sub/Categoria 13 13/5</li><li>Sub/Categoria 13 13/6</li><li>Sub/Categoria 13 13/7</li><li>Sub/Categoria 13 13/8</li><li>Sub/Categoria 13 13/9</li></ul></div></div><div><a data-busqueda=",Categoria 14">Categoria 14:</a><div><ul><li>Sub/Categoria 14 14/0</li><li>Sub/Categoria 14 14/1</li><li>Sub/Categoria 14 14/2</li><li>Sub/Categoria 14 14/3</li><li>Sub/Categoria 14 14/4</li><li>Sub/Categoria 14 14/5</li><li>Sub/Categoria 14 14/6</li><li>Sub/Categoria 14 14/7</li><li>Sub/Categoria 14 14/8</li><li>Sub/Categoria 14 14/9</li></ul></div></div><div><a data-busqueda=",Categoria 15">Categoria 15:</a><div><ul><li>Sub/Categoria 15 15/0</li><li>Sub/Categoria 15 15/1</li><li>Sub/Categoria 15 15/2</li><li>Sub/Categoria 15 15/3</li><li>Sub/Categoria 15 15/4</li><li>Sub/Categoria 15 15/5</li><li>Sub/Categoria 15 15/6</li><li>Sub/Categoria 15 15/7</li><li>Sub/Categoria 15 15/8</li><li>Sub/Categoria 15 15/9</li></ul></div></div><div><a data-busqueda=",Categoria 16">Categoria 16:</a><div><ul><li>Sub/Categoria 16 16/0</li><li>Sub/Categoria 16 16/1</li><li>Sub/Categoria 16 16/2</li><li>Sub/Categoria 16 16/3</li><li>Sub/Categoria 16 16/4</li><li>Sub/Categoria 16 16/5</li><li>Sub/Categoria 16 16/6</li><li>Sub/Categoria 16 16/7</li><li>Sub/Categoria 16 16/8</li><li>Sub/Categoria 16 16/9</li></ul></div></div><div><a data-busqueda=",Categoria 17">Categoria 17:</a><div><ul><li>Sub/Categoria 17 17/0</li><li>Sub/Categoria 17 17/1</li><li>Sub/Categoria 17 17/2</li><li>Sub/Categoria 17 17/3</li><li>Sub/Categoria 17 17/4</li><li>Sub/Categoria 17 17/5</li><li>Sub/Categoria 17 17/6</li><li>Sub/Categoria 17 17/7</li><li>Sub/Categoria 17 17/8</li><li>Sub/Categoria 17 17/9</li></ul></div></div><div><a data-busqueda=",Categoria 18">Categoria 18:</a><div><ul><li>Sub/Categoria 18 18/0</li><li>Sub/Categoria 18 18/1</li><li>Sub/Categoria 18 18/2</li><li>Sub/Categoria 18 18/3</li><li>Sub/Categoria 18 18/4</li><li>Sub/Categoria 18 18/5</li><li>Sub/Categoria 18 18/6</li><li>Sub/Categoria 18 18/7</li><li>Sub/Categoria 18 18/8</li><li>Sub/Categoria 18 18/9</li></ul></div></div><div><a data-busqueda=",Categoria 19">Categoria 19:</a><div><ul><li>Sub/Categoria 19 19/0</li><li>Sub/Categoria 19 19/1</li><li>Sub/Categoria 19 19/2</li><li>Sub/Categoria 19 19/3</li><li>Sub/Categoria 19 19/4</li><li>Sub/Categoria 19 19/5</li><li>Sub/Categoria 19 19/6</li><li>Sub/Categoria 19 19/7</li><li>Sub/Categoria 19 19/8</li><li>Sub/Categoria 19 19/9</li></ul></div></div><div><a data-busqueda=",Categoria 20">Categoria 20:</a><div><ul><li>Sub/Categoria 20 20/0</li><li>Sub/Categoria 20 20/1</li><li>Sub/Categoria 20 20/2</li><li>Sub/Categoria 20 20/3</li><li>Sub/Categoria 20 20/4</li><li>Sub/Categoria 20 20/5</li><li>Sub/Categoria 20 20/6</li><li>Sub/Categoria 20 20/7</li><li>Sub/Categoria 20 20/8</li><li>Sub/Categoria 20 20/9</li></ul></div></div><div><a data-busqueda=",Categoria 21">Categoria 21:</a><div><ul><li>Sub/Categoria 21 21/0</li><li>Sub/Categoria 21 21/1</li><li>Sub/Categoria 21 21/2</li><li>Sub/Categoria 21 21/3</li><li>Sub/Categoria 21 21/4</li><li>Sub/Categoria 21 21/5</li><li>Sub/Categoria 21 21/6</li><li>Sub/Categoria 21 21/7</li><li>Sub/Categoria 21 21/8</li><li>Sub/Categoria 21 21/9</li></ul></div></div><div><a data-busqueda=",Categoria 22">Categoria 22:</a><div><ul><li>Sub/Categoria 22 22/0</li><li>Sub/Categoria 22 22/1</li><li>Sub/Categoria 22 22/2</li><li>Sub/Categoria 22 22/3</li><li>Sub/Categoria 22 22/4</li><li>Sub/Categoria 22 22/5</li><li>Sub/Categoria 22 22/6</li><li>Sub/Categoria 22 22/7</li><li>Sub/Categoria 22 22/8</li><li>Sub/Categoria 22 22/9</li></ul></div></div><div><a data-busqueda=",Categoria 23">Categoria 23:</a><div><ul><li>Sub/Categoria 23 23/0</li><li>Sub/Categoria 23 23/1</li><li>Sub/Categoria 23 23/2</li><li>Sub/Categoria 23 23/3</li><li>Sub/Categoria 23 23/4</li><li>Sub/Categoria 23 23/5</li><li>Sub/Categoria 23 23/6</li><li>Sub/Categoria 23 23/7</li><li>Sub/Categoria 23 23/8</li><li>Sub/Categoria 23 23/9</li></ul></div></div><div><a data-busqueda=",Categoria 24">Categoria 24:</a><div><ul><li>Sub/Categoria 24 24/0</li><li>Sub/Categoria 24 24/1</li><li>Sub/Categoria 24 24/2</li><li>Sub/Categoria 24 24/3</li><li>Sub/Categoria 24 24/4</li><li>Sub/Categoria 24 24/5</li><li>Sub/Categoria 24 24/6</li><li>Sub/Categoria 24 24/7</li><li>Sub/Categoria 24 24/8</li><li>Sub/Categoria 24 24/9</li></ul></div></div><div><a data-busqueda=",Categoria 25">Categoria 25:</a><div><ul><li>Sub/Categoria 25 25/0</li><li>Sub/Categoria 25 25/1</li><li>Sub/Categoria 25 25/2</li><li>Sub/Categoria 25 25/3</li><li>Sub/Categoria 25 25/4</li><li>Sub/Categoria 25 25/5</li><li>Sub/Categoria 25 25/6</li><li>Sub/Categoria 25 25/7</li><li>Sub/Categoria 25 25/8</li><li>Sub/Categoria 25 25/9</li></ul></div></div><div><a data-busqueda=",Categoria 26">Categoria 26:</a><div><ul><li>Sub/Categoria 26 26/0</li><li>Sub/Categoria 26 26/1</li><li>Sub/Categoria 26 26/2</li><li>Sub/Categoria 26 26/3</li><li>Sub/Categoria 26 26/4</li><li>Sub/Categoria 26 26/5</li><li>Sub/Categoria 26 26/6</li><li>Sub/Categoria 26 26/7</li><li>Sub/Categoria 26 26/8</li><li>Sub/Categoria 26 26/9</li></ul></div></div><div><a data-busqueda=",Categoria 27">Categoria 27:</a><div><ul><li>Sub/Categoria 27 27/0</li><li>Sub/Categoria 27 27/1</li><li>Sub/Categoria 27 27/2</li><li>Sub/Categoria 27 27/3</li><li>Sub/Categoria 27 27/4</li><li>Sub/Categoria 27 27/5</li><li>Sub/Categoria 27 27/6</li><li>Sub/Categoria 27 27/7</li><li>Sub/Categoria 27 27/8</li><li>Sub/Categoria 27 27/9</li></ul></div></div><div><a data-busqueda=",Categoria 28">Categoria 28:</a><div><ul><li>Sub/Categoria 28 28/0</li><li>Sub/Categoria 28 28/1</li><li>Sub/Categoria 28 28/2</li><li>Sub/Categoria 28 28/3</li><li>Sub/Categoria 28 28/4</li><li>Sub/Categoria 28 28/5</li><li>Sub/Categoria 28 28/6</li><li>Sub/Categoria 28 28/7</li><li>Sub/Categoria 28 28/8</li><li>Sub/Categoria 28 28/9</li></ul></div></div><div><a data-busqueda=",Categoria 29">Categoria 29:</a><div><ul><li>Sub/Categoria 29 29/0</li><li>Sub/Categoria 29 29/1</li><li>Sub/Categoria 29 29/2</li><li>Sub/Categoria 29 29/3</li><li>Sub/Categoria 29 29/4</li><li>Sub/Categoria 29 29/5</li><li>Sub/Categoria 29 29/6</li><li>Sub/Categoria 29 29/7</li><li>Sub/Categoria 29 29/8</li><li>Sub/Categoria 29 29/9</li></ul></div></div><div><a data-busqueda=",Categoria 30">Categoria 30:</a><div><ul><li>Sub/Categoria 30 30/0</li><li>Sub/Categoria 30 30/1</li><li>Sub/Categoria 30 30/2</li><li>Sub/Categoria 30 30/3</li><li>Sub/Categoria 30 30/4</li><li>Sub/Categoria 30 30/5</li><li>Sub/Categoria 30 30/6</li><li>Sub/Categoria 30 30/7</li><li>Sub/Categoria 30 30/8</li><li>Sub/Categoria 30 30/9</li></ul></div></div><div><a data-busqueda=",Categoria 31">Categoria 31:</a><div><ul><li>Sub/Categoria 31 31/0</li><li>Sub/Categoria 31 31/1</li><li>Sub/Categoria 31 31/2</li><li>Sub/Categoria 31 31/3</li><li>Sub/Categoria 31 31/4</li><li>Sub/Categoria 31 31/5</li><li>Sub/Categoria 31 31/6</li><li>Sub/Categoria 31 31/7</li><li>Sub/Categoria 31 31/8</li><li>Sub/Categoria 31 31/9</li></ul></div></div><div><a data-busqueda=",Categoria 32">Categoria 32:</a><div><ul><li>Sub/Categoria 32 32/0</li><li>Sub/Categoria 32 32/1</li><li>Sub/Categoria 32 32/2</li><li>Sub/Categoria 32 32/3</li><li>Sub/Categoria 32 32/4</li><li>Sub/Categoria 32 32/5</li><li>Sub/Categoria 32 32/6</li><li>Sub/Categoria 32 32/7</li><li>Sub/Categoria 32 32/8</li><li>Sub/Categoria 32 32/9</li></ul></div></div><div><a data-busqueda=",Categoria 33">Categoria 33:</a><div><ul><li>Sub/Categoria 33 33/0</li><li>Sub/Categoria 33 33/1</li><li>Sub/Categoria 33 33/2</li><li>Sub/Categoria 33 33/3</li><li>Sub/Categoria 33 33/4</li><li>Sub/Categoria 33 33/5</li><li>Sub/Categoria 33 33/6</li><li>Sub/Categoria 33 33/7</li><li>Sub/Categoria 33 33/8</li><li>Sub/Categoria 33 33/9</li></ul></div></div><div><a data-busqueda=",Categoria 34">Categoria 34:</a><div><ul><li>Sub/Categoria 34 34/0</li><li>Sub/Categoria 34 34/1</li><li>Sub/Categoria 34 34/2</li><li>Sub/Categoria 34 34/3</li><li>Sub/Categoria 34 34/4</li><li>Sub/Categoria 34 34/5</li><li>Sub/Categoria 34 34/6</li><li>Sub/Categoria 34 34/7</li><li>Sub/Categoria 34 34/8</li><li>Sub/Categoria 34 34/9</li></ul></div></div><div><a data-busqueda=",Categoria 35">Categoria 35:</a><div><ul><li>Sub/Categoria 35 35/0</li><li>Sub/Categoria 35 35/1</li><li>Sub/Categoria 35 35/2</li><li>Sub/Categoria 35 35/3</li><li>Sub/Categoria 35 35/4</li><li>Sub/Categoria 35 35/5</li><li>Sub/Categoria 35 35/6</li><li>Sub/Categoria 35 35/7</li><li>Sub/Categoria 35 35/8</li><li>Sub/Categoria 35 35/9</li></ul></div></div><div><a data-busqueda=",Categoria 36">Categoria 36:</a><div><ul><li>Sub/Categoria 36 36/0</li><li>Sub/Categoria 36 36/1</li><li>Sub/Categoria 36 36/2</li><li>Sub/Categoria 36 36/3</li><li>Sub/Categoria 36 36/4</li><li>Sub/Categoria 36 36/5</li><li>Sub/Categoria 36 36/6</li><li>Sub/Categoria 36 36/7</li><li>Sub/Categoria 36 36/8</li><li>Sub/Categoria 36 36/9</li></ul></div></div><div><a data-busqueda=",Categoria 37">Categoria 37:</a><div><ul><li>Sub/Categoria 37 37/0</li><li>Sub/Categoria 37 37/1</li><li>Sub/Categoria 37 37/2</li><li>Sub/Categoria 37 37/3</li><li>Sub/Categoria 37 37/4</li><li>Sub/Categoria 37 37/5</li><li>Sub/Categoria 37 37/6</li><li>Sub/Categoria 37 37/7</li><li>Sub/Categoria 37 37/8</li><li>Sub/Categoria 37 37/9</li></ul></div></div><div><a data-busqueda=",Categoria 38">Categoria 38:</a><div><ul><li>Sub/Categoria 38 38/0</li><li>Sub/Categoria 38 38/1</li><li>Sub/Categoria 38 38/2</li><li>Sub/Categoria 38 38/3</li><li>Sub/Categoria 38 38/4</li><li>Sub/Categoria 38 38/5</li><li>Sub/Categoria 38 38/6</li><li>Sub/Categoria 38 38/7</li><li>Sub/Categoria 38 38/8</li><li>Sub/Categoria 38 38/9</li></ul></div></div><div><a data-busqueda=",Categoria 39">Categoria 39:</a><div><ul><li>Sub/Categoria 39 39/0</li><li>Sub/Categoria 39 39/1</li><li>Sub/Categoria 39 39/2</li><li>Sub/Categoria 39 39/3</li><li>Sub/Categoria 39 39/4</li><li>Sub/Categoria 39 39/5</li><li>Sub/Categoria 39 39/6</li><li>Sub/Categoria 39 39/7</li><li>Sub/Categoria 39 39/8</li><li>Sub/Categoria 39 39/9</li></ul></div></div>
+		?> 
+	</div>
+</div>
+
+<script>
+	jQuery(document).ready(function(){
+		var height = jQuery('#menu').height() - jQuery('#menu .filtro').height();
+		var width = jQuery('#menu').width();
+		var jqlista = jQuery('.<?php print $id; ?>');
+		var opciones_hoverscroll = {
+			vertical: true,
+			width: width,
+			height: height,
+			krakk:1
+		};
+		<?php if(isset($reveal_level)): ?> 
+		//acomodo el scroll
+		opciones_hoverscroll.onBeforeInit = function(){
+			var opciones = jqlista.data('ui-accordion').options;
+			var preserve = opciones.animated;
+			opciones.animated = "";
+			//jQuery.data(jQuery('#lista4')[0], "ui-accordion").options;
+			jqlista.activate(<?php print $reveal_level; ?>);
+			opciones.animated = preserve;
+	
+			var jqlistcontainer = jqlista.parents('.listcontainer:first');
+			var total_height = jqlistcontainer.height() - 80;
+			var jqdivselected = jqlista.children('div.selected');
+			var offsetdiv = jqdivselected.attr('offsetTop');
+	//		window.console.log(jqlista.children('div:eq(<?php print $reveal_level; ?>)'));
+	//		window.console.log(jqlista.parents('.listcontainer:first'),offsetLi);
+			var jqaselected = jQuery('a.seleccionado', jqlista);
+			var totalOffset = jqaselected.attr('offsetTop');
+			var relativeOffset = totalOffset - offsetdiv;
+			var scrollAmount = offsetdiv;
+			if(relativeOffset>total_height){
+				var relativeOffsetBottom = relativeOffset + jqaselected.height();
+				scrollAmount += (relativeOffsetBottom/2);
+			}
+			jqlistcontainer.scrollTop(scrollAmount);
+		}
+		<?php endif; ?> 
+
+		jqlista
+			.accordion({ 
+				event: 'mousedown',
+				header:'a[data-busqueda]',
+				kradkk:1 
+			})
+			.hoverscroll(opciones_hoverscroll)
+			.css('height','auto')
+			.parents('.listcontainer:first')
+			.mousewheel(function(e, c){
+				//window.console.log(arguments);
+				var scrollTop = this.scrollTop;
+				this.scrollTop += (c * -30); 
+				return false;
+			})
+		;
+		jQuery('#sidebar1 #menu a[data-id_categoria]').click(function(){
+			jQuery('#sidebar1 #menu a.seleccionado').removeClass('seleccionado');
+		});
+		jQuery('#sidebar1 #menu ul li a').click(function(){
+			//jQuery('#sidebar1 #menu ul li a').removeClass('seleccionado');
+			jQuery(this).addClass('seleccionado');
+			//return false;
+		});
+		
+		{jQuery('.filtro')
+			.keydown(function(){jQuery(this).css('background-color','')})
+			.keyup(function(){
+				var idx = 0;
+				//var jqlista = jQuery('#lista4');
+				var jqthis = jQuery(this);
+				var jqlista = jQuery(jqthis.attr('data-target'));
+				var encontrados = [];
+				var jqitems = jQuery('div.item', jqlista);
+				var busqueda = this.value.toString().toLowerCase();
+				if(this.value==''){
+					jqitems.show();
+					return;
+				}
+				jqitems.each(function(idx, item){
+					var jqitem = jQuery('[data-busqueda]',item);
+					var empty = jqitem.attr('data-busqueda')==null;
+					var found = -1;
+					if(!empty)
+						found = jqitem.attr('data-busqueda').toString().toLowerCase().indexOf(busqueda);
+					if(found!=-1){
+						jQuery(this).show();
+						encontrados.push(idx);
+					}
+					else
+						jQuery(this).hide();
+				});
+				if(!encontrados.length){
+					jqitems.show();
+					jqthis.css('background-color','#FFDDDD')
+				}
+				else{
+					//try{
+					var opciones = jqlista.data('ui-accordion').options;
+					var toShow = opciones.toShow;
+					var activate = true;
+					if(toShow){
+						var div = toShow.parents('.item:first');
+						if(div.length){
+							div = div[0];
+							if(div == jqitems.eq(encontrados[0])[0]){
+								//window.console.log('ya esta activo');
+								activate = false;
+							}
+						}
+					}
+					if(activate){
+						var preserve = opciones.animated;
+						opciones.animated = "";
+						//jQuery.data(jQuery('#lista4')[0], "ui-accordion").options;
+						jqlista.activate(encontrados[0]);
+						opciones.animated = preserve;
+						//window.console.log(encontrados[0]);
+						//window.jqlista = jqlista;
+						//clickHandler.call(jqlista[0],{target:jqitems.eq(encontrados[0])[0]});
+						//}catch(e){}
+					}
+				}
+				jqlista.parents('.listcontainer:first')[0].scrollTop = 0;
+			})
+		};
+	});
+	
+	
+</script>
+<?
+
+
+return;
+?>
+<div id="menu"><img src="<?php echo $this->getSkinUrl("img/index_r15_c2.jpg") ?>" width="192" height="368" /></div>

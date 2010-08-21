@@ -1,0 +1,219 @@
+﻿<?/*este archivo es útf8*/
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+//$categorias = $x->search(null, 'ASC', null, 0, 'Granguia_Model_Categoria');
+$tree = $this->getTree();
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="categoria[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Categoria</legend>
+	<fieldset>
+		<h3>Información</h3>
+		<div>
+			<label>Categoria padre: </label>
+			<ul class="simpleTree" id="EstructuraMenu"><?php
+			$item_template = $this->getChild('tree_iterator');
+			$item_template->setSelectedId($x->getIdCategoriaPadre());
+			$item_template->setCurrentId($x->hasId()?$x->getId():-1);
+			foreach($tree as $item){
+				$item_template->setItem($item);
+				echo $item_template->getHtml();
+			}
+			?></ul>
+			<span>
+			<input type="hidden"  value="<?php print $x->getIdCategoriaPadre(); ?>" name="categoria[id_categoria_padre]" id="id_categoria_padre" /><?/*
+			<select	name="id_categoria_padre">
+				<option value="0">Root</option><?php
+			foreach($categorias as $categoria){
+				$selected = $categoria->getId()===$x->getIdCategoriaPadre(); 
+				$selected = $selected?' selected="$selected"':'';?> 
+				<option<?php print $selected; ?> value="<?php print $categoria->getId(); ?>"><?php print $categoria->getTitle(); ?></option><?
+			}?> 
+			</select>
+
+			*/?>
+			</span>
+		</div>
+		<div>
+			<label>Nombre: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				echo $input
+					->setType('text')
+					->setValue($x->getData('nombre'))
+					->setId('nombre')
+					->setName('categoria[nombre]')
+					->setData('data-campo','<b>Nombre</b>')
+					->setData('data-validator', '{empty:false}')
+					->getHtml()
+				;?> 
+			</span>
+			<label>Componente Url: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				echo $input
+					->setType('text')
+					->setValue($x->getData('componente_url'))
+					->setId('componente_url')
+					->setName('categoria[componente_url]')
+//					->setData('data-campo','<b>Componente Url</b>')
+//					->setData('data-validator', '{empty:false}')
+					->getHtml()
+				;?> 
+			</span>
+			<label>&iquest;Es default?:</label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('checkbox')
+					->setId('es_default')
+					->setName('categoria[es_default]')
+					->setValue('1')
+				;
+				if($x->getEsDefault())
+					$input->setChecked('checked');
+				echo $input->getHtml();
+			?>
+			</span>
+		</div>
+		<?/** /?>
+		<div>
+			<label>Descripcion: </label>
+			<span>
+				<textarea name="description"><?php print htmlentities(utf8_decode($x->getData('description')))?></textarea>
+			</span>
+		</div>
+		<?/**/?>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+function strtr(str, replace_pairs){
+	for(search in replace_pairs){
+		var replace = replace_pairs[search];
+		while(str.indexOf(search)!=-1){
+			str = str.replace(search, replace);
+		}
+	}
+	return str;
+}
+function sinacentos(str){
+	return strtr(str, {'á':'a','é':'e','í':'i','ó':'o','ú':'u','ñ':'n','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U','Ñ':'N'});
+}
+function abchars(str, ilegal_replace){
+	if(ilegal_replace==null)
+		ilegal_replace = '';
+	str = sinacentos(str);
+	var ilegales = new RegExp('[^A-Za-z0-9-\\s]+');
+	while(ilegales.test(str))
+		str = str.replace(ilegales, ilegal_replace);
+	return str;
+}
+jQuery(document).ready(function(){
+	jQuery('#nombre').keyup(function(){
+		var new_url = this.value;
+		jQuery('#componente_url').val(new_url).change();
+	}).change(function(){
+		var categoria = this.value;
+		var espacios = new RegExp('\\s\\s+');
+		while(espacios.test(categoria))
+			categoria = categoria.replace(espacios, ' ');
+		var espacios_mal = new RegExp('^\\s+|\\s+$');
+		while(espacios_mal.test(categoria))
+			categoria = categoria.replace(espacios_mal, '');
+		this.value = categoria;
+	});
+	jQuery('#componente_url').change(function(){
+		var new_url = this.value;
+		new_url = abchars(new_url, '-');
+		var espacios = new RegExp('\\s+');
+		while(espacios.test(new_url))
+			new_url = new_url.replace(espacios, '-');
+		var guiones_mal = new RegExp('^-|-$');
+		while(guiones_mal.test(new_url))
+			new_url = new_url.replace(guiones_mal, '');
+		this.value = new_url;
+		jQuery('#path_url').val(this.value);
+	});
+	jQuery('#path_url').val(jQuery('#componente_url').val());
+});
+function validar_agregar_categoria(formData, jqForm, options){
+	if(!validar_estatico_en('#<?php print $id_fielset; ?>')){
+		tabpanelfocus(jQuery('#<?php print $id_fielset; ?>'));
+		return false;
+	}
+	return(true);
+}
+function validar_agregar_categoria2(formData, jqForm, options) {
+	var editing = <?php echo ($this->getIdToEdit()?'true':'false')?>;
+	try{
+		var errors = [];
+		if(jQuery('#nombre').val() == ''){
+			errors.push("Debe ingresar un Titulo");
+		}
+		if(errors.length){
+			alert("Corrija los errores:\n\t- "+errors.join("\n\t- "));
+			return false;
+		}
+	}catch(e){
+		alert(e);
+		return(false);
+	}
+	return(true);
+}
+jQuery(document).ready(function(){
+	mkTree();
+})
+var simpleTreeCollection;
+function mkTree()
+{
+	jQuery('.root span').css('cursor','pointer')
+		.click(function(){
+			jQuery('.simpleTree li .active').removeClass('active');
+			jQuery(this).addClass('active');
+			jQuery('#id_categoria_padre').val(0);
+		});
+	try{
+	    simpleTreeCollection = $('.simpleTree').simpleTree({
+	    		drag:false,
+	            autoclose: true,
+	            animate:true,
+	            docToFolderConvert:true,
+	            afterClick:function(node){
+	            	var selected_id = jQuery('.simpleTree li .active').parents('li:first').attr('id');
+	                //alert("text-"+$('span:first',node).text());
+	                jQuery('#id_categoria_padre').val(selected_id);
+	            },
+	            afterDblClick:function(node){
+	                //alert("text-"+$('span:first',node).text());
+	            },
+	            afterMove:function(destination, source, pos){
+	//                $.post(
+	//                        CONF_URL_MODULO + '/?o=acciones',
+	//                        {
+	//                          accion:'organizarMenu',
+	//                          IdMenuItem:source.attr('id'),
+	//                          MenuItemPadreId:destination.attr('id'),
+	//                          Orden:pos,
+	//                          Menu:$('#EstructuraMenu').serializelist()
+	//                        }
+	//                );
+	            },
+	            afterAjax:function()
+	            {
+	                //alert('Loaded');
+	            }
+	    });
+	    jQuery('img.trigger').css('border','none');
+    }
+    catch(e){alert(e);}
+    //window.console.log(simpleTreeCollection);
+    
+}
+</script>

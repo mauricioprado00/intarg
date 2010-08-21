@@ -1,0 +1,16 @@
+<?
+if(!$this->hasAnuncio())
+	return;
+
+$html =  c($anuncio=$this->getAnuncio())->getMinisitio();
+if($this->hasStrtr()){
+	$html = strtr($html, $this->getStrtr());
+}
+
+
+echo c(new Core_Html_Tag_Custom('div'))
+	->setInnerHtml($html)
+	->setClass('desarrollo'.($anuncio->getTituloInterno()?' desarrollo_con_titulo':''))
+	->getHtml();
+return;
+?>

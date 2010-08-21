@@ -1,0 +1,39 @@
+<layout>
+<!--
+	<barrio in="!BARRIO_TIPO_NODO_ANTERIOR">
+		<reference name="html_head">
+			<script charset="utf8">js/barrio.js</script>
+			<script charset="utf8">js/anuncio.js</script>
+		</reference>
+		<reference name="contenido_principal">
+			<block name="vista_barrio">
+				<wrapper html_id="sidebar1">
+					<menu_categorias name="menu" />
+					<wrapper html_id="miniatura">
+						<visor_anuncio name="visor_anuncio"/>
+					</wrapper>
+				</wrapper>
+				<wrapper html_class="contenedor_mapa">
+					<mapa name="mapa" />
+				</wrapper>
+            </block>
+        </reference>
+	</barrio>
+	<barrio in="BARRIO_TIPO_NODO_ANTERIOR">
+		<reference name="html_head">
+			<script charset="utf8">js/barrio.js</script>
+			<script charset="utf8">js/anuncio.js</script>
+		</reference>
+		<menu_categorias name="menu" template="categoria/rebuild_menu_links.phtml" />
+		<submenu_barrios name="submenu_barrios" template="barrio/rebuild_submenu_links.phtml"/>
+		<template template="ajax/jsassign.phtml">
+			<block jquery_selector=".contenedor_mapa" name="banner_lateral">
+				<mapa name="mapa" />
+			</block>
+			<block jquery_selector="#miniatura">
+				<visor_anuncio name="visor_anuncio"/>
+			</block>
+		</template>
+	</barrio>
+-->
+</layout>

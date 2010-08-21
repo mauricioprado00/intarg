@@ -1,0 +1,101 @@
+<layout>
+	<list_admin_pagina>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/pagina/addEdit,id"
+			toolbar_delete_url="administrator/pagina/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Pagina"
+			source="administrator/pagina/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Titulo</title>
+				<name>titulo</name>
+				<index>titulo</index>
+				<width>250</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre Interno</title>
+				<name>nombre_interno</name>
+				<index>nombre_interno</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nodo</title>
+				<name>id_nodo</name>
+				<index>id_nodo</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_pagina>
+	<addedit_admin_pagina>
+		<reference name="contenedor_main">
+			<!-- muy importante agregar ajax_method="ajaxSubmit" para que se pueda actualizar antes de enviar (ckeditor) -->
+			<block 
+				type="Admin/AddEditForm"
+				action_url="pagina/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				ajax_method="ajaxSubmit" 
+				name="formulario_edicion_pagina"
+				method="post">
+				<!-- validador_js="validar_agregar_pagina,validar_agregar_nodo,validar_seleccionar_banners" -->
+				<action method="appValidadorJs">
+					<param>validar_agregar_pagina</param>
+				</action>
+				<tabset>
+					<tab title="Datos de página">
+						<template name="pagina_add_edit_form" template="pagina/add.phtml" />
+					</tab>
+					<tab in="!addedit_admin_pagina_sin_nodo" title="Organizar banners">
+						<selector_banners name="nodo_add_edit_form" validator_js_name="validar_seleccionar_banners" fieldnames="nodo[banners_dinamicos]" />
+						<reference name="formulario_edicion_pagina">
+							<action method="appValidadorJs">
+								<param>validar_agregar_nodo</param>
+							</action>
+						</reference>
+					</tab>
+					<tab in="!addedit_admin_pagina_sin_nodo" title="Nodo">
+						<opciones_nodo name="nodo_add_edit_form" />
+						<reference name="formulario_edicion_pagina">
+							<action method="appValidadorJs">
+								<param>validar_seleccionar_banners</param>
+							</action>
+						</reference>
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_pagina>
+</layout>

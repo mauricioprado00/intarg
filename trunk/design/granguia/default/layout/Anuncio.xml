@@ -1,0 +1,18 @@
+<layout>
+<!--
+	<anuncio_contacto>
+		<reference name="html_head">
+			<script charset="utf8">validador/validador.js</script>
+			<script charset="utf8">js/contacto.js</script>
+			<css>validador/validador.css</css>
+		</reference>
+		<reference name="contenido_principal">
+			<contacto_form name="contacto_form">
+				<pagina_view in="anuncio_contacto_normal" name="campos_form" nombre_interno="anuncio_contacto_normal" />
+				<pagina_view in="anuncio_contacto_boliche" name="campos_form" nombre_interno="anuncio_contacto_boliche" />
+				<capcha name="capcha" />
+			</contacto_form>
+        </reference>
+	</anuncio_contacto>
+-->
+</layout>

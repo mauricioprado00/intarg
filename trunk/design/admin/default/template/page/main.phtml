@@ -1,0 +1,40 @@
+<?
+	$classnames = array();
+	if($this->hasClassnames()){
+		$classnames[] = implode(' ', $this->getClassnames());
+	}
+	$classnames[] = implode(' ', Core_App::getLayout()->getActions());
+	$classnames = implode(' ', $classnames);
+	$classnames = $classnames?' class="'.$classnames.'"':'';
+?>
+<div<?=$classnames?>>
+	<div>
+		<div class="contenedor_top">
+			<div class="links_top">
+				<?=$this->getChildHtml('contenedor_top')?>
+				<a href="<?=$this->getUrl('administrator/user/cerrar_sesion')?>">Cerrar sesi&oacute;n</a><?
+				if(Admin_App::getInstance()->getModoAjax()){?> 
+				<a href="#" onclick="deshabilitar_ajax('<?=$this->getUrl('administrator')?>')">Deshabilitar ajax</a><?
+				}
+				else{?> 
+				<a href="#"  onclick="habilitar_ajax('<?=$this->getUrl('administrator')?>')">Modo ajax</a><?
+				}?> 
+			</div>
+			
+		</div>
+		<div class="contenedor_bottom">
+			<div class="contenedor_left">
+				<?=$this->getChildHtml('contenedor_left')?> 
+			</div>
+			<div class="contenedor_main">
+				<?=$this->getChildHtml('contenedor_main')?><?
+					if($right = $this->getChildHtml('contenedor_right')){?> 
+				<div class="contenedor_right"><?=$right?></div>
+					<?	
+					}
+				?> 
+			</div>
+		</div>
+		<div class="clearer" />
+	</div>
+</div>

@@ -1,0 +1,613 @@
+@charset "utf-8";
+/* CSS Document */
+
+body {background: #515151;
+margin: 0px }
+
+#contenedor {
+	width: 960px;
+	height: 698px;
+	margin:auto
+	}
+
+a img{border:0}
+
+#arriba {
+	width: 960px;
+	height: 303px
+	}
+	
+	.enterprise_about #ar-izquierda { /* LOGO 	EMPRESA */
+		width: 216px;
+		height: 303px;
+		float:left;
+		background: url(../img/divs2/empresa/ar-izquierda.jpg)
+		}
+	.como_comprar #ar-izquierda { /* LOGO 	COMO COMPRAR */
+		width: 216px;
+		height: 303px;
+		float:left;
+		background: url(../img/divs2/como/ar-izquierda.jpg)
+		}
+	.porque_comprar #ar-izquierda { /* LOGO 	PORQUE COMPRAR EN BIG */
+		width: 216px;
+		height: 303px;
+		float:left;
+		background: url(../img/divs2/porque/ar-izquierda.jpg)
+		}
+	.news_page #ar-izquierda{ /* LOGO 	NOVEDADES */
+		width: 216px;
+		height: 303px;
+		float:left;
+		background: url(../img/divs2/novedades/ar-izquierda.jpg)
+		}
+	.testimoniales #ar-izquierda { /* LOGO 	TESTIMONIALES */
+		width: 216px;
+		height: 303px;
+		float:left;
+		background: url(../img/divs2/testimoniales/ar-izquierda.jpg)
+		}
+	.modulo_usuario #ar-izquierda { /* LOGO 	REGISTRACION */
+		width: 216px;
+		height: 303px;
+		float:left;
+		background: url(../img/divs2/registracion/ar-izquierda.jpg)
+		}
+	.pagina_contacto #ar-izquierda { /* LOGO 	CONTACTENOS */
+		width: 216px;
+		height: 303px;
+		float:left;
+		background: url(../img/divs2/contactenos/ar-izquierda.jpg)
+		}
+	.catalogo_default #ar-izquierda { /* LOGO 	CATALOGO */
+		width: 216px;
+		height: 303px;
+		float:left;
+		background: url(../img/divs2/catalogo/ar-izquierda.jpg)
+		}
+		
+	#ar-derecha {
+		width: 744px;
+		height: 303px;
+		float:right
+		}
+		#ar-de-arriba { /* TEL, FAX.. */
+			width: 744px;
+			height: 87px;
+			background: url(../img/divs2/ar-de-arriba.jpg);
+			}
+			.texto_fax {
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:8px; color:#FFFFFF;
+			padding-top:70px;
+			padding-left:18px
+			}
+			.color_tel_fax {color:#6f8899}
+			.color_linea_tel_fax {color:#b2050d}
+			
+		#ar-de-abajo {
+			width: 744px;
+			height: 216px
+			}
+			#ar-de-ab-izquierda {
+				width: 531px;
+				height: 216px;
+				float:left
+				}
+				#ar-de-ab-iz-arriba { /* 3 BOTONES SOLAPAS */
+				width: 531px;
+				height: 64px;
+				float:left;
+				background: url(../img/divs2/ar-de-ab-iz-arriba.jpg)
+				}
+				.solapas {
+				padding-left:46px
+				}
+				.enterprise_about #ar-de-ab-iz-abajo { /* IMG MOTO 		EMPRESA */
+				width: 531px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/empresa/ar-de-ab-iz-abajo.jpg)
+				}
+				.como_comprar #ar-de-ab-iz-abajo { /* IMG MOTO 		COMO COMPRAR */
+				width: 531px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/como/ar-de-ab-iz-abajo.jpg)
+				}
+				.porque_comprar #ar-de-ab-iz-abajo { /* IMG MOTO 		PORQUE COMPRAR EN BIG */
+				width: 531px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/porque/ar-de-ab-iz-abajo.jpg)
+				}
+				.news_page #ar-de-ab-iz-abajo { /* IMG MOTO 		NOVEDADES */
+				width: 531px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/novedades/ar-de-ab-iz-abajo.jpg)
+				}
+				.testimoniales #ar-de-ab-iz-abajo { /* IMG MOTO 		TESTIMONIALES */
+				width: 531px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/testimoniales/ar-de-ab-iz-abajo.jpg)
+				}
+				.modulo_usuario #ar-de-ab-iz-abajo { /* IMG MOTO 		REGISTRACION */
+				width: 531px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/registracion/ar-de-ab-iz-abajo.jpg)
+				}
+				.pagina_contacto #ar-de-ab-iz-abajo { /* IMG MOTO 		CONTACTENOS */
+				width: 531px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/contactenos/ar-de-ab-iz-abajo.jpg)
+				}
+				.catalogo_default #ar-de-ab-iz-abajo { /* CARRITO 		CATALOGO */
+				width: 531px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/catalogo/ar-de-ab-iz-abajo.jpg)
+				}
+				
+			#ar-de-ab-derecha {
+				width: 213px;
+				height: 216px;
+				float:right;
+				}
+				#ar-de-ab-de-arriba { /* TTT */
+				width: 213px;
+				height: 64px;
+				float:left;
+				background: url(../img/divs2/ar-de-ab-de-arriba.jpg)
+				}
+				#ar-de-ab-de-abajo { /* LOGUIN */
+				width: 213px;
+				height: 152px;
+				float:left;
+				background: url(../img/divs2/ar-de-ab-de-abajo.jpg)
+				}
+				.loguin {
+				width:213px;
+				height:120px;
+				}
+				.ingreso {
+				font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#b9c5ce;
+				float:left;
+				padding-left:23px;
+				padding-bottom:8px;
+				margin-top:25px
+				}
+				.usuario {
+				background-image:url(../img/divs2/loguin_usuario.jpg);
+				border:0;
+				padding-left:30px
+				}
+				.contrasena {
+				background-image:url(../img/divs2/loguin_contrasena.jpg);
+				border:0;
+				padding-left:30px;
+				margin-top:1px
+				}
+				.boton {
+				background-image:url(../img/divs2/loguin_boton.jpg);
+				width:60px;
+				height:17px;			
+				font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#b92813; font-weight:bold;
+				border:0;
+				margin-left:24px;
+				margin-top:10px;
+				padding-bottom:3px
+				}
+				.olvido {
+				font-family:Verdana, Arial, Helvetica, sans-serif; font-size:9px; color:#b9c5ce;
+				padding-left:26px
+				}
+				.olvido a {
+				color:#b9c5ce
+				}
+#medio {
+	width: 960px;
+	height: 320px
+	}
+	#me-izquierda {
+	width: 217px;
+	height: 320px;
+	float:left
+	}
+	
+	.enterprise_about #me-iz-arriba{ /* BOTONERA 		EMPRESA */
+		width: 217px;
+		height: 240px;
+		float:left;
+		background: url(../img/divs2/empresa/me-iz-arriba.jpg)
+		}
+	.como_comprar #me-iz-arriba{ /* BOTONERA 		COMO COMPRAR*/
+		width: 217px;
+		height: 240px;
+		float:left;
+		background: url(../img/divs2/como/me-iz-arriba.jpg)
+		}
+	.porque_comprar #me-iz-arriba{ /* BOTONERA 		PORQUE COMPRAR EN BIG */
+		width: 217px;
+		height: 240px;
+		float:left;
+		background: url(../img/divs2/porque/me-iz-arriba.jpg)
+		}
+	.news_page #me-iz-arriba{ /* BOTONERA 		NOVEDADES */
+		width: 217px;
+		height: 240px;
+		float:left;
+		background: url(../img/divs2/novedades/me-iz-arriba.jpg)
+		}
+	.testimoniales #me-iz-arriba{ /* BOTONERA 		TESTIMONIALES */
+		width: 217px;
+		height: 240px;
+		float:left;
+		background: url(../img/divs2/testimoniales/me-iz-arriba.jpg)
+		}
+	.modulo_usuario #me-iz-arriba{ /* BOTONERA 		REGISTRACION */
+		width: 217px;
+		height: 240px;
+		float:left;
+		background: url(../img/divs2/registracion/me-iz-arriba.jpg)
+		}
+	.pagina_contacto #me-iz-arriba{ /* BOTONERA 		CONTACTENOS */
+		width: 217px;
+		height: 240px;
+		float:left;
+		background: url(../img/divs2/contactenos/me-iz-arriba.jpg)
+		}
+	.catalogo_default #me-iz-arriba{ /* BOTONERA 		CATALOGO */
+		width: 217px;
+		height: 240px;
+		float:left;
+		background: url(../img/divs2/catalogo/me-iz-arriba.jpg)
+		}
+		.botonera {
+		padding-left:55px;
+		padding-top:7px	;
+		padding-bottom:1px;
+		}
+		.botonera a {
+		font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+		text-decoration:none;
+		line-height:4px
+		}
+	
+		
+	#me-iz-abajo { /* VISTA 360º */
+		width: 217px;
+		height: 80px;
+		float:left;
+		background: url(../img/divs2/me-iz-abajo.jpg)
+		}
+		
+	#me-derecha {
+	width: 743px;
+	height: 320px;
+	float:right
+	}
+		.enterprise_about #me-de-izquierda { /* CONTENIDO 		EMPRESA*/
+			width: 529px;
+			height: 320px;
+			float:left;
+			background: url(../img/divs2/empresa/me-de-izquierda.jpg)
+			}
+			.texto1_empresa {
+			width:220px;
+			height:230px;
+			float:left;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:9px; color:#FFFFFF;
+			padding-left:44px
+			}
+			.siempre_empresa {
+			width:236px;
+			height:51px;
+			float:right;
+			margin-top:40px
+			}
+			.texto2_empresa {
+			width:190px;
+			height:100px;
+			float:right;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:9px; color:#FFFFFF;
+			padding-right:30px;
+			margin-top:5px
+			}
+		.como_comprar #me-de-izquierda { /* CONTENIDO 		COMO COMPRAR*/
+			width: 529px;
+			height: 320px;
+			float:left;
+			background: url(../img/divs2/como/me-de-izquierda.jpg)
+			}
+			.texto1_como {
+			width:210px;
+			height:230px;
+			float:left;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			padding-left:73px;
+			margin-top:45px
+			}
+			.texto2_como {
+			width:155px;
+			height:230px;
+			float:right;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			padding-right:15px;
+			margin-top:45px
+			}
+		.porque_comprar #me-de-izquierda { /* CONTENIDO 		PORQUE COMPRAR EN BIG */
+			width: 529px;
+			height: 320px;
+			float:left;
+			background: url(../img/divs2/porque/me-de-izquierda.jpg)
+			}
+			.texto1_porque {
+			width:220px;
+			height:230px;
+			float:left;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:9px; color:#FFFFFF;
+			padding-left:44px;
+			margin-top:55px
+			}
+			.texto2_porque {
+			width:190px;
+			height:100px;
+			float:right;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:9px; color:#FFFFFF;
+			padding-right:30px;
+			margin-top:160px
+			}
+			.negrita {font-weight:bold}
+		.news_page #me-de-izquierda { /* CONTENIDO 		NOVEDADES */
+			width: 529px;
+			height: 320px;
+			float:left;
+			background: url(../img/divs2/novedades/me-de-izquierda-empty.jpg);
+			}
+		.news_page #me-de-izquierda a {color:#FFFFFF}
+			.texto1_novedades {
+			width:155px;
+			height:90px;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			padding-left:125px;
+			margin-top:73px
+			}
+			.texto2_novedades {
+			width:155px;
+			height:110px;
+			float:left;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			padding-left:125px;
+			padding-top:12px
+			}
+			.texto3_novedades {
+			width:180px;
+			height:100px;
+			float:right;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			padding-right:40px;
+			margin-top:20px
+			}
+			.color_novedades {color:#6ebdbf}
+		.testimoniales #me-de-izquierda { /* CONTENIDO 		TESTIMONIALES */
+			width: 529px;
+			height: 320px;
+			float:left;
+			background: url(../img/divs2/testimoniales/me-de-izquierda.jpg);
+			}
+			.texto1_testimoniales {
+			width:320px;
+			float:left;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			padding-left:45px;
+			margin-top:80px
+			}
+			.texto2_testimoniales {
+			width:320px;
+			float:left;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			padding-left:45px;
+			margin-top:25px
+			}
+			.color_testimoniales {color:#84e7eb; font-weight:bold}
+		.modulo_usuario #me-de-izquierda { /* CONTENIDO 		REGISTRACION */
+			width: 529px;
+			height: 320px;
+			float:left;
+			background: url(../img/divs2/registracion/me-de-izquierda.jpg);
+			}
+			.texto1_registracion {
+			width:50px;
+			float:left;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			margin-left:20px;
+			margin-top:48px;
+			line-height:21px
+			}
+			.texto1_registracion p {line-height:2px}
+			.texto2_registracion {
+			width:200px;
+			float:left;
+			font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			margin-left:5px;
+			margin-top:48px
+			}
+			.texto3_registracion {
+			width:220px;
+			float:right;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			margin-top:54px
+			}
+			.texto4_reg {
+			width:190px;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			}
+			.reg1_nombre {
+			width:185px;
+			height:17px;
+			background-image:url(../img/divs2/registracion/reg1.jpg);
+			border:0;
+			padding-left:3px;
+			}
+			.reg2_marcas {
+			width:178px;
+			height:17px;
+			background-image:url(../img/divs2/registracion/reg2.jpg);
+			border:0;
+			margin-top:2px;
+			padding-left:2px
+			}
+			.reg3_usuario {
+			width:90px;
+			height:17px;
+			background-image:url(../img/divs2/registracion/reg3.jpg);
+			border:0;
+			margin-top:2px;
+			padding-left:2px
+			}
+			.reg4_num {
+			width:52px;
+			height:17px;
+			background-image:url(../img/divs2/registracion/reg4.jpg);
+			border:0;
+			margin-top:1px
+			}
+			.reg5_cod {
+			width:40px;
+			height:17px;
+			background-image:url(../img/divs2/registracion/reg5.jpg);
+			border:0;
+			margin-top:1px
+			}
+			.boton_enviar {
+			width:59px;
+			height:17px;
+			background-image:url(../img/divs2/registracion/enviar.jpg);
+			border:0;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#b92813; font-weight:bold;
+			padding-bottom:3px;
+			margin-left:100px
+			}
+		.pagina_contacto #me-de-izquierda { /* CONTENIDO 		CONTACTENOS */
+			width: 529px;
+			height: 320px;
+			float:left;
+			background: url(../img/divs2/contactenos/me-de-izquierda.jpg);
+			}
+			.texto1_contacto {
+			width:210px;
+			height:230px;
+			float:left;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			margin-left:22px;
+			margin-top:55px
+			}
+			.texto1_contacto a {color:#FFFFFF}
+			.texto3_contacto {
+			width:50px;
+			float:right;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			margin-top:62px;
+			margin-right:5px
+			}
+			
+			.texto2_contacto {
+			width:135px;
+			float:right;
+			font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#FFFFFF;
+			margin-left:5px;
+			padding-right:15px;
+			margin-top:52px
+			}
+			.con1_nombre {
+			width:125px;
+			height:17px;
+			background-image:url(../img/divs2/registracion/reg1.jpg);
+			border:0;
+			padding-left:3px;
+			margin-top:2px
+			}
+			.consulta {
+			width:125px;
+			height:60px;
+			background-image:url(../img/divs2/contactenos/consulta.jpg);
+			border:0;
+			padding-left:3px;
+			margin-top:2px
+			}
+			.boton_enviar_contacto {
+			width:59px;
+			height:17px;
+			background-image:url(../img/divs2/registracion/enviar.jpg);
+			border:0;
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:10px; color:#b92813; font-weight:bold;
+			padding-bottom:3px;
+			}
+		.catalogo_default #me-de-izquierda { /* CONTENIDO 		CATALOGO */
+			width: 529px;
+			height: 320px;
+			float:left;
+			background: url(../img/divs2/catalogo/me-de-izquierda.jpg);
+			}
+		#me-de-derecha {
+			width: 214px;
+			height: 320px;
+			float:right
+			}
+			#me-de-de-arriba { /* MOTO AMARILLA PRECIO */
+			width:214px;
+			height:240px;
+			float:left;
+			background: url(../img/divs2/me-de-de-arriba.jpg)
+			}
+			.texto_moto1 {
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:18px; color:#a8ccd7;
+			padding-top:12px;
+			padding-left:20px
+			}
+			.bmwk1200 {
+			padding-left:20px
+			}
+			.precio_moto {
+			font-size:24px;
+			font-weight:bold;
+			font-style:italic
+			}
+			#me-de-de-abajo { /* DESCRIPCION MOTO AMARILLA */
+			width: 214px;
+			height: 80px;
+			float:left;
+			background: url(../img/divs2/me-de-de-abajo.jpg)
+			}
+			.texto_moto2 {
+			font-family:Verdana, Arial, Helvetica, sans-serif; font-size:9px; color:#a8ccd7;
+			padding-left:30px
+			}
+			.texto_moto2 a {
+			color:#a8ccd7
+			}
+
+		li {line-height:12px}
+		
+		
+		
+		
+#pie {
+	width: 960px;
+	height: 75px;
+	background: url(../img/divs/pie.jpg)
+	}
+	.textopie {font-family:Verdana, Arial, Helvetica, sans-serif; font-size:9px; color:#d1d7df;
+	width:422px;
+	float:left;
+	padding-top:6px;
+	padding-left:235px;
+	}
+	.tres60 {
+	width:83px;
+	height:23px;
+	float:left
+	}

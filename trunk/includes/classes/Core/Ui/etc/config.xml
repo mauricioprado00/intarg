@@ -1,0 +1,10 @@
+<global>
+	<block>
+		<type>tabset</type>
+		<class>Core_Ui_Block_Tabset</class>
+	</block>
+	<block>
+		<type>tab</type>
+		<class>Core_Ui_Block_Tab</class>
+	</block>
+</global>

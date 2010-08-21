@@ -1,0 +1,21 @@
+<script>
+<?
+$ret = array();
+foreach($this->getChild() as $children){
+	$html = $children->toHtml();
+	if(!$html){
+		echo str_repeat("\n", 10).'//'.$children->getJquerySelector().' has no html';
+		echo '/*';
+		//var_dump(array_keys($children->get))
+		echo '*/'.str_repeat("\n", 10);
+		continue;
+	}
+	if($children->hasJquerySelector()){?> 
+jQuery('<?php print $children->getJquerySelector(); ?>').html(<?php print json_encode($html); ?>);
+
+
+<?
+	}
+}
+?> 
+</script>

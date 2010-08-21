@@ -1,0 +1,16 @@
+<?
+
+if($this->hasCurrentLinkUrl()&&$this->getCurrentLinkUrl()){?> 
+	<script>
+		try{
+			with(window.parent){//por si esta embebida (cuando usa ajaxForm crea un iframe) en caso contrario window.parent es igual a window
+				HelperUrl().setCurrentLinkUrl("<?=$this->getCurrentLinkUrl()?>");
+			}
+		}
+		catch(e){
+			alert("Error in <?=__FILE__.'('.__LINE__.')'?>");
+		}
+	</script><?	
+}
+
+?>

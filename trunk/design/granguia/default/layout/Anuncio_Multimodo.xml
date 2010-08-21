@@ -1,0 +1,26 @@
+<layout>
+	<anuncio_contacto>
+		<!-- los script en ambos modos -->
+		<reference name="html_head">
+			<script charset="utf8">validador/validador.js</script>
+			<script charset="utf8">js/contacto.js</script>
+			<css>validador/validador.css</css>
+		</reference>
+		<!-- si es ajax entonces sobrecargo el contenido_principal para mostrar un ScreenBlock y no el asignador -->
+		<block when="modo(ajax_mode)">
+			<template template="ajax/screen_block.phtml" name="contenido_principal" />
+		</block>
+		<reference name="contenido_principal">
+			<contacto_form name="contacto_form">
+				<pagina_view in="anuncio_contacto_normal" name="campos_form" nombre_interno="anuncio_contacto_normal" />
+				<pagina_view in="anuncio_contacto_boliche" name="campos_form" nombre_interno="anuncio_contacto_boliche" />
+				<capcha name="capcha" />
+			</contacto_form>
+        </reference>
+	</anuncio_contacto>
+	<anuncio_minisitio>
+		<reference name="html_body">
+			<minisitio_anuncio />
+		</reference>
+	</anuncio_minisitio>
+</layout>

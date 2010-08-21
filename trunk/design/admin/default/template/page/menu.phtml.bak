@@ -1,0 +1,55 @@
+<?
+$es_submenu = $this->getParentBlock()->getIsSubmenu(); 
+if(!$es_submenu):
+?><div class="menu_lateral <?=$class=strtr($this->getNameInLayout(),array('.'=>'','#'=>''))?>"><?endif?> 
+	<ul<?=$es_submenu?'':' class="navmenu-v"'?>><?
+		echo $this->getChildHtml();
+	?> 
+	</ul><?if(!$es_submenu):?> 
+</div><?endif;
+if(
+	Admin_App::getInstance()->getModoAjax() &&
+	!$es_submenu//no es contenida por bloques iguales
+	){?> 
+	<script>
+	jQuery('.menu_lateral.<?=$class?> [href]')
+	.each(function(){
+		var jqthis = jQuery(this);
+		this.url_link = jqthis.attr('href');
+		jqthis.attr('href','#'+this.url_link.split('<?=$this->getUrl('administrator/ajax/')?>').join(''));
+	})
+	.click(function(){
+		var jqthis = jQuery(this);
+		//jQuery.get(
+//			this.url_link,
+//			function(data){
+//				jQuery('.contenedor_main').replaceWith(data);
+//			}
+//		)
+		return(true);
+	});
+//	function goLink(url_link){
+//		window.current_link_url = url_link;
+//		url_link = url_link.toString().split('#');
+//		if(url_link.length>1){
+//			jQuery.get(
+//				'<?=$this->getUrl('administrator/ajax/')?>'+url_link[1],
+//				function(data){
+//					jQuery('.contenedor_main').replaceWith(data);
+//				}
+//			)
+//		}
+//	}
+//	function poolUrl(){
+//		if(window.current_link_url != document.location.href.toString())
+//			goLink(document.location.href);
+//		setTimeout(poolUrl, 100);
+//	}
+	jQuery(document).ready(function(){//
+		//goLink(document.location.href);
+		//poolUrl();
+		HelperUrl().initialize('<?=$this->getUrl('administrator/')?>','ajax/','.contenedor_main');
+	})
+	</script><?
+}
+?>

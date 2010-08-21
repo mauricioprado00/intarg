@@ -1,0 +1,45 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>cronjob_result</link_url>
+				<text>CronjobResult</text>
+				<title>CronjobResult</title>
+				<name>menu_admin_cronjob_result</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_cronjob_result">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>cronjob_result/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_cronjob_result>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_CronjobResult/XmlList"
+			name="xml_data_admin_cronjob_result">
+			<action method="appListFields">
+				<fieldname>id</fieldname>
+				<fieldname>name</fieldname>
+				<fieldname>inicio</fieldname>
+				<fieldname>fin</fieldname>
+				<fieldname>resultado</fieldname>
+				<fieldname>salida</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>resultado</fieldname>
+				<filter>nl2br</filter>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>salida</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+		</block>
+	</datalist_admin_cronjob_result>
+</layout>

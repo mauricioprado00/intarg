@@ -1,0 +1,20 @@
+<global>
+	<modules>
+	</modules>
+	<!--<routers>
+		<Frontend_Barrio_Router>barrio</Frontend_Barrio_Router>
+	</routers>-->
+	<block>
+		<type>contacto_form</type>
+		<class>Frontend_Contacto_Block_Form</class>
+	</block>
+	<layouts>
+		<granguia>Contacto_Multimodo.xml</granguia>
+		<ajax_mode>Contacto_Multimodo.xml</ajax_mode>
+		<granguia>Contacto.xml</granguia>
+		<ajax_mode>Contacto_Ajax.xml</ajax_mode>
+		<email>Contacto_Email.xml</email>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+	</layouts>
+</global>

@@ -1,0 +1,7 @@
+Información de contacto desde la pagina web:<br />
+<br />
+<ul><?
+foreach($this->getInfo()->getData() as $key=>$value){?> 
+	<li><b><?php print $key; ?>: </b><?php print $value; ?></li><?
+}?> 
+</ul>

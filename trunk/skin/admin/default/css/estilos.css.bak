@@ -1,0 +1,152 @@
+.login_page fieldset{
+	background-color:#E9F9AC;
+	border-color:#CEE574;
+	border-style:solid;
+	border-width:2px 2px 2px 10px;
+	font-family:Arial,Helvetica,sans-serif;
+	font-size:small;
+	margin:1em 0 20px 20px;
+	padding:2em 10px 10px;
+	position:relative;
+	margin-left: auto;
+	margin-right:auto;
+	text-align:center;
+}
+.login_page legend{
+	background-color:#ECEFCB;
+	border-color:#FF9900;
+	border-style:solid;
+	border-width:1px 1px 1px 10px;
+	color:#5C71A2;
+	font-size:90%;
+	font-weight:bold;
+	line-height:100%;
+	padding:3px 5px;
+	position:absolute;
+	text-align:center;
+	text-transform:uppercase;
+	top:-10px;
+}
+.login_page form{
+	background-color:#ECEFCB;
+	height:auto !important;
+	line-height:200%;
+	padding:10px;
+}
+.login_page form .reqMark {
+	color:#FF0000;
+	padding:0 4px;
+}
+.login_page input{
+	background-color:#E9F9AC;
+	border-color:#809431;
+	border-style:solid solid dotted;
+	border-width:0 0 1px;
+	color:#5C71A2;
+	font-family:"Courier New",Courier,mono;
+	margin:2px 5px 0 0;
+	padding:1px 2px;
+}
+.login_page form .oneField {
+	display:block;
+	margin:6px 0;
+	vertical-align:middle;
+}
+.login_page label.preField {
+display:inline-block;
+font-size:90%;
+font-weight:bold;
+min-width:100px;
+text-align:right;
+white-space:nowrap;
+}
+.login_page label, .login_page form .label {
+	color:#5C71A2;
+	line-height:normal;
+	margin:0 5px 0 0;
+}
+.contenedor_main{
+	background-color:#DDDDAA;
+	margin-left:240px;
+	min-height:450px;
+}
+.contenedor_top{
+	background-color:#DDDDDD;
+	height:80px;
+}
+.contenedor_left{
+	background-color:#AADDDD;
+	height:100%;
+	width:240px;
+	position:absolute;
+	left:0;
+	top:0;
+}
+.contenedor_right{
+	
+}
+.contenedor_bottom{
+	position:relative;
+}
+.clearer{
+	clear:both;
+}
+.contenedor_listado_datos{
+	padding-top:40px;
+}
+.entity_list .contenedor_listado_datos{
+	padding-top:0px;
+}
+.links_top a{
+	font-weight:bold;
+	font-size:0.7em;
+	margin-right:5px;
+}
+.links_top {
+	margin-left:15px;
+}
+
+.entity_addedit h3{
+	margin: 5px 0px 5px 0px;
+	border-bottom:1px dotted;
+	font-size:0.8em;
+}
+.entity_addedit .controls{
+	clear:both;
+	display:block;
+	text-align:right;
+}
+.entity_addedit legend{
+	font-weight:bold;
+	margin-left:-10px;
+	text-transform:uppercase;
+}
+.entity_addedit fieldset {
+	display:inline;
+	width:auto;
+	padding:0px 36px 12px 22px;
+}
+.entity_addedit fieldset fieldset{
+	border:medium none;
+	display:block;
+	float:left;
+}
+.entity_addedit fieldset label{
+	display:block;
+	font-weight:bold;
+}
+.entity_addedit fieldset span{
+	
+}
+.contenedor_listado_datos .userdata{
+	text-align:left;
+}
+.contenedor_listado_datos .userdata input{
+	background:transparent none repeat scroll 0 0;
+	border:1px solid;
+	font-size:0.6em;
+	height:100%;
+	padding:0;
+	padding-bottom:3px;
+	background:#DDDDDD none repeat scroll 0 0;
+}

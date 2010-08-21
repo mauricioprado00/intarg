@@ -1,0 +1,12 @@
+.formwrapper{
+	padding-bottom: 5px;
+}
+.formwrapper input{
+	width:215px;
+}
+.wordsearch_wrapper{
+	padding-top:10px;
+}
+#layered_navigation .wordsearch_wrapper #boton_busqueda{
+	width:auto;
+}

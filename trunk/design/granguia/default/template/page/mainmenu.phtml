@@ -1,0 +1,50 @@
+<?
+$selected = new Core_Object();
+if(!$this->hasSelectedItem())
+	$this->setSelectedItem('btn_inicio');
+$selected->setData('selected_'.$this->getSelectedItem(),' class="seleccionado"');
+
+?>
+<div id="manu">
+	<div<?php print $selected->getSelectedBtnInicio(); ?> id="btn_inicio"><?php
+		echo c(new Frontend_Html_Link())
+			->setHref($this->getUrl())
+			//->setNeverAjax()
+			->setInnerHtml('INICIO')
+			->getHtml()
+		;?> 
+	</div>
+	<div class="separador_btn"></div>
+	<div<?php print $selected->getSelectedBtnDatos(); ?> id="btn_datos"><?php
+		echo c(new Frontend_Html_Link())
+			->setStyle('cursor:pointer;')
+			//->setNeverAjax()
+			->setInnerHtml('DATOS UTILES')
+			->getHtml()
+		;?> 
+        <div><?php
+            echo $this->getChildHtml('DatosUtiles'); ?> 
+		</div>
+    </div>
+	<div class="separador_btn"></div>
+	<div<?php print $selected->getSelectedBtnQuienes(); ?> id="btn_quienes"><?php
+		echo c(new Frontend_Html_Link())
+			//->setHref($this->getUrl('quienes-somos'))
+			->setHref($this->getUrl(Granguia_Model_Pagina::getUrlByNombreInterno('quienes_somos')))
+			//->setNeverAjax()
+			->setInnerHtml('QUIENES SOMOS')
+			->getHtml()
+		;?> 
+	</div>
+	<div class="separador_btn"></div>
+	<div<?php print $selected->getSelectedBtnContactos(); ?> id="btn_contactos"><?php
+		echo c(new Frontend_Html_Link())
+			//->setHref($this->getUrl('contacto'))
+			->setHref($this->getUrl(Granguia_Model_TipoNodo::getTipoNodoGenericoUrlByName('Contacto')))
+			//->setNeverAjax()
+			->setInnerHtml('CONTACTO')
+			->getHtml()
+		;?> 
+	</div>
+	<div style="clear: right;"></div>
+</div>

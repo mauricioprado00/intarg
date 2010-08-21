@@ -1,0 +1,27 @@
+<script type="text/javascript">
+//component loader
+<?
+$ret = array();
+foreach($this->getChild() as $children){
+	echo '//'.get_class($children)."\n";
+	if(!$children->getUid())
+		continue;
+	$html = trim($children->toHtml());
+	if(!$html){
+		echo str_repeat("\n", 10).'//'.$children->getJquerySelector().' has no html';
+		echo '/*';
+		//var_dump(array_keys($children->get))
+		echo '*/'.str_repeat("\n", 10);
+		continue;
+	}
+	
+	{?> 
+ComponentHandler.loadComponent(<?php print json_encode($children->getUid()); ?>,<?php print json_encode($html); ?>);
+
+
+
+<?
+	}
+}
+?> 
+</script>

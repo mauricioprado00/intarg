@@ -1,0 +1,306 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Anuncio</legend>
+	<fieldset>
+		<h3>Informacion de Anuncio</h3>
+		<div>
+			<label>Estado: </label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+				$select
+					->setId('estado')
+					->setName('anuncio[estado]')
+				;
+				$html = '';
+				if($this->hasOpcionesEstado())
+					foreach($this->getOpcionesEstado() as $o){
+						$option = new Core_Html_Tag_Custom('option');
+						$option
+							->setValue($o->getId())
+							->setInnerHtml($o->getNombre())
+						;
+						if($o->getId()==$x->getEstado())
+							$option->setSelected('selected');
+						$html .= $option->getHtml();
+					}
+				
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?> 
+			</span>
+		</div>
+	</fieldset>
+	<div style="clear:both;"></div>
+	<div class="disableme">	
+	<fieldset>
+		<h3>Ubicaci&oacute;n f&iacute;sica</h3>
+		<div>
+			<label>Barrio: </label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+				$select
+					->setId('id_barrio')
+					->setName('anuncio[id_barrio]')
+				;
+				$html = '';
+				if($this->hasBarrios())
+					foreach($this->getBarrios() as $o){
+						$option = new Core_Html_Tag_Custom('option');
+						$option
+							->setValue($o->getId())
+							->setData('data-imagen-mapa', $o->getImagenMapa())
+							->setInnerHtml($o->getNombre())
+						;
+						if($o->getId()==$x->getIdBarrio())
+							$option->setSelected('selected');
+						$html .= $option->getHtml();
+					}
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?> 
+			</span>
+			<label>Tipo de Punto</label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+				$select
+					->setId('id_tipo_punto')
+					->setName('anuncio[id_tipo_punto]')
+				;
+				$html = '';
+				if($this->hasTiposPuntos())
+					foreach($this->getTiposPuntos() as $o){
+						$option = new Core_Html_Tag_Custom('option');
+						$option
+							->setValue($o->getId())
+							//->setData('data-imagen-mapa', $o->getImagenMapa())
+							->setInnerHtml($o->getNombre())
+						;
+						if($o->getId()==$x->getIdTipoPunto())
+							$option->setSelected('selected');
+						$html .= $option->getHtml();
+					}
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?> 
+			</span>
+		</div>
+		<div>
+			<label>Posici&oacute;n en mapa</label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('hidden')
+					->setId('posicion_x')
+					->setName('anuncio[posicion_x]')
+					->setValue($x->getPosicionX())
+					->setData('data-campo', '<b>Coordenada X</b>')
+					->setData('data-validator', '{empty:false,gt:0}')
+				;
+				echo $input->getHtml();
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('hidden')
+					->setId('posicion_y')
+					->setName('anuncio[posicion_y]')
+					->setValue($x->getPosicionY())
+					->setData('data-campo', '<b>Coordenada Y</b>')
+					->setData('data-validator', '{empty:false,gt:0}')
+				;
+				echo $input->getHtml();
+			?> 
+				<div style="position:relative;">
+					<img title="Click para elegir punto" class="imagen_mapa" src="" alt="Imagen de Mapa del Barrio" />
+					<img class="punto" data-hotspot="{x:4,y:11}" src="<?php print $this->getSkinUrl('img/16x16/pin_green.png'); ?>" height="16px" width="16px" alt="punto"  style="position:absolute;top:20px;left:20px;" />
+					<div class="selector_overlay" style="position:absolute;background-color:red;opacity:0;filter:alpha(opacity=0);width:100%;height:100%;left:0;top:0;"></div>
+				</div>
+			</span>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Acceso</h3>
+		<div>
+			<span><?
+				//<label>Categoria: </label>
+				$selector_categoria = $this->appendBlock('<selector_categoria />');
+				echo $selector_categoria
+					->setSelectedId($x->getIdCategoria())
+					->setRootName('Categoria')
+					->setTarget('#id_categoria')
+					//->setDisabledBranch(6)//esto es por si queres deshabilitar una rama
+					//->setSelectableRoot(1)//esto es si queres que el root sea seleccionable
+					->getHtml()
+				;
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setType('hidden')
+					->setId('id_categoria')
+					->setName('anuncio[id_categoria]')
+					->setValue($x->getIdCategoria())
+					->setData('data-campo', '<b>Categoria</b>')
+					->setData('data-validator', '{empty:false,gt:0}')
+					->setData('data-mensaje', 'Seleccione la %field')
+				;
+				echo $input->getHtml();
+			?> 
+			
+			</span>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Especiales</h3>
+		<div>
+			<label>Destacar en barrio y categoria:</label>
+			<span><?
+				echo c($input = new Core_Html_Tag_Custom('input'))
+					->setType('hidden')
+					->setName('anuncio[destacado]')
+					->setValue('0')
+					->getHtml();
+				if($x->getData('destacado')){
+					$input->setChecked('checked');
+				}
+				echo $input
+					->setType('checkbox')
+					->setId('destacado')
+					->setValue('1')
+					->getHtml()
+				;
+			?> 
+			</span>
+		</div>
+	</fieldset>
+	<div style="clear:both;"></div>
+	</div>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+jQuery(document).ready(function(){
+	/*aca hago una chanchada, linkeo los botones de estado y es_activa del tab nodo*/
+	jQuery('#es_activa').each(function(){this.desde_aca=false;}).change(function(){
+		if(this.desde_aca)
+			return;
+		this.desde_aca = true;
+		jQuery('#estado').val(this.checked?1:0).change();
+		this.desde_aca = false;
+	});
+	/*estado*/
+	jQuery('#estado').each(function(){this.desde_aca=false;}).change(function(){
+		if(this.desde_aca)
+			return;
+		this.desde_aca = true;
+		jQuery('#es_activa')[0].checked =  jQuery(this).val()=='1';
+		jQuery('#es_activa').change();
+		this.desde_aca = false;
+		var deshabilitado = jQuery(this).val()=='0'?true:false;
+		jQuery('.disableme').setDisable(deshabilitado);
+	}).change();
+	/**/
+	
+	/*mapa*/
+	var jqimagen_mapa = jQuery('.imagen_mapa');
+	var jqbarrio = jQuery('#id_barrio');
+	jqbarrio
+		.change(function(){
+			var jqoption_selected = jQuery('option:selected', this);
+			var src = '<?php print $this->getUrl(); ?>'+jqoption_selected.attr('data-imagen-mapa');
+			jqimagen_mapa.attr('src', src);
+		})
+		.change()
+	;
+	var jqselector_overlay = jQuery('.selector_overlay');
+	var jqpunto = jQuery('.punto');
+	var jqposicion_x = jQuery('#posicion_x');
+	var jqposicion_y = jQuery('#posicion_y');
+	jqpunto.each(function(){
+		var jqthis = jQuery(this);
+		this.hotspot = {x:0,y:0};
+		try{
+			var hotspot = null;
+			eval('hotspot='+jqthis.attr('data-hotspot'));
+			if(hotspot)
+				this.hotspot = hotspot;
+		}catch(e){;}
+		this.moveTo = function(x,y){
+			this.currentX = x;
+			this.currentY = y;
+			this.refreshPaint();
+		}
+		this.refreshPaint = function(){
+			try{
+			jqthis.css('left', this.currentX-this.hotspot.x);
+			jqthis.css('top', this.currentY-this.hotspot.y);
+			}catch(e){alert('refresca pintura no anda')}
+		}
+		this.autoPosition = function(){
+			try{
+			var position_x = parseInt(jqposicion_x.val());
+			var position_y = parseInt(jqposicion_y.val());
+			this.moveTo(position_x, position_y);
+			}catch(e){}
+		}
+		jQuery(this).css('-moz-border-radius', '16px' );
+		this.tiltCount = 0;
+		this.tilt = function(){
+			var that = this;
+			try{
+				if(jQuery(this).parents('body').length==0)
+					return;
+				//window.console.log(this.tiltCount);
+				if(this.tiltCount++==1){
+				}
+				else if(this.tiltCount==9){
+					this.tiltCount = 0;
+					setTimeout(function(){that.tilt()}, 1000*5);
+					return;
+				}
+				var show_border = this.tiltCount%2?true:false;
+				if(show_border){
+					jQuery(this).css('border','2px solid red');
+					this.hotspot.x += 2;
+					this.hotspot.y += 2;
+				}
+				else{
+					jQuery(this).css('border','');
+					this.hotspot.x -= 2;
+					this.hotspot.y -= 2;
+				}
+				this.refreshPaint();
+				setTimeout(function(){that.tilt()}, 400);
+			}catch(e){alert('tilt'+e);}
+		}
+		this.autoPosition();
+		this.tilt();
+	})
+	jqselector_overlay
+		.click(function(e){
+			var posicion_x = e.layerX||e.offsetX;//firefox:ie
+			var posicion_y = e.layerY||e.offsetY;//firefox:ie
+			jqposicion_x.val(posicion_x);
+			jqposicion_y.val(posicion_y);
+			jqpunto[0].moveTo(posicion_x, posicion_y);
+		})
+	;
+});
+function validar_agregar_anuncio_ubicacion(formData, jqForm, options) {
+	if(!validar_estatico_en('#<?php print $id_fielset; ?>')){
+		tabpanelfocus(jQuery('#<?php print $id_fielset; ?>'));
+		return false;
+	}
+	return(true);
+}
+</script>

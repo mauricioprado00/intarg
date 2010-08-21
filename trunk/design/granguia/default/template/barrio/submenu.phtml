@@ -1,0 +1,48 @@
+<script>
+    jQuery(document).ready(function() {
+        var listContentWidth = 759;
+        jQuery.fn.hoverscroll.params = jQuery.extend(jQuery.fn.hoverscroll.params, {
+           width: listContentWidth,
+            height:25
+        });
+        jQuery('#my-list').hoverscroll({onBeforeInit:function(){
+	        jQuery('.ui-widget-content hoverscroll horizontal').css('padding-left','30px');
+	        if(jQuery('.selectedBarrio').offset().left > listContentWidth)
+	        {
+	            var ol = new Number(jQuery('.selectedBarrio').offset().left - listContentWidth);
+	//            window.console.log('tengo que scrollear: ' + jQuery('.selectedBarrio').offset().left + 'ol: ' + ol);
+	           jQuery('#my-list').parents().eq(0).attr('scrollLeft',ol) ;
+	        }
+		}});
+		jQuery('#my-list li a').mousedown(function(){
+			jQuery('#my-list li a').removeClass('selectedBarrio');
+			jQuery(this).addClass('selectedBarrio');
+			return false;
+		});
+    });
+</script>
+<div id="submenu">
+	<div id="sub_menu">
+        <div align="left">
+            <ul id="my-list" class="list" style="/*padding-left:25px;*/padding-right:25px">
+                <?php
+                $selectedBarrio = Core_App::getInstance()->getBarrio();
+                $oCategoria = Core_App::getInstance()->getCategoria();
+		    foreach($this->getBarrios() As $oBarrio) {
+                    if(!get_class($oBarrio))
+                        var_dump($oBarrio);
+                    $cssClass = ($selectedBarrio->getId() == $oBarrio->getId()) ? "regularBarrio selectedBarrio" : "regularBarrio";
+                    $link = new Frontend_Html_Link();
+                    $link
+                    	->setClass($cssClass)
+						->setHref($this->getUrl($oCategoria->getLinkUrl($oBarrio)))
+						->setInnerHtml(mb_strtoupper($oBarrio->getNombre(),'utf-8'))
+						->setData('data-id_barrio', $oBarrio->getId())
+					;
+                    echo '<li>'.$link->getHtml().' |</li>';
+		    }
+		    ?> 
+            </ul>
+		</div>
+	</div>
+</div>

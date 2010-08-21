@@ -1,0 +1,22 @@
+<script type="text/javascript">
+	function ordenarMenu(elemento, id_menu){
+		jQuery.blockUI({
+			message: 'Cargando ordenador...<br /><center><div class="loading1"></div></center>'
+		});
+		jQuery.get(
+			'<?php print $this->getUrl('administrator/ajax/menu/ordenar/'); ?>'+id_menu,
+			function(data){
+				var mensaje = jQuery(data);
+				var jqcierra = jQuery('<input class="ordenando" type="button" value="cerrar" />').appendTo(mensaje);
+				jqcierra.click(function(){
+					getGrid(elemento).trigger("reloadGrid");
+					jQuery.unblockUI();
+				})
+				jQuery.blockUI({
+					message: mensaje,
+					centerY:true
+				});
+			}
+		);
+	}
+</script>

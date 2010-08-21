@@ -1,0 +1,21 @@
+<global>
+	<block>
+		<type>cart_content_view</type>
+		<class>Granguia_Cart_Block_List</class>
+	</block>
+	<block>
+		<type>cart_opciones_envio</type>
+		<class>Granguia_Cart_Block_OpcionesEnvio</class>
+	</block>
+	<routers>
+		<Granguia_Cart_Router_Cart>carro</Granguia_Cart_Router_Cart>
+		<!--
+		<Granguia_Catalog_Router_Catalog>catalogo</Granguia_Catalog_Router_Catalog>
+		<Granguia_Catalog_Router_Catalog>catalogo.php</Granguia_Catalog_Router_Catalog>
+		-->
+	</routers>
+	<layouts>
+		<frontend>Cart.xml</frontend>
+		<email>Cart_Email.xml</email>
+	</layouts>
+</global>

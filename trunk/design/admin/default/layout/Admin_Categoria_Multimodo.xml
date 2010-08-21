@@ -1,0 +1,97 @@
+<layout>
+	<list_admin_categoria>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/categoria/addEdit,id"
+			toolbar_delete_url="administrator/categoria/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Categorias"
+			source="administrator/categoria/datalist"
+			sort_name="nombre"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>300</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Componente Url</title>
+				<name>componente_url</name>
+				<index>componente_url</index>
+				<width>300</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Default</title>
+				<name>es_default</name>
+				<index>es_default</index>
+				<width>30</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_categoria>
+	<tree_admin_categoria>
+		<reference name="contenedor_main">
+		
+			<template name="tree_categoria" template="categoria/tree.phtml">
+				<template name="tree_iterator" template="categoria/tree/item.phtml" />
+			</template>
+		</reference>
+	</tree_admin_categoria>
+	<addedit_admin_categoria>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="categoria/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				name="elform"
+				ajax_method="ajaxSubmit"
+				validador_js="validar_agregar_categoria,validar_seleccionar_banners,validar_agregar_nodo" 
+				method="post">
+				<tabset>
+					<tab title="Datos de categoría">
+						<block name="categoria_add_edit_form" type="template" template="categoria/add.phtml">
+							<template name="tree_iterator" template="categoria/tree/item.phtml" />
+						</block>
+					</tab>
+					<tab title="Organizar banners">
+						<selector_banners name="nodo_add_edit_form" validator_js_name="validar_seleccionar_banners" fieldnames="nodo[banners_dinamicos]" />
+					</tab>
+					<tab title="Nodo">
+						<opciones_nodo name="nodo_add_edit_form" readonly_path_url="readonly_path_url" />
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_categoria>
+</layout>

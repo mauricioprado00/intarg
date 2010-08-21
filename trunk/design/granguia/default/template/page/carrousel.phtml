@@ -1,0 +1,52 @@
+<script>
+    stepcarousel.setup({
+        galleryid: 'mygallery', //id of carousel DIV
+        beltclass: 'belt', //class of inner "belt" DIV containing all the panel DIVs
+        panelclass: 'panel', //class of panel DIVs each holding content
+        autostep: {enable:true, moveby:1, pause:1000},
+        panelbehavior: {speed:500, wraparound:true, persist:true},
+        defaultbuttons: {enable: false, moveby: 1, leftnav: ['http://i34.tinypic.com/317e0s5.gif', -5, 80], rightnav: ['http://i38.tinypic.com/33o7di8.gif', -20, 80]},
+        statusvars: ['statusA', 'statusB', 'statusC'], //register 3 variables that contain current panel (start), current panel (last), and total panels
+        contenttype: ['inline'] //content setting ['inline'] or ['ajax', 'path_to_external_file']
+    })
+</script>
+
+<?/*
+<img src="<?php //echo $this->getSkinUrl("img/publicidad_arriba.jpg") ?>" />
+<ul id="mycarousel" class="jcarousel-skin-name">
+    <li height="30px" width="30px"><img src="<?php echo $this->getSkinUrl("img/hoyts.jpg") ?>" /></li>
+    <li height="30px" width="30px"><img src="<?php echo $this->getSkinUrl("img/cardon.jpg") ?>" /></li>
+    <li height="30px" width="30px"><img src="<?php echo $this->getSkinUrl("img/asatej.jpg") ?>" /></li>
+    <li height="30px" width="30px"><img src="<?php echo $this->getSkinUrl("img/lacoste.jpg") ?>" /></li>
+</ul>
+<?/**/?> 
+
+<div id="wrappper_banners_carrousel">
+	<div id="mygallery" class="stepcarousel">
+		<div class="belt"><?php
+           $aBanners = $this->getBannersCarrousel();
+	
+           if($aBanners) {
+               foreach($aBanners As $oBanner) {?> 
+			<div class="panel"><?php
+	        /*
+			<img title="<?php echo $oBanner->getTitle() ?>" alt="<?php echo $oBanner->getTitle() ?>" src="<?php echo $this->getUrl($oBanner->getImagenBanner()) ?>" />
+			*/
+			$img = new Core_Html_Tag_Custom('img');
+			$img
+				->setAlt($oBanner->getTitle())
+				->setTitle($oBanner->getTitle())
+				->setSrc($this->getUrl($oBanner->getImagenBanner()))
+			;
+			echo Core::getInstance()->create('Frontend_Html_Link')
+				->setHref($this->getUrl(Frontend_BannerCarrousel_Helper::getInstance()->getSearchLinkUrl($oBanner->getId())))
+				->setTarget('_blank')
+				->setInnerHtml($img)
+				->setNeverAjax()
+				->getHtml()
+			; ?></div><?php
+		    }
+	    }?> 
+		</div>
+	</div>
+</div>

@@ -1,0 +1,25 @@
+<global>
+	<modules>
+	</modules>
+	<!--<routers>
+		<Frontend_Barrio_Router>barrio</Frontend_Barrio_Router>
+	</routers>-->
+	<block>
+		<type>visor_anuncio</type>
+		<class>Frontend_Anuncio_Block_Visor</class>
+	</block>
+	<block>
+		<type>minisitio_anuncio</type>
+		<class>Frontend_Anuncio_Block_Minisitio</class>
+	</block>
+	<layouts>
+		<granguia>Anuncio_Multimodo.xml</granguia>
+		<ajax_mode>Anuncio_Multimodo.xml</ajax_mode>
+		<granguia>Anuncio.xml</granguia>
+		<ajax_mode>Anuncio_Ajax.xml</ajax_mode>
+		<simple>Anuncio_Multimodo.xml</simple>
+		<!--
+		la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+	</layouts>
+</global>

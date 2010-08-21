@@ -1,0 +1,149 @@
+<head>
+	<title><?php print htmlentities(utf8_decode($this->getTitle())); ?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><?
+	if($this->hasFavicon()){?> 
+	<link rel="shortcut icon" href="<?php print $this->getUrl($this->getFavicon()); ?>" /><?
+	}
+	
+	$archivos_faltantes = array();
+	if($this->hasJs())
+	foreach($this->getJs() as $file){
+		$src = $this->getSkinUrl($file);
+		if($src===null){
+			$archivos_faltantes[] = $file;
+			continue;
+		}?> 
+	<script type="text/javascript" src="<?=$src?>"></script><!-- este es del head cambialo por un tag <script> que esta mas lindo--><?
+	}
+	if($this->hasIe7Css())
+	foreach($this->getIe7Css() as $file){
+		$src = $this->getSkinUrl($file);
+		if($src===null){
+			$archivos_faltantes[] = $file;
+			continue;
+		}?> 
+	<link href="<?=$src?>" rel="stylesheet" type="text/css" /><!-- este es del head cambialo por un tag <css> que esta mas lindo--><?
+	}
+	
+	if($this->hasCss())
+	foreach($this->getCss() as $file){
+		$src = $this->getSkinUrl($file);
+		if($src===null){
+			$archivos_faltantes[] = $file;
+			continue;
+		}?> 
+	<link href="<?=$src?>" rel="stylesheet" type="text/css" /><!-- este es del head cambialo por un tag <css> que esta mas lindo--><?
+	}
+
+	if($this->hasIfCss()){
+		foreach($this->getIfCss() as $if=>$files){?> 
+	<!--[<?=$if?>]><?=($if=='if !IE')?'--> ':''?><?
+			foreach($files as $file){
+				$src = $this->getSkinUrl($file);
+				if($src===null){
+					$archivos_faltantes[] = $file;
+					continue;
+				}?> 
+		<link rel="stylesheet" type="text/css" href="<?=$src?>" /><?
+			}?> 
+	<?=($if=='if !IE')?' <!--':''?><![endif]--><?	
+		}
+	}
+
+
+	if(count($archivos_faltantes)){?> 
+	<script>
+		try{<? 
+	foreach($archivos_faltantes as $file){?> 
+		//archivo css faltante <?=$file?> 
+		window.console.log('No Existe el archivo de skin <?=$file?>');<?
+	}?> 
+		}
+		catch(e){;}
+	</script><?
+	}
+	$register_uids = array();
+	foreach($this->getChild() as $child){
+		if($uid = $child->getUid()){
+			$register_uids[] = $uid;
+		}
+	}
+	echo "\n";
+	if(count($register_uids)){
+		echo "\t".'<script type="text/javascript">'."\n";
+		echo "\t\t".'window.added_components = '.json_encode($register_uids).";\n";
+		echo "\t".'</script>'."\n";
+	}
+	if($this->hasCompressScripts()&&$this->getCompressScripts()){
+		$js_scripts = array();
+		$js_seed = array();
+		$css_scripts = array();
+		$css_seed = array();
+		foreach($this->getChild() as $child){
+			$current_out = '';
+			if($child instanceof Core_Page_Block_Html_Head_Script){
+				if($child->hasInlineScript()){
+					//echo $child->toHtml();
+				}
+				else{
+					$file = $this->getSkinPath($child->getInlineContent());
+					if(!$file){
+					//	echo $child->toHtml();
+					}
+					else{
+						$js_scripts[] = $file;
+						$js_seed[] = $child->getData();
+						continue;
+					}
+				}
+			}
+//			elseif($child instanceof Core_Page_Block_Html_Head_Css){
+//				$file = $this->getSkinPath($child->getInlineContent());
+//				$css_scripts[] = $file;
+//				$css_seed[] = $child->getData();
+//				continue;
+//			}
+			//else echo $child->toHtml();
+			if(count($js_scripts)){
+				$key = md5(serialize($js_seed));
+				$cache_file_link_url = 'skin/packedjs/'.$key.'.js';
+				$cache_file = CFG_PATH_ROOT.'/'.$cache_file_link_url;
+				if(!file_exists($cache_file)){
+					file_put_contents($cache_file, '');
+					foreach($js_scripts as $script_path){
+						$content = ";\n\n;".file_get_contents($script_path);
+//						$jsc = new Core_Packer_JavaScriptCompressor();
+//						$packed_js = $jsc->getPacked($content);
+						file_put_contents($cache_file,";\n\n;".$content,FILE_APPEND);
+					}
+				//	$packed_js = $content;
+				}
+				echo '	<script type="text/javascript" src="'.$this->getUrl($cache_file_link_url).'"></script>';
+				$js_scripts = array();
+				$js_seed = array();
+			}
+			echo $child->toHtml();
+		}
+//		if(count($css_scripts)){
+//			$key = md5(serialize($css_seed));
+//			$cache_file_link_url = 'skin/packedcss/'.$key.'.css';
+//			$cache_file = CFG_PATH_ROOT.'/'.$cache_file_link_url;
+//			if(!file_exists($cache_file)){
+//				file_put_contents($cache_file, '');
+//				foreach($css_scripts as $script_path){
+//					$content = "\n\n\n".file_get_contents($script_path);
+////						$cssc = new Core_Packer_JavaScriptCompressor();
+////						$packed_css = $cssc->getPacked($content);
+//					file_put_contents($cache_file,";\n\n;".$content,FILE_APPEND);
+//				}
+//			//	$packed_css = $content;
+//			}
+//			echo '	<link rel="stylesheet" type="text/css" href="'.$this->getUrl($cache_file_link_url).'" />';
+//			$css_scripts = array();
+//			$css_seed = array();
+//		}
+	}
+	else
+		echo $this->getChildHtml('', true, true);
+?> 
+</head>

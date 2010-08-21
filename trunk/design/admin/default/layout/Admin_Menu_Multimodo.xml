@@ -1,0 +1,105 @@
+<layout>
+	<list_admin_menu>
+		<reference in="superadmin" name="contenedor_main">
+			<template name="ordenador_menu" template="menu/ordenador.phtml" />
+		</reference>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/menu/addEdit,id"
+			toolbar_delete_url="administrator/menu/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Menu"
+			source="administrator/menu/datalist"
+			sort_name="orden"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Activo</title>
+				<name>activo</name>
+				<index>activo</index>
+				<width>20</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Texto</title>
+				<name>texto</name>
+				<index>texto</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Descripcion</title>
+				<name>title</name>
+				<index>title</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nodo</title>
+				<name>id_nodo</name>
+				<index>id_nodo</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Pag Externa</title>
+				<name>url_externa</name>
+				<index>url_externa</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Orden</title>
+				<name>orden</name>
+				<index>orden</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_menu>
+	<addedit_admin_menu>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="menu/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_menu" 
+				method="post">
+				<block name="menu_add_edit_form" type="template" template="menu/add.phtml" ></block>
+			</block>
+		</reference>
+	</addedit_admin_menu>
+	<ordenar_menu>
+		<template template="menu/ordenar_menu.phtml" name="ordenar_menu" />
+	</ordenar_menu>
+</layout>

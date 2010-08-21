@@ -1,0 +1,6 @@
+<global>
+	<block>
+		<type>banner_carrousel</type>
+		<class>Frontend_BannerCarrousel_Block_BannerCarrousel</class>
+	</block>
+</global>

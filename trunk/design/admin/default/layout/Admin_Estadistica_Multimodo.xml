@@ -1,0 +1,652 @@
+<layout><!-- es útf8 -->
+	<list_admin_estadistica_acceso_categoria>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_acceso_categoria/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Accesos a Categorías Diario"
+			source="administrator/estadistica/datalist_acceso_categoria"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Categoria</title>
+				<name>nombre_categoria</name>
+				<index>nombre_categoria</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Subcategoria</title>
+				<name>subcategoria</name>
+				<index>subcategoria</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_acceso_categoria>
+	
+	<list_admin_estadistica_acceso_sesion>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_acceso_sesion/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado Cantidad de Accesos por Sesion Diario"
+			source="administrator/estadistica/datalist_acceso_sesion"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Ip</title>
+				<name>ip</name>
+				<index>ip</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_acceso_sesion>
+	
+	<list_admin_estadistica_acceso_sesion_url>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_acceso_sesion_url/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado Cantidad de Accesos por Sesion Diario"
+			source="administrator/estadistica/datalist_acceso_sesion_url"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>URL</title>
+				<name>url</name>
+				<index>url</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_acceso_sesion_url>
+	
+	<list_admin_estadistica_click_anuncio>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_click_anuncio/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado Cantidad de Clicks a Anuncios Diario"
+			source="administrator/estadistica/datalist_click_anuncio"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Anuncio</title>
+				<name>nombre_anuncio</name>
+				<index>nombre_anuncio</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Barrio</title>
+				<name>nombre_barrio</name>
+				<index>nombre_barrio</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Categoría</title>
+				<name>nombre_categoria</name>
+				<index>nombre_categoria</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_click_anuncio>
+	
+	<list_admin_estadistica_click_anuncio_barrio>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_click_anuncio_barrio/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado Cantidad de Clicks en Anuncios por Barrio Diario"
+			source="administrator/estadistica/datalist_click_anuncio_barrio"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Barrio</title>
+				<name>nombre_barrio</name>
+				<index>nombre_barrio</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_click_anuncio_barrio>
+	
+	<list_admin_estadistica_click_anuncio_categoria>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_click_anuncio_categoria/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado Cantidad de Clicks en Anuncios por Categoria Diario"
+			source="administrator/estadistica/datalist_click_anuncio_categoria"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Categoria</title>
+				<name>nombre_categoria</name>
+				<index>nombre_categoria</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_click_anuncio_categoria>
+	
+	<list_admin_estadistica_click_banner_carrousel>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_click_banner_carrousel/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado Cantidad de Clicks BannerCarrousel"
+			source="administrator/estadistica/datalist_click_banner_carrousel"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Banner Carrousel</title>
+				<name>nombre_banner_carrousel</name>
+				<index>nombre_banner_carrousel</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>URL</title>
+				<name>url</name>
+				<index>url</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_click_banner_carrousel>
+	
+	<list_admin_estadistica_click_banner_dinamico>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_click_banner_dinamico/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado Cantidad de Clicks BannerDinamico"
+			source="administrator/estadistica/datalist_click_banner_dinamico"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Banner Dinamico</title>
+				<name>nombre_banner_dinamico</name>
+				<index>nombre_banner_dinamico</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>URL</title>
+				<name>url</name>
+				<index>url</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_click_banner_dinamico>
+	
+	<list_admin_estadistica_click_minisitio>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_click_minisitio/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado Cantidad de Clicks Minisitio"
+			source="administrator/estadistica/datalist_click_minisitio"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Anuncio</title>
+				<name>nombre_anuncio</name>
+				<index>nombre_anuncio</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>URL</title>
+				<name>url</name>
+				<index>url</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_click_minisitio>
+	
+	<list_admin_estadistica_inicio_sesion>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_inicio_sesion/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Cantidad de Sesiones Diárias"
+			source="administrator/estadistica/datalist_inicio_sesion"
+			sort_name="dia"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Cantidad</title>
+				<name>cantidad</name>
+				<index>cantidad</index>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Dia</title>
+				<name>dia</name>
+				<index>dia</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_inicio_sesion>
+	
+	
+	<list_admin_estadistica_contador>
+		<reference name="contenedor_main">
+			<template before="listado_datos_grid" template="estadistica/exportador_excel.phtml" link_url="administrator/estadistica/listar_contador/excel" /> 
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado analítico de información online"
+			source="administrator/estadistica/datalist_contador"
+			sort_name="id"
+			sort_order="desc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Exportar a Excel"
+				action_js="exportarAExcel()" />
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>40</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Tipo</title>
+				<name>nombre_tipo</name>
+				<index>nombre_tipo</index>
+				<width>90</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Info 1</title>
+				<name>info1</name>
+				<index>info1</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Info 2</title>
+				<name>info2</name>
+				<index>info2</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Timestamp</title>
+				<name>fecha</name>
+				<index>fecha</index>
+				<width>80</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+		</reference>
+	</list_admin_estadistica_contador>
+</layout>

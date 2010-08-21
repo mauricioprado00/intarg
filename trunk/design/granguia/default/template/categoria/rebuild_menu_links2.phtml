@@ -1,0 +1,29 @@
+<?
+$categorias = $this->getCategorias();
+if(!$categorias){
+	echo 'error en el listado de categorias';
+	return;
+}
+//$id = $this->generateRandomId();
+//$id_categoria_seleccionada = null;
+//if($categoria_seleccionada = Core_App::getInstance()->getCategoria())
+//	$id_categoria_seleccionada = $categoria_seleccionada->getId();//var_dump($categoria->getNombre());
+?>
+<script type="text/javascript">
+<?
+	foreach($categorias[0]['childs'] as $tree_item_primer_nivel){
+		$categoria = $categoria_primer_nivel = $tree_item_primer_nivel['item'];
+			$link_url = $categoria->getLinkUrl(Core_App::getInstance()->getBarrio());
+		if(!isset($tree_item_primer_nivel['childs'])){?> 
+jQuery('#menu a[data-id_categoria=<?php print $categoria->getId(); ?>]').attr('href', <?php print json_encode('#'.$link_url); ?>);<?
+			continue;
+		}
+		foreach($tree_item_primer_nivel['childs'] as $tree_item_segundo_nivel){
+			$categoria = $categoria_segundo_nivel = $tree_item_segundo_nivel['item'];
+			$link_url = $categoria->getLinkUrl(Core_App::getInstance()->getBarrio());?> 
+jQuery('#menu a[data-id_categoria=<?php print $categoria->getId(); ?>]').attr('href', <?php print json_encode('#'.$link_url); ?>);<?
+			continue;
+		}
+	}
+?> 
+</script>

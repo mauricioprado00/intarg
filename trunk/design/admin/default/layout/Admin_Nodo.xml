@@ -1,0 +1,62 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>nodo</link_url>
+				<text>Nodo</text>
+				<title>Nodo</title>
+				<name>menu_admin_nodo</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_nodo">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>nodo/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>nodo/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_nodo>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Nodo/XmlList"
+			name="xml_data_admin_nodo">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>path_url</fieldname>
+				<fieldname>tags</fieldname>
+				<fieldname>id_tipo_nodo</fieldname>
+				<fieldname>es_home</fieldname>
+				<fieldname>es_activa</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#nodo/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#nodo/addEdit/{!id}">editar</a>
+					<a href="#nodo/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el nodo seleccionado?')">eliminar</a>
+					]]></param>
+					<a href="#nodo/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el nodo seleccionado?')"><div class="lstde"></div></a>
+				-->
+				<param><![CDATA[
+					<a href="#nodo/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#nodo/addEdit/{!id}"><div class="lsted"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_nodo>
+</layout>

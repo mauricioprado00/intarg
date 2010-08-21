@@ -1,0 +1,17 @@
+<global>
+	<modules>
+	</modules>
+	<!--<routers>
+		<Frontend_Barrio_Router>barrio</Frontend_Barrio_Router>
+	</routers>-->
+	<block>
+		<type>visor_banners_dinamicos</type>
+		<class>Frontend_BannerDinamico_Block_Visor</class>
+	</block>
+	<layouts>
+		<!--
+		<granguia>Anuncio.xml</granguia> 
+		la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+	</layouts>
+</global>

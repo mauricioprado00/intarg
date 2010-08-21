@@ -1,0 +1,9 @@
+<global>
+	<routers>
+		<Granguia_Catalog_Router_Catalog>catalogo</Granguia_Catalog_Router_Catalog>
+		<Granguia_Catalog_Router_Catalog>catalogo.php</Granguia_Catalog_Router_Catalog>
+	</routers>
+	<layouts>
+		<frontend>Catalog.xml</frontend>
+	</layouts>
+</global>

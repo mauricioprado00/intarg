@@ -1,0 +1,19 @@
+<div id="<?php print $id=$this->generateRandomId(); ?>">
+	<form onsubmit="return enviar_formulario_contacto.apply(this); " action="<?php print $this->getUrl($this->getUrlAction()); ?>">
+		<div style="border: 1px solid black; margin-right: 16px; padding: 19px; background-color: #E9E7EA; font-weight: bold; color: rgb(68, 68, 68); -moz-border-radius: 13px 13px 13px 13px;border-radius:13px;webkit-border-radius:13px;">
+		<?php print $this->getFormulario(); ?>
+		</div>
+		<input type="hidden" name="firma" value="<?php print $this->getFirma(); ?>" />
+	</form>
+	<div style="display:none;">
+		<div class="capcha contacto_mensaje">
+			<div class="mensaje">Ingrese el c&oacute;digo de verificaci&oacute;n:
+				<?php print $this->getChildHtml('capcha'); ?>
+			</div>
+			<div>
+				<input class="aceptar" type="button" value="aceptar" />
+				<input type="button" value="cancelar" onclick="javascript: jQuery.unblockUI();"/>
+			</div>
+		</div>
+	</div>
+</div>

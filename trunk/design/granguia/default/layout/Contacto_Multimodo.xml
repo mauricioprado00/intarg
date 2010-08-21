@@ -1,0 +1,17 @@
+<layout>
+	<pagina_contacto>
+		<reference name="html_head">
+			<script charset="utf8">validador/validador.js</script>
+			<script charset="utf8">js/contacto.js</script>
+			<css>validador/validador.css</css>
+		</reference>
+		<reference name="wrapper_left_subheader">
+		</reference>
+		<reference name="contenido_principal">
+			<contacto_form>
+				<pagina_view name="campos_form" nombre_interno="contacto" />
+				<capcha name="capcha" />
+			</contacto_form>
+        </reference>
+	</pagina_contacto>
+</layout>
