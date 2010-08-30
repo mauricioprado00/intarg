@@ -1,0 +1,57 @@
+<?
+$x = new Inta_Model_Estrategia();
+if($this->hasIdToEdit()){
+	$x->setId($this->getIdToEdit());
+	$x->load();
+}
+else{
+	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
+		$x->loadFromArray(Core_Http_Post::getParameters('array'));
+	}
+}
+$x->addAutofilterOutput('utf8_decode');
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 42;
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="estrategia[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Estrategia</legend>
+	<fieldset>
+		<h3>Informacion de Estrategia</h3>
+		<div>
+			<label>Nombre: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('nombre')
+					->setName('estrategia[nombre]')
+					->setValue($x->getNombre())
+					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+
+jQuery(document).ready(function(){
+
+})
+function validar_agregar_estrategia(formData, jqForm, options) {
+	if(!validar({
+		donde: '#<?php print $id_fielset; ?>',
+		estatico:true})){
+		return false;
+	}
+	return(true);
+}
+</script>

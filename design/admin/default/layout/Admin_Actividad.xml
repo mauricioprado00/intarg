@@ -1,0 +1,71 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>actividad</link_url>
+				<text>Actividad</text>
+				<title>Actividad</title>
+				<name>menu_admin_actividad</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_actividad">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>actividad/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>actividad/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_actividad>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Actividad/XmlList"
+			name="xml_data_admin_actividad">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>id_responsable</fieldname>
+				<fieldname>nombre</fieldname>
+				<fieldname>ano</fieldname>
+				<fieldname>porcentaje_cumplimiento</fieldname>
+				<fieldname>porcentaje_tiempo</fieldname>
+				<fieldname>presupuesto_estimado</fieldname>
+				<fieldname>mes_enero</fieldname>
+				<fieldname>mes_febrero</fieldname>
+				<fieldname>mes_marzo</fieldname>
+				<fieldname>mes_abril</fieldname>
+				<fieldname>mes_mayo</fieldname>
+				<fieldname>mes_junio</fieldname>
+				<fieldname>mes_julio</fieldname>
+				<fieldname>mes_agosto</fieldname>
+				<fieldname>mes_septiembre</fieldname>
+				<fieldname>mes_octubre</fieldname>
+				<fieldname>mes_noviembre</fieldname>
+				<fieldname>mes_diciembre</fieldname>
+				<fieldname>observaciones</fieldname>
+				<fieldname>comentario</fieldname>
+				<fieldname>estado</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<a href="#actividad/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#actividad/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#actividad/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando la actividad seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_actividad>
+</layout>

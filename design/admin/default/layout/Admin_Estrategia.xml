@@ -1,0 +1,51 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>estrategia</link_url>
+				<text>Estrategia</text>
+				<title>Estrategia</title>
+				<name>menu_admin_estrategia</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_estrategia">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>estrategia/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>estrategia/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_estrategia>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Estrategia/XmlList"
+			name="xml_data_admin_estrategia">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<a href="#estrategia/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#estrategia/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#estrategia/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando la estrategia seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_estrategia>
+</layout>

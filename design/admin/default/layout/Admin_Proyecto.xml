@@ -1,0 +1,51 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>proyecto</link_url>
+				<text>Proyecto</text>
+				<title>Proyecto</title>
+				<name>menu_admin_proyecto</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_proyecto">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>proyecto/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>proyecto/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_proyecto>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Proyecto/XmlList"
+			name="xml_data_admin_proyecto">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<a href="#proyecto/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#proyecto/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#proyecto/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el proyecto seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_proyecto>
+</layout>

@@ -1,0 +1,71 @@
+<layout>
+	<list_admin_medio_verificacion>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/medio_verificacion/addEdit,id"
+			toolbar_delete_url="administrator/medio_verificacion/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de MedioVerificacion"
+			source="administrator/medio_verificacion/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton"
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+                        <action named_args="true" method="addColumn">
+				<title>Indicador</title>
+				<name>id_indicador</name>
+				<index>id_indicador</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_medio_verificacion>
+	<addedit_admin_medio_verificacion>
+		<reference name="contenedor_main">
+			<block
+				type="Admin/AddEditForm"
+				action_url="medio_verificacion/addEdit"
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_medio_verificacion"
+				method="post">
+				<tabset>
+					<tab title="Datos de MedioVerificacion">
+						<block name="medio_verificacion_add_edit_form" type="template" template="medio_verificacion/add.phtml" ></block>
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_medio_verificacion>
+</layout>
