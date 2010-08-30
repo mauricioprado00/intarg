@@ -1,0 +1,207 @@
+<?
+$x = new Inta_Model_Actividad();
+if($this->hasIdToEdit()){
+	$x->setId($this->getIdToEdit());
+	$x->load();
+}
+else{
+	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
+		$x->loadFromArray(Core_Http_Post::getParameters('array'));
+	}
+}
+$x->addAutofilterOutput('utf8_decode');
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 42;
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Actividad</legend>
+	<fieldset>
+            <h3>Cronograma</h3>
+            <div>
+                    <label>Mes Enero: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_enero')
+                                    ->setName('actividad[mes_enero]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesEnero())
+                                $input->setChecked($x->getMesEnero('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Febrero: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_febrero')
+                                    ->setName('actividad[mes_febrero]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesFebrero())
+                                $input->setChecked($x->getMesFebrero('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Marzo: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_marzo')
+                                    ->setName('actividad[mes_marzo]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesMarzo())
+                                $input->setChecked($x->getMesMarzo('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Abril: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_abril')
+                                    ->setName('actividad[mes_abril]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesAbril())
+                                $input->setChecked($x->getMesAbril('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Mayo: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_mayo')
+                                    ->setName('actividad[mes_mayo]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesMayo())
+                                $input->setChecked($x->getMesMayo('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Junio: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_junio')
+                                    ->setName('actividad[mes_junio]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesJunio())
+                                $input->setChecked($x->getMesJunio('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Julio: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_julio')
+                                    ->setName('actividad[mes_julio]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesJulio())
+                                $input->setChecked($x->getMesJulio('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Agosto: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_agosto')
+                                    ->setName('actividad[mes_agosto]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesAgosto())
+                                $input->setChecked($x->getMesAgosto('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Septiembre: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_septiembre')
+                                    ->setName('actividad[mes_septiembre]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesSeptiembre())
+                                $input->setChecked($x->getMesSeptiembre('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Octubre: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_octubre')
+                                    ->setName('actividad[mes_octubre]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesOctubre())
+                                $input->setChecked($x->getMesOctubre('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Noviembre: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_noviembre')
+                                    ->setName('actividad[mes_noviembre]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesNoviembre())
+                                $input->setChecked($x->getMesNoviembre('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>
+                    <label>Mes Diciembre: </label>
+                    <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('checkbox')
+                                    ->setId('mes_diciembre')
+                                    ->setName('actividad[mes_diciembre]')
+                                    ->setValue(1)
+                            ;
+                            if($x->getMesDiciembre())
+                                $input->setChecked($x->getMesDiciembre('on'));
+                            echo $input->getHtml();
+                    ?>
+                    </span>                    
+            </div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+
+jQuery(document).ready(function(){
+    jQuery('input[type=submit]').unbind('click');
+    $('input[type=submit]').bind('click', function() {
+      jQuery('input[type=checkbox][#^=mes]:not(:checked)').val(0).attr('checked','true');
+    });
+
+
+})
+</script>

@@ -1,0 +1,199 @@
+<?
+$x = new Inta_Model_Actividad();
+if($this->hasIdToEdit()){
+	$x->setId($this->getIdToEdit());
+	$x->load();
+}
+else{
+	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
+		$x->loadFromArray(Core_Http_Post::getParameters('array'));
+	}
+}
+$x->addAutofilterOutput('utf8_decode');
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 42;
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Actividad</legend>
+	<fieldset>
+		<h3>Informacion de Actividad</h3>
+		<div>
+                        <label>Responsable: </label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+                                $select
+                                        ->setId('id_responsable')
+                                        ->setName('medio_verificacion[id_responsable]')
+                                ;
+                                $html = '';
+                                $i = new Inta_Model_Usuario();
+                                $a = $i->search();
+                                if(!empty($a))
+					foreach($a as $o){
+						$option = new Core_Html_Tag_Custom('option');
+						$option
+							->setValue($o->getId())
+							->setInnerHtml($o->getNombre())
+						;
+						if($o->getId()==$x->getIdIndicador())
+							$option->setSelected('selected');
+						$html .= $option->getHtml();
+					}
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?>
+			</span>
+			<label>Nombre: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('nombre')
+					->setName('actividad[nombre]')
+					->setValue($x->getNombre())
+					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+			<label>A&ntilde;o: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('ano')
+					->setName('actividad[ano]')
+					->setValue($x->getNombre())
+					->setData('data-campo', '<b>Año</b>')
+					->setData('data-validator', '{empty:false,entero:4}')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+			<label>Porcentaje Cumplimiento: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('porcentaje_cumplimiento')
+					->setName('actividad[porcentaje_cumplimiento]')
+					->setValue($x->getPorcentajeCumplimiento())
+					->setData('data-campo', '<b>Porcentaje Cumplimiento</b>')
+					->setData('data-validator', '{empty:false,porcentaje:true}')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+			<label>Porcentaje Tiempo: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('porcentaje_tiempo')
+					->setName('actividad[porcentaje_tiempo]')
+					->setValue($x->getPorcentajeCumplimiento())
+					->setData('data-campo', '<b>Porcentaje Tiempo</b>')
+					->setData('data-validator', '{empty:false,porcentaje:true}')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+			<label>Presupuesto Estimado: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('presupuesto_estimado')
+					->setName('actividad[presupuesto_estimado]')
+					->setValue($x->getPresupuestoEstimado())
+					->setData('data-campo', '<b>Presupuesto Estimado</b>')
+					->setData('data-validator', '{empty:false,decimal:2}')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+			<label>Observaciones: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('textarea');
+				$input
+					->setId('observaciones')
+					->setName('actividad[observaciones]')
+					->setInnerHtml(htmlentities($x->getObservaciones()))
+                                        ->setRows(5)
+                                        ->setCols(40)
+//					->setData('data-campo', '<b>Observaciones</b>')
+//					->setData('data-validator', '{empty:false}')
+//                                        ->setData('data-mensaje', 'Debe cargar uno o mas %field separados por comas')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+			<label>Comentarios: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('textarea');
+				$input
+					->setId('comentario')
+					->setName('actividad[comentario]')
+					->setInnerHtml(htmlentities($x->getComentario()))
+                                        ->setRows(5)
+                                        ->setCols(40)
+//					->setData('data-campo', '<b>Comentarios</b>')
+//					->setData('data-validator', '{empty:false}')
+//                                        ->setData('data-mensaje', 'Debe cargar uno o mas %field separados por comas')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+                        <label>Estado: </label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+                                $select
+                                        ->setId('estado')
+                                        ->setName('indicador[estado]')
+                                ;
+                                $html = '';
+                                $aOptions = array('planificado' => 'Planificado','cancelado' => 'Cancelado', 'realizado' => 'Realizado');
+                                foreach($aOptions As $key => $value){
+                                    $option = new Core_Html_Tag_Custom('option');
+                                    $option
+                                            ->setValue($key)
+                                            ->setInnerHtml($value)
+                                    ;
+                                    if($x->getEstado()==$key)
+                                            $option->setSelected('selected');
+                                    $html .= $option->getHtml();
+                                }
+                                $select->setInnerHtml($html);
+				echo $select->getHtml();
+			?>
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+
+jQuery(document).ready(function(){
+
+})
+function validar_agregar_actividad(formData, jqForm, options) {
+	if(!validar({
+		donde: '#<?php print $id_fielset; ?>',
+		estatico:true})){
+		return false;
+	}
+	return(true);
+}
+</script>

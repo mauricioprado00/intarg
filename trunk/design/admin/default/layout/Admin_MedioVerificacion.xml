@@ -1,0 +1,52 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>medio_verificacion</link_url>
+				<text>MedioVerificacion</text>
+				<title>MedioVerificacion</title>
+				<name>menu_admin_medio_verificacion</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_medio_verificacion">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>medio_verificacion/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>medio_verificacion/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_medio_verificacion>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_MedioVerificacion/XmlList"
+			name="xml_data_admin_medio_verificacion">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>id_indicador</fieldname>
+				<fieldname>nombre</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<a href="#medio_verificacion/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#medio_verificacion/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#medio_verificacion/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el medio de verificacion seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_medio_verificacion>
+</layout>

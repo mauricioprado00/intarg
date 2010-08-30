@@ -3,6 +3,12 @@
 		<Admin_User/>
 		<!--<cosas_de_inta>-->
 		<Admin_Agencia/>
+		<Admin_Actividad/>
+		<Admin_Estrategia/>
+                <Admin_Indicador/>
+		<Admin_MedioVerificacion/>
+		<Admin_Proyecto/>
+		<Admin_TipoAudiencia/>
 		<!--</cosas_de_inta>-->
 		<!--<cosas_de_granguia>-->
 		<Admin_Estadistica/>

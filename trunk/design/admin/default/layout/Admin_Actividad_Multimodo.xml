@@ -1,0 +1,226 @@
+<layout>
+	<list_admin_actividad>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/actividad/addEdit,id"
+			toolbar_delete_url="administrator/actividad/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Actividad"
+			source="administrator/actividad/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton"
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+        		<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id_responsable</name>
+				<index>id_responsable</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Año</title>
+				<name>ano</name>
+				<index>ano</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Porcentaje Cumplimiento</title>
+				<name>porcentaje_cumplimiento</name>
+				<index>porcentaje_cumplimiento</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Porcentaje Tiempo</title>
+				<name>porcentaje_tiempo</name>
+				<index>porcentaje_tiempo</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Presupuesto Estimado</title>
+				<name>presupuesto_estimado</name>
+				<index>presupuesto_estimado</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Enero</title>
+				<name>mes_enero</name>
+				<index>mes_enero</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Febrero</title>
+				<name>mes_febrero</name>
+				<index>mes_febrero</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Marzo</title>
+				<name>mes_marzo</name>
+				<index>mes_marzo</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Abril</title>
+				<name>mes_abril</name>
+				<index>mes_abril</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Mayo</title>
+				<name>mes_mayo</name>
+				<index>mes_mayo</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Junio</title>
+				<name>mes_junio</name>
+				<index>mes_junio</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Julio</title>
+				<name>mes_julio</name>
+				<index>mes_julio</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Agosto</title>
+				<name>mes_agosto</name>
+				<index>mes_agosto</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Septiembre</title>
+				<name>mes_septiembre</name>
+				<index>mes_septiembre</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Octubre</title>
+				<name>mes_octubre</name>
+				<index>mes_octubre</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Noviembre</title>
+				<name>mes_noviembre</name>
+				<index>mes_noviembre</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Mes Diciembre</title>
+				<name>mes_diciembre</name>
+				<index>mes_diciembre</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Observaciones</title>
+				<name>observaciones</name>
+				<index>observaciones</index>
+				<width>200</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Comentario</title>
+				<name>comentario</name>
+				<index>comentario</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Estado</title>
+				<name>estado</name>
+				<index>estado</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_actividad>
+	<addedit_admin_actividad>
+		<reference name="contenedor_main">
+			<block
+				type="Admin/AddEditForm"
+				action_url="actividad/addEdit"
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_actividad"
+				method="post">
+				<tabset>
+					<tab title="Datos de Actividad">
+						<block name="actividad_add_edit_form" type="template" template="actividad/add.phtml"></block>
+					</tab>
+					<tab title="Planificacion">
+						<block name="actividad_add_edit_form" type="template" template="actividad/planificacion.phtml"></block>
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_actividad>
+</layout>

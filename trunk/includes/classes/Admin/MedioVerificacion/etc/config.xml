@@ -1,0 +1,12 @@
+<global>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin_MedioVerificacion.xml</admin>
+		<admin>Admin_MedioVerificacion_Multimodo.xml</admin>
+		<ajax>Admin_MedioVerificacion_Multimodo.xml</ajax>
+	</layouts>
+	<routers>
+		<Admin_MedioVerificacion_Router>administrator/medio_verificacion</Admin_MedioVerificacion_Router>
+	</routers>
+</global>
