@@ -60,8 +60,10 @@
 						<template name="resultado_esperado_add_edit_form" template="resultado_esperado/datos.phtml" />
 					</tab>
 					<tab when="!accion(entity_new)" title="Indicadores">
-						<template name="resultado_esperado_add_edit_form" template="resultado_esperado/indicadores.phtml">
-							<template name="ver_indicador_resultado_esperado" template="resultado_esperado/indicador.phtml" />
+						<template name="resultado_esperado_add_edit_form" template="resultado_esperado/indicadores2.phtml">
+							<template name="ver_indicador_resultado_esperado" template="resultado_esperado/indicador.phtml">
+								<template name="ver_medio_verificacion_indicador_resultado_esperado" template="resultado_esperado/indicador/medio_verificacion.phtml"/>
+							</template>
 						</template>
 					</tab>
 				</tabset>
@@ -71,6 +73,25 @@
 			</block>
 		</reference>
 	</addedit_admin_resultado_esperado>
+	
+	
+	<!-- 
+		indicador_resultado
+	-->
+	<list_admin_indicador_resultado>
+		<reference name="contenedor_main">
+			<template name="resultado_esperado_add_edit_form" template="resultado_esperado/indicadores2.phtml">
+				<template name="ver_indicador_resultado_esperado" template="resultado_esperado/indicador.phtml">
+					<template name="ver_medio_verificacion_indicador_resultado_esperado" template="resultado_esperado/indicador/medio_verificacion.phtml"/>
+				</template>
+			</template>
+		</reference>
+		<reference name="contenedor_ajax">
+			<action method="setHtmlClass">
+				<html_class></html_class>
+			</action>
+		</reference>
+	</list_admin_indicador_resultado>
 	<addedit_admin_indicador_resultado>
 		<reference name="contenedor_ajax">
 			<action method="setHtmlClass">
@@ -82,7 +103,7 @@
 				type="Admin/AddEditForm"
 				action_url="resultado_esperado/addEditIndicador" 
 				ajax_target=".ANINGUNLADO"
-				ajax_replace_with="true"
+				ajax_replace_with=""
 				ajax_method="ajaxSubmit"
 				validador_js="validar_agregar_indicador_resultado_datos"
 				method="post" 
@@ -96,4 +117,47 @@
 			</block>
 		</reference>
 	</addedit_admin_indicador_resultado>
+	
+	<!-- 
+		medio_verificacion_indicador_resultado
+	-->
+	<!-- basura
+	<list_admin_medio_verificacion_indicador_resultado>
+		<reference name="contenedor_main">
+			<template name="indicador_resultado_add_edit_form" template="indicador_resultado/indicadores2.phtml">
+				<template name="ver_medio_verificacion_indicador_indicador_resultado" template="indicador_resultado/indicador.phtml" />
+			</template>
+		</reference>
+		<reference name="contenedor_ajax">
+			<action method="setHtmlClass">
+				<html_class></html_class>
+			</action>
+		</reference>
+	</list_admin_medio_verificacion_indicador_resultado>
+	-->
+	<addedit_admin_medio_verificacion_indicador_resultado>
+		<reference name="contenedor_ajax">
+			<action method="setHtmlClass">
+				<html_class></html_class>
+			</action>
+		</reference>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="resultado_esperado/addEditMedioVerificacion" 
+				ajax_target=".ANINGUNLADO"
+				ajax_replace_with=""
+				ajax_method="ajaxSubmit"
+				validador_js="validar_agregar_medio_verificacion_indicador_resultado_datos"
+				method="post" 
+				success_js="medio_verificacion_indicador_resultado_enviado"
+				name="formulariox">
+				<tabset>
+					<tab title="Datos Resultado">
+						<template name="medio_verificacion_indicador_resultado_add_edit_form" template="resultado_esperado/indicador/medio_verificacion/datos.phtml" />
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_medio_verificacion_indicador_resultado>
 </layout>

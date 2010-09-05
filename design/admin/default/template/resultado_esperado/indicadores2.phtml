@@ -21,14 +21,15 @@ $x = $this->getObjectToEdit();
 						$block_vista_indicador = $this->getChild('ver_indicador_resultado_esperado');
 						echo '<ul>';
 						foreach($indicadores as $indicador_resultado){
-							$block_vista_indicador->setObjectToEdit(1);
+							$block_vista_indicador->setObjectToEdit($indicador_resultado);
 							echo $block_vista_indicador->toHtml();
 						}
 						echo '</ul>';
 					}
 				?>
 				</div> 
-			<div style="padding-left:16px;height:auto;width:auto;background-repeat:no-repeat;background-position:0 50%" class="btn_agregar">Agregar Indicador</div>
+			<br />
+			<div style="height:auto;width:auto;" class="btn_agregar btn_agregar_indicador">Agregar Indicador</div>
 		</div>
 	</fieldset>
 	<?/** /?>
@@ -41,7 +42,7 @@ $x = $this->getObjectToEdit();
 jQuery(document).ready(function(){
 	//jQuery('#descripcion').ckeditor();
 	var jqform = jQuery('#<?php print $id_fielset; ?>');
-	jQuery('.btn_agregar')
+	jQuery('.btn_agregar_indicador', jqform)
 		.css('cursor','pointer')
 		.click(function(){
 			var jqwait = jQuery('<div></div>');
@@ -60,6 +61,169 @@ jQuery(document).ready(function(){
 			);
 		})
 	;
+	jQuery('.btn_eliminar_indicador', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFDDDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var jqwin = jQuery('<div></div>');
+			jqwin.html('&iquest;Desea continuar eliminando el indicador y sus medios de verificacion asociados?<br />');
+			var jqaceptar = jQuery('<input type="button" value="Continuar" />')
+				.click(function(){
+					var id_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+					var jqwait = jQuery('<div></div>');
+					jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+					jqwait.ScreenBlock();
+					jQuery.get(
+						'administrator/ajax/resultado_esperado/deleteIndicador/'+id_indicador_resultado+'/',
+						function (data){
+							jQuery.ScreenBlock(false);
+							jQuery('#<?php print $id_control; ?>')
+								.parents('.ui-tabs-panel:first')
+								.html(data)
+							;
+						}
+					)
+				})
+				.appendTo(jqwin)
+			;
+			var jqcancelar = jQuery('<input type="button" value="Cancelar" />')
+				.click(function(){
+					jQuery.ScreenBlock(false);
+				})
+				.appendTo(jqwin)
+			;
+			jqwin.ScreenBlock();
+		})
+	;
+	jQuery('.btn_editar_indicador', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFFFBB')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'<?php print 'administrator/ajax/resultado_esperado/addEditIndicador/'.$x->getId().'/'; ?>'+id_indicador_resultado,
+				{
+					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			)
+		})
+	;
+	jQuery('.btn_agregar_medio_verificacion', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#DDFFDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/resultado_esperado/addEditMedioVerificacion/'+id_indicador_resultado+'/',
+				{
+					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			);
+		})
+	;
+	jQuery('.btn_eliminar_medio_verificacion', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFDDDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var jqwin = jQuery('<div></div>');
+			jqwin.html('&iquest;Desea continuar eliminando el medio de verificaci&oacute;n?<br />');
+			var jqaceptar = jQuery('<input type="button" value="Continuar" />')
+				.click(function(){
+					var id_medio_verificacion_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+					var jqwait = jQuery('<div></div>');
+					jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+					jqwait.ScreenBlock();
+					jQuery.get(
+						'administrator/ajax/resultado_esperado/deleteMedioVerificacion/'+id_medio_verificacion_indicador_resultado+'/',
+						function (data){
+							jQuery.ScreenBlock(false);
+							jQuery('#<?php print $id_control; ?>')
+								.parents('.ui-tabs-panel:first')
+								.html(data)
+							;
+						}
+					)
+				})
+				.appendTo(jqwin)
+			;
+			var jqcancelar = jQuery('<input type="button" value="Cancelar" />')
+				.click(function(){
+					jQuery.ScreenBlock(false);
+				})
+				.appendTo(jqwin)
+			;
+			jqwin.ScreenBlock();
+		})
+	;
+	jQuery('.btn_editar_medio_verificacion', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFFFBB')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_indicador_resultado = jqthat.parents('li:eq(1)').attr('data-id');
+			var id_medio_verificacion_indicador_resultado = jqthat.parents('li:eq(0)').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'<?php print 'administrator/ajax/resultado_esperado/addEditMedioVerificacion/'; ?>'+id_indicador_resultado+'/'+id_medio_verificacion_indicador_resultado,
+				{
+					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			)
+		})
+	;
+
 });
 
 function validar_agregar_resultado_esperado_indicadores(formData, jqForm, options) {

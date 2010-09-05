@@ -10,7 +10,7 @@ if($this->hasValidadorJs()||Admin_App::getInstance()->getModoAjax()){
 	$options = array(
 		'target'=>$this->getAjaxTarget(),
 	);
-	if($this->hasAjaxReplaceWith()){
+	if($this->hasAjaxReplaceWith()&&$this->getAjaxReplaceWith()){
 		$options['replaceWith'] = true;//esto es una modificacion del plugin jquery.form.js en linea 225
 	}
 //	if($this->hasSuccessJs()){

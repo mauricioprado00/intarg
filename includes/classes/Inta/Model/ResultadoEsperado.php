@@ -20,7 +20,7 @@ class Inta_Model_ResultadoEsperado extends Core_Model_Abstract{
 				->setIdResultadoEsperado($this->getId())
 				->setWhere(Db_Helper::equal('id_resultado_esperado'))
 			;
-			if($indicadores = $indicador_resultado->search()){
+			if($indicadores = $indicador_resultado->search(null, null, null, null, get_class($indicador_resultado))){
 				$this->_indicadores = $indicadores;
 			}
 		}
