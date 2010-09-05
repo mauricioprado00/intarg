@@ -387,3 +387,27 @@ margin:0 5px;
 	display:inline-block;
 	background-repeat:no-repeat;
 }
+.btn_editar{
+	background-image:url(../img/16x16/edit.png);
+	background-position:0 50%;
+	padding-left:16px;
+	height:16px;
+	display:inline-block;
+	background-repeat:no-repeat;
+}
+.btn_agregar_certificacion{
+	background-image:url(../img/16x16/certificate_add.png);
+	background-position:0 50%;
+	padding-left:16px;
+	height:16px;
+	display:inline-block;
+	background-repeat:no-repeat;
+}
+.btn_agregar_documento{
+	background-image:url(../img/16x16/document_add.png);
+	background-position:0 50%;
+	padding-left:16px;
+	height:16px;
+	display:inline-block;
+	background-repeat:no-repeat;
+}

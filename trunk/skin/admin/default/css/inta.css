@@ -1,0 +1,21 @@
+.indicador_resultado_toolbox{
+	float:left;
+	display:none;
+}
+.indicador_resultado_toolbox:after{
+	content:' - ';
+}
+li:hover>.indicador_resultado_toolbox{
+	display:inline;
+}
+
+.medio_verificacion_toolbox{
+	float:left;
+	display:none;
+}
+.medio_verificacion_toolbox:after{
+	content:' - ';
+}
+li:hover>.medio_verificacion_toolbox{
+	display:inline;
+}

@@ -1,0 +1,16 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+$medio_verificacion = $x->getMedioVerificacion();
+
+?>
+<li data-id="<?php print $x->getId(); ?>">
+	<?php print $medio_verificacion->getNombre(); ?>
+	<div class="medio_verificacion_toolbox">
+		<div class="btn_eliminar btn_eliminar_medio_verificacion" title="Eliminar Indicador"></div>
+		<div class="btn_editar btn_editar_medio_verificacion" title="Editar Indicador"></div>
+	</div>
+</li>

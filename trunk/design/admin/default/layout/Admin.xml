@@ -35,6 +35,7 @@
 				<action method="addCss">
 					<script>css/estilos.css</script>
 					<script>css/nav_v.css</script>
+					<script>css/inta.css</script>
 				</action>
 				<action named_args="true" method="addCss">
 					<script>css/estilos_ie6.css</script>

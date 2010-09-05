@@ -7,4 +7,37 @@ $x = $this->getObjectToEdit();
 
 
 ?>
-<li>este es un indicador</li>
+<li data-id="<?php print $x->getId(); ?>">
+	<b><?php echo $x->getDescripcion(); ?></b>
+	<?php 
+	//var_dump($x->getData(), get_class($x));
+	$indicador = $x->getIndicador();
+	if($indicador){
+		echo 
+			c($span = new Core_Html_Tag_Custom('span'))
+			->setInnerHtml(' - '.$indicador->getNombre().($indicador->getTipoIndicador()?'/'.$indicador->getTipoIndicador():''))
+			->getHtml()
+		;
+	}
+	else echo " - Error: no se pudo cargar el indicador (".__FILE__.'/'.__LINE__.")";
+	
+	?> 
+	<div class="indicador_resultado_toolbox">
+		<div class="btn_eliminar btn_eliminar_indicador" title="Eliminar Indicador"></div>
+		<div class="btn_editar btn_editar_indicador" title="Editar Indicador"></div>
+		<div class="btn_agregar_certificacion btn_agregar_medio_verificacion" title="Agregar Medio de Verificacion"></div>
+		<div class="btn_agregar_documento btn_agregar_indicador_attach" title="Agregar Documento"></div>
+	</div><?php
+	if($medio_verificacions = $x->getMediosVerificacion()){
+		echo '<br /><ul>';
+		$block_vista_medio_verificacion_indicador_resultado = $this->getChild('ver_medio_verificacion_indicador_resultado_esperado');
+		foreach($medio_verificacions as $medio_verificacion_indicador_resultado){
+			echo $block_vista_medio_verificacion_indicador_resultado
+				->setObjectToEdit($medio_verificacion_indicador_resultado)
+				->toHtml()
+			;
+		}
+		echo '</ul>';
+	} 
+	?> 
+</li>

@@ -114,5 +114,47 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 		return($indicador_resultado->setId($id_indicador_resultado)->delete());
 	}
 
+	/**
+	*	MedioVerificacionIndicadorResultado
+	*/
+	public static function actionAgregarEditarMedioVerificacionIndicadorResultado($medio_verificacion_indicador_resultado){
+		if(!is_a($medio_verificacion_indicador_resultado,'Inta_Model_MedioVerificacionIndicadorResultado')){
+			$medio_verificacion_indicador_resultado = new Inta_Model_MedioVerificacionIndicadorResultado($medio_verificacion_indicador_resultado->getData());
+		}
+		if(!$medio_verificacion_indicador_resultado->hasId()){/** aca hay que agregar a la base de datos*/
+			$resultado = $medio_verificacion_indicador_resultado->replace()?true:false;
+			//$insertada = true;// insertarEnLaBase()
+			if($resultado){
+				Admin_App::getInstance()->addSuccessMessage('MedioVerificacionIndicadorResultado añadida correctamente');
+			}
+			else{
+				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la MedioVerificacionIndicadorResultado, error en la operación");
+			}
+		}
+		else{/** aca hay que actualizar el registro*/
+			//$actualizada = true;// actualizarEnLaBase()
+			$resultado = $medio_verificacion_indicador_resultado->update(null)?true:false;
+			if($resultado){
+				Admin_App::getInstance()->addSuccessMessage('MedioVerificacionIndicadorResultado actualizada correctamente');
+			}
+			else{
+				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la MedioVerificacionIndicadorResultado, error en la operación");
+			}
+		}
+		return($resultado);
+	}
+	public static function actionEliminarMedioVerificacionIndicadorResultado($id_medio_verificacion_indicador_resultado){
+		if(self::eliminarMedioVerificacionIndicadorResultado($id_medio_verificacion_indicador_resultado)){
+			Admin_App::getInstance()->addSuccessMessage('MedioVerificacionIndicadorResultado Eliminada Correctamente');
+		}
+		else{
+			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la MedioVerificacionIndicadorResultado');
+		}
+	}
+	public static function eliminarMedioVerificacionIndicadorResultado($id_medio_verificacion_indicador_resultado){
+		$medio_verificacion_indicador_resultado = new Inta_Model_MedioVerificacionIndicadorResultado();
+		return($medio_verificacion_indicador_resultado->setId($id_medio_verificacion_indicador_resultado)->delete());
+	}
+
 }
 ?>

@@ -20,7 +20,7 @@ $x = $this->getObjectToEdit();
 					->setType('text')
 					->setId('descripcion')
 					->setName('indicador_resultado[descripcion]')
-					->setInnerHtml(htmlentities(stripslashes($x->getDescripcion())))
+					->setValue(htmlentities(stripslashes($x->getDescripcion())))
 					->setData('data-campo', '<b>Descripcion</b>')
 					->setData('data-validator', '{empty:false}')
 				;

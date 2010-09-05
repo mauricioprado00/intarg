@@ -7,7 +7,8 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 			'addEdit','delete','listar','datalist',
 			'ordenar','setorden',
 			'medios_verificacion',
-			'addEditIndicador'
+			'addEditIndicador','deleteIndicador',
+			'addEditMedioVerificacion','deleteMedioVerificacion'
 		);
 	}
 	protected function onThrought(){
@@ -147,9 +148,7 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_indicador_resultado)?'seteado':'no seteado'));
 			if($guardado){
 				//var_dump($indicador_resultado->getData());
-				echo Inta_Db::getInstance()->getLastQuery();
-				echo "ok";
-				exit();
+				$this->listarIndicador($indicador_resultado->getIdResultadoEsperado());
 			}
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_indicador_resultado');
@@ -173,6 +172,147 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 			}
 		}
 	}
+	protected function listarIndicador($id_resultado_esperado){
+		Core_App::getLayout()->addActions('list_admin_indicador_resultado');
+		//$this->cambiarUrlAjax('administrator/resultado_esperado/addEdit/');
+		if($bloque_listado = Core_App::getLoadedLayout()->getBlock('resultado_esperado_add_edit_form')){
+			$resultado_esperado = new Inta_Model_ResultadoEsperado();
+			$resultado_esperado->setId($id_resultado_esperado);
+			if($resultado_esperado->load()){
+				$bloque_listado->setObjectToEdit($resultado_esperado);
+			}
+			else echo "Error en la carga del resultado esperado";
+		}
+		
+	}
+	protected function deleteIndicador($id_indicador_resultado){
+		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_IndicadorResultado()), 'd');
+		Core_App::getInstance()->clearLastErrorMessages();
+		if(!$permisos){
+			Core_App::getLayout()->addActions('security_restriction');
+			Admin_App::getInstance()->addShieldMessage('No tiene permitido borrar ResultadoEsperado.');
+		}
+		else{
+			if(isset($id_indicador_resultado)){
+				$indicador_resultado = new Inta_Model_IndicadorResultado();
+				$indicador_resultado->setId($id_indicador_resultado);
+				if($indicador_resultado->load()){
+					Admin_ResultadoEsperado_Helper::actionEliminarIndicadorResultado($id_indicador_resultado);
+					$this->listarIndicador($indicador_resultado->getIdResultadoEsperado());
+					return;
+				}
+			}
+		}
+		Admin_App::getInstance()->addErrorMessage('Error en la eliminacion.');
+	}
+	
+	protected function addEditMedioVerificacion($id_indicador_resultado=null, $id_medio_verificacion_indicador_resultado=null){
+		Core_App::getInstance()->clearLastErrorMessages();
+		$guardado = false;
+		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_MedioVerificacionIndicadorResultado()), 'w');
+		if(!$permisos){
+			Core_App::getLayout()->addActions('security_restriction');
+			Admin_App::getInstance()->addShieldMessage('No tiene permitido editar MedioVerificacionIndicadorResultado.');
+			//$mensajes[] = 'No tiene permitido editar medio_verificacion_indicador_resultadoes.';
+			$this->listar();
+			//return;
+		}
+		else{
+			$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
+			$post_medio_verificacion_indicador_resultado = $post&&$post->hasMedioVerificacionIndicadorResultado()?$post->GetMedioVerificacionIndicadorResultado(true):null;
+			$medio_verificacion_indicador_resultado = new Inta_Model_MedioVerificacionIndicadorResultado();
+			//echo Core_Helper::DebugVars($post_problemas_asociados);
+			if(isset($post_medio_verificacion_indicador_resultado)){
+				$medio_verificacion_indicador_resultado->loadFromArray($post_medio_verificacion_indicador_resultado->getData());
+				$agregando = $medio_verificacion_indicador_resultado->getId()?false:true;
+				//echo Core_Helper::DebugVars($medio_verificacion_indicador_resultado->getData());
+				$guardado = 
+					Admin_ResultadoEsperado_Helper::actionAgregarEditarMedioVerificacionIndicadorResultado($medio_verificacion_indicador_resultado)?true:false;
+			}
+			else{
+				if(isset($id_indicador_resultado)&&$id_indicador_resultado){
+					$medio_verificacion_indicador_resultado->setIdIndicadorResultado($id_indicador_resultado);
+				}
+				if(isset($id_medio_verificacion_indicador_resultado)&&$id_medio_verificacion_indicador_resultado){
+					$medio_verificacion_indicador_resultado->setId($id_medio_verificacion_indicador_resultado);
+					$medio_verificacion_indicador_resultado->load();
+				}
+			}
+
+			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_medio_verificacion_indicador_resultado)?'seteado':'no seteado'));
+			if($guardado){
+				//var_dump($medio_verificacion_indicador_resultado->getData());
+//				if($resultado_esperado = $medio_verificacion_indicador_resultado->getResultadoEsperado()){
+//					$this->listarIndicador($resultado_esperado->getId());
+//				}
+				if($indicador_resultado = $medio_verificacion_indicador_resultado->getIndicadorResultado()){
+					$this->listarIndicador($indicador_resultado->getIdResultadoEsperado());
+				}
+				else{
+					Admin_App::getInstance()->addErrorMessage('Error, datos incorrectos no se pudo obtener "indicador de resultado"');
+				}
+			}
+			else{
+				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_medio_verificacion_indicador_resultado');
+				$layout = Core_App::getLoadedLayout();
+
+				$medio_verificacion_indicador_resultado->addAutofilterOutput('utf8_decode');
+				$get = Core_Http_Get::getParameters('Core_Object');
+				$target_container = $get->hasTarget()?$get->getTarget():null;
+				if(isset($target_container)){
+					if($formulario = $layout->getBlock('formulariox')){
+						$formulario->setAjaxTarget($target_container);
+					}
+				}
+				
+				foreach($layout->getBlocks('medio_verificacion_indicador_resultado_add_edit_form') as $block){
+					$block->setIdToEdit($medio_verificacion_indicador_resultado->getId());
+					$block->setObjectToEdit($medio_verificacion_indicador_resultado);
+					if(isset($target_container))
+						$block->setTargetContainer($target_container);
+				}
+			}
+		}
+	}
+	protected function listarMedioVerificacion($id_indicador_resultado){
+		Core_App::getLayout()->addActions('list_admin_medio_verificacion_indicador_resultado');
+		//$this->cambiarUrlAjax('administrator/indicador_resultado/addEdit/');
+		if($bloque_listado = Core_App::getLoadedLayout()->getBlock('indicador_resultado_add_edit_form')){
+			$indicador_resultado = new Inta_Model_IndicadorResultado();
+			$indicador_resultado->setId($id_indicador_resultado);
+			if($indicador_resultado->load()){
+				$bloque_listado->setObjectToEdit($indicador_resultado);
+			}
+			else echo "Error en la carga del resultado esperado";
+		}
+		
+	}
+	protected function deleteMedioVerificacion($id_medio_verificacion_indicador_resultado){
+		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_MedioVerificacionIndicadorResultado()), 'd');
+		Core_App::getInstance()->clearLastErrorMessages();
+		if(!$permisos){
+			Core_App::getLayout()->addActions('security_restriction');
+			Admin_App::getInstance()->addShieldMessage('No tiene permitido borrar IndicadorResultado.');
+		}
+		else{
+			if(isset($id_medio_verificacion_indicador_resultado)){
+				$medio_verificacion_indicador_resultado = new Inta_Model_MedioVerificacionIndicadorResultado();
+				$medio_verificacion_indicador_resultado->setId($id_medio_verificacion_indicador_resultado);
+				if($medio_verificacion_indicador_resultado->load()){
+					Admin_ResultadoEsperado_Helper::actionEliminarMedioVerificacionIndicadorResultado($id_medio_verificacion_indicador_resultado);
+					if($indicador_resultado = $medio_verificacion_indicador_resultado->getIndicadorResultado()){
+						$this->listarIndicador($indicador_resultado->getIdResultadoEsperado());
+					}
+					else{
+						Admin_App::getInstance()->addErrorMessage('Error, datos incorrectos no se pudo obtener "indicador de resultado"');
+					}
+					return;
+				}
+			}
+		}
+		Admin_App::getInstance()->addErrorMessage('Error en la eliminacion.');
+	}
+
 	protected function listar(){
 		Core_App::getLayout()->addActions('entity_list', 'list_admin_resultado_esperado');
 		$this->cambiarUrlAjax('administrator/resultado_esperado/listar');
