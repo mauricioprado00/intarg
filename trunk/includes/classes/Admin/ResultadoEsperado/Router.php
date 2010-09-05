@@ -6,7 +6,8 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 			'cerrar_sesion',
 			'addEdit','delete','listar','datalist',
 			'ordenar','setorden',
-			'medios_verificacion'
+			'medios_verificacion',
+			'addEditIndicador'
 		);
 	}
 	protected function onThrought(){
@@ -66,11 +67,12 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 				}
 				if(!$resultado_esperado->getId())
 					$resultado_esperado->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
+				if($agregando){
+					Core_App::getLayout()
+						->addActions('entity_new')
+					;
+				}
 			}
-			if($agregando)
-				Core_App::getLayout()
-					->addActions('entity_new')
-				;
 
 			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_resultado_esperado)?'seteado':'no seteado'));
 			if($guardado&&!$agregando){
@@ -105,6 +107,68 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 					$block->setIdToEdit($resultado_esperado->getId());
 					$block->setObjectToEdit($resultado_esperado);
 					$block->setProblemas($problemas);
+				}
+			}
+		}
+	}
+	protected function addEditIndicador($id_resultado_esperado=null, $id_indicador_resultado=null){
+		Core_App::getInstance()->clearLastErrorMessages();
+		$guardado = false;
+		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_IndicadorResultado()), 'w');
+		if(!$permisos){
+			Core_App::getLayout()->addActions('security_restriction');
+			Admin_App::getInstance()->addShieldMessage('No tiene permitido editar IndicadorResultado.');
+			//$mensajes[] = 'No tiene permitido editar indicador_resultadoes.';
+			$this->listar();
+			//return;
+		}
+		else{
+			$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
+			$post_indicador_resultado = $post&&$post->hasIndicadorResultado()?$post->GetIndicadorResultado(true):null;
+			$indicador_resultado = new Inta_Model_IndicadorResultado();
+			//echo Core_Helper::DebugVars($post_problemas_asociados);
+			if(isset($post_indicador_resultado)){
+				$indicador_resultado->loadFromArray($post_indicador_resultado->getData());
+				$agregando = $indicador_resultado->getId()?false:true;
+				//echo Core_Helper::DebugVars($indicador_resultado->getData());
+				$guardado = 
+					Admin_ResultadoEsperado_Helper::actionAgregarEditarIndicadorResultado($indicador_resultado)?true:false;
+			}
+			else{
+				if(isset($id_resultado_esperado)&&$id_resultado_esperado){
+					$indicador_resultado->setIdResultadoEsperado($id_resultado_esperado);
+				}
+				if(isset($id_indicador_resultado)&&$id_indicador_resultado){
+					$indicador_resultado->setId($id_indicador_resultado);
+					$indicador_resultado->load();
+				}
+			}
+
+			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_indicador_resultado)?'seteado':'no seteado'));
+			if($guardado){
+				//var_dump($indicador_resultado->getData());
+				echo Inta_Db::getInstance()->getLastQuery();
+				echo "ok";
+				exit();
+			}
+			else{
+				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_indicador_resultado');
+				$layout = Core_App::getLoadedLayout();
+
+				$indicador_resultado->addAutofilterOutput('utf8_decode');
+				$get = Core_Http_Get::getParameters('Core_Object');
+				$target_container = $get->hasTarget()?$get->getTarget():null;
+				if(isset($target_container)){
+					if($formulario = $layout->getBlock('formulariox')){
+						$formulario->setAjaxTarget($target_container);
+					}
+				}
+				
+				foreach($layout->getBlocks('indicador_resultado_add_edit_form') as $block){
+					$block->setIdToEdit($indicador_resultado->getId());
+					$block->setObjectToEdit($indicador_resultado);
+					if(isset($target_container))
+						$block->setTargetContainer($target_container);
 				}
 			}
 		}

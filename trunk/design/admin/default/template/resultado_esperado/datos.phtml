@@ -5,9 +5,6 @@ if(!$this->hasObjectToEdit()){
 }
 $x = $this->getObjectToEdit();
 
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 42;
-
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="resultado_esperado[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
@@ -58,7 +55,11 @@ $image_empty_size = 42;
 		</div>
 	</fieldset>
 	<div class="controls">
+		<?php if(in_array('entity_new',$this->getLayout()->getActions())): ?> 
+		<input type="submit" value="Continuar"/>
+		<?php else: ?> 
 		<input type="submit" value="Guardar"/>
+		<?php endif; ?> 
 	</div>
 </fieldset>
 <script>

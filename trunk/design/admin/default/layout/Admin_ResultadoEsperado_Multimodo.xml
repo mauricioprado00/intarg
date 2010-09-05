@@ -52,7 +52,7 @@
 				ajax_target=".contenedor_main"
 				ajax_replace_with="true"
 				ajax_method="ajaxSubmit"
-				validador_js="validar_agregar_resultado_esperado_datos,validar_agregar_resultado_esperado_indicadores"
+				validador_js="validar_agregar_resultado_esperado_datos"
 				method="post" 
 				name="formulariox">
 				<tabset>
@@ -60,10 +60,40 @@
 						<template name="resultado_esperado_add_edit_form" template="resultado_esperado/datos.phtml" />
 					</tab>
 					<tab when="!accion(entity_new)" title="Indicadores">
-						<template name="resultado_esperado_add_edit_form" template="resultado_esperado/indicadores.phtml" />
+						<template name="resultado_esperado_add_edit_form" template="resultado_esperado/indicadores.phtml">
+							<template name="ver_indicador_resultado_esperado" template="resultado_esperado/indicador.phtml" />
+						</template>
+					</tab>
+				</tabset>
+				<action when="accion(nunca)" xwhen="!accion(entity_new)" method="setValidadorJs">
+					<validador>validar_agregar_resultado_esperado_datos,validar_agregar_resultado_esperado_indicadores</validador>
+				</action>
+			</block>
+		</reference>
+	</addedit_admin_resultado_esperado>
+	<addedit_admin_indicador_resultado>
+		<reference name="contenedor_ajax">
+			<action method="setHtmlClass">
+				<html_class></html_class>
+			</action>
+		</reference>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="resultado_esperado/addEditIndicador" 
+				ajax_target=".ANINGUNLADO"
+				ajax_replace_with="true"
+				ajax_method="ajaxSubmit"
+				validador_js="validar_agregar_indicador_resultado_datos"
+				method="post" 
+				success_js="indicador_resultado_enviado"
+				name="formulariox">
+				<tabset>
+					<tab title="Datos Resultado">
+						<template name="indicador_resultado_add_edit_form" template="resultado_esperado/indicador/datos.phtml" />
 					</tab>
 				</tabset>
 			</block>
 		</reference>
-	</addedit_admin_resultado_esperado>
+	</addedit_admin_indicador_resultado>
 </layout>

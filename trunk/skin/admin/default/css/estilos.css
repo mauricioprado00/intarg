@@ -374,13 +374,16 @@ margin:0 5px;
 }
 .btn_eliminar{
 	background-image:url(../img/delete2.png);
-	width:16px;
+	background-position:0 50%;
+	padding-left:16px;
 	height:16px;
 	display:inline-block;
 }
 .btn_agregar{
 	background-image:url(../img/add2.png);
-	width:16px;
+	background-position:0 50%;
+	padding-left:16px;
 	height:16px;
 	display:inline-block;
+	background-repeat:no-repeat;
 }

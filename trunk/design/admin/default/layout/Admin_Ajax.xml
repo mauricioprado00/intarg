@@ -1,7 +1,7 @@
 <layout>
 	<default>
 		<container name="scripts_multimodo" />
-		<block name="contenedor_ajax" type="template" template="page/main_ajax.phtml">
+		<block name="contenedor_ajax" html_class="contenedor_main" type="template" template="page/main_ajax.phtml">
 			<block name="contenedor_main" >
 				<block name="contenedor_mensajes" type="Admin/Messages" />
 				<block name="message_container" type="Admin/MessageContainer">

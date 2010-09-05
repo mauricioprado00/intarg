@@ -1,4 +1,4 @@
-<form id="<?=$id=strtr($this->getNameInLayout(),array('.'=>'','#'=>''))?>" 
+<form id="<?=$id=$this->generateRandomId(); //strtr($this->getNameInLayout(),array('.'=>'','#'=>''))?>" 
 	<?if($this->hasEnctype()):?>
 	enctype="<?=$this->getEnctype()?>"<?
 	endif?>
@@ -13,6 +13,9 @@ if($this->hasValidadorJs()||Admin_App::getInstance()->getModoAjax()){
 	if($this->hasAjaxReplaceWith()){
 		$options['replaceWith'] = true;//esto es una modificacion del plugin jquery.form.js en linea 225
 	}
+//	if($this->hasSuccessJs()){
+//		$options['success'] = $this->getSuccessJs();
+//	}
 ?> 
 <script>
 	jQuery(document).ready(function(){
@@ -32,7 +35,12 @@ if($this->hasValidadorJs()||Admin_App::getInstance()->getModoAjax()){
 			var jqform = jQuery(this);
 			jQuery('#<?php print $id; ?>').multivalidate(function(resultado){
 				if(resultado){
-					var options = <?=json_encode($options);?>; 
+					var options = <?=json_encode($options);?>;
+					<?
+		if($this->hasSuccessJs()){
+			echo 'options.success = '.$this->getSuccessJs().";\n";
+		}
+		?> 
 		//esto estaba mal, porque si un validador modifica los valores estos no se envian modificados con el beforeSubmit
 		//			options.beforeSubmit = function(){
 		//				return jQuery('#<?php print $id; ?>').multivalidate();
@@ -49,7 +57,12 @@ if($this->hasValidadorJs()||Admin_App::getInstance()->getModoAjax()){
 		
 		});
 		<?elseif($this->getAjaxMethod()=='ajaxForm'):?> 
-		var options = <?=json_encode($options);?>; 
+		var options = <?=json_encode($options);?>;
+		<?
+		if($this->hasSuccessJs()){
+			echo 'options.success = '.$this->getSuccessJs().";\n";
+		}
+		?> 
 		options.beforeSubmit = function(){
 			return jQuery('#<?php print $id; ?>').multivalidate();
 		}; 
