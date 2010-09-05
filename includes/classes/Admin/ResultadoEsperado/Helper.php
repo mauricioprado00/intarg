@@ -7,9 +7,6 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 		if(!is_a($resultado_esperado,'Inta_Model_ResultadoEsperado')){
 			$resultado_esperado = new Inta_Model_ResultadoEsperado($resultado_esperado->getData());
 		}
-		if(!$resultado_esperado->getIdNodo()){
-			$resultado_esperado->setIdNodo(null);
-		}
 		if(!$resultado_esperado->hasId()){/** aca hay que agregar a la base de datos*/
 			$resultado = $resultado_esperado->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
@@ -73,5 +70,49 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 		$resultado_esperado = new Inta_Model_ResultadoEsperado();
 		return($resultado_esperado->setId($id_resultado_esperado)->delete());
 	}
+	
+	
+	/**
+	*	IndicadorResultado
+	*/
+	public static function actionAgregarEditarIndicadorResultado($indicador_resultado){
+		if(!is_a($indicador_resultado,'Inta_Model_IndicadorResultado')){
+			$indicador_resultado = new Inta_Model_IndicadorResultado($indicador_resultado->getData());
+		}
+		if(!$indicador_resultado->hasId()){/** aca hay que agregar a la base de datos*/
+			$resultado = $indicador_resultado->replace()?true:false;
+			//$insertada = true;// insertarEnLaBase()
+			if($resultado){
+				Admin_App::getInstance()->addSuccessMessage('IndicadorResultado añadida correctamente');
+			}
+			else{
+				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la IndicadorResultado, error en la operación");
+			}
+		}
+		else{/** aca hay que actualizar el registro*/
+			//$actualizada = true;// actualizarEnLaBase()
+			$resultado = $indicador_resultado->update(null)?true:false;
+			if($resultado){
+				Admin_App::getInstance()->addSuccessMessage('IndicadorResultado actualizada correctamente');
+			}
+			else{
+				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la IndicadorResultado, error en la operación");
+			}
+		}
+		return($resultado);
+	}
+	public static function actionEliminarIndicadorResultado($id_indicador_resultado){
+		if(self::eliminarIndicadorResultado($id_indicador_resultado)){
+			Admin_App::getInstance()->addSuccessMessage('IndicadorResultado Eliminada Correctamente');
+		}
+		else{
+			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la IndicadorResultado');
+		}
+	}
+	public static function eliminarIndicadorResultado($id_indicador_resultado){
+		$indicador_resultado = new Inta_Model_IndicadorResultado();
+		return($indicador_resultado->setId($id_indicador_resultado)->delete());
+	}
+
 }
 ?>

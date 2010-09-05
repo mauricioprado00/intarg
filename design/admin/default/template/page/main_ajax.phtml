@@ -1,5 +1,8 @@
 <?
-	$classnames = array('contenedor_main');
+	//$classnames = array('contenedor_main');
+	$classnames = array();
+	if($html_class = $this->getHtmlClass())
+		$classnames[] = $html_class;
 	if($this->hasClassnames()){
 		$classnames[] = implode(' ', $this->getClassnames());
 	}

@@ -6,7 +6,8 @@ class Inta_Model_IndicadorResultado extends Core_Model_Abstract{
 			'id',
 			'id_resultado_esperado',
 			'id_indicador',
-			'id_medio_verificacion',
+			//'id_medio_verificacion',
+			'adecuado',
 			'descripcion',
 		);
 		foreach($datafields as $datafield)
