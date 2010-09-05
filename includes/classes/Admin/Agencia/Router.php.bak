@@ -88,5 +88,37 @@ class Admin_Agencia_Router extends Core_Router_Abstract{
 	protected function dispatchNode(){
 		return;
 	}
+	protected function ordenar($id_agencia=null){
+		Core_App::getLayout()->setActions(array());//reset
+		Core_App::getLayout()->addActions('ordenar_agencia');
+		$layout = Core_App::getLoadedLayout();
+		$ordenar_agencia = $layout->getBlock('ordenar_agencia');
+		$ordenar_agencia->setIdAgencia($id_agencia);
+		$agencia = new Inta_Model_Agencia();
+		$agenciaes = $agencia->search('orden');
+		$ordenar_agencia->setAgenciaes($agenciaes);
+	}
+	protected function setorden($ids){
+		$orden = 0;
+		$agencia = new Inta_Model_Agencia();
+		if(!$ids)
+			die();
+		foreach(explode(',', $ids) as $id){
+			if(!strlen($id))
+				continue;
+			$agencia = new Inta_Model_Agencia();
+			$agencia->setId($id);
+			if(!$agencia->load()){
+				var_dump('cant load '.$id);
+				continue;
+			}
+			$agencia
+				->setOrden($orden++)
+				->replace()
+			;
+			//var_dump($agencia->getData());
+		}
+		die();
+	}
 }
 ?>

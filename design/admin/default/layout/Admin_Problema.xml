@@ -1,0 +1,58 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>problema</link_url>
+				<text>Problema</text>
+				<title>Problema</title>
+				<name>menu_admin_problema</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_problema">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>problema/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>problema/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_problema>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Problema/XmlList"
+			name="xml_data_admin_problema">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#problema/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#problema/addEdit/{!id}">editar</a>
+					<a href="#problema/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el problema seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#problema/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#problema/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#problema/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el problema seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_problema>
+</layout>

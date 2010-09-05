@@ -372,3 +372,15 @@ margin:0 5px;
 	width:16px;
 	height:16px;
 }
+.btn_eliminar{
+	background-image:url(../img/delete2.png);
+	width:16px;
+	height:16px;
+	display:inline-block;
+}
+.btn_agregar{
+	background-image:url(../img/add2.png);
+	width:16px;
+	height:16px;
+	display:inline-block;
+}
