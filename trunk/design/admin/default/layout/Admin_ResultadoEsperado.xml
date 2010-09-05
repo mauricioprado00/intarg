@@ -1,0 +1,58 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>resultado_esperado</link_url>
+				<text>ResultadoEsperado</text>
+				<title>ResultadoEsperado</title>
+				<name>menu_admin_resultado_esperado</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_resultado_esperado">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>resultado_esperado/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>resultado_esperado/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_resultado_esperado>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_ResultadoEsperado/XmlList"
+			name="xml_data_admin_resultado_esperado">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>descripcion</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#resultado_esperado/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#resultado_esperado/addEdit/{!id}">editar</a>
+					<a href="#resultado_esperado/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el resultado_esperado seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#resultado_esperado/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#resultado_esperado/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#resultado_esperado/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el resultado_esperado seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_resultado_esperado>
+</layout>

@@ -1,0 +1,223 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 42;
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="resultado_esperado[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> ResultadoEsperado</legend>
+	<fieldset>
+		<div>
+				<div class="indicadores_resultado">
+				<?
+					$fila_indicador = '';
+					$fila_indicador .= 
+						c(new Core_Html_Tag_Custom('input'))
+						->setType('text')
+						->setName('indicadores[descripcion][]')
+						->setData('data-campo', '<b>Descripción</b>')
+						->setData('data-validator', '{empty:false}')
+						->getHtml()
+					;
+					$fila_indicador .= '<input type="hidden" name="indicadores[id][]" />';
+					
+					$indicador = new Inta_Model_Indicador();
+					$indicadors = $indicador->search();
+					$html_select = '<option value="">Seleccione Indicador</option>';
+					foreach($indicadors as $indicador){
+						$option = c(new Core_Html_Tag_Custom('option'))
+							->setValue($indicador->getId())
+							->setInnerHtml($indicador->getNombre())
+						;
+						if($indicador->getId()==$x->getIdIndicador())
+							$option->setSelected('selected');
+						$html_select .= $option->getHtml();
+					}
+					$fila_indicador .= c(new Core_Html_Tag_Custom('select'))
+						->setName('indicadores[id_indicador][]')
+						->setId('id_indicador')
+						->setClass('indicador')
+						->setData('data-campo', '<b>Indicador</b>')
+						->setData('data-validator', '{empty:false}')
+						->setData('data-mensaje','debe seleccionar un %field')
+						//->setDisabled('disabled')
+						->setInnerHtml($html_select)
+						->getHtml()
+					;
+
+					$html_select = '<option value="">Seleccione Medio de Verificacion</option>';
+					$fila_indicador .= c(new Core_Html_Tag_Custom('select'))
+						->setName('indicadores[id_medio_verificacion][]')
+						->setId('id_medio_verificacion')
+						->setClass('medio_verificacion')
+						->setData('data-campo', '<b>Medio de Verificación</b>')
+						->setData('data-validator', '{empty:false}')
+						->setData('data-mensaje','debe seleccionar un %field')
+						//->setDisabled('disabled')
+						->setInnerHtml($html_select)
+						->getHtml()
+					;
+					$fila_indicador .= '<div class="btn_eliminar"></div>';
+
+					if(!($indicadores = $x->getIndicadores())){
+						
+						echo '<div class="fila">'.$fila_indicador.'</div>';
+					}
+					else{
+						foreach($indicadores as $indicador_resultado){
+							//echo Core_Helper::DebugVars($indicador->getData());
+							$fila_indicador_mod = c(new Core_Html_Tag_Custom('input'))
+								->setType('text')
+								->setName('indicadores[descripcion][]')
+								->setData('data-campo', '<b>Descripción</b>')
+								->setData('data-validator', '{empty:false}')
+								->setValue($indicador_resultado->getDescripcion())
+								->getHtml();
+							$fila_indicador_mod .= '<input type="hidden" name="indicadores[id][]" value="'.$indicador_resultado->getId().'" />';
+							
+							$indicador = new Inta_Model_Indicador();
+							$indicadors = $indicador->search();
+							$html_select = '<option value="">Seleccione Indicador</option>';
+							foreach($indicadors as $indicador){
+								$option = c(new Core_Html_Tag_Custom('option'))
+									->setValue($indicador->getId())
+									->setInnerHtml($indicador->getNombre())
+								;
+								if($indicador->getId()==$indicador_resultado->getIdIndicador())
+									$option->setSelected('selected');
+								$html_select .= $option->getHtml();
+							}
+							$fila_indicador_mod .= c(new Core_Html_Tag_Custom('select'))
+								->setName('indicadores[id_indicador][]')
+								->setId('id_indicador')
+								->setClass('indicador')
+								->setData('data-campo', '<b>Indicador</b>')
+								->setData('data-validator', '{empty:false}')
+								->setData('data-mensaje','debe seleccionar un %field')
+								//->setDisabled('disabled')
+								->setInnerHtml($html_select)
+								->getHtml()
+							;
+		
+							$medio_verificacion = new Inta_Model_MedioVerificacion();
+							$medio_verificacion
+								->setIdIndicador($indicador_resultado->getIdIndicador())
+								->setWhere(Db_Helper::equal('id_indicador'))
+							;
+							if($medios_verificacions = $medio_verificacion->search()){
+								$html_select = '';
+								foreach($medios_verificacions as $medio_verificacion){
+									$option = c(new Core_Html_Tag_Custom('option'))
+										->setValue($medio_verificacion->getId())
+										->setInnerHtml($medio_verificacion->getNombre())
+									;
+									if($medio_verificacion->getId()==$indicador_resultado->getIdMedioVerificacion())
+										$option->setSelected('selected');
+									$html_select .= $option->getHtml();
+								}
+							}
+							else{
+								$html_select = '<option value="">Seleccione otro indicador</option>';
+							}
+							$fila_indicador_mod .= c(new Core_Html_Tag_Custom('select'))
+								->setName('indicadores[id_medio_verificacion][]')
+								->setId('id_medio_verificacion')
+								->setClass('medio_verificacion')
+								->setData('data-campo', '<b>Medio de Verificación</b>')
+								->setData('data-validator', '{empty:false}')
+								->setData('data-mensaje','debe seleccionar un %field')
+								//->setDisabled('disabled')
+								->setInnerHtml($html_select)
+								->getHtml()
+							;
+							$fila_indicador_mod .= '<div class="btn_eliminar"></div>';
+							echo '<div class="fila">'.$fila_indicador_mod.'</div>';
+						}
+					}
+				?>
+				</div> 
+			<div class="btn_agregar"></div>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+
+function sobrecargarFilaIndicador(fila){
+	var jqfila = jQuery(fila);
+	jqfila.find('.btn_eliminar')
+		.css('cursor','pointer')
+		.click(function(){
+			var jqIdField = jQuery('input[name^=indicadores]:[name*=id]', this.parentNode);
+			if(jqIdField.length){
+				if(jqIdField.val()){
+					jQuery(this.parentNode).replaceWith('<input type="hidden" name="eliminar_indicadores[]" value="'+jqIdField.val()+'" />');
+				}
+				else{
+					jQuery(this.parentNode).remove();
+				}
+			}
+			else{
+				jQuery(this.parentNode).remove();
+			}
+		});
+		
+	jqfila.find('.indicador')
+		.change(function(){
+			var jqselect_mv = jQuery(this).nextAll('.medio_verificacion');
+			jqselect_mv.html('<option>cargando...</option>').attr('disabled','disabled');
+			var id_seleccionado = jQuery(this).val();
+			if(!id_seleccionado){
+				jqselect_mv.html('<option>esperado seleccion...</option>').attr('disabled','disabled');
+				return;
+			}
+			jQuery.ajax({
+				type:'POST',
+				url:'<?php print $this->getUrl('administrator/resultado_esperado/medios_verificacion')?>',
+				data:{
+					id_indicador: id_seleccionado
+				},
+				success:function(data){
+					jqselect_mv.html(data).removeAttr('disabled');
+				}
+			})
+		})
+}
+jQuery(document).ready(function(){
+	//jQuery('#descripcion').ckeditor();
+	var jqform = jQuery('#<?php print $id_fielset; ?>');
+	jqform.find('.fila')
+		.each(function(){
+			sobrecargarFilaIndicador(this);
+		})
+	;
+	jQuery('.btn_agregar')
+		.css('cursor','pointer')
+		.click(function(){
+			var jqfila = jQuery('<div class="fila"></div>');
+			jqfila
+				.html(<?php print json_encode($fila_indicador); ?>)
+				.appendTo('.indicadores_resultado')
+			;
+			sobrecargarFilaIndicador(jqfila[0]);
+		})
+	;
+});
+
+function validar_agregar_resultado_esperado_indicadores(formData, jqForm, options) {
+	
+	if(!validar_estatico_en('#<?php print $id_fielset; ?>')){
+		tabpanelfocus(jQuery('#<?php print $id_fielset; ?>'));
+		return false;
+	}
+	return(true);
+}
+</script>

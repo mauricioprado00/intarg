@@ -232,18 +232,5 @@ class Admin_User_Model_User extends Core_Model_User{
 	public function esSuperadmin(){
 		return($this->getPrivilegios()=='777');
 	}
-	private $_agencia = null;
-	public function getAgencia(){
-		if(!$this->hasIdAgencia()||!$this->getIdAgencia())
-			return null;
-		if(!isset($this->_agencia)){
-			$agencia = new Inta_Model_Agencia();
-			$agencia->setId($this->getIdAgencia());
-			if($agencia->load()){
-				$this->_agencia = $agencia;
-			}
-		}
-		return $this->_agencia;
-	}
 }
 ?>
