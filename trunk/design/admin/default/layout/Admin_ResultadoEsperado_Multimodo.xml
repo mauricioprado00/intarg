@@ -62,7 +62,9 @@
 					<tab when="!accion(entity_new)" title="Indicadores">
 						<template name="resultado_esperado_add_edit_form" template="resultado_esperado/indicadores2.phtml">
 							<template name="ver_indicador_resultado_esperado" template="resultado_esperado/indicador.phtml">
-								<template name="ver_medio_verificacion_indicador_resultado_esperado" template="resultado_esperado/indicador/medio_verificacion.phtml"/>
+								<template name="ver_medio_verificacion_indicador_resultado_esperado" template="resultado_esperado/indicador/medio_verificacion.phtml">
+									<listado_documentos name="listado_documentos" tipo_entidad="medio_verificacion_indicador_resultado" />
+								</template>
 							</template>
 						</template>
 					</tab>
@@ -82,7 +84,9 @@
 		<reference name="contenedor_main">
 			<template name="resultado_esperado_add_edit_form" template="resultado_esperado/indicadores2.phtml">
 				<template name="ver_indicador_resultado_esperado" template="resultado_esperado/indicador.phtml">
-					<template name="ver_medio_verificacion_indicador_resultado_esperado" template="resultado_esperado/indicador/medio_verificacion.phtml"/>
+					<template name="ver_medio_verificacion_indicador_resultado_esperado" template="resultado_esperado/indicador/medio_verificacion.phtml">
+						<listado_documentos name="listado_documentos" tipo_entidad="medio_verificacion_indicador_resultado" />
+					</template>
 				</template>
 			</template>
 		</reference>

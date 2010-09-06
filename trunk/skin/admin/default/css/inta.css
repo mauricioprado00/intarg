@@ -1,21 +1,61 @@
+.indicadores_resultado{
+	list-style-position: inside;
+	list-style-type:none;
+}
 .indicador_resultado_toolbox{
 	float:left;
 	display:none;
 }
 .indicador_resultado_toolbox:after{
-	content:' - ';
+	content:' -  ';
+	margin-right:4px;
 }
 li:hover>.indicador_resultado_toolbox{
 	display:inline;
 }
+.indicadores_resultado>li:hover{
+	background-color:#EEEEEE;
+}
 
+
+.medios_verificacion_indicador_resultado{
+	margin-left:20px;
+}
 .medio_verificacion_toolbox{
 	float:left;
 	display:none;
 }
 .medio_verificacion_toolbox:after{
-	content:' - ';
+	content:' -  ';
+	margin-right:4px;
 }
 li:hover>.medio_verificacion_toolbox{
 	display:inline;
+}
+.medios_verificacion_indicador_resultado>li:hover{
+	background-color:#DDDDDD;
+}
+
+
+
+.medios_verificacion_indicador_resultado .listado_documentos li{
+	list-style:none outside none;
+	margin-left:37px;
+}
+.listado_documentos_toolbox{
+	float:left;
+	display:none;
+}
+.listado_documentos_toolbox:after{
+	content:' -  ';
+	margin-right:4px;
+}
+li:hover>.listado_documentos_toolbox{
+	display:inline;
+}
+.listado_documentos_toolbox>li:hover{
+	background-color:#EEEEEE;
+}
+.medios_verificacion_indicador_resultado .box_listado_documentos>li:hover{
+	background-color:#CCCCCC;
 }

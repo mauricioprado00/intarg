@@ -203,6 +203,7 @@ $config['DefaultResourceTypes'] = '';
 ob_start();
 try{
 	$ResourceTypes = unserialize($_SESSION['CKFINDER']['RESOURCETYPES']);
+	$ResourceTypes = array_values($ResourceTypes);
 	if($ResourceTypes)
 		foreach($ResourceTypes as $r){
 			$config['ResourceType'][] = $r;

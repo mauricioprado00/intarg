@@ -12,5 +12,16 @@ $medio_verificacion = $x->getMedioVerificacion();
 	<div class="medio_verificacion_toolbox">
 		<div class="btn_eliminar btn_eliminar_medio_verificacion" title="Eliminar Indicador"></div>
 		<div class="btn_editar btn_editar_medio_verificacion" title="Editar Indicador"></div>
-	</div>
+		<div class="btn_agregar_documento btn_agregar_indicador_attach" title="Agregar Documento"></div>
+	</div><?php
+	if($block_listado_documentos = $this->getChild('listado_documentos')){
+		echo $block_listado_documentos
+			->setIdEntidad($x->getId())
+			->toHtml()
+		;
+	}
+	else{
+		echo "no encontre";
+	}
+	?>
 </li>

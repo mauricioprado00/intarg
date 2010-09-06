@@ -5,11 +5,12 @@
 		<Admin_Agencia/>
 		<Admin_Audiencia/>
 		<Admin_Problema/>
-		<Admin_Objetivo	/>
-		<Admin_ResultadoEsperado	/>
+		<Admin_Objetivo/>
+		<Admin_ResultadoEsperado/>
+		<Admin_Documento/>
 		<Admin_Actividad/>
 		<Admin_Estrategia/>
-                <Admin_Indicador/>
+		<Admin_Indicador/>
 		<Admin_MedioVerificacion/>
 		<Admin_Proyecto/>
 		<Admin_TipoAudiencia/>

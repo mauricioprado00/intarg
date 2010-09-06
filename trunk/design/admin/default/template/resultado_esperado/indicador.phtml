@@ -26,10 +26,9 @@ $x = $this->getObjectToEdit();
 		<div class="btn_eliminar btn_eliminar_indicador" title="Eliminar Indicador"></div>
 		<div class="btn_editar btn_editar_indicador" title="Editar Indicador"></div>
 		<div class="btn_agregar_certificacion btn_agregar_medio_verificacion" title="Agregar Medio de Verificacion"></div>
-		<div class="btn_agregar_documento btn_agregar_indicador_attach" title="Agregar Documento"></div>
 	</div><?php
 	if($medio_verificacions = $x->getMediosVerificacion()){
-		echo '<br /><ul>';
+		echo '<br /><ul class="medios_verificacion_indicador_resultado">';
 		$block_vista_medio_verificacion_indicador_resultado = $this->getChild('ver_medio_verificacion_indicador_resultado_esperado');
 		foreach($medio_verificacions as $medio_verificacion_indicador_resultado){
 			echo $block_vista_medio_verificacion_indicador_resultado

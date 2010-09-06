@@ -1,0 +1,91 @@
+<layout>
+	<list_admin_documento>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/documento/addEdit,id"
+			toolbar_delete_url="administrator/documento/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Documento"
+			source="administrator/documento/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton"
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>100</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Tipo Documento</title>
+				<name>tipo_documento</name>
+				<index>tipo_documento</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_documento>
+	<listar_admin_documentos>
+		<reference name="contenedor_ajax">
+			<action method="setHtmlClass">
+				<html_class></html_class>
+			</action>
+		</reference>
+		<reference name="contenedor_main">
+			<listado_documentos name="listado_documentos" />
+		</reference>
+	</listar_admin_documentos>
+	<addedit_admin_documento>
+		<reference name="contenedor_ajax">
+			<action method="setHtmlClass">
+				<html_class></html_class>
+			</action>
+		</reference>
+		<reference name="contenedor_main">
+			<block
+				type="Admin/AddEditForm"
+				action_url="documento/addEdit"
+				ajax_target=".ANINGUNLADO"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_documento"
+				name="formulario_edicion_documento"
+				success_js="documento_enviado"
+				method="post">
+				<tabset>
+					<tab title="Datos de Documento">
+						<block
+							resource_type="Archivo" 
+							name="documento_add_edit_form" type="template" template="documento/add.phtml"
+						></block>
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_documento>
+</layout>
