@@ -1,0 +1,156 @@
+<?
+$x = new Inta_Model_Documento();
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+$image_empty_src = $this->getSkinUrl('img/empty.gif');
+$image_empty_size = 48;
+
+$x->addAutofilterOutput('utf8_decode');
+
+//$tipos_recursos = Core_Session::getVar('RESOURCETYPES', 'CKFINDER');
+//var_dump(array_keys($tipos_recursos));
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="documento[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<input type="hidden" name="documento[tipo_entidad]" value="<?=$x->getTipoEntidad()?>" />
+<input type="hidden" name="documento[id_entidad]" value="<?=$x->getIdEntidad()?>" />
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Documento</legend>
+	<fieldset>
+		<h3>Contenido</h3>
+		<div style="display:inline;float:left;">
+			<label>Archivo: </label>
+			<span><?
+				$src_real = $src = $x->getPath();
+				$src = $src?$this->getSkinUrl('img/blank.gif'):'';
+				$img = new Core_Html_Tag_Custom('img');
+				$img->setSrc($src)
+					->setClass('show_icon show_icon_path_archivo')
+					//->setWidth('48')
+				;
+				?>
+				<dt style="float:left;text-align:center;">
+					<?php print $img->getHtml(); ?>
+					<br />
+					<span>Seleccione un archivo</span>
+				</dt>
+				<input type="hidden" id="path" name="documento[path]" value="<?php print $src_real; ?>" data-campo="<?php print htmlentities('<b>Archivo</b>');?>" data-mensaje="Debe seleccionar una archivo para el campo %field" data-validator="{empty:false}" />
+				<div style="float:left;">
+					<img class="addimg" data-wich="path" src="<?php print $this->getSkinUrl('img/folder_search.png'); ?>" title="seleccionar archivo" />
+				</div>
+				<div style="clear:both;"></div>
+			</span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+function documento_enviado(responseText, statusText, xhr, $form){
+	jQuery.ScreenBlock(false);
+}
+
+jQuery.fn.setearArchivo = function(url){
+	this.each(function(){
+		var jqinput = jQuery(this);
+		var jqthis = jqinput;
+		var myurl = url==null?jqthis.val():url;
+		var jqpapa = jqthis.parents('div:first');
+		var jqicon = jQuery('.show_icon', jqpapa);
+		var jqdt = jqicon.parents('dt:first');
+		var jqspan = jQuery('span', jqdt);
+		var nombre = myurl.toString().split('/').pop().split('.').shift();
+		if(jqspan[0].texto_defecto==null){
+			jqspan[0].texto_defecto = jqspan.text();
+		}
+		jqspan.css('background-color','white').css('border','1px solid black').css('padding','0 5px');
+		jqinput.val(myurl);
+
+		if(myurl==null || myurl==''){
+			jqicon
+				.attr('src',jqicon[0].image_empty_src)
+				.attr('width', jqicon[0].image_empty_size)
+				.uniconize()
+			;
+			jqspan.text(jqspan[0].texto_defecto);
+		}
+		else{
+			jqicon
+				.attr('src', '<?php print $this->getSkinUrl('img/blank.gif'); ?>')
+				.width(48)
+				.iconize(myurl, 48)
+			;//.attr('src', '<?php print $this->getUrl(); ?>'+url).removeAttr('width');
+			jqspan.text(nombre);
+		}
+	});
+	return this;
+}
+function onckfinder(url,wich){
+	var jqinput = jQuery('#'+wich+'').setearArchivo(url.split('<?php print $this->getUrl(); ?>').join(''));
+}
+jQuery(document).ready(function(){
+	jQuery('#<?php print $id_fielset; ?> .addimg').css('cursor','pointer').click(function(){
+		var jqthis = jQuery(this);
+		var wich = jqthis.attr('data-wich');
+		var finder = new CKFinder();
+		finder.resourceType = '<?php print $this->getResourceType(); ?>';
+		finder.basePath = '<?php print dirname($this->getSkinUrl('ckfinder/ckfinder.js')); ?>';
+		finder.selectActionFunction = function(url, data){
+			return onckfinder(url,wich,data);
+		};
+		finder.popup();
+		return(false);
+	});
+
+
+	jQuery('#<?php print $id_fielset; ?> [class*=show_icon]').each(function(){
+		this.image_empty_src = '<?php print $image_empty_src; ?>';
+		this.image_empty_size = <?php print $image_empty_size+0; ?>;
+		var jqthis = jQuery(this);
+		var jqimage = jqthis;
+		var jqpapa = jqthis.parents('div:first');
+		var jqpapaspan = jqthis.parents('span:first');
+		var jqinput = jQuery('input', jqpapa);
+		jqpapa.css('position','relative');
+		var jqclear = jQuery('<div style="cursor:pointer;display:none;position:absolute;bottom:16px;width:16px;height:16px;background-image:url(\'<?php print $this->getSkinUrl('img/delete2.png'); ?>\')"></div>');
+		jqpapa.append(jqclear);
+		jqclear.click(function(){
+			jqinput.setearArchivo('');
+			jQuery(this).hide();
+		});
+		var curr_src = jqimage.attr('src');
+		if(curr_src=='' || curr_src==null){
+			jqclear.click();
+		}
+		else{
+			jqinput.setearArchivo();
+		}
+		jqthis.timemouse({
+			mouseover: function(){
+				if(jqimage[0].image_empty_src == jqimage.attr('src')){
+					return;
+				}
+				jqclear.show();
+			},
+			mouseout: function(){
+				jqclear.hide();
+			},
+			time: 2000
+		})
+		;
+	});
+})
+function validar_agregar_documento(formData, jqForm, options) {
+	if(!validar({
+		donde: '#<?php print $id_fielset; ?>',
+		estatico:true})){
+		return false;
+	}
+	return(true);
+}
+</script>

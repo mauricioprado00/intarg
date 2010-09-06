@@ -1,0 +1,115 @@
+<div class="listado_documentos" id="<?php print $id_control_big = $this->generateRandomId(); ?>"><?
+$documentos = $this->getDocumentos();
+if($documentos){
+	echo '<ul class="box_listado_documentos" id="'.($id_control = $this->generateRandomId()).'">';
+	foreach($documentos as $documento){
+		$src_real = $src = $documento->getPath();
+		$src = $src?$this->getSkinUrl('img/blank.gif'):'';
+		$img = new Core_Html_Tag_Custom('img');
+		$img->setSrc($src)
+			->setClass('show_icon show_icon_path')
+			->setData('data-image',$basename = basename($documento->getPath()))
+			//->setWidth('48')
+		;
+		echo
+			'<li data-id="'.$documento->getId().'">'. 
+			$img->getHtml().' <span>'.$basename.'</span>';
+		?>
+		<div class="listado_documentos_toolbox">
+			<div class="btn_eliminar btn_eliminar_documento" title="Eliminar Documento"></div>
+			<div class="btn_editar btn_editar_documento" title="Editar Documento"></div>
+		</div><?php
+		echo '</li>';
+	}
+	echo '</ul>';?> 
+<script>
+jQuery(document).ready(function(){
+	var jqicon = jQuery('#<?php print $id_control?> .show_icon');
+	
+	jqicon.each(function(){
+		var jqthis = jQuery(this);
+		var myurl = jqthis.attr('data-image');
+		jqthis
+			.attr('src', '<?php print $this->getSkinUrl('img/blank.gif'); ?>')
+			.width(16)
+			.iconize(myurl, 16)
+		;
+	});
+	
+	jQuery('#<?php print $id_control?> .btn_eliminar_documento')
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFDDDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var jqwin = jQuery('<div></div>');
+			jqwin.html('&iquest;Desea continuar eliminando el documento?<br />');
+			var jqaceptar = jQuery('<input type="button" value="Continuar" />')
+				.click(function(){
+					var id_documento = jqthat.parents('li:first').attr('data-id');
+					var jqwait = jQuery('<div></div>');
+					jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+					jqwait.ScreenBlock();
+					jQuery.get(
+						'administrator/ajax/documento/delete/'+id_documento+'/',
+						function (data){
+							jQuery.ScreenBlock(false);
+							jQuery('#<?php print $id_control; ?>')
+								.parents('.listado_documentos:first')
+								.html(data)
+							;
+						}
+					)
+				})
+				.appendTo(jqwin)
+			;
+			var jqcancelar = jQuery('<input type="button" value="Cancelar" />')
+				.click(function(){
+					jQuery.ScreenBlock(false);
+				})
+				.appendTo(jqwin)
+			;
+			jqwin.ScreenBlock();
+		})
+	;
+	jQuery('#<?php print $id_control?> .btn_editar_documento')
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFFFBB')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_documento = jqthat.parents('li:eq(0)').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'<?php print 'administrator/ajax/documento/addEdit/'.$this->getTipoEntidad().'/'.$this->getIdEntidad().'/'; ?>'+id_documento,
+				{
+					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.listado_documentos:last').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			)
+		})
+	;
+
+})
+</script><?
+	
+}
+else{
+//echo "no hay docs";
+}
+?>
+</div>

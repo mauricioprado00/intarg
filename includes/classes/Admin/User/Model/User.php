@@ -46,8 +46,10 @@ class Admin_User_Model_User extends Core_Model_User{
 		Core_Session::setVar('BASEURL', $baseUrl, 'CKFINDER');
 		//Core_Session::setVar('BASEURL', $baseUrl='skin/uploads', 'CKFINDER');
 		Core_Session::setVar('BASEDIR', $baseDir=CFG_PATH_ROOT.CONF_PATH_UPLOADS, 'CKFINDER');
-		$ResourceType = array();
-		$ResourceType[] = Array(
+		$ResourceType = Core_Session::getVar('RESOURCETYPES', 'CKFINDER');
+		if(!$ResourceType)
+			$ResourceType = array();
+		$ResourceType['Images'] = Array(
 				'name' => 'Images',
 				'url' => $baseUrl.'/Imagenes',// . 'image',
 				'directory' => $baseDir.'Imagenes/',// . 'image',
@@ -55,7 +57,7 @@ class Admin_User_Model_User extends Core_Model_User{
 				'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
 				'deniedExtensions' => ''
 		);
-		$ResourceType[] = Array(
+		$ResourceType['Flash'] = Array(
 				'name' => 'Flash',
 				'url' => $baseUrl.'/Flash',// . 'image',
 				'directory' => $baseDir.'Flash/',// . 'image',
@@ -63,7 +65,7 @@ class Admin_User_Model_User extends Core_Model_User{
 				'allowedExtensions' => 'swf',
 				'deniedExtensions' => ''
 		);
-		$ResourceType[] = Array(
+		$ResourceType['TipoPunto'] = Array(
 				'name' => 'TipoPunto',
 				'url' => $baseUrl.'/TipoPunto',// . 'image',
 				'directory' => $baseDir.'TipoPunto/',
@@ -71,7 +73,7 @@ class Admin_User_Model_User extends Core_Model_User{
 				'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
 				'deniedExtensions' => ''
 		);
-		$ResourceType[] = Array(
+		$ResourceType['Barrio'] = Array(
 				'name' => 'Barrio',
 				'url' => $baseUrl.'/Barrio',// . 'image',
 				'directory' => $baseDir.'Barrio/',
@@ -79,7 +81,7 @@ class Admin_User_Model_User extends Core_Model_User{
 				'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
 				'deniedExtensions' => ''
 		);
-		$ResourceType[] = Array(
+		$ResourceType['LogoAnuncio'] = Array(
 				'name' => 'LogoAnuncio',
 				'url' => $baseUrl.'/LogoAnuncio',// . 'image',
 				'directory' => $baseDir.'LogoAnuncio/',
@@ -87,7 +89,7 @@ class Admin_User_Model_User extends Core_Model_User{
 				'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
 				'deniedExtensions' => ''
 		);
-		$ResourceType[] = Array(
+		$ResourceType['Archivo'] = Array(
 				'name' => 'Archivo',
 				'url' => $baseUrl.'/Archivo',// . 'image',
 				'directory' => $baseDir.'Archivo/',
@@ -95,7 +97,7 @@ class Admin_User_Model_User extends Core_Model_User{
 				'allowedExtensions' => 'rar,ppt,xls,doc,txt,pdf,xls,bmp,png,gif,tga,jpg,jpeg,zip,tar,gz,tgz,bz2,tbz,7z,avi,mpg,mpeg,flv',
 				'deniedExtensions' => ''
 		);
-		$ResourceType[] = Array(
+		$ResourceType['BannerCarrousel'] = Array(
 				'name' => 'BannerCarrousel',
 				'url' => $baseUrl.'/BannerCarrousel',// . 'image',
 				'directory' => $baseDir.'BannerCarrousel/',

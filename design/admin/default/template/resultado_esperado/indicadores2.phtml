@@ -19,7 +19,7 @@ $x = $this->getObjectToEdit();
 					}
 					else{
 						$block_vista_indicador = $this->getChild('ver_indicador_resultado_esperado');
-						echo '<ul>';
+						echo '<ul class="indicadores_resultado">';
 						foreach($indicadores as $indicador_resultado){
 							$block_vista_indicador->setObjectToEdit($indicador_resultado);
 							echo $block_vista_indicador->toHtml();
@@ -221,6 +221,33 @@ jQuery(document).ready(function(){
 					jqwindow.html(data);
 				}
 			)
+		})
+	;
+	jQuery('.btn_agregar_indicador_attach', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#DDFFDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_medio_verificacion_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/documento/addEdit/medio_verificacion_indicador_resultado/'+id_medio_verificacion_indicador_resultado+'/',
+				{
+					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')+' .medios_verificacion_indicador_resultado>li[data-id='+id_medio_verificacion_indicador_resultado+'] .listado_documentos'
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			);
 		})
 	;
 
