@@ -59,3 +59,21 @@ li:hover>.listado_documentos_toolbox{
 .medios_verificacion_indicador_resultado .box_listado_documentos>li:hover{
 	background-color:#CCCCCC;
 }
+
+
+.add_edit_list_documentos{
+	background-color:#EEEEEE;
+	border:1px solid black;
+	padding:14px;
+}
+.add_edit_list_documentos_toolbox{
+	margin:-7px 0 0 -7px;
+}
+.add_edit_list_documentos .listado_documentos{
+}
+.add_edit_list_documentos .box_listado_documentos{
+	
+}
+.add_edit_list_documentos .box_listado_documentos>li{
+	list-style:none outside none;
+}

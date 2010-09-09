@@ -10,6 +10,10 @@
 		<type>listado_documentos</type>
 		<class>Admin_Documento_Block_Listado</class>
 	</block>
+	<block>
+		<type>add_edit_list_documentos</type>
+		<class>Admin_Documento_Block_AddEditList</class>
+	</block>
 	<routers>
 		<Admin_Documento_Router>administrator/documento</Admin_Documento_Router>
 	</routers>

@@ -47,10 +47,12 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 			$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
 			$post_audiencia = $post&&$post->hasAudiencia()?$post->GetAudiencia(true):null;
 			$audiencia = new Inta_Model_Audiencia();
+			$guardado = false;
 			if(isset($post_audiencia)){
 				$audiencia->loadFromArray($post_audiencia->getData());
 				//echo Core_Helper::DebugVars($audiencia->getData());
-				$guardado = 
+				$guardado =
+					//false;
 					Admin_Audiencia_Helper::actionAgregarEditarAudiencia($audiencia)?true:false;
 			}
 			else{
@@ -61,14 +63,46 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 				if(!$audiencia->getId())
 					$audiencia->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
 			}
+			//aca un brain killer:
+			/*
+1er)entro a agregar
+	post: no, id_en_post: no, id: no, guardado: no, mostrar_tabs: no, listado: no
+2do)envio el form luego de entrar a agregar (da error al guardar) 
+	post: si, id_en_post: no, id: no, guardado: no, mostrar_tabs: no, listado: no 
+3er)envio el form luego de entrar a agregar (no da error)
+	post: si, id: si, id_en_post: no, guardado: si, mostrar_tabs: si, listado: no
+4to)envio el form luego de completar los demas tabs de la nueva entidad
+	post: si, id: si, id_en_post: si, guardado: si, mostrar_tabs: si, listado: si
+5to)edito uno
+	post: si, id: si, id_en_post: no, guardado: no, mostrar_tabs: si, listado: no
+6to)edito uno y da error al guardar
+	post: si, id: si, id_en_post: si, guardado: no, mostrar_tabs: si, listado: no
+
+			*/
+			$id_en_post = $post_audiencia&&$post_audiencia->getId();
+			$mostrar_tabs = $guardado || $id_en_post || $audiencia->getId();
+			$mostrar_listado = $guardado&&$audiencia->getId()&&$post_audiencia&&$post_audiencia->getId();
+			
+			if(!$mostrar_tabs){
+				Core_App::getLayout()
+					->addActions('entity_new')
+				;
+			}
 			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_audiencia)?'seteado':'no seteado'));
-			if($guardado){
+			if($mostrar_listado){
 				Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_audiencia_action');
 				$this->listar();
 			}
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_audiencia');
 				$layout = Core_App::getLoadedLayout();
+				
+//				if($block_listado_documentos = $layout->getBlock('listado_documentos')){
+//					$block_listado_documentos->setIdEntidad($audiencia->getId());
+//				}
+				if($block_add_edit_list_documentos_audiencia = $layout->getBlock('add_edit_list_documentos_audiencia')){
+					$block_add_edit_list_documentos_audiencia->setIdEntidad($audiencia->getId());
+				}
 
 				$audiencia->addAutofilterOutput('utf8_decode');
 				
