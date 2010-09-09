@@ -50,7 +50,7 @@ class Admin_Agencia_Router extends Core_Router_Abstract{
 			if(isset($post_agencia)){
 				$agencia->loadFromArray($post_agencia->getData());
 				//echo Core_Helper::DebugVars($agencia->getData());
-				$guardado = 
+				$guardado =
 					Admin_Agencia_Helper::actionAgregarEditarAgencia($agencia)?true:false;
 			}
 			else{
@@ -59,14 +59,26 @@ class Admin_Agencia_Router extends Core_Router_Abstract{
 					$agencia->load();
 				}
 			}
-			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_agencia)?'seteado':'no seteado'));
-			if($guardado){
+			$id_en_post = $post_agencia&&$post_agencia->getId();
+			$mostrar_tabs = $guardado || $id_en_post || $agencia->getId();
+			$mostrar_listado = $guardado&&$agencia->getId()&&$post_agencia&&$post_agencia->getId();
+			
+			if(!$mostrar_tabs){
+				Core_App::getLayout()
+					->addActions('entity_new')
+				;
+			}			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_agencia)?'seteado':'no seteado'));
+			if($mostrar_listado){
 				Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_agencia_action');
 				$this->listar();
 			}
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_agencia');
 				$layout = Core_App::getLoadedLayout();
+
+				if($block_add_edit_list_documentos_agencia = $layout->getBlock('add_edit_list_documentos_agencia')){
+					$block_add_edit_list_documentos_agencia->setIdEntidad($agencia->getId());
+				}
 
 				$agencia->addAutofilterOutput('utf8_decode');
 				

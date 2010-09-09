@@ -59,6 +59,11 @@
 					<tab title="Datos de audiencia">
 						<template name="audiencia_add_edit_form" template="audiencia/datos.phtml" />
 					</tab>
+					<tab when="!accion(entity_new)" title="Documentos">
+						<!--<template name="resultado_esperado_add_edit_form" template="audiencia/documentos.phtml" />-->
+						<!-- <listado_documentos name="listado_documentos" tipo_entidad="audiencia" /> -->
+						<add_edit_list_documentos name="add_edit_list_documentos_audiencia" tipo_entidad="audiencia" />
+					</tab>
 				</tabset>
 			</block>
 		</reference>

@@ -1,14 +1,20 @@
 <?
-$x = new Inta_Model_MedioVerificacion();
-if($this->hasIdToEdit()){
-	$x->setId($this->getIdToEdit());
-	$x->load();
+//$x = new Inta_Model_MedioVerificacion();
+//if($this->hasIdToEdit()){
+//	$x->setId($this->getIdToEdit());
+//	$x->load();
+//}
+//else{
+//	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
+//		$x->loadFromArray(Core_Http_Post::getParameters('array'));
+//	}
+//}
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
 }
-else{
-	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
-		$x->loadFromArray(Core_Http_Post::getParameters('array'));
-	}
-}
+$x = $this->getObjectToEdit();
+
 $x->addAutofilterOutput('utf8_decode');
 $image_empty_src = $this->getSkinUrl('img/empty.gif');
 $image_empty_size = 42;
