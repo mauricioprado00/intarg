@@ -117,7 +117,7 @@ $image_empty_size = 42;
 					->setName('actividad[presupuesto_estimado]')
 					->setValue($x->getPresupuestoEstimado())
 					->setData('data-campo', '<b>Presupuesto Estimado</b>')
-					->setData('data-validator', '{empty:false,decimal:2}')
+//					->setData('data-validator', '{empty:false,decimal:2}')
 				;
 				echo $input->getHtml();
 			?>
@@ -184,10 +184,17 @@ $image_empty_size = 42;
 	</div>
 </fieldset>
 <script>
-
 jQuery(document).ready(function(){
-
-})
+    jQuery('input[type=button][value=Agregar]').live('click',function(){
+//        jQuery(this).parents('div').eq(0).clone().appendTo(jQuery(this).parents('fieldset').eq(0));
+        var x = jQuery(this).parents('div').eq(0).clone();
+        jQuery(x).appendTo(jQuery(this).parents('fieldset').eq(0));
+        jQuery('input[type=button][value=Eliminar]',x).css('display','inline');
+    });
+    jQuery('input[type=button][value=Eliminar]').live('click',function(){
+        jQuery(this).parents('div').eq(0).remove();
+    });
+});
 function validar_agregar_actividad(formData, jqForm, options) {
 	if(!validar({
 		donde: '#<?php print $id_fielset; ?>',

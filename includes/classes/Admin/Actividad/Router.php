@@ -45,16 +45,33 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 		}
 		else{
 			$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
-//                        echo "<pre>";
-//                        var_dump($post);
-//                        echo "</pre>";die();
-			$post_actividad = $post&&$post->hasActividad()?$post->GetActividad(true):null;
+                        $post_actividad = $post&&$post->hasActividad()?$post->GetActividad(true):null;
+//                        Mat, meto el link actividad_proyecto
+                        $aActividadProyecto = array();
+                        $contador = 0;
+//                        var_dump($post->actividad_proyecto['id_proyecto']);
+//                        var_dump($post->actividad_proyecto['monto_proyecto']);
+                        foreach($post->actividad_proyecto['id_proyecto'] As $id_proyecto){
+                            $actividad_proyecto = new Inta_Model_ActividadProyecto();
+                            $actividad_proyecto->setIdProyecto($id_proyecto);
+                            $actividad_proyecto->setMonto($post->actividad_proyecto['monto_proyecto'][$contador]);
+                            array_push($aActividadProyecto,$actividad_proyecto);
+                            $contador++;
+                        }
+//                        Mat, meto el link con resultado esperado
+                        $aResultadoEsperadoActividad = array();
+                        foreach($post->resultado_esperado_actividad['id_resultado_esperado'] As $id_resultado_esperado){
+                            $resultado_esperado_actividad = new Inta_Model_ResultadoEsperadoActividad();
+                            $resultado_esperado_actividad->setIdResultadoEsperado($id_resultado_esperado);
+                            array_push($aResultadoEsperadoActividad,$resultado_esperado_actividad);
+                        }
+//			$post_actividad = $post&&$post->hasActividad()?$post->GetActividad(true):null;
 			$actividad = new Inta_Model_Actividad();
 			if(isset($post_actividad)){
 				$actividad->loadFromArray($post_actividad->getData());
 				//echo Core_Helper::DebugVars($actividad->getData());
 				$guardado = 
-					Admin_Actividad_Helper::actionAgregarEditarActividad($actividad)?true:false;
+					Admin_Actividad_Helper::actionAgregarEditarActividad($actividad,$aActividadProyecto,$aResultadoEsperadoActividad)?true:false;
 			}
 			else{
 				if(isset($id_actividad)){
