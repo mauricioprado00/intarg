@@ -1,0 +1,88 @@
+<?php
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="actividad[id_proyecto]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Relacionar<?else:?>Editar Relación<?endif;?> Proyecto</legend>
+	<fieldset>
+		<h3>Datos</h3>
+		<div>
+			<label>Nombre: </label>
+			<span><?
+                                $select = new Core_Html_Tag_Custom('select');
+                                $select
+                                        ->setId('id_proyecto')
+                                        ->setName('actividad_proyecto[id_proyecto][]')
+                                ;
+                                $html = '';
+                                $i = new Inta_Model_Proyecto();
+                                $a = $i->search();
+                                if(!empty($a))
+					foreach($a as $o){
+						$option = new Core_Html_Tag_Custom('option');
+						$option
+							->setValue($o->getId())
+							->setInnerHtml($o->getNombre())
+						;
+						if($o->getId()==$x->getIdProyecto())
+							$option->setSelected('selected');
+						$html .= $option->getHtml();
+					}
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?>
+			</span>
+                        <label>Monto: </label>
+			<span><?
+				$input = new Core_Html_Tag_Custom('input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setSize('10')
+					->setId('monto_proyecto')
+					->setName('actividad_proyecto[monto_proyecto][]')
+					->setValue($x->getMonto())
+					->setData('data-campo', '<b>Monto</b>')
+//					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?>
+			</span>
+                        <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('button')
+                                    ->setValue('Agregar')
+                            ;
+                            echo $input->getHtml();
+                            $input
+                                    ->setType('button')
+                                    ->setValue('Eliminar')
+                                    ->setStyle('display:none')
+                            ;
+                            echo $input->getHtml();
+                        ?>
+                        </span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+function validar_agregar_proyecto(formData, jqForm, options) {
+	if(!validar({
+		donde: '#<?php print $id_fielset; ?>',
+		estatico:true})){
+		return false;
+	}
+	return(true);
+}
+</script>

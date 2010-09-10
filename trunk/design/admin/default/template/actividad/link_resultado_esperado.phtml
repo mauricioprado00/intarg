@@ -1,0 +1,84 @@
+<?php
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="actividad[id_ptoyecto]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Relacionar<?else:?>Editar Relación<?endif;?> Resultado Esperado</legend>
+	<fieldset>
+		<h3>Datos</h3>
+		<div>
+			<label>Nombre: </label>
+			<span><?
+                                $select = new Core_Html_Tag_Custom('select');
+                                $select
+                                        ->setId('id_resultado_esperado')
+                                        ->setName('resultado_esperado_actividad[id_resultado_esperado][]')
+                                ;
+                                $html = '';
+                                $i = new Inta_Model_ResultadoEsperado();
+                                $a = $i->search();
+                                if(!empty($a))
+					foreach($a as $o){
+						$option = new Core_Html_Tag_Custom('option');
+						$option
+							->setValue($o->getId())
+							->setInnerHtml(strip_tags($o->getDescripcion()))
+						;
+						if($o->getId()==$x->getIdResultadoEsperado())
+							$option->setSelected('selected');
+						$html .= $option->getHtml();
+					}
+				echo $select
+					->setInnerHtml($html)
+					->getHtml()
+				;
+			?>
+			</span>
+                        <span><?
+                            $input = new Core_Html_Tag_Custom('input');
+                            $input
+                                    ->setType('button')
+                                    ->setValue('Agregar')
+                            ;
+                            echo $input->getHtml();
+                            $input
+                                    ->setType('button')
+                                    ->setValue('Eliminar')
+                                    ->setStyle('display:none')
+                            ;
+                            echo $input->getHtml();
+                        ?>
+                        </span>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+function validar_agregar_resultado_esperado(formData, jqForm, options) {
+	if(!validar({
+		donde: '#<?php print $id_fielset; ?>',
+		estatico:true})){
+		return false;
+	}
+	return(true);
+}
+//jQuery(document).ready(function(){
+//    jQuery('input[type=button][value=Agregar]').live('click',function(){
+////        jQuery(this).parents('div').eq(0).clone().appendTo(jQuery(this).parents('fieldset').eq(0));
+//        var x = jQuery(this).parents('div').eq(0).clone();
+//        console.log(x);
+//        jQuery(x).appendTo(jQuery(this).parents('fieldset').eq(0));
+//        jQuery('input[type=button][value=Eliminar]',x).css('display','inline');
+//    });
+//    jQuery('input[type=button][value=Eliminar]').live('click',function(){
+//        jQuery(this).parents('div').eq(0).remove();
+//    });
+//});
+</script>

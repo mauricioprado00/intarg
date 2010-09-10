@@ -2,13 +2,13 @@
 	<modules>
 		<Admin_User/>
 		<!--<cosas_de_inta>-->
+		<Admin_Actividad/>
 		<Admin_Agencia/>
 		<Admin_Audiencia/>
 		<Admin_Problema/>
 		<Admin_Objetivo/>
 		<Admin_ResultadoEsperado/>
 		<Admin_Documento/>
-		<Admin_Actividad/>
 		<Admin_Estrategia/>
 		<Admin_Indicador/>
 		<Admin_MedioVerificacion/>
@@ -16,7 +16,7 @@
 		<Admin_TipoAudiencia/>
 		<!--</cosas_de_inta>-->
 		<!--<cosas_de_granguia>-->
-		<Admin_Estadistica/>
+<!--		<Admin_Estadistica/>
 		<Admin_TipoPunto/>
 		<Admin_Categoria/>
 		<Admin_Barrio/>
@@ -29,7 +29,7 @@
 		<Admin_BannerDinamico/>
 		<Admin_Config/>
 		<Admin_CronjobResult/>
-		<Admin_Sitemap />
+		<Admin_Sitemap />-->
 		<!--</cosas_de_granguia>-->
 <!--
 		<Admin_Importador/>

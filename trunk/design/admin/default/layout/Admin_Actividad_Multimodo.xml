@@ -219,6 +219,12 @@
 					<tab title="Planificacion">
 						<block name="actividad_add_edit_form" type="template" template="actividad/planificacion.phtml"></block>
 					</tab>
+                                        <tab title="Datos de Proyecto">
+						<block name="actividad_add_edit_form" type="template" template="actividad/link_proyecto.phtml"></block>
+					</tab>
+                                        <tab title="Resultado Esperado">
+						<block name="actividad_add_edit_form" type="template" template="actividad/link_resultado_esperado.phtml"></block>
+					</tab>
 				</tabset>
 			</block>
 		</reference>
