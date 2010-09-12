@@ -1,0 +1,88 @@
+<?php
+if(!$this->hasIdActividad()){
+	echo  ("no hay actividad a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+
+?>
+<div class="add_edit_list add_edit_list_aspecto_actividads <?php print $id_control=$this->generateRandomId(); ?>" data-json="<?php print htmlentities(json_encode(array('id_actividad'=>$this->getIdActividad(), 'target'=>'.'.$id_control.' .listado_aspecto_actividads'))); ?>">
+	<div class="add_edit_list_toolbox add_edit_list_toolbox_aspecto_actividads">
+		<div class="btn_agregar btn_agregar_aspecto_actividad" title="Agregar AspectoActividad"></div>
+		<div class="btn_refresh btn_refresh_aspecto_actividad" title="Actualizar AspectoActividad"></div>
+	</div>
+	<?php print $this->getListadoAspectoActividadsToHtml(); ?> 
+</div>
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	var jqform = jQuery('.<?php print $id_control; ?>');
+	
+	jQuery('.btn_refresh_aspecto_actividad', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#DDFFDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var jqlistado = jqthat.parents('.add_edit_list_aspecto_actividads:first');
+			var data = jqlistado.data('data-jso');
+			if(data==null){
+				try{
+					eval('data='+jqlistado.attr('data-json'));
+				}catch(e){
+				}
+				if(data==null)
+					return;
+			}
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/aspecto_actividad/listarAspectoActividad/'+data.id_actividad+'/',
+				function (dataret){
+					jqwait.ScreenBlock(false);
+					jQuery(data.target).html(dataret);
+				}
+			);
+		})
+	;
+	jQuery('.btn_agregar_aspecto_actividad', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#DDFFDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var jqlistado = jqthat.parents('.add_edit_list_aspecto_actividads:first');
+			var data = jqlistado.data('data-jso');
+			if(data==null){
+				try{
+					eval('data='+jqlistado.attr('data-json'));
+				}catch(e){
+				}
+				if(data==null)
+					return;
+			}
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/aspecto_actividad/addEdit/'+data.id_actividad+'/',
+				{
+					target: data.target
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_container_css:{'text-align':'left'},message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			);
+		})
+	;
+});
+</script>

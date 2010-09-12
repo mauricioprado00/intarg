@@ -42,9 +42,6 @@ class Admin_Proyecto_Helper extends Core_Singleton{
 		$proyecto->setId($id_proyecto);
 		if(!$proyecto->load())
 			return false;
-		if($proyecto->hasIdNodo())
-			if(!Admin_Nodo_Helper::eliminarNodo($proyecto->getIdNodo()))
-				return false;
 		return $proyecto->delete(array('id'=>$id_proyecto));
 	}
 }

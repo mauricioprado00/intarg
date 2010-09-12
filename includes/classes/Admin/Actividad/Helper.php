@@ -10,9 +10,6 @@ class Admin_Actividad_Helper extends Core_Singleton{
 		if(!is_a($actividad,'Inta_Model_Actividad')){
 			$actividad = new Inta_Model_Actividad($actividad->getData());
 		}
-		if(!$actividad->getIdNodo()){
-			$actividad->setIdNodo(null);
-		}
 		if(!$actividad->hasId()){/** aca hay que agregar a la base de datos*/
 //                    die("soy un kradekk");
 			$resultado = $actividad->replace()?true:false;

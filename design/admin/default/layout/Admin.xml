@@ -23,6 +23,7 @@
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.mouse.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.sortable.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.tabs.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.slider.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.datepicker.js</script>
 				<css>jquery-ui-1.8.1.custom/development-bundle/themes/base/jquery.ui.all.css</css>
 				<script charset="utf8">js/ScreenBlock.js</script>

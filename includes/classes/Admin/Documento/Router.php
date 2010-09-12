@@ -5,7 +5,8 @@ class Admin_Documento_Router extends Core_Router_Abstract{
 		$this->addActions(
 			'cerrar_sesion',
 			'addEdit','delete','listar','datalist',
-			'ordenar','setorden'
+			'ordenar','setorden',
+			'listarDocumentos'
 		);
 	}
 	protected function onThrought(){

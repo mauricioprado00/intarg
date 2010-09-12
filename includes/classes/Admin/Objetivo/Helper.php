@@ -7,9 +7,6 @@ class Admin_Objetivo_Helper extends Core_Singleton{
 		if(!is_a($objetivo,'Inta_Model_Objetivo')){
 			$objetivo = new Inta_Model_Objetivo($objetivo->getData());
 		}
-		if(!$objetivo->getIdNodo()){
-			$objetivo->setIdNodo(null);
-		}
 		if(!$objetivo->hasId()){/** aca hay que agregar a la base de datos*/
 			$resultado = $objetivo->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()

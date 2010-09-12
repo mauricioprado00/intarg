@@ -26,7 +26,6 @@
 						if(options.config!=null)
 							config = options.config;
 					}
-					window.console.log(config);
 					this.instanciaCkeditor = CKEDITOR.replace( this, config );
 					if(preservar.name!=null && preservar.name!='')
 						jqthis.attr('name', preservar.name);

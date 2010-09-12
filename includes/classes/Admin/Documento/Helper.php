@@ -7,9 +7,6 @@ class Admin_Documento_Helper extends Core_Singleton{
 		if(!is_a($documento,'Inta_Model_Documento')){
 			$documento = new Inta_Model_Documento($documento->getData());
 		}
-		if(!$documento->getIdNodo()){
-			$documento->setIdNodo(null);
-		}
 		if(!$documento->hasId()){/** aca hay que agregar a la base de datos*/
 			$resultado = $documento->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()

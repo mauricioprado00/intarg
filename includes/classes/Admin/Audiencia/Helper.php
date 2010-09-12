@@ -7,9 +7,6 @@ class Admin_Audiencia_Helper extends Core_Singleton{
 		if(!is_a($audiencia,'Inta_Model_Audiencia')){
 			$audiencia = new Inta_Model_Audiencia($audiencia->getData());
 		}
-		if(!$audiencia->getIdNodo()){
-			$audiencia->setIdNodo(null);
-		}
 		if(!$audiencia->hasId()){/** aca hay que agregar a la base de datos*/
 			$resultado = $audiencia->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()

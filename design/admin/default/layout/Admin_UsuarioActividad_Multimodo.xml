@@ -1,0 +1,84 @@
+<layout>
+	<!-- no tiene menu, ni listado, es una entidad de relacion
+	<list_admin_usuario_actividad>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/usuario_actividad/addEdit,id"
+			toolbar_delete_url="administrator/usuario_actividad/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de UsuarioActividad"
+			source="administrator/usuario_actividad/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_usuario_actividad>
+	-->
+	<listar_admin_usuario_actividad>
+		<reference name="contenedor_ajax">
+			<action method="setHtmlClass">
+				<html_class></html_class>
+			</action>
+		</reference>
+		<reference name="contenedor_main">
+			<listado_usuario_actividad name="listado_usuario_actividad" />
+		</reference>
+	</listar_admin_usuario_actividad>
+	<addedit_admin_usuario_actividad>
+		<reference name="contenedor_ajax">
+			<action method="setHtmlClass">
+				<html_class></html_class>
+			</action>
+		</reference>
+		<reference name="contenedor_main">
+		<!-- muy importante agregar ajax_method="ajaxSubmit" para que se pueda actualizar antes de enviar (ckeditor) -->
+			<block 
+				type="Admin/AddEditForm"
+				action_url="usuario_actividad/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				ajax_method="ajaxSubmit"
+				validador_js="validar_agregar_usuario_actividad_datos"
+				method="post" 
+				name="formulario_edicion_usuario_actividad"
+				success_js="usuario_actividad_enviado">
+				<tabset>
+					<tab title="Datos de usuario_actividad">
+						<template name="usuario_actividad_add_edit_form" template="usuario_actividad/datos.phtml" />
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_usuario_actividad>
+</layout>

@@ -225,6 +225,15 @@
                                         <tab title="Resultado Esperado">
 						<block name="actividad_add_edit_form" type="template" template="actividad/link_resultado_esperado.phtml"></block>
 					</tab>
+					<tab when="!accion(entity_new)" title="Usuarios Involucrados">
+						<add_edit_list_usuario_actividad name="add_edit_list_usuario_actividad" />
+					</tab>
+					<tab when="!accion(entity_new)" title="Aspectos">
+						<add_edit_list_aspecto_actividad name="add_edit_list_aspecto_actividad" />
+					</tab>
+					<tab when="!accion(entity_new)" title="Estrategias">
+						<add_edit_list_estrategia_actividad name="add_edit_list_estrategia_actividad" />
+					</tab>
 					<tab when="!accion(entity_new)" title="Documentos">
 						<add_edit_list_documentos name="add_edit_list_documentos_actividad" tipo_entidad="actividad" />
 					</tab>

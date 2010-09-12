@@ -1,0 +1,20 @@
+<global>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin_EstrategiaActividad.xml</admin>
+		<admin>Admin_EstrategiaActividad_Multimodo.xml</admin>
+		<ajax>Admin_EstrategiaActividad_Multimodo.xml</ajax>
+	</layouts>
+	<routers>
+		<Admin_EstrategiaActividad_Router>administrator/estrategia_actividad</Admin_EstrategiaActividad_Router>
+	</routers>
+	<block>
+		<type>listado_estrategia_actividad</type>
+		<class>Admin_EstrategiaActividad_Block_Listado</class>
+	</block>
+	<block>
+		<type>add_edit_list_estrategia_actividad</type>
+		<class>Admin_EstrategiaActividad_Block_AddEditList</class>
+	</block>
+</global>
