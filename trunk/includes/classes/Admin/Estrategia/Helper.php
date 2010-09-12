@@ -7,9 +7,6 @@ class Admin_Estrategia_Helper extends Core_Singleton{
 		if(!is_a($estrategia,'Inta_Model_Estrategia')){
 			$estrategia = new Inta_Model_Estrategia($estrategia->getData());
 		}
-		if(!$estrategia->getIdNodo()){
-			$estrategia->setIdNodo(null);
-		}
 		if(!$estrategia->hasId()){/** aca hay que agregar a la base de datos*/
 			$resultado = $estrategia->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()

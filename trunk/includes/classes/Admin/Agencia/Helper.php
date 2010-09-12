@@ -7,9 +7,6 @@ class Admin_Agencia_Helper extends Core_Singleton{
 		if(!is_a($agencia,'Inta_Model_Agencia')){
 			$agencia = new Inta_Model_Agencia($agencia->getData());
 		}
-		if(!$agencia->getIdNodo()){
-			$agencia->setIdNodo(null);
-		}
 		if(!$agencia->hasId()){/** aca hay que agregar a la base de datos*/
 			$resultado = $agencia->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()

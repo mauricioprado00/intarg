@@ -42,9 +42,6 @@ class Admin_TipoAudiencia_Helper extends Core_Singleton{
 		$tipo_audiencia->setId($id_tipo_audiencia);
 		if(!$tipo_audiencia->load())
 			return false;
-		if($tipo_audiencia->hasIdNodo())
-			if(!Admin_Nodo_Helper::eliminarNodo($tipo_audiencia->getIdNodo()))
-				return false;
 		return $tipo_audiencia->delete(array('id'=>$id_tipo_audiencia));
 	}
 }

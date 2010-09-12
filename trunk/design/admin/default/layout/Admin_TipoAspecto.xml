@@ -1,0 +1,58 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>tipo_aspecto</link_url>
+				<text>TipoAspecto</text>
+				<title>TipoAspecto</title>
+				<name>menu_admin_tipo_aspecto</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_tipo_aspecto">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>tipo_aspecto/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>tipo_aspecto/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_tipo_aspecto>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_TipoAspecto/XmlList"
+			name="xml_data_admin_tipo_aspecto">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<!--
+				<param><![CDATA[
+					<a href="#tipo_aspecto/listar" onclick="getGrid(this).setSelection('{!id}')">seleccionar</a>
+					<a href="#tipo_aspecto/addEdit/{!id}">editar</a>
+					<a href="#tipo_aspecto/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el tipo_aspecto seleccionado?')">eliminar</a>
+					]]></param>
+				-->
+				<param><![CDATA[
+					<a href="#tipo_aspecto/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#tipo_aspecto/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#tipo_aspecto/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el tipo_aspecto seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_tipo_aspecto>
+</layout>

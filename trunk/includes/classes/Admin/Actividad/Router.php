@@ -102,6 +102,15 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 				if($block_add_edit_list_documentos_actividad = $layout->getBlock('add_edit_list_documentos_actividad')){
 					$block_add_edit_list_documentos_actividad->setIdEntidad($actividad->getId());
 				}
+				if($block_add_edit_list_aspecto_actividad = $layout->getBlock('add_edit_list_aspecto_actividad')){
+					$block_add_edit_list_aspecto_actividad->setIdActividad($actividad->getId());
+				}
+				if($block_add_edit_list_estrategia_actividad = $layout->getBlock('add_edit_list_estrategia_actividad')){
+					$block_add_edit_list_estrategia_actividad->setIdActividad($actividad->getId());
+				}
+				if($block_add_edit_list_usuario_actividad = $layout->getBlock('add_edit_list_usuario_actividad')){
+					$block_add_edit_list_usuario_actividad->setIdActividad($actividad->getId());
+				}
 
 				$actividad->addAutofilterOutput('utf8_decode');
 				

@@ -42,38 +42,53 @@ li:hover>.medio_verificacion_toolbox{
 	list-style:none outside none;
 	margin-left:37px;
 }
-.listado_documentos_toolbox{
+/*
+.listado_toolbox_documentos{
 	float:left;
 	display:none;
 }
-.listado_documentos_toolbox:after{
+.listado_toolbox_documentos:after{
 	content:' -  ';
 	margin-right:4px;
 }
-li:hover>.listado_documentos_toolbox{
+li:hover>.listado_toolbox_documentos{
 	display:inline;
 }
-.listado_documentos_toolbox>li:hover{
+.listado_toolbox_documentos>li:hover{
 	background-color:#EEEEEE;
-}
+}*/
 .medios_verificacion_indicador_resultado .box_listado_documentos>li:hover{
 	background-color:#CCCCCC;
 }
 
 
-.add_edit_list_documentos{
+.add_edit_list{
 	background-color:#EEEEEE;
 	border:1px solid black;
 	padding:14px;
 }
-.add_edit_list_documentos_toolbox{
+.add_edit_list_toolbox{
 	margin:-7px 0 0 -7px;
 }
-.add_edit_list_documentos .listado_documentos{
+.add_edit_list li{
+	position:relative;
+	list-style-position:inside;
 }
-.add_edit_list_documentos .box_listado_documentos{
+.listado_toolbox{
+	background-color:white;
+	border:1px solid;
+	position:absolute;
+	z-index:100;
+	display:none;
+}
+li:hover>.listado_toolbox{
+	display:block;
+}
+.add_edit_list .listado_documentos{
+}
+.add_edit_list .box_listado_documentos{
 	
 }
-.add_edit_list_documentos .box_listado_documentos>li{
+.add_edit_list .box_listado_documentos>li{
 	list-style:none outside none;
 }

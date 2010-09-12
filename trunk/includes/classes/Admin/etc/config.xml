@@ -14,6 +14,11 @@
 		<Admin_MedioVerificacion/>
 		<Admin_Proyecto/>
 		<Admin_TipoAudiencia/>
+		<Admin_Aspecto/>
+		<Admin_TipoAspecto/>
+		<Admin_AspectoActividad/>
+		<Admin_EstrategiaActividad/>
+		<Admin_UsuarioActividad/>
 		<!--</cosas_de_inta>-->
 		<!--<cosas_de_granguia>-->
 <!--		<Admin_Estadistica/>

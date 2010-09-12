@@ -1,0 +1,66 @@
+<layout>
+	<list_admin_aspecto>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/aspecto/addEdit,id"
+			toolbar_delete_url="administrator/aspecto/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de Aspecto"
+			source="administrator/aspecto/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_aspecto>
+	<addedit_admin_aspecto>
+		<reference name="contenedor_main">
+		<!-- muy importante agregar ajax_method="ajaxSubmit" para que se pueda actualizar antes de enviar (ckeditor) -->
+			<block 
+				type="Admin/AddEditForm"
+				action_url="aspecto/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				ajax_method="ajaxSubmit"
+				validador_js="validar_agregar_aspecto_datos"
+				method="post" 
+				name="formulariox">
+				<tabset>
+					<tab title="Datos de aspecto">
+						<template name="aspecto_add_edit_form" template="aspecto/datos.phtml" />
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_aspecto>
+</layout>

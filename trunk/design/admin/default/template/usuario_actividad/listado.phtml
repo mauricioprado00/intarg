@@ -1,0 +1,111 @@
+<div class="listado_usuario_actividads" id="<?php print $id_control_big = $this->generateRandomId(); ?>"><?
+$usuario_actividads = $this->getUsuarioActividads();
+if($usuario_actividads){
+	echo '<ul class="box_listado_usuario_actividads" id="'.($id_control = $this->generateRandomId()).'">';
+	foreach($usuario_actividads as $usuario_actividad){
+		echo
+			'<li data-id="'.$usuario_actividad->getId().'">'. 
+			'<span>'.$usuario_actividad->getUsuario()->getApellido().', '.$usuario_actividad->getUsuario()->getNombre().'</span>';
+		?>
+		<div class="listado_toolbox listado_toolbox_usuario_actividads">
+			<div class="btn_eliminar btn_eliminar_usuario_actividad" title="Eliminar UsuarioActividad"></div>
+			<div class="btn_editar btn_editar_usuario_actividad" title="Editar UsuarioActividad"></div>
+		</div><?php
+		echo '</li>';
+	}
+	echo '</ul>';?> 
+<script>
+jQuery(document).ready(function(){
+	var jqicon = jQuery('#<?php print $id_control?> .show_icon');
+	jQuery('#<?php print $id_control?>>li')
+		.timemouse({
+			mouseover: function(){
+				jQuery(this).addClass('thover')
+			},
+			mouseout: function(){
+				jQuery(this).removeClass('thover')
+			}, 
+			time: 0
+		})
+	;
+
+	jQuery('#<?php print $id_control?> .btn_eliminar_usuario_actividad')
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFDDDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var jqwin = jQuery('<div></div>');
+			jqwin.html('&iquest;Desea continuar eliminando el usuario_actividad?<br />');
+			var jqaceptar = jQuery('<input type="button" value="Continuar" />')
+				.click(function(){
+					var id_usuario_actividad = jqthat.parents('li:first').attr('data-id');
+					var jqwait = jQuery('<div></div>');
+					jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+					jqwait.ScreenBlock();
+					jQuery.get(
+						'administrator/ajax/usuario_actividad/delete/'+id_usuario_actividad+'/',
+						function (data){
+							jQuery.ScreenBlock(false);
+							jQuery('#<?php print $id_control; ?>')
+								.parents('.listado_usuario_actividads:first')
+								.html(data)
+							;
+						}
+					)
+				})
+				.appendTo(jqwin)
+			;
+			var jqcancelar = jQuery('<input type="button" value="Cancelar" />')
+				.click(function(){
+					jQuery.ScreenBlock(false);
+				})
+				.appendTo(jqwin)
+			;
+			jqwin.ScreenBlock();
+		})
+	;
+	jQuery('#<?php print $id_control?> .btn_editar_usuario_actividad')
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFFFBB')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_usuario_actividad = jqthat.parents('li:eq(0)').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'<?php print 'administrator/ajax/usuario_actividad/addEdit/'.$this->getIdActividad().'/'; ?>'+id_usuario_actividad,
+				{
+					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.listado_usuario_actividads:last').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			)
+		})
+	;
+
+})
+</script><?
+	
+}
+else{
+//echo "no hay docs";
+	if($this->getShowEmptyMessage()){?> 
+		<h3>No hay Usuarios cargados</h3><?
+	}
+}
+?>
+</div>

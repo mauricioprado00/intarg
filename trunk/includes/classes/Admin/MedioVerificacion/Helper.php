@@ -7,9 +7,6 @@ class Admin_MedioVerificacion_Helper extends Core_Singleton{
 		if(!is_a($medio_verificacion,'Inta_Model_MedioVerificacion')){
 			$medio_verificacion = new Inta_Model_MedioVerificacion($medio_verificacion->getData());
 		}
-		if(!$medio_verificacion->getIdNodo()){
-			$medio_verificacion->setIdNodo(null);
-		}
 		if(!$medio_verificacion->hasId()){/** aca hay que agregar a la base de datos*/
 			$resultado = $medio_verificacion->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()

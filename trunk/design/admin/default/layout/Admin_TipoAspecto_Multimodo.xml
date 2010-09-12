@@ -1,0 +1,66 @@
+<layout>
+	<list_admin_tipo_aspecto>
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/tipo_aspecto/addEdit,id"
+			toolbar_delete_url="administrator/tipo_aspecto/delete,id">
+		</reference>
+		<reference name="listado_datos_grid"
+			caption="Listado de TipoAspecto"
+			source="administrator/tipo_aspecto/datalist"
+			sort_name="id"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top">
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+			<action named_args="true" method="addColumn">	
+				<title>Acciones</title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>82</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Nombre</title>
+				<name>nombre</name>
+				<index>nombre</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+		</reference>
+	</list_admin_tipo_aspecto>
+	<addedit_admin_tipo_aspecto>
+		<reference name="contenedor_main">
+		<!-- muy importante agregar ajax_method="ajaxSubmit" para que se pueda actualizar antes de enviar (ckeditor) -->
+			<block 
+				type="Admin/AddEditForm"
+				action_url="tipo_aspecto/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				ajax_method="ajaxSubmit"
+				validador_js="validar_agregar_tipo_aspecto_datos"
+				method="post" 
+				name="formulariox">
+				<tabset>
+					<tab title="Datos de tipo_aspecto">
+						<template name="tipo_aspecto_add_edit_form" template="tipo_aspecto/datos.phtml" />
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_tipo_aspecto>
+</layout>

@@ -45,8 +45,10 @@ $configcke2 = array(
                                         ->setName('medio_verificacion[id_responsable]')
                                 ;
                                 $html = '';
-                                $i = new Inta_Model_Usuario();
-                                $a = $i->search();
+                                $a = c(new Inta_Model_Usuario())
+                                	->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia())
+                                	->setWhere(Db_Helper::equal('id_agencia'))
+                                	->search();
                                 if(!empty($a))
 					foreach($a as $o){
 						$option = new Core_Html_Tag_Custom('option');
@@ -94,35 +96,41 @@ $configcke2 = array(
 				echo $input->getHtml();
 			?>
 			</span>
-			<label>Porcentaje Cumplimiento: </label>
-			<span><?
+			<label>Porcentaje Cumplimiento: <?
 				$input = new Core_Html_Tag_Custom('input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('porcentaje_cumplimiento')
+					->setReadonly('readonly')
 					->setName('actividad[porcentaje_cumplimiento]')
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
 					->setValue($x->getPorcentajeCumplimiento())
 					->setData('data-campo', '<b>Porcentaje Cumplimiento</b>')
 					->setData('data-validator', '{empty:false,porcentaje:true}')
 				;
 				echo $input->getHtml();
-			?>
+			?></label>
+			<span>
+			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#porcentaje_cumplimiento', 'min'=>0,'max'=>100, 'step'=>10, 'fixed'=>2))); ?>"></div>
 			</span>
-			<label>Porcentaje Tiempo: </label>
-			<span><?
+			<label>Porcentaje Tiempo: <?
 				$input = new Core_Html_Tag_Custom('input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('porcentaje_tiempo')
+					->setReadonly('readonly')
 					->setName('actividad[porcentaje_tiempo]')
-					->setValue($x->getPorcentajeCumplimiento())
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
+					->setValue($x->getPorcentajeTiempo())
 					->setData('data-campo', '<b>Porcentaje Tiempo</b>')
 					->setData('data-validator', '{empty:false,porcentaje:true}')
 				;
 				echo $input->getHtml();
-			?>
+			?></label>
+			<span>
+				<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#porcentaje_tiempo', 'min'=>0,'max'=>100, 'step'=>10, 'fixed'=>2))); ?>"></div>
 			</span>
 			<label>Presupuesto Estimado: </label>
 			<span><?
@@ -218,6 +226,32 @@ jQuery(document).ready(function(){
     jQuery('input[type=button][value=Eliminar]').live('click',function(){
         jQuery(this).parents('div').eq(0).remove();
     });
+    window.console.log(jQuery('.slider'));
+    jQuery('.slider').each(function(){
+    	jQuery(this).css('margin-top', '9px');
+		var data = jQuery(this).attr('data-info');
+		var options = null;
+		try{
+			window.console.log(data);
+			eval('options='+data);
+		}
+		catch(e){
+			alert("kradkk");
+			return;
+		}
+		options.value = jQuery(options.target).val();
+		options.slide = function(event, ui){
+			var val = ui.value;
+			if(options.fixed){
+				val = (new Number(parseFloat(val))).toFixed(options.fixed);
+			}
+			jQuery(options.target).val(val);
+		}
+		jQuery(this).slider(options);
+		//jQuery(options.target).val(ui.value);
+	})
+	//$("#amount").val('$' + $("#slider").slider("value"));
+
 });
 function validar_agregar_actividad(formData, jqForm, options) {
 	if(!validar({

@@ -1,0 +1,12 @@
+<global>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin_Aspecto.xml</admin>
+		<admin>Admin_Aspecto_Multimodo.xml</admin>
+		<ajax>Admin_Aspecto_Multimodo.xml</ajax>
+	</layouts>
+	<routers>
+		<Admin_Aspecto_Router>administrator/aspecto</Admin_Aspecto_Router>
+	</routers>
+</global>
