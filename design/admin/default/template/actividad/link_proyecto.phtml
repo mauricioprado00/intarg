@@ -5,12 +5,19 @@ if(!$this->hasObjectToEdit()){
 }
 $x = $this->getObjectToEdit();
 
-?><?if($this->getIdToEdit()):?>
+?><?if($this->getIdToEdit()):
+        $actividad_proyecto = new Inta_Model_ActividadProyecto();
+        $aActividadProyecto = $actividad_proyecto->search(null,'ASC',null,0,'Inta_Model_ActividadProyecto');
+?>
 <input type="hidden" name="actividad[id_proyecto]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
 	<legend><?if(!$this->getIdToEdit()):?>Relacionar<?else:?>Editar Relación<?endif;?> Proyecto</legend>
 	<fieldset>
 		<h3>Datos</h3>
+<?php
+    $contador = 0;
+    foreach($aActividadProyecto As $oActividadProyecto){
+?>
 		<div>
 			<label>Nombre: </label>
 			<span><?
@@ -29,7 +36,7 @@ $x = $this->getObjectToEdit();
 							->setValue($o->getId())
 							->setInnerHtml($o->getNombre())
 						;
-						if($o->getId()==$x->getIdProyecto())
+						if($o->getId()==$oActividadProyecto->getIdProyecto())
 							$option->setSelected('selected');
 						$html .= $option->getHtml();
 					}
@@ -48,7 +55,7 @@ $x = $this->getObjectToEdit();
 					->setSize('10')
 					->setId('monto_proyecto')
 					->setName('actividad_proyecto[monto_proyecto][]')
-					->setValue($x->getMonto())
+					->setValue($oActividadProyecto->getMonto())
 					->setData('data-campo', '<b>Monto</b>')
 //					->setData('data-validator', '{empty:false}')
 				;
@@ -65,12 +72,16 @@ $x = $this->getObjectToEdit();
                             $input
                                     ->setType('button')
                                     ->setValue('Eliminar')
-                                    ->setStyle('display:none')
+                                    ->setStyle($contador==0?'display:none':'display:inline')
                             ;
                             echo $input->getHtml();
                         ?>
                         </span>
 		</div>
+<?php
+    $contador++;
+    }
+?>
 	</fieldset>
 	<div class="controls">
 		<input type="submit" value="Guardar"/>
