@@ -5,12 +5,19 @@ if(!$this->hasObjectToEdit()){
 }
 $x = $this->getObjectToEdit();
 
-?><?if($this->getIdToEdit()):?>
+?><?if($this->getIdToEdit()):
+        $resultado_esperado_actividad = new Inta_Model_ResultadoEsperadoActividad();
+        $resultado_esperado_actividad->setWhere(Db_Helper::equal('id_actividad',$x->getId()));
+        $aResultadoEsperadoActividad = $resultado_esperado_actividad->search(null,'ASC',null,0,'Inta_Model_ResultadoEsperadoActividad');
+?>
 <input type="hidden" name="actividad[id_ptoyecto]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
 	<legend><?if(!$this->getIdToEdit()):?>Relacionar<?else:?>Editar Relación<?endif;?> Resultado Esperado</legend>
 	<fieldset>
 		<h3>Datos</h3>
+<?php
+    foreach($aResultadoEsperadoActividad As $oResultadoEsperadoActividad){
+?>
 		<div>
 			<label>Nombre: </label>
 			<span><?
@@ -29,7 +36,7 @@ $x = $this->getObjectToEdit();
 							->setValue($o->getId())
 							->setInnerHtml(strip_tags($o->getDescripcion()))
 						;
-						if($o->getId()==$x->getIdResultadoEsperado())
+						if($o->getId()==$oResultadoEsperadoActividad->getIdResultadoEsperado())
 							$option->setSelected('selected');
 						$html .= $option->getHtml();
 					}
@@ -49,12 +56,16 @@ $x = $this->getObjectToEdit();
                             $input
                                     ->setType('button')
                                     ->setValue('Eliminar')
-                                    ->setStyle('display:none')
+                                    ->setStyle($contador==0?'display:none':'display:inline')
                             ;
                             echo $input->getHtml();
                         ?>
                         </span>
 		</div>
+<?php 
+    $contador++;
+}
+?>
 	</fieldset>
 	<div class="controls">
 		<input type="submit" value="Guardar"/>

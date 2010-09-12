@@ -50,23 +50,40 @@ class Admin_Actividad_Helper extends Core_Singleton{
 			}
 //                        return($resultado);
 
-                        $actividad_proyecto = new Inta_Model_ActividadProyecto();
-                        $actividad_proyecto->setIdActividad($actividad->getId());
-                        echo "<br>IDACTIVIDAD: " . $actividad->getId();
-                        $contador = 0;
-                        foreach($actividad['id_proyecto'] As $var_id_proyecto){
-                            $actividad_proyecto->setIdProyecto($var_id_proyecto);
-                            $actividad_proyecto->setMonto(isset($actividad['monto['.$contador.']']) ? $actividad['monto'] : 0);
-                            echo "<br>vd_actividad_proyecto: " . var_dump($actividad_proyecto);
-                            $resultado_proyecto = $actividad_proyecto->replace()?true:false;
-                            if($resultado_proyecto){
-                             Admin_App::getInstance()->addSuccessMessage('Actividad añadida correctamente');
-                            }
-                            else{
-                                    Admin_App::getInstance()->addErrorMessage("No se pudo relacionar con el Proyecto, error en la operación");
-                            }
-                            $contador ++;
+//                        $actividad_proyecto = new Inta_Model_ActividadProyecto();
+//                        $actividad_proyecto->delete(array('id_actividad'=>$id_actividad));
+                         //Mat, meto el link actividad proyecto
+                        $resultadoActividadProyecto = true;
+                        foreach($aActividadProyecto As $actividad_proyecto){
+                            $actividad_proyecto->setIdActividad($actividad->getId());
+                            if(!$actividad_proyecto->replace())
+                                $resultadoActividadProyecto = false;
                         }
+
+                         //Mat, meto el link actividad resultado esperado
+                        $resultadoActividadResultadoEsperado = true;
+                        foreach($aResultadoEsperadoActividad As $resultado_esperado_actividad){
+                            $resultado_esperado_actividad->setIdActividad($actividad->getId());
+                            if(!$resultado_esperado_actividad->replace())
+                                $resultadoActividadResultadoEsperado = false;
+                        }
+
+//                        $actividad_proyecto->setIdActividad($actividad->getId());
+//                        echo "<br>IDACTIVIDAD: " . $actividad->getId();
+//                        $contador = 0;
+//                        foreach($actividad['id_proyecto'] As $var_id_proyecto){
+//                            $actividad_proyecto->setIdProyecto($var_id_proyecto);
+//                            $actividad_proyecto->setMonto(isset($actividad['monto['.$contador.']']) ? $actividad['monto'] : 0);
+//                            echo "<br>vd_actividad_proyecto: " . var_dump($actividad_proyecto);
+//                            $resultado_proyecto = $actividad_proyecto->replace()?true:false;
+//                            if($resultado_proyecto){
+//                             Admin_App::getInstance()->addSuccessMessage('Actividad añadida correctamente');
+//                            }
+//                            else{
+//                                    Admin_App::getInstance()->addErrorMessage("No se pudo relacionar con el Proyecto, error en la operación");
+//                            }
+//                            $contador ++;
+//                        }
  		}
 //                $resultado = $resultado&&$resultado_proyecto?true:false;
 		return($resultado);
