@@ -51,6 +51,7 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
                         $contador = 0;
 //                        var_dump($post->actividad_proyecto['id_proyecto']);
 //                        var_dump($post->actividad_proyecto['monto_proyecto']);
+						if(isset($post->actividad_proyecto))
                         foreach($post->actividad_proyecto['id_proyecto'] As $id_proyecto){
                             $actividad_proyecto = new Inta_Model_ActividadProyecto();
                             $actividad_proyecto->setIdProyecto($id_proyecto);
@@ -60,6 +61,7 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
                         }
 //                        Mat, meto el link con resultado esperado
                         $aResultadoEsperadoActividad = array();
+                        if(isset($post->resultado_esperado_actividad))
                         foreach($post->resultado_esperado_actividad['id_resultado_esperado'] As $id_resultado_esperado){
                             $resultado_esperado_actividad = new Inta_Model_ResultadoEsperadoActividad();
                             $resultado_esperado_actividad->setIdResultadoEsperado($id_resultado_esperado);

@@ -21,7 +21,13 @@
 				try{
 					var preservar = {name:jqthis.attr('name'),id:jqthis.attr('id')};
 					jqthis.removeAttr('name').removeAttr('id');//para que el ckeditor no lo cree con nombres
-					this.instanciaCkeditor = CKEDITOR.replace( this );
+					var config = null;
+					if(options!=null){
+						if(options.config!=null)
+							config = options.config;
+					}
+					window.console.log(config);
+					this.instanciaCkeditor = CKEDITOR.replace( this, config );
 					if(preservar.name!=null && preservar.name!='')
 						jqthis.attr('name', preservar.name);
 					if(preservar.id!=null && preservar.id!='')
