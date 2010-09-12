@@ -225,6 +225,9 @@
                                         <tab title="Resultado Esperado">
 						<block name="actividad_add_edit_form" type="template" template="actividad/link_resultado_esperado.phtml"></block>
 					</tab>
+					<tab when="!accion(entity_new)" title="Documentos">
+						<add_edit_list_documentos name="add_edit_list_documentos_actividad" tipo_entidad="actividad" />
+					</tab>
 				</tabset>
 			</block>
 		</reference>
