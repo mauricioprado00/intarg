@@ -79,14 +79,27 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 					$actividad->load();
 				}
 			}
+			$id_en_post = $post_actividad&&$post_actividad->getId();
+			$mostrar_tabs = $guardado || $id_en_post || $actividad->getId();
+			$mostrar_listado = $guardado&&$actividad->getId()&&$post_actividad&&$post_actividad->getId();
+			
+			if(!$mostrar_tabs){
+				Core_App::getLayout()
+					->addActions('entity_new')
+				;
+			}
 			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_actividad)?'seteado':'no seteado'));
-			if($guardado){
+			if($mostrar_listado){
 				Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_actividad_action');
 				$this->listar();
 			}
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_actividad');
 				$layout = Core_App::getLoadedLayout();
+
+				if($block_add_edit_list_documentos_actividad = $layout->getBlock('add_edit_list_documentos_actividad')){
+					$block_add_edit_list_documentos_actividad->setIdEntidad($actividad->getId());
+				}
 
 				$actividad->addAutofilterOutput('utf8_decode');
 				
