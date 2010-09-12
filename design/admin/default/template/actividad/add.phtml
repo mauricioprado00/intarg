@@ -13,6 +13,23 @@ $x->addAutofilterOutput('utf8_decode');
 $image_empty_src = $this->getSkinUrl('img/empty.gif');
 $image_empty_size = 42;
 
+$configcke1 = array(
+	'config'=>array(
+		'toolbar' => 'Basic',
+		'toolbarStartupExpanded'=> false,
+	)
+);
+$configcke2 = array(
+	'config'=>array(
+		'toolbar' => array(
+		    array( 'Source', '-', 'Bold', 'Italic', 'Underline', 'Strike' ),
+		    array( 'Image', 'Link', 'Unlink', 'Anchor' )
+		),
+		'toolbarStartupExpanded'=> false
+	)
+);
+		
+
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
@@ -122,6 +139,34 @@ $image_empty_size = 42;
 				echo $input->getHtml();
 			?>
 			</span>
+			<label>Estado: </label>
+			<span><?
+				$select = new Core_Html_Tag_Custom('select');
+                                $select
+                                        ->setId('estado')
+                                        ->setName('indicador[estado]')
+                                ;
+                                $html = '';
+                                $aOptions = array('planificado' => 'Planificado','cancelado' => 'Cancelado', 'realizado' => 'Realizado');
+                                foreach($aOptions As $key => $value){
+                                    $option = new Core_Html_Tag_Custom('option');
+                                    $option
+                                            ->setValue($key)
+                                            ->setInnerHtml($value)
+                                    ;
+                                    if($x->getEstado()==$key)
+                                            $option->setSelected('selected');
+                                    $html .= $option->getHtml();
+                                }
+                                $select->setInnerHtml($html);
+				echo $select->getHtml();
+			?>
+			</span>
+		</div>
+	</fieldset>
+	<fieldset>
+		<h3>Informacion de Actividad</h3>
+		<div>
 			<label>Observaciones: </label>
 			<span><?
 				$input = new Core_Html_Tag_Custom('textarea');
@@ -154,29 +199,6 @@ $image_empty_size = 42;
 				echo $input->getHtml();
 			?>
 			</span>
-                        <label>Estado: </label>
-			<span><?
-				$select = new Core_Html_Tag_Custom('select');
-                                $select
-                                        ->setId('estado')
-                                        ->setName('indicador[estado]')
-                                ;
-                                $html = '';
-                                $aOptions = array('planificado' => 'Planificado','cancelado' => 'Cancelado', 'realizado' => 'Realizado');
-                                foreach($aOptions As $key => $value){
-                                    $option = new Core_Html_Tag_Custom('option');
-                                    $option
-                                            ->setValue($key)
-                                            ->setInnerHtml($value)
-                                    ;
-                                    if($x->getEstado()==$key)
-                                            $option->setSelected('selected');
-                                    $html .= $option->getHtml();
-                                }
-                                $select->setInnerHtml($html);
-				echo $select->getHtml();
-			?>
-			</span>
 		</div>
 	</fieldset>
 	<div class="controls">
@@ -185,6 +207,8 @@ $image_empty_size = 42;
 </fieldset>
 <script>
 jQuery(document).ready(function(){
+	jQuery('#observaciones').ckeditor(<?php print json_encode( $configcke1 ); ?>);
+	jQuery('#comentario').ckeditor(<?php print json_encode($configcke1); ?>);
     jQuery('input[type=button][value=Agregar]').live('click',function(){
 //        jQuery(this).parents('div').eq(0).clone().appendTo(jQuery(this).parents('fieldset').eq(0));
         var x = jQuery(this).parents('div').eq(0).clone();
