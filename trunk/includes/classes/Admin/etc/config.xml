@@ -19,6 +19,8 @@
 		<Admin_AspectoActividad/>
 		<Admin_EstrategiaActividad/>
 		<Admin_UsuarioActividad/>
+		<Admin_ProyectoActividad/>
+		<Admin_ResultadoEsperadoActividad/>
 		<!--</cosas_de_inta>-->
 		<!--<cosas_de_granguia>-->
 <!--		<Admin_Estadistica/>

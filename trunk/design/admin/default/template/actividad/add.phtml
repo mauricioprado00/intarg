@@ -226,7 +226,6 @@ jQuery(document).ready(function(){
     jQuery('input[type=button][value=Eliminar]').live('click',function(){
         jQuery(this).parents('div').eq(0).remove();
     });
-    window.console.log(jQuery('.slider'));
     jQuery('.slider').each(function(){
     	jQuery(this).css('margin-top', '9px');
 		var data = jQuery(this).attr('data-info');
