@@ -234,6 +234,12 @@
 					<tab when="!accion(entity_new)" title="Estrategias">
 						<add_edit_list_estrategia_actividad name="add_edit_list_estrategia_actividad" />
 					</tab>
+					<tab when="!accion(entity_new)" title="Proyectos">
+						<add_edit_list_proyecto_actividad name="add_edit_list_proyecto_actividad" />
+					</tab>
+					<tab when="!accion(entity_new)" title="Resultado Esperado">
+						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" />
+					</tab>
 					<tab when="!accion(entity_new)" title="Documentos">
 						<add_edit_list_documentos name="add_edit_list_documentos_actividad" tipo_entidad="actividad" />
 					</tab>

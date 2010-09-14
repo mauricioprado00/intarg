@@ -1,0 +1,60 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="resultado_esperado_actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<input type="hidden" name="resultado_esperado_actividad[id_actividad]" value="<?=$x->getIdActividad()?>" /> 
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> ResultadoEsperadoActividad</legend>
+	<fieldset>
+		<h3>Informacion de ResultadoEsperadoActividad</h3>
+		<div>
+			<label>Actividad: </label>
+			<span><?
+				$resultado_esperado = new Inta_Model_ResultadoEsperado();
+				$resultado_esperados = $resultado_esperado->search();
+				$html_select = '';
+				foreach($resultado_esperados as $resultado_esperado){
+					$option = c(new Core_Html_Tag_Custom('option'))
+						->setValue($resultado_esperado->getId())
+						->setInnerHtml(strip_tags($resultado_esperado->getDescripcion()))
+					;
+					if($resultado_esperado->getId()==$x->getIdActividad())
+						$option->setSelected('selected');
+					$html_select .= $option->getHtml();
+				}
+				echo c(new Core_Html_Tag_Custom('select'))
+					->setName('resultado_esperado_actividad[id_resultado_esperado]')
+					->setId('id_resultado_esperado')
+					->setInnerHtml($html_select)
+					->getHtml()
+				;
+			?> 
+			</span>
+			<div>
+		</div>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<input type="submit" value="Guardar"/>
+	</div>
+</fieldset>
+<script>
+
+function resultado_esperado_actividad_enviado(responseText, statusText, xhr, $form){
+	jQuery.ScreenBlock(false);
+}
+
+function validar_agregar_resultado_esperado_actividad_datos(formData, jqForm, options) {
+	if(!validar_estatico_en('#<?php print $id_fielset; ?>')){
+		tabpanelfocus(jQuery('#<?php print $id_fielset; ?>'));
+		return false;
+	}
+	return(true);
+}
+</script>

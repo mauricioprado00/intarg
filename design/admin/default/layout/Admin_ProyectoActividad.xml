@@ -1,0 +1,52 @@
+<layout>
+	<!-- no tiene menu, ni listado, es una entidad de relacion
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>proyecto_actividad</link_url>
+				<text>ProyectoActividad</text>
+				<title>ProyectoActividad</title>
+				<name>menu_admin_proyecto_actividad</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_proyecto_actividad">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>proyecto_actividad/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>proyecto_actividad/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_proyecto_actividad>
+		<block type="Admin_ProyectoActividad/XmlList"
+			name="xml_data_admin_proyecto_actividad">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>nombre</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<a href="#proyecto_actividad/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#proyecto_actividad/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#proyecto_actividad/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el proyecto_actividad seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_proyecto_actividad>
+	-->
+</layout>
