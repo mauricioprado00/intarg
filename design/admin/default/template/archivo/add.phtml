@@ -17,7 +17,7 @@ $image_empty_size = 48;
 		<div>
 			<label>Nombre: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('text')
 					->setMaxlength(300)
@@ -36,7 +36,7 @@ $image_empty_size = 48;
 				<span><?
 					$src_real = $src = $x->getPathArchivo();
 					$src = $src?$this->getSkinUrl('img/blank.gif'):'';
-					$img = new Core_Html_Tag_Custom('img');
+					$img = Core::getObject('Core_Html_Tag_Custom', 'img');
 					$img->setSrc($src)
 						->setClass('show_icon show_icon_path_archivo')
 						//->setWidth('48')
@@ -57,7 +57,7 @@ $image_empty_size = 48;
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

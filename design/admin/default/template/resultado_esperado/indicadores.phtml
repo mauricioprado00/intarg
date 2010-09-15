@@ -5,9 +5,6 @@ if(!$this->hasObjectToEdit()){
 }
 $x = $this->getObjectToEdit();
 
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 42;
-
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="resultado_esperado[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
@@ -18,7 +15,7 @@ $image_empty_size = 42;
 				<?
 					$fila_indicador = '';
 					$fila_indicador .= 
-						c(new Core_Html_Tag_Custom('input'))
+						c(Core::getObject('Core_Html_Tag_Custom', 'input'))
 						->setType('text')
 						->setName('indicadores[descripcion][]')
 						->setData('data-campo', '<b>Descripción</b>')
@@ -31,7 +28,7 @@ $image_empty_size = 42;
 					$indicadors = $indicador->search();
 					$html_select = '<option value="">Seleccione Indicador</option>';
 					foreach($indicadors as $indicador){
-						$option = c(new Core_Html_Tag_Custom('option'))
+						$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 							->setValue($indicador->getId())
 							->setInnerHtml($indicador->getNombre())
 						;
@@ -39,7 +36,7 @@ $image_empty_size = 42;
 							$option->setSelected('selected');
 						$html_select .= $option->getHtml();
 					}
-					$fila_indicador .= c(new Core_Html_Tag_Custom('select'))
+					$fila_indicador .= c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 						->setName('indicadores[id_indicador][]')
 						->setId('id_indicador')
 						->setClass('indicador')
@@ -52,7 +49,7 @@ $image_empty_size = 42;
 					;
 
 					$html_select = '<option value="">Seleccione Medio de Verificacion</option>';
-					$fila_indicador .= c(new Core_Html_Tag_Custom('select'))
+					$fila_indicador .= c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 						->setName('indicadores[id_medio_verificacion][]')
 						->setId('id_medio_verificacion')
 						->setClass('medio_verificacion')
@@ -72,7 +69,7 @@ $image_empty_size = 42;
 					else{
 						foreach($indicadores as $indicador_resultado){
 							//echo Core_Helper::DebugVars($indicador->getData());
-							$fila_indicador_mod = c(new Core_Html_Tag_Custom('input'))
+							$fila_indicador_mod = c(Core::getObject('Core_Html_Tag_Custom', 'input'))
 								->setType('text')
 								->setName('indicadores[descripcion][]')
 								->setData('data-campo', '<b>Descripción</b>')
@@ -85,7 +82,7 @@ $image_empty_size = 42;
 							$indicadors = $indicador->search();
 							$html_select = '<option value="">Seleccione Indicador</option>';
 							foreach($indicadors as $indicador){
-								$option = c(new Core_Html_Tag_Custom('option'))
+								$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 									->setValue($indicador->getId())
 									->setInnerHtml($indicador->getNombre())
 								;
@@ -93,7 +90,7 @@ $image_empty_size = 42;
 									$option->setSelected('selected');
 								$html_select .= $option->getHtml();
 							}
-							$fila_indicador_mod .= c(new Core_Html_Tag_Custom('select'))
+							$fila_indicador_mod .= c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 								->setName('indicadores[id_indicador][]')
 								->setId('id_indicador')
 								->setClass('indicador')
@@ -113,7 +110,7 @@ $image_empty_size = 42;
 							if($medios_verificacions = $medio_verificacion->search()){
 								$html_select = '';
 								foreach($medios_verificacions as $medio_verificacion){
-									$option = c(new Core_Html_Tag_Custom('option'))
+									$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 										->setValue($medio_verificacion->getId())
 										->setInnerHtml($medio_verificacion->getNombre())
 									;
@@ -125,7 +122,7 @@ $image_empty_size = 42;
 							else{
 								$html_select = '<option value="">Seleccione otro indicador</option>';
 							}
-							$fila_indicador_mod .= c(new Core_Html_Tag_Custom('select'))
+							$fila_indicador_mod .= c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 								->setName('indicadores[id_medio_verificacion][]')
 								->setId('id_medio_verificacion')
 								->setClass('medio_verificacion')
@@ -146,7 +143,7 @@ $image_empty_size = 42;
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

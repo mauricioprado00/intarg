@@ -6,6 +6,10 @@
 		<admin>Admin_Estrategia_Multimodo.xml</admin>
 		<ajax>Admin_Estrategia_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_estrategia</type>
+		<class>Admin_Estrategia_Block_Selector</class>
+	</block>
 	<routers>
 		<Admin_Estrategia_Router>administrator/estrategia</Admin_Estrategia_Router>
 	</routers>

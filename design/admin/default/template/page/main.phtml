@@ -11,6 +11,11 @@
 	<div>
 		<div class="contenedor_top">
 			<div class="links_top">
+				<a><?php
+					$user = Admin_User_Model_User::getLogedUser();
+					print "Bienvenido ".$user->getNombre();
+					?></a><hr />
+				<a href="<?php print '#user/addEdit/'.Admin_User_Model_User::getLogedUser()->getId(); ?>">Mi cuenta</a><br />
 				<?=$this->getChildHtml('contenedor_top')?>
 				<a href="<?=$this->getUrl('administrator/user/cerrar_sesion')?>">Cerrar sesi&oacute;n</a><?
 				if(Admin_App::getInstance()->getModoAjax()){?> 
@@ -35,6 +40,6 @@
 				?> 
 			</div>
 		</div>
-		<div class="clearer" />
+		<div class="clearer"></div>
 	</div>
 </div>

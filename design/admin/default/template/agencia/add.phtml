@@ -5,10 +5,6 @@ if(!$this->hasObjectToEdit()){
 }
 $x = $this->getObjectToEdit();
 
-$x->addAutofilterOutput('utf8_decode');
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 42;
-
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="agencia[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
@@ -18,7 +14,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Nombre: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -33,7 +29,7 @@ $image_empty_size = 42;
 			</span>
 			<label>Direcci&oacute;n: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('text')
 					->setMaxlength(300)
@@ -53,7 +49,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Telefono: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('text')
 					->setMaxlength(300)
@@ -68,7 +64,7 @@ $image_empty_size = 42;
 			</span>
 			<label>Email: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('text')
 					->setMaxlength(300)
@@ -84,7 +80,7 @@ $image_empty_size = 42;
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

@@ -4,8 +4,8 @@ class Admin_Proyecto_Helper extends Core_Singleton{
 		return(self::getInstanceOf(__CLASS__));
 	}
 	public static function actionAgregarEditarProyecto($proyecto){
-		if(!is_a($proyecto,'Granguia_Model_Proyecto')){
-			$proyecto = new Granguia_Model_Proyecto($proyecto->getData());
+		if(!is_a($proyecto,'Inta_Model_Proyecto')){
+			$proyecto = new Inta_Model_Proyecto($proyecto->getData());
 		}
 		if(!$proyecto->hasId()){/** aca hay que agregar a la base de datos*/
 			$resultado = $proyecto->replace()?true:false;
@@ -38,7 +38,7 @@ class Admin_Proyecto_Helper extends Core_Singleton{
 		}
 	}
 	public static function eliminarProyecto($id_proyecto){
-		$proyecto = new Granguia_Model_Proyecto();
+		$proyecto = new Inta_Model_Proyecto();
 		$proyecto->setId($id_proyecto);
 		if(!$proyecto->load())
 			return false;

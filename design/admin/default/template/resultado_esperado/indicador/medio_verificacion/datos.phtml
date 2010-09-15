@@ -29,7 +29,7 @@ $x = $this->getObjectToEdit();
 				$medio_verificacions = $medio_verificacion->search();
 				$html_select = '';
 				foreach($medio_verificacions as $medio_verificacion){
-					$option = c(new Core_Html_Tag_Custom('option'))
+					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 						->setValue($medio_verificacion->getId())
 						->setInnerHtml($medio_verificacion->getNombre())
 					;
@@ -37,7 +37,7 @@ $x = $this->getObjectToEdit();
 						$option->setSelected('selected');
 					$html_select .= $option->getHtml();
 				}
-				echo c(new Core_Html_Tag_Custom('select'))
+				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 					->setName('medio_verificacion_indicador_resultado[id_medio_verificacion]')
 					->setId('id_medio_verificacion')
 					//->setDisabled('disabled')
@@ -49,7 +49,7 @@ $x = $this->getObjectToEdit();
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script type="text/javascript">

@@ -32,6 +32,7 @@
 			<action method="appListFields">
 				<fieldname>acciones</fieldname>
 				<fieldname>id</fieldname>
+				<fieldname>prioridad</fieldname>
 				<fieldname>nombre</fieldname>
 			</action>
 			<action method="appVirtualFields">

@@ -6,6 +6,7 @@ if(!$this->hasObjectToEdit()){
 $x = $this->getObjectToEdit();
 
 
+
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="proyecto_actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <input type="hidden" name="proyecto_actividad[id_actividad]" value="<?=$x->getIdActividad()?>" /> 
@@ -14,34 +15,42 @@ $x = $this->getObjectToEdit();
 	<fieldset>
 		<h3>Informacion de ProyectoActividad</h3>
 		<div>
-			<label>Actividad: </label>
+			<label>Proyecto: </label>
 			<span><?
-				$proyecto = new Inta_Model_Proyecto();
-				$proyectos = $proyecto->search();
-				$html_select = '';
-				foreach($proyectos as $proyecto){
-					$option = c(new Core_Html_Tag_Custom('option'))
-						->setValue($proyecto->getId())
-						->setInnerHtml($proyecto->getNombre())
-					;
-					if($proyecto->getId()==$x->getIdActividad())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(new Core_Html_Tag_Custom('select'))
-					->setName('proyecto_actividad[id_proyecto]')
-					->setId('id_proyecto')
-					->setInnerHtml($html_select)
-					->getHtml()
+				echo c($selector_proyecto = $this->appendBlock('<selector_proyecto />'))
+					->setSelectedValue($x->getIdProyecto())
+					->void($selector_proyecto
+						->getSelectControl()
+							->setName('proyecto_actividad[id_proyecto]')
+							->setId('id_proyecto')
+					)
+					->toHtml()
 				;
 			?> 
 			</span>
+			<label>Monto: </label>
+			<span><?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+				$input
+					->setType('text')
+					->setMaxlength(50)
+					->setId('monto')
+					->setName('proyecto_actividad[monto]')
+					->setValue($x->getMonto())
+					->setData('data-campo', '<b>Monto</b>')
+					->setData('data-validator', '{empty:false,decimal:2}')
+					->setData('data-mensaje', '%field debe ser numerico de 2 decimales')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			
 			<div>
 		</div>
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

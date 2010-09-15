@@ -5,7 +5,6 @@ if(!$this->hasObjectToEdit()){
 }
 $x = $this->getObjectToEdit();
 
-
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="estrategia_actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <input type="hidden" name="estrategia_actividad[id_actividad]" value="<?=$x->getIdActividad()?>" /> 
@@ -16,23 +15,14 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Actividad: </label>
 			<span><?
-				$estrategia = new Inta_Model_Estrategia();
-				$estrategias = $estrategia->search();
-				$html_select = '';
-				foreach($estrategias as $estrategia){
-					$option = c(new Core_Html_Tag_Custom('option'))
-						->setValue($estrategia->getId())
-						->setInnerHtml($estrategia->getNombre())
-					;
-					if($estrategia->getId()==$x->getIdActividad())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(new Core_Html_Tag_Custom('select'))
-					->setName('estrategia_actividad[id_estrategia]')
-					->setId('id_estrategia')
-					->setInnerHtml($html_select)
-					->getHtml()
+				echo c($selector_estrategia = $this->appendBlock('<selector_estrategia />'))
+					->setSelectedValue($x->getIdEstrategia())
+					->void($selector_estrategia
+						->getSelectControl()
+							->setName('estrategia_actividad[id_estrategia]')
+							->setId('id_estrategia')
+					)
+					->toHtml()
 				;
 			?> 
 			</span>
@@ -41,7 +31,7 @@ $x = $this->getObjectToEdit();
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

@@ -6,7 +6,7 @@
 		<ul class="lista_banner_dinamico_ordenable"><?
 			if($this->hasBannersCarrousel())
 				foreach($this->getBannersCarrousel() as $banner_dinamico){
-					$li = new Core_Html_Tag_Custom('li');
+					$li = Core::getObject('Core_Html_Tag_Custom', 'li');
 					$li
 						->setData('data-id', $banner_dinamico->getId())
 						->setInnerHtml(htmlentities(utf8_decode($banner_dinamico->getNombre())))

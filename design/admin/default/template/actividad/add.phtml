@@ -1,17 +1,9 @@
 <?
-$x = new Inta_Model_Actividad();
-if($this->hasIdToEdit()){
-	$x->setId($this->getIdToEdit());
-	$x->load();
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
 }
-else{
-	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
-		$x->loadFromArray(Core_Http_Post::getParameters('array'));
-	}
-}
-$x->addAutofilterOutput('utf8_decode');
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 42;
+$x = $this->getObjectToEdit();
 
 $configcke1 = array(
 	'config'=>array(
@@ -37,38 +29,22 @@ $configcke2 = array(
 	<fieldset>
 		<h3>Informacion de Actividad</h3>
 		<div>
-                        <label>Responsable: </label>
+            <label>Responsable: </label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
-                                $select
-                                        ->setId('id_responsable')
-                                        ->setName('medio_verificacion[id_responsable]')
-                                ;
-                                $html = '';
-                                $a = c(new Inta_Model_Usuario())
-                                	->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia())
-                                	->setWhere(Db_Helper::equal('id_agencia'))
-                                	->search();
-                                if(!empty($a))
-					foreach($a as $o){
-						$option = new Core_Html_Tag_Custom('option');
-						$option
-							->setValue($o->getId())
-							->setInnerHtml($o->getNombre())
-						;
-						if($o->getId()==$x->getIdIndicador())
-							$option->setSelected('selected');
-						$html .= $option->getHtml();
-					}
-				echo $select
-					->setInnerHtml($html)
-					->getHtml()
+				echo c($selector_usuario = $this->appendBlock('<selector_usuario />'))
+					->setSelectedValue($x->getIdResponsable())
+					->void($selector_usuario
+						->getSelectControl()
+							->setName('actividad[id_responsable]')
+							->setId('id_responsable')
+					)
+					->toHtml()
 				;
-			?>
-			</span>
+			?> 
+			</span>			
 			<label>Nombre: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -83,7 +59,7 @@ $configcke2 = array(
 			</span>
 			<label>A&ntilde;o: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -97,7 +73,7 @@ $configcke2 = array(
 			?>
 			</span>
 			<label>Porcentaje Cumplimiento: <?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -115,7 +91,7 @@ $configcke2 = array(
 			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#porcentaje_cumplimiento', 'min'=>0,'max'=>100, 'step'=>10, 'fixed'=>2))); ?>"></div>
 			</span>
 			<label>Porcentaje Tiempo: <?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -134,7 +110,7 @@ $configcke2 = array(
 			</span>
 			<label>Presupuesto Estimado: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -149,7 +125,7 @@ $configcke2 = array(
 			</span>
 			<label>Estado: </label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
+				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
                                 $select
                                         ->setId('estado')
                                         ->setName('indicador[estado]')
@@ -157,7 +133,7 @@ $configcke2 = array(
                                 $html = '';
                                 $aOptions = array('planificado' => 'Planificado','cancelado' => 'Cancelado', 'realizado' => 'Realizado');
                                 foreach($aOptions As $key => $value){
-                                    $option = new Core_Html_Tag_Custom('option');
+                                    $option = Core::getObject('Core_Html_Tag_Custom', 'option');
                                     $option
                                             ->setValue($key)
                                             ->setInnerHtml($value)
@@ -177,7 +153,7 @@ $configcke2 = array(
 		<div>
 			<label>Observaciones: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('textarea');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'textarea');
 				$input
 					->setId('observaciones')
 					->setName('actividad[observaciones]')
@@ -190,10 +166,10 @@ $configcke2 = array(
 				;
 				echo $input->getHtml();
 			?>
-			</span>
+			</span><?{/** /?> 
 			<label>Comentarios: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('textarea');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'textarea');
 				$input
 					->setId('comentario')
 					->setName('actividad[comentario]')
@@ -206,11 +182,11 @@ $configcke2 = array(
 				;
 				echo $input->getHtml();
 			?>
-			</span>
+			</span><?/**/}?>
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>
@@ -231,7 +207,6 @@ jQuery(document).ready(function(){
 		var data = jQuery(this).attr('data-info');
 		var options = null;
 		try{
-			window.console.log(data);
 			eval('options='+data);
 		}
 		catch(e){

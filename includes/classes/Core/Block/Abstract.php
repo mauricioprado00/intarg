@@ -594,6 +594,9 @@ abstract class Core_Block_Abstract extends Core_Object implements Core_IHtmlRend
     protected function _allwaysBeforeToHtml(){
 		return($this);
 	}
+    final public function void(){
+		return $this;
+	}
     final public function toHtml()
     {
         //Mage::dispatchEvent('core_block_abstract_to_html_before', array('block' => $this));

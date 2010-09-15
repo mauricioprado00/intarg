@@ -1,18 +1,9 @@
 <?
-$x = new Inta_Model_Documento();
 if(!$this->hasObjectToEdit()){
 	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
 	return;
 }
 $x = $this->getObjectToEdit();
-
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 48;
-
-$x->addAutofilterOutput('utf8_decode');
-
-//$tipos_recursos = Core_Session::getVar('RESOURCETYPES', 'CKFINDER');
-//var_dump(array_keys($tipos_recursos));
 
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="documento[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
@@ -27,7 +18,7 @@ $x->addAutofilterOutput('utf8_decode');
 			<span><?
 				$src_real = $src = $x->getPath();
 				$src = $src?$this->getSkinUrl('img/blank.gif'):'';
-				$img = new Core_Html_Tag_Custom('img');
+				$img = Core::getObject('Core_Html_Tag_Custom', 'img');
 				$img->setSrc($src)
 					->setClass('show_icon show_icon_path_archivo')
 					//->setWidth('48')
@@ -47,7 +38,7 @@ $x->addAutofilterOutput('utf8_decode');
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

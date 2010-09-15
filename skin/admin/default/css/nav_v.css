@@ -22,12 +22,12 @@ ul#navmenu-v ul {
 
 /* Root Menu */
 ul#navmenu-v a {
- border-bottom: 3px solid #8F9A72;
- border-right: 3px solid #8F9A72;
+ border-bottom: 3px solid #407587;
+ border-right: 3px solid #407587;
  padding: 6px;
  display: block;
- background: #515151;
- color: #AEB3A1;
+ background: #FEFFFF;
+ color: #00578B;
  font: bold 12px Arial, sans-serif;
  text-decoration: none;
  height: 1%;
@@ -35,15 +35,15 @@ ul#navmenu-v a {
 
 /* Root Menu Hover Persistence */
 ul#navmenu-v a:hover,ul#navmenu-v li:hover a,ul#navmenu-v li.iehover a {
- background: #859066;
+ background: #DA251D;
  color: #FFF;
 }
 
 /* 2nd Menu */
 ul#navmenu-v li:hover li a,ul#navmenu-v li.iehover li a {
  float: none;
- background: #DCE6C2;
- color:#AEB3A1;
+ background: #FFFEFF;
+ color:#00578B;
 }
 
 /* 2nd Menu Hover Persistence */

@@ -6,6 +6,10 @@
 		<admin>Admin_TipoAudiencia_Multimodo.xml</admin>
 		<ajax>Admin_TipoAudiencia_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_tipo_audiencia</type>
+		<class>Admin_TipoAudiencia_Block_Selector</class>
+	</block>
 	<routers>
 		<Admin_TipoAudiencia_Router>administrator/tipo_audiencia</Admin_TipoAudiencia_Router>
 	</routers>

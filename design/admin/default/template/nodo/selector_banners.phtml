@@ -25,7 +25,7 @@
 		<table style="border-collapse:collapse;float:left;">
 			<tr>
 				<td><?{
-					$lista_ul = new Core_Html_Tag_Custom('ul');
+					$lista_ul = Core::getObject('Core_Html_Tag_Custom', 'ul');
 					$lista_ul
 						->setClass('contenedor_banners_no_usados connectedSortable')
 						->setStyle('float:left;width:'.($ancho_banner * ($cantidad_abajo-1)).'px;height:'.($cantidad_derecha * $alto_banner).'px;display:block;overflow-y:scroll;overflow-x:hidden;')
@@ -43,7 +43,7 @@
 							$height -= 2;//bordes
 							$width -= 2;//bordes
 							
-							$elemento_li = new Core_Html_Tag_Custom('li');
+							$elemento_li = Core::getObject('Core_Html_Tag_Custom', 'li');
 							$elemento_li
 								->setData(
 									'data-banner', 
@@ -65,7 +65,7 @@
 				}?> 
 				</td>
 				<td><?{
-					$lista_ul = new Core_Html_Tag_Custom('ul');
+					$lista_ul = Core::getObject('Core_Html_Tag_Custom', 'ul');
 					$lista_ul
 						->setClass('contenedor_banners_derecha connectedSortable contenedor_banners')
 						->setStyle('height:'.($cantidad_derecha * $alto_banner).'px;width:'.($ancho_banner).'px;background-color:#FFDDFF;border:1px solid #DDFFFF;')
@@ -106,7 +106,7 @@
 							$banner_data['width'] = $hspace;
 							$banner_data['height'] = $vspace;
 							
-							$elemento_li = new Core_Html_Tag_Custom('li');
+							$elemento_li = Core::getObject('Core_Html_Tag_Custom', 'li');
 							$elemento_li
 								->setData(
 									'data-banner', 
@@ -125,7 +125,7 @@
 			</tr>
 			<tr>
 				<td colspan="2"><?{
-					$lista_ul = new Core_Html_Tag_Custom('ul');
+					$lista_ul = Core::getObject('Core_Html_Tag_Custom', 'ul');
 					$lista_ul
 						->setClass('contenedor_banners_abajo connectedSortable contenedor_banners')
 						->setStyle('height:'.$alto_banner.'px;background-color:#FFDDFF;border:1px solid #DDFFFF;')
@@ -166,7 +166,7 @@
 							$banner_data['width'] = $hspace;
 							$banner_data['height'] = $vspace;
 							
-							$elemento_li = new Core_Html_Tag_Custom('li');
+							$elemento_li = Core::getObject('Core_Html_Tag_Custom', 'li');
 							$elemento_li
 								->setData(
 									'data-banner', 
@@ -321,7 +321,7 @@
 		<div style="clear:both;"></div>
 		<div class="contendor_hiddens"></div>
 		<div class="controls">
-			<input type="submit" value="Guardar"/>
+			<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 		</div>
 	</fieldset>
 	<script>

@@ -1,4 +1,5 @@
 <layout>
+	<!--
 	<list_admin_documento>
 		<reference in="superadmin" name="listado_datos_grid"
 			toolbar_edit_url="administrator/documento/addEdit,id"
@@ -51,6 +52,7 @@
 			</action>
 		</reference>
 	</list_admin_documento>
+	-->
 	<listar_admin_documentos>
 		<reference name="contenedor_ajax">
 			<action method="setHtmlClass">

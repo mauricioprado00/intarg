@@ -25,6 +25,7 @@
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.tabs.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.slider.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.datepicker.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/frontierCalendar/smoothness/jquery-ui-1.8.1.custom.min.js</script>
 				<css>jquery-ui-1.8.1.custom/development-bundle/themes/base/jquery.ui.all.css</css>
 				<script charset="utf8">js/ScreenBlock.js</script>
 				<action method="addJs" in="modo_ajax">
@@ -32,15 +33,6 @@
 				</action>
 				<action method="addJs" in="!modo_ajax">
 					<script>js/helper_url_normal.js</script>
-				</action>
-				<action method="addCss">
-					<script>css/estilos.css</script>
-					<script>css/nav_v.css</script>
-					<script>css/inta.css</script>
-				</action>
-				<action named_args="true" method="addCss">
-					<script>css/estilos_ie6.css</script>
-					<if>if IE 6</if>
 				</action>
 				<action method="addCss">
 					<script>jqGrid/themes/jqModal.css</script>
@@ -78,7 +70,6 @@
 				<script>js/jQuery/jquery.scrollTo-min.js</script>
 				<script>js/jQuery/jquery.multivalidator-1.1.js</script>
 				<script>js/jQuery/jquery.disabler.js</script>
-				<css>css/messages.css</css>
 				<script  charset="UTF-8">colorpicker/js/colorpicker.js</script>
 				<css>colorpicker/css/colorpicker.css</css>
 				<css>colorpicker/css/layout1.css</css>

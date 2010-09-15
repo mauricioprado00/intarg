@@ -14,25 +14,16 @@ $x = $this->getObjectToEdit();
 	<fieldset>
 		<h3>Informacion de ResultadoEsperadoActividad</h3>
 		<div>
-			<label>Actividad: </label>
+			<label>Resultado Esperado: </label>
 			<span><?
-				$resultado_esperado = new Inta_Model_ResultadoEsperado();
-				$resultado_esperados = $resultado_esperado->search();
-				$html_select = '';
-				foreach($resultado_esperados as $resultado_esperado){
-					$option = c(new Core_Html_Tag_Custom('option'))
-						->setValue($resultado_esperado->getId())
-						->setInnerHtml(strip_tags($resultado_esperado->getDescripcion()))
-					;
-					if($resultado_esperado->getId()==$x->getIdActividad())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(new Core_Html_Tag_Custom('select'))
-					->setName('resultado_esperado_actividad[id_resultado_esperado]')
-					->setId('id_resultado_esperado')
-					->setInnerHtml($html_select)
-					->getHtml()
+				echo c($selector_resultado_esperado = $this->appendBlock('<selector_resultado_esperado />'))
+					->setSelectedValue($x->getIdResultadoEsperado())
+					->void($selector_resultado_esperado
+						->getSelectControl()
+							->setName('resultado_esperado_actividad[id_resultado_esperado]')
+							->setId('id_resultado_esperado')
+					)
+					->toHtml()
 				;
 			?> 
 			</span>
@@ -41,7 +32,7 @@ $x = $this->getObjectToEdit();
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

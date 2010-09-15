@@ -2,7 +2,7 @@
 	<default>
 		<reference name="menu_admin">
 			<action method="addItem">
-				<link_url>config</link_url>
+				<link_url>config/listar</link_url>
 				<text>Configuraciones</text>
 				<title>Configuraciones</title>
 				<name>menu_admin_configuraciones</name>
@@ -10,6 +10,7 @@
 		</reference>
 	</default>
 	<default>
+		<!--
 		<reference name="menu_admin_configuraciones">
 			<block type="Admin/Menu">
 				<action method="addItem">
@@ -21,7 +22,7 @@
 					<link_url>config/addEdit</link_url>
 					<text>Agregar</text>
 					<title>Agregar</title>
-				</action>
+				</action> 
 				<action method="addItem">
 					<link_url>config/backgrounds</link_url>
 					<text>Fondos</text>
@@ -34,6 +35,7 @@
 				</action>
 			</block>
 		</reference>
+		 -->
 	</default>
 	<datalist_admin_config>
 <!--			output_filters="utf8_encode"   -->

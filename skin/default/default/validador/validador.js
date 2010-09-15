@@ -16,10 +16,10 @@
 			if(valor=='')return true;
 			var re = "";
 			if(cantidad==null){
-				re = "^-?[0-9]+["+caracter+"][0-9]+$";
+				re = "^-?[0-9]+(["+caracter+"][0-9]+)?$";
 			}
 			else{
-				re = "^-?[0-9]+["+caracter+"][0-9]{"+cantidad+"}$";
+				re = "^-?[0-9]+(["+caracter+"][0-9]{1,"+cantidad+"})?$";
 			}//patt1=new RegExp(^[0-9]+.[0-9]{3}$);
 			var patt1=new RegExp(re);
 			var resultado = patt1.test(valor);

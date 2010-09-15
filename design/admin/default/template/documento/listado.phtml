@@ -5,7 +5,7 @@ if($documentos){
 	foreach($documentos as $documento){
 		$src_real = $src = $documento->getPath();
 		$src = $src?$this->getSkinUrl('img/blank.gif'):'';
-		$img = new Core_Html_Tag_Custom('img');
+		$img = Core::getObject('Core_Html_Tag_Custom', 'img');
 		$img->setSrc($src)
 			->setClass('show_icon show_icon_path')
 			->setData('data-image',$basename = basename($documento->getPath()))

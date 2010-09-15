@@ -43,7 +43,7 @@ $campos = array(
 				foreach($dias as $dia){?> 
 				<td><?php 
 					$fieldname = $field_prefix.'_'.$dia;
-					echo c($input = new Core_Html_Tag_Custom('input'))
+					echo c($input = Core::getObject('Core_Html_Tag_Custom', 'input'))
 						->setType('text')
 						->setMaxlength(5)
 						->setSize(5)
@@ -62,7 +62,7 @@ $campos = array(
 		</table>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <style>

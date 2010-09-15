@@ -16,7 +16,7 @@ class Admin_Config_Helper extends Core_Singleton{
 		return realpath(CFG_PATH_ROOT.'/'.self::getFileLinkUrl()).'/';
 	}
 	public static function actionAgregarEditarConfig($post){
-		$x = new Granguia_Model_Config();
+		$x = new Inta_Model_Config();
 		$x->loadFromArray($post->getData());
 		$x->setValor(stripslashes($x->hasValor()?$x->getValor():0));
 		if(!$post->hasId()){/** aca hay que agregar a la base de datos*/
@@ -57,7 +57,7 @@ class Admin_Config_Helper extends Core_Singleton{
 		}
 	}
 	public static function eliminarConfig($id_config){
-		$config = new Granguia_Model_Config();
+		$config = new Inta_Model_Config();
 		return($config->setId($id_config)->delete());
 	}
 	private static function checkSupportedImageFormat($archivo_imagen){

@@ -53,7 +53,7 @@ $prefijo = $this->hasPrefijo()?$this->getPrefijo():'generic';
 		</span>
 	</div>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

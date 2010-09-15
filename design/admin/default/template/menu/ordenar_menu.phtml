@@ -6,7 +6,7 @@
 		<ul class="lista_menu_ordenable"><?
 			if($this->hasMenues())
 				foreach($this->getMenues() as $menu){
-					$li = new Core_Html_Tag_Custom('li');
+					$li = Core::getObject('Core_Html_Tag_Custom', 'li');
 					$li
 						->setData('data-id', $menu->getId())
 						->setInnerHtml(htmlentities(utf8_decode($menu->getTexto())))

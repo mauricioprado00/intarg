@@ -1,0 +1,18 @@
+<layout>
+	<default>
+		<reference name="html_head">
+			<action method="addCss">
+				<script>css/estilos.css</script>
+				<css>css/estilos_listados.css</css>
+				<css>css/estilos_botones.css</css>
+				<script>css/nav_v.css</script>
+				<script>css/inta.css</script>
+			</action>
+			<action named_args="true" method="addCss">
+				<script>css/estilos_ie6.css</script>
+				<if>if IE 6</if>
+			</action>
+			<css>css/messages.css</css>
+		</reference>
+	</default>
+</layout>

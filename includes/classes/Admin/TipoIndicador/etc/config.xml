@@ -1,0 +1,16 @@
+<global>
+		<!--  
+	<layouts>
+		<admin>Admin_Usuario.xml</admin>
+		<admin>Admin_Usuario_Multimodo.xml</admin>
+		<ajax>Admin_Usuario_Multimodo.xml</ajax>
+	</layouts>
+	<routers>
+		<Admin_Usuario_Router>administrator/usuario_</Admin_Usuario_Router>
+	</routers>
+	--> 
+	<block>
+		<type>selector_tipo_indicador</type>
+		<class>Admin_TipoIndicador_Block_Selector</class>
+	</block>
+</global>

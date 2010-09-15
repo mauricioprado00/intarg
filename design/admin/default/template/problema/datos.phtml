@@ -5,11 +5,16 @@ if(!$this->hasObjectToEdit()){
 }
 $x = $this->getObjectToEdit();
 
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 42;
-
+$arr_ponderaciones = array(
+	'importancia_economica'=>Inta_Model_Config::findConfigValue('ponderacion_importancia_economica', '20'),
+	'impacto_ambiental'=>Inta_Model_Config::findConfigValue('impacto_ambiental', '15'),
+	'importancia_social'=>Inta_Model_Config::findConfigValue('importancia_social', '20'),
+	'familias_implicadas'=>Inta_Model_Config::findConfigValue('familias_implicadas', '10'),
+	'valor_agregado_potencial'=>Inta_Model_Config::findConfigValue('valor_agregado_potencial', '10'),
+	'impacto_desarrollo'=>Inta_Model_Config::findConfigValue('impacto_desarrollo', '25'),
+);
 ?><?if($this->getIdToEdit()):?>
-<input type="hidden" name="audiencia[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<input type="hidden" name="problema[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
 	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Problema</legend>
 	<fieldset>
@@ -17,29 +22,20 @@ $image_empty_size = 42;
 		<div>
 			<label>Audiencia: </label>
 			<span><?
-				$audiencia = new Inta_Model_Audiencia();
-				$audiencias = $audiencia->search();
-				$html_select = '';
-				foreach($audiencias as $audiencia){
-					$option = c(new Core_Html_Tag_Custom('option'))
-						->setValue($audiencia->getId())
-						->setInnerHtml($audiencia->getNombre())
-					;
-					if($audiencia->getId()==$x->getIdAudiencia())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(new Core_Html_Tag_Custom('select'))
-					->setName('problema[id_audiencia]')
-					->setId('id_audiencia')
-					->setInnerHtml($html_select)
-					->getHtml()
+				echo c($selector_audiencia = $this->appendBlock('<selector_audiencia />'))
+					->setSelectedValue($x->getIdAudiencia())
+					->void($selector_audiencia
+						->getSelectControl()
+							->setName('problema[id_audiencia]')
+							->setId('id_audiencia')
+					)
+					->toHtml()
 				;
 			?> 
 			</span>
 			<label>Nombre: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -52,108 +48,168 @@ $image_empty_size = 42;
 				echo $input->getHtml();
 			?> 
 			</span>
-			<label>Importancia Econ&oacute;mica: </label>
-			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+			<label>Importancia Econ&oacute;mica: <?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('importancia_economica')
+					->setData('data-ponderacion', $arr_ponderaciones[$input->getId()])
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
 					->setName('problema[importancia_economica]')
-					->setValue($x->getImportanciaEconomica())
+					->setValue($x->getImportanciaEconomica()+0)
 					->setData('data-campo', '<b>Importancia Econ&oacute;mica:</b>')
-					->setData('data-validator', '{empty:false,entero:1}')
+					->setData('data-validator', '{empty:false,decimal:2}')
 				;
 				echo $input->getHtml();
-			?> 
-			</span>
-			<label>Impacto Ambiental: </label>
-			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+			?></label>
+			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#importancia_economica', 'min'=>0,'max'=>10, 'step'=>1, 'fixed'=>0))); ?>"></div>
+			<label>Impacto Ambiental: <?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('impacto_ambiental')
+					->setData('data-ponderacion', $arr_ponderaciones[$input->getId()])
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
 					->setName('problema[impacto_ambiental]')
-					->setValue($x->getImpactoAmbiental())
+					->setValue($x->getImpactoAmbiental()+0)
 					->setData('data-campo', '<b>Impacto Ambiental:</b>')
 					->setData('data-validator', '{empty:false,entero:1}')
 				;
 				echo $input->getHtml();
-			?> 
-			</span>
-			<label>Importancia Social: </label>
-			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+			?></label>
+			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#impacto_ambiental', 'min'=>0,'max'=>10, 'step'=>1, 'fixed'=>0))); ?>"></div>
+			<label>Importancia Social: <?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('importancia_social')
+					->setData('data-ponderacion', $arr_ponderaciones[$input->getId()])
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
 					->setName('problema[importancia_social]')
-					->setValue($x->getImportanciaSocial())
+					->setValue($x->getImportanciaSocial()+0)
 					->setData('data-campo', '<b>Importancia Social:</b>')
 					->setData('data-validator', '{empty:false,entero:1}')
 				;
 				echo $input->getHtml();
-			?> 
-			</span>
-			<label>Familias Implicadas: </label>
-			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+			?></label>
+			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#importancia_social', 'min'=>0,'max'=>10, 'step'=>1, 'fixed'=>0))); ?>"></div>
+			<label>Familias Implicadas: <?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('familias_implicadas')
+					->setData('data-ponderacion', $arr_ponderaciones[$input->getId()])
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
 					->setName('problema[familias_implicadas]')
-					->setValue($x->getFamiliasImplicadas())
+					->setValue($x->getFamiliasImplicadas()+0)
 					->setData('data-campo', '<b>Familias Implicadas:</b>')
 					->setData('data-validator', '{empty:false,entero:1}')
 				;
 				echo $input->getHtml();
-			?> 
-			</span>
-			<label>Valor Agregado Potencial: </label>
-			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+			?></label>
+			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#familias_implicadas', 'min'=>0,'max'=>10, 'step'=>1, 'fixed'=>0))); ?>"></div>
+			<label>Valor Agregado Potencial: <?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('valor_agregado_potencial')
+					->setData('data-ponderacion', $arr_ponderaciones[$input->getId()])
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
 					->setName('problema[valor_agregado_potencial]')
-					->setValue($x->getValorAgregadoPotencial())
+					->setValue($x->getValorAgregadoPotencial()+0)
 					->setData('data-campo', '<b>Valor Agregado Potencial:</b>')
 					->setData('data-validator', '{empty:false,entero:1}')
 				;
 				echo $input->getHtml();
-			?> 
-			</span>
-			<label>Impacto de Desarrollo del Territorio: </label>
-			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+			?></label>
+			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#valor_agregado_potencial', 'min'=>0,'max'=>10, 'step'=>1, 'fixed'=>0))); ?>"></div>
+			<label>Impacto de Desarrollo del Territorio: <?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('impacto_desarrollo')
+					->setData('data-ponderacion', $arr_ponderaciones[$input->getId()])
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
 					->setName('problema[impacto_desarrollo]')
-					->setValue($x->getImpactoDesarrollo())
+					->setValue($x->getImpactoDesarrollo()+0)
 					->setData('data-campo', '<b>Impacto de Desarrollo del Territorio:</b>')
 					->setData('data-validator', '{empty:false,entero:1}')
 				;
 				echo $input->getHtml();
-			?> 
-			</span>
-			<div>
-		</div>
+			?></label>
+			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#impacto_desarrollo', 'min'=>0,'max'=>10, 'step'=>1, 'fixed'=>0))); ?>"></div>
+			<label>Prioridad: <?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+				$input
+					->setMaxlength(300)
+					->setId('prioridad')
+					->setType('text')
+					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
+					->setName('problema[prioridad]')
+					->setValue($x->getPrioridad()+0)
+					//->setValue($x->getImpactoDesarrollo()+0)
+					//->setData('data-campo', '<b>Impacto de Desarrollo del Territorio:</b>')
+					//->setData('data-validator', '{empty:false,entero:1}')
+				;
+				echo $input->getHtml();
+			?></label>
+			<input type="button" class="actualizar" value="Actualizar Prioridad" style="display:none;" />
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>
-
+function calcular_prioridad(){
+	var total = 0;
+	jQuery('[data-ponderacion]').each(function(){
+		var ponderacion = jQuery(this).attr('data-ponderacion');
+		total += parseFloat(this.value) * parseFloat(ponderacion) / 100;
+	});
+	return total.toFixed(2);
+}
 jQuery(document).ready(function(){
-
+	var prioridad_nueva = calcular_prioridad();
+	var prioridad_vieja = parseFloat(jQuery('#prioridad').val());
+	if(prioridad_nueva!=prioridad_vieja){
+		jQuery('.actualizar').click(function(){
+			jQuery('#prioridad').val(calcular_prioridad());
+		}).show();
+	}
+	jQuery('[data-ponderacion]').change(function(){
+		jQuery('#prioridad').val(calcular_prioridad());
+	});
+    jQuery('.slider').each(function(){
+    	jQuery(this).css('margin-top', '9px');
+		var data = jQuery(this).attr('data-info');
+		var options = null;
+		try{
+			eval('options='+data);
+		}
+		catch(e){
+			alert("kradkk");
+			return;
+		}
+		options.value = jQuery(options.target).val();
+		options.slide = function(event, ui){
+			var val = ui.value;
+			if(options.fixed){
+				val = (new Number(parseFloat(val))).toFixed(options.fixed);
+			}
+			jQuery(options.target).val(val);
+		}
+		options.change = function(){jQuery(options.target).change()}
+		jQuery(this).slider(options);
+		//jQuery(options.target).val(ui.value);
+	})
+	//$("#amount").val('$' + $("#slider").slider("value"));
 });
 
 function validar_agregar_problema_datos(formData, jqForm, options) {

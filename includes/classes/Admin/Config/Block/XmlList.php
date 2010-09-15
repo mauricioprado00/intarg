@@ -5,7 +5,7 @@ class Admin_Config_Block_XmlList extends Jqgrid_Block_XmlList{
 			sidx = columna de ordenacion
 			sord = orden de ordenacion (asc/desc)
 		*/
-		$config = new Granguia_Model_Config();
+		$config = new Inta_Model_Config();
 		if($comparator!=null){
 			$config->setWhere($comparator);
 		}

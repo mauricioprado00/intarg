@@ -1,0 +1,9 @@
+<global>
+	<design>
+		<ajax><![CDATA[visualadmin/default/]]></ajax>
+		<admin><![CDATA[visualadmin/default/]]></admin>
+	</design>
+	<rewrite>
+		<Core_Html_Tag_Custom>Visualadmin_Html_Tag</Core_Html_Tag_Custom>
+	</rewrite>
+</global>

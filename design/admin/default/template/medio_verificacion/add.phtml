@@ -1,23 +1,9 @@
 <?
-//$x = new Inta_Model_MedioVerificacion();
-//if($this->hasIdToEdit()){
-//	$x->setId($this->getIdToEdit());
-//	$x->load();
-//}
-//else{
-//	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
-//		$x->loadFromArray(Core_Http_Post::getParameters('array'));
-//	}
-//}
 if(!$this->hasObjectToEdit()){
 	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
 	return;
 }
 $x = $this->getObjectToEdit();
-
-$x->addAutofilterOutput('utf8_decode');
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 42;
 
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="medio_verificacion[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
@@ -28,7 +14,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Nombre: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -41,37 +27,23 @@ $image_empty_size = 42;
 				echo $input->getHtml();
 			?> 
 			</span>
-                        <label>Indicador: </label>
+            <label>Indicador: </label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
-                                $select
-                                        ->setId('id_indicador')
-                                        ->setName('medio_verificacion[id_indicador]')
-                                ;
-                                $html = '';
-                                $i = new Inta_Model_Indicador();
-                                $aIndicadores = $i->search();
-                                if(!empty($aIndicadores))
-					foreach($aIndicadores as $indicador){
-						$option = new Core_Html_Tag_Custom('option');
-						$option
-							->setValue($indicador->getId())
-							->setInnerHtml($indicador->getNombre())
-						;
-						if($indicador->getId()==$x->getIdIndicador())
-							$option->setSelected('selected');
-						$html .= $option->getHtml();
-					}
-				echo $select
-					->setInnerHtml($html)
-					->getHtml()
+				echo c($selector_indicador = $this->appendBlock('<selector_indicador />'))
+					->setSelectedValue($x->getIdIndicador())
+					->void($selector_indicador
+						->getSelectControl()
+							->setName('medio_verificacion[id_indicador]')
+							->setId('id_indicador')
+					)
+					->toHtml()
 				;
-			?>
+			?> 
 			</span>
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

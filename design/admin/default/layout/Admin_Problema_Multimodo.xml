@@ -7,8 +7,8 @@
 		<reference name="listado_datos_grid"
 			caption="Listado de Problema"
 			source="administrator/problema/datalist"
-			sort_name="id"
-			sort_order="asc"
+			sort_name="prioridad"
+			sort_order="desc"
 			can_edit="false"
 			can_add="false"
 			can_delete="false"
@@ -30,6 +30,14 @@
 				<name>id</name>
 				<index>id</index>
 				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Prioridad</title>
+				<name>prioridad</name>
+				<index>prioridad</index>
+				<width>50</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>

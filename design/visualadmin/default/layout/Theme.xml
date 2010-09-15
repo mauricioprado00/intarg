@@ -1,0 +1,54 @@
+<layout>
+	<default>
+		<reference name="html_head">
+<!--
+			<action method="addCss">
+				<script>css/estilos.css</script>
+				<script>css/nav_v.css</script>
+			</action>
+			<action named_args="true" method="addCss">
+				<script>css/estilos_ie6.css</script>
+				<if>if IE 6</if>
+			</action>
+			<css>css/messages.css</css> 
+-->
+			<!-- LOAD CUSTOM SCRIPTS AND JQUERY UI LIBRARY  --> 
+			<css>css/estilos_listados.css</css>
+			<css>css/estilos_botones.css</css>
+			<script>js/scripts.js</script>
+			
+			<script if="if gte IE 6">js/DD_belatedPNG_0.0.8a-min.js</script>
+			<script if="if gte IE 6" inline_script="true">
+			<![CDATA[
+			  DD_belatedPNG.fix('#header');
+			  DD_belatedPNG.fix('.notification');
+			  DD_belatedPNG.fix('.submit');
+			  DD_belatedPNG.fix('#info');
+			  DD_belatedPNG.fix('.pngfix');
+			]]>
+			</script>
+			
+			<!-- LOAD FACEBOX -->
+			<script>js/facebox.js</script>
+			<css>css/facebox.css</css>
+			
+			<script>js/iepngfix_tilebg.js</script>
+			
+			<!-- MASTER STYLESHEET --> 
+			<css>css/styles.css</css>
+			
+			<script inline_script="true">
+			<![CDATA[
+			// initialise plugins
+			jQuery(function(){
+				jQuery('ul.sf-menu').superfish();
+			});
+			]]>
+			</script>
+		</reference>
+		<reference name="html_body_content">
+			<block name="contenedor_footer">
+			</block>
+		</reference>
+	</default>
+</layout>

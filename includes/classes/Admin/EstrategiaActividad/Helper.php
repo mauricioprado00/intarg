@@ -7,7 +7,7 @@ class Admin_EstrategiaActividad_Helper extends Core_Singleton{
 		if(!is_a($estrategia_actividad,'Inta_Model_EstrategiaActividad')){
 			$estrategia_actividad = new Inta_Model_EstrategiaActividad($estrategia_actividad->getData());
 		}
-		$existente = $estrategia_actividad->setWhere(Db_Helper::equal('id_actividad'),Db_Helper::equal('id_estrategia'))->searchCount();
+		$existente = $estrategia_actividad->setWhere(Db_Helper::equal('id_actividad'),Db_Helper::equal('id_estrategia'))->search();
 		if(!$estrategia_actividad->hasId()){/** aca hay que agregar a la base de datos*/
 			if($existente){
 				Admin_App::getInstance()->addInfoMessage("La EstrategiaActividad ya estaba agregada");
@@ -28,7 +28,7 @@ class Admin_EstrategiaActividad_Helper extends Core_Singleton{
 		}
 		else{/** aca hay que actualizar el registro*/
 			//$actualizada = true;// actualizarEnLaBase()
-			if($existente){
+			if($existente&&$existente[0]->getId()!=$estrategia_actividad->getId()){
 				$estrategia_actividad->delete(array('id'=>$estrategia_actividad->getId()));
 				Admin_App::getInstance()->addInfoMessage("La EstrategiaActividad ya estaba agregada");
 				$resultado = true;

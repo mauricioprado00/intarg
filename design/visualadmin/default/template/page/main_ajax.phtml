@@ -1,0 +1,18 @@
+<?
+	$classnames = array('contenedor_main container_12');
+	if($this->hasClassnames()){
+		$classnames[] = implode(' ', $this->getClassnames());
+	}
+	$classnames[] = implode(' ', Core_App::getLayout()->getActions());
+	$classnames = implode(' ', $classnames);
+	$classnames = $classnames?' class="'.$classnames.'"':'';
+?>
+<div id="content" <?=$classnames?>>
+	<div class="grid_12">
+		<?=$this->getChildHtml('contenedor_main')?><?
+		if($right = $this->getChildHtml('contenedor_right')){?> 
+			<div class="contenedor_right"><?=$right?></div><?	
+		}
+	?> 
+	</div>
+</div>

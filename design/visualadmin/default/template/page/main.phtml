@@ -1,0 +1,75 @@
+<?
+	$classnames = array();
+	if($this->hasClassnames()){
+		$classnames[] = implode(' ', $this->getClassnames());
+	}
+	$classnames[] = implode(' ', Core_App::getLayout()->getActions());
+	$classnames = implode(' ', $classnames);
+	$classnames = $classnames?' class="'.$classnames.'"':'';
+?>
+<div<?=$classnames?>>
+	<div id="header">
+		<!--START LOGO  --> 
+		<div id="head_wrap" class="container_12">
+			<div id="logo" class="grid_8">
+				<h1><strong>Visual</strong>Admin</h1>
+	        </div>
+			<!-- END LOGO -->
+			
+			<?=$this->getChildHtml('contenedor_top')?>
+			
+		    <!-- START USERPANEL --> 
+		    <div id="user_panel" class="grid_4">
+		        <ul>
+		            <li><a href="#"><?php
+					$user = Admin_User_Model_User::getLogedUser();
+					print $user->getNombre().' '.$user->getApellido();
+					?></a></li>
+		            <!-- MODAL LINK - USE TH REL="FACEBOX" TO BRING UP MODAL PAGES-->
+		            <!-- <li><a href="#info" rel="facebox">Messages (<strong>2</strong>)</a></li> -->
+		            <li><a href="<?php print '#user/addEdit/'.Admin_User_Model_User::getLogedUser()->getId(); ?>">My Sttings </a></li><?
+					if(false&&Admin_App::getInstance()->getModoAjax()){?> 
+					<li><a href="#" onclick="deshabilitar_ajax('<?=$this->getUrl('administrator')?>')">Deshabilitar ajax</a></li><?
+					}
+					elseif(false){?> 
+					<li><a href="#"  onclick="habilitar_ajax('<?=$this->getUrl('administrator')?>')">Modo ajax</a></li><?
+					}?> 
+		            <li><a href="<?=$this->getUrl('administrator/user/cerrar_sesion')?>">Log Out</a></li>
+		            
+		        </ul>
+			</div>
+		    <!-- END USERPANEL -->
+			<div id="nav" class="grid_9">
+				<?=$this->getChildHtml('contenedor_left')?> 
+			</div> 
+		    <!-- START SEARCH -->
+		    <div id="search" class="grid_3 buttons">
+		    
+		        <form id="form1" name="form1" method="post" action="">
+		        
+		            <input type="text" class="text medium" id="search2" />
+		            <input name="Submit" type="submit" class="submit special" value="Go" id="Submit" />
+		        
+		        </form>
+		        
+		    </div>
+		    <!-- END SEARCH -->
+      
+		</div>
+	</div>
+	<div id="content" class="container_12 contenedor_main">
+		<div class="grid_12">
+			<?=$this->getChildHtml('contenedor_main')?><?
+			if($right = $this->getChildHtml('contenedor_right')){?> 
+				<div class="contenedor_right"><?=$right?></div><?	
+			}
+		?> 
+		</div>
+	</div>
+	<div id="content" class="container_12">
+		<div id="footer" class="grid_12">
+			<?php print $this->getChildHtml('contenedor_footer'); ?>
+			<p>&copy; Copyright 2009 Your Company | Powered by <a href="#">Visual Admin</a> | <a href="#">Top</a><a href="#">n</a></p>
+		</div>
+	</div>
+</div>
