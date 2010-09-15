@@ -6,6 +6,10 @@
 		<admin>Admin_Indicador_Multimodo.xml</admin>
 		<ajax>Admin_Indicador_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_indicador</type>
+		<class>Admin_Indicador_Block_Selector</class>
+	</block>
 	<routers>
 		<Admin_Indicador_Router>administrator/indicador</Admin_Indicador_Router>
 	</routers>

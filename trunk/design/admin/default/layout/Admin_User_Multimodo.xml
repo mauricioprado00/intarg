@@ -77,15 +77,19 @@
 	</list_admin_user>
 	<addedit_admin_user>
 		<reference name="contenedor_main">
-			<block 
-				type="Admin/AddEditForm"
-				action_url="user/addEdit" 
-				ajax_target=".contenedor_main"
-				ajax_replace_with="true"
-				validador_js="validar_agregar_usuario" 
-				method="post">
-				<block name="user_add_edit_form" type="template" template="user/add.phtml" />
-			</block>
+			<tabset>
+				<tab title="Datos de usuario">
+					<block 
+						type="Admin/AddEditForm"
+						action_url="user/addEdit" 
+						ajax_target=".contenedor_main"
+						ajax_replace_with="true"
+						validador_js="validar_agregar_usuario" 
+						method="post">
+						<block name="user_add_edit_form" type="template" template="user/add.phtml" />
+					</block>
+				</tab>
+			</tabset>
 		</reference>
 	</addedit_admin_user>
 </layout>

@@ -14,7 +14,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Activo: </label>
 			<span><?
-				echo c($input = new Core_Html_Tag_Custom('input'))
+				echo c($input = Core::getObject('Core_Html_Tag_Custom', 'input'))
 					->setType('hidden')
 					->setName('menu[activo]')
 					->setValue('0')
@@ -32,7 +32,7 @@ $x = $this->getObjectToEdit();
 			</span>
 			<label>Texto: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				echo $input->setType('text')
 					->setMaxlength(300)
 					->setId('texto')
@@ -45,7 +45,7 @@ $x = $this->getObjectToEdit();
 			</span>
 			<label>Descripcion: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				echo $input->setType('text')
 					->setMaxlength(300)
 					->setSize(40)
@@ -59,7 +59,7 @@ $x = $this->getObjectToEdit();
 			</span>
 			<label>Nodo Asociado:</label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
+				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
 				$select
 					//->setMaxlength(300)
 					//->setType('text')
@@ -81,12 +81,12 @@ $x = $this->getObjectToEdit();
 					reset($opciones);
 					$nodo = current($opciones);
 					do{
-						$optgroup = new Core_Html_Tag_Custom('optgroup');
+						$optgroup = Core::getObject('Core_Html_Tag_Custom', 'optgroup');
 						$tipo = $nodo->getTipo();
 						$optgroup->setLabel($tipo);
 						$group_html = '';
 						do{
-							$option = new Core_Html_Tag_Custom('option');
+							$option = Core::getObject('Core_Html_Tag_Custom', 'option');
 							$option
 								->setValue($nodo->getId())
 								->setInnerHtml($nodo->getNombre())
@@ -107,7 +107,7 @@ $x = $this->getObjectToEdit();
 			</span>
 			<div><label>Popup Interno: </label>
 				<span><?
-					echo c($input = new Core_Html_Tag_Custom('input'))
+					echo c($input = Core::getObject('Core_Html_Tag_Custom', 'input'))
 						->setType('hidden')
 						->setName('menu[screenblock]')
 						->setValue('0')
@@ -127,7 +127,7 @@ $x = $this->getObjectToEdit();
 			<div>
 				<label>Url Externa: </label>
 				<span><?
-					$input = new Core_Html_Tag_Custom('input');
+					$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 					echo $input->setType('text')
 						->setMaxlength(255)
 						->setSize(40)
@@ -144,7 +144,7 @@ $x = $this->getObjectToEdit();
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

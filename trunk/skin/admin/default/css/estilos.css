@@ -1,9 +1,9 @@
 body{
-	background-color:#515151;
+	background-color:#00577B;
 }
 .login_page fieldset{
 	background-color:#E9F9AC;
-	border-color:#8F9A72;
+	border-color:#407585;
 	border-style:solid;
 	border-width:2px 2px 2px 10px;
 	font-family:Arial,Helvetica,sans-serif;
@@ -17,11 +17,11 @@ body{
 	display:block;
 }
 .login_page legend{
-	background-color:#DCE6C2;
-	border-color:#8F9A72;
+	background-color:#E6E6E7;
+	border-color:#407585;
 	border-style:solid;
 	border-width:1px 1px 1px 10px;
-	color:#515151;
+	color:#00577B;
 	font-size:90%;
 	font-weight:bold;
 	line-height:100%;
@@ -32,7 +32,7 @@ body{
 	top:-10px;
 }
 .login_page form{
-	background-color:#DCE6C2;
+	background-color:#E6E6E7;
 	height:auto !important;
 	line-height:200%;
 	padding:10px;
@@ -75,7 +75,7 @@ white-space:nowrap;
 	min-height:450px;
 }*/
 .contenedor_main{
-	background-color:#DCE6C2;
+	background-color:#E6E6E7;
 	margin-left:160px;
 	min-height:450px;
 }
@@ -84,9 +84,9 @@ white-space:nowrap;
 	height:80px;
 }*/
 .contenedor_top{
-	background-color:#515151;
+	background-color:#00577B;
 	height:80px;
-	border-bottom:solid 5px #8F9A72;
+	border-bottom:solid 5px #407585;
 	background-image:url(../img/logolil.png);
 	background-repeat:no-repeat;
 }
@@ -100,7 +100,7 @@ white-space:nowrap;
 	top:0;
 }*/
 .contenedor_left{
-	background-color:#515151;
+	background-color:#00577B;
 	height:100%;
 	width:160px;
 	position:absolute;
@@ -128,12 +128,19 @@ white-space:nowrap;
 	font-size:0.7em;
 	margin-right:5px;
 }*/
+.links_top{
+	height:100%;
+	padding:0 10px;
+	background-color:white;
+
+}
 .links_top a{
 	font-weight:bold;
 	font-size:0.9em;
 	text-decoration:none;
-	color:#8F9A72;
+	color:#D81810;
 	margin-right:15px;
+	border-bottom:2px ridge blue;
 }
 /*.links_top {
 	margin-left:15px;
@@ -156,29 +163,29 @@ white-space:nowrap;
 	font-weight:bold;
 	margin-left:-10px;
 	text-transform:uppercase;
-	color:#515151;
+	color:#00577B;
 	padding:3px;
 	font-size:0.8em;
 	border-top:solid;
 	border-right:solid;
 	border-bottom:solid;
 	border-left:solid 10px;
-	border-color:#8F9A72;
+	border-color:#407585;
 }
 .entity_addedit fieldset {
 	display:inline;
 	width:auto;
 	padding:0px 36px 12px 22px;
-	border:solid #8F9A72;
+	border:solid #407585;
 	margin-left:20px;
 	margin-top:10px;
-	color:#515151;
+	color:#00577B;
 }
 .entity_addedit fieldset fieldset{
 	border:medium none;
 	display:block;
 	float:left;
-	color:#515151;
+	color:#00577B;
 }
 .entity_addedit fieldset label{
 	display:block;
@@ -190,17 +197,17 @@ white-space:nowrap;
 	
 }
 .entity_addedit fieldset input{
-	border:1px solid #8F9A72;
-	color:#515151;
+	border:1px solid #407585;
+	color:#00577B;
 }
 .entity_addedit fieldset select{
-	border:1px solid #8F9A72;
-	color:#515151;
+	border:1px solid #407585;
+	color:#00577B;
 }
 .entity_addedit fieldset input[type='submit'], input[type='button']{
-	background-color:#8F9A72;
+	background-color:#407585;
 	border:none;
-	color:#515151;
+	color:#FEFEFF;
 	cursor:pointer;
 	font-size:12px;
 	font-weight:700;
@@ -217,6 +224,7 @@ white-space:nowrap;
 	padding:0;
 	padding-bottom:3px;
 	background:#DDDDDD none repeat scroll 0 0;
+	color:black;
 }
 /*input[type="submit"], input[type="button"] {
 background-color:#FFCC00;
@@ -345,23 +353,6 @@ margin:0 5px;
 	width:24px;
 }
 
-.lstse, .lsted, .lstde{
-	float:left;
-	width:16px;
-	height:16px;
-	margin: 0 5px;
-	cursor:pointer;
-}
-.lstse{
-	background-image: url(../img/16x16/media_play_green.png);
-}
-.lsted{
-	background-image: url(../img/16x16/pencil.png);
-}
-.lstde{
-	background-image: url(../img/16x16/delete.png);
-}
-
 .listado_activo_0{
 	background-image:url(../img/16x16/bullet_ball_glass_red.png);
 	width:16px;
@@ -371,51 +362,4 @@ margin:0 5px;
 	background-image:url(../img/16x16/bullet_ball_glass_green.png);
 	width:16px;
 	height:16px;
-}
-.btn_eliminar{
-	background-image:url(../img/delete2.png);
-	background-position:0 50%;
-	padding-left:16px;
-	height:16px;
-	display:inline-block;
-}
-.btn_agregar{
-	background-image:url(../img/add2.png);
-	background-position:0 50%;
-	padding-left:16px;
-	height:16px;
-	display:inline-block;
-	background-repeat:no-repeat;
-}
-.btn_editar{
-	background-image:url(../img/16x16/edit.png);
-	background-position:0 50%;
-	padding-left:16px;
-	height:16px;
-	display:inline-block;
-	background-repeat:no-repeat;
-}
-.btn_refresh{
-	background-image:url(../img/16x16/refresh.png);
-	background-position:0 50%;
-	padding-left:16px;
-	height:16px;
-	display:inline-block;
-	background-repeat:no-repeat;
-}
-.btn_agregar_certificacion{
-	background-image:url(../img/16x16/certificate_add.png);
-	background-position:0 50%;
-	padding-left:16px;
-	height:16px;
-	display:inline-block;
-	background-repeat:no-repeat;
-}
-.btn_agregar_documento{
-	background-image:url(../img/16x16/document_add.png);
-	background-position:0 50%;
-	padding-left:16px;
-	height:16px;
-	display:inline-block;
-	background-repeat:no-repeat;
 }

@@ -5,7 +5,8 @@ if($proyecto_actividads){
 	foreach($proyecto_actividads as $proyecto_actividad){
 		echo
 			'<li data-id="'.$proyecto_actividad->getId().'">'. 
-			'<span>'.$proyecto_actividad->getNombre().'</span>';
+			'<span>'.$proyecto_actividad->getNombre().'</span><br />'.
+			'<i>Presupuesto estimado: $'.$proyecto_actividad->getMonto().'</i>';
 		?>
 		<div class="listado_toolbox listado_toolbox_proyecto_actividads">
 			<div class="btn_eliminar btn_eliminar_proyecto_actividad" title="Eliminar ProyectoActividad"></div>

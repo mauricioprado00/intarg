@@ -1,24 +1,9 @@
 <?
-//$x = new Inta_Model_Indicador();
-//if($this->hasIdToEdit()){
-//	$x->setId($this->getIdToEdit());
-//	$x->load();
-//}
-//else{
-//	if(Core_Http_Post::hasParameters()){//si ya hizo post (cuando no se agrego/modifico y vuelve con errores)
-//		$x->loadFromArray(Core_Http_Post::getParameters('array'));
-//	}
-//}
-
 if(!$this->hasObjectToEdit()){
 	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
 	return;
 }
 $x = $this->getObjectToEdit();
-
-$x->addAutofilterOutput('utf8_decode');
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 42;
 
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="indicador[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
@@ -29,7 +14,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Nombre: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -44,31 +29,21 @@ $image_empty_size = 42;
 			</span>
 			<label>Tipo Indicador: </label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
-                                $select
-                                        ->setId('tipo_indicador')
-                                        ->setName('indicador[tipo_indicador]')
-                                ;
-                                $html = '';
-                                $aOptions = array('resultado' => 'Resultado','actividad' => 'Actividad');
-                                foreach($aOptions As $key => $value){
-                                    $option = new Core_Html_Tag_Custom('option');
-                                    $option
-                                            ->setValue($key)
-                                            ->setInnerHtml($value)
-                                    ;
-                                    if($x->getTipoIndicador()==$key)
-                                            $option->setSelected('selected');
-                                    $html .= $option->getHtml();
-                                }
-                                $select->setInnerHtml($html);
-				echo $select->getHtml();
+				echo c($selector_tipo_indicador = $this->appendBlock('<selector_tipo_indicador />'))
+					->setSelectedValue($x->getTipoIndicador())
+					->void($selector_tipo_indicador
+						->getSelectControl()
+							->setName('indicador[tipo_indicador]')
+							->setId('id_tipo_indicador')
+					)
+					->toHtml()
+				;
 			?> 
 			</span>
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

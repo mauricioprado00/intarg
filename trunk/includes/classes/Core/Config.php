@@ -11,6 +11,7 @@ class Core_Config{
 			'block_types'=>array(),
 			'update_to_modulo'=>array(),
 			'layout_updates_to_modulo'=>array(),
+			'class_rewrite'=>array(),
 		);
 	}
 	private $updates = array();
@@ -177,9 +178,33 @@ class Core_Config{
 					$this->addBlockType($element);
 					break;
 				}
+				case 'rewrite':{
+					$this->addClassRewrite($element);
+					break;
+				}
+				case 'design':{
+					$this->addDesignPath($element);
+					break;
+				}
 			}
             $i++;
         }
+	}
+	private function addDesignPath($element){
+		foreach($element as $modo=>$path){
+			$modo = (string)$modo;
+			$path = (string)$path;
+			Core_App::getLayout()
+				->addDesignPaths($modo, $path)
+			;
+		}
+		return;
+	}
+	private function addClassRewrite($element){
+		foreach($element as $from=>$to){
+			$this->global['class_rewrite'][(string)$from] = (string)$to;
+		}
+		return;
 	}
 	private function addBlockType($element){
 		$type = $element->xpath('./type');
@@ -261,6 +286,9 @@ class Core_Config{
 	}
 	public function getLayoutUpdates(){
 		return($this->global['layout_updates']);
+	}
+	public function getClassRewrites(){
+		return($this->global['class_rewrite']);
 	}
 }
 ?>

@@ -1,4 +1,5 @@
 <layout>
+	<!--
 	<default>
 		<reference name="menu_admin">
 			<action method="addItem">
@@ -26,7 +27,6 @@
 		</reference>
 	</default>
 	<datalist_admin_documento>
-<!--			output_filters="utf8_encode"   -->
 		<block type="Admin_Documento/XmlList"
 			name="xml_data_admin_documento">
 			<action method="appListFields">
@@ -49,4 +49,5 @@
 			</action>
 		</block>
 	</datalist_admin_documento>
+	-->
 </layout>

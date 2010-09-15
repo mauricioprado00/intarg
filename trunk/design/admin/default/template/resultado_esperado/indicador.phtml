@@ -14,7 +14,7 @@ $x = $this->getObjectToEdit();
 	$indicador = $x->getIndicador();
 	if($indicador){
 		echo 
-			c($span = new Core_Html_Tag_Custom('span'))
+			c($span = Core::getObject('Core_Html_Tag_Custom', 'span'))
 			->setInnerHtml(' - '.$indicador->getNombre().($indicador->getTipoIndicador()?'/'.$indicador->getTipoIndicador():''))
 			->getHtml()
 		;

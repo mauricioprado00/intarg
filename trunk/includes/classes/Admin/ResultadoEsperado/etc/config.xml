@@ -6,6 +6,10 @@
 		<admin>Admin_ResultadoEsperado_Multimodo.xml</admin>
 		<ajax>Admin_ResultadoEsperado_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_resultado_esperado</type>
+		<class>Admin_ResultadoEsperado_Block_Selector</class>
+	</block>
 	<routers>
 		<Admin_ResultadoEsperado_Router>administrator/resultado_esperado</Admin_ResultadoEsperado_Router>
 	</routers>

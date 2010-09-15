@@ -6,7 +6,7 @@
 		<ul class="lista_estadistica_ordenable"><?
 			if($this->hasEstadisticaes())
 				foreach($this->getEstadisticaes() as $estadistica){
-					$li = new Core_Html_Tag_Custom('li');
+					$li = Core::getObject('Core_Html_Tag_Custom', 'li');
 					$li
 						->setData('data-id', $estadistica->getId())
 						->setInnerHtml(htmlentities(utf8_decode($estadistica->getTexto())))

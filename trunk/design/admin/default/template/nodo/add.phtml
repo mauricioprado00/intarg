@@ -16,7 +16,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Direcci&oacute;n: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('text')
 					->setMaxlength(255)
@@ -39,7 +39,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>tags: </label>
 			<span><?
-			$input = new Core_Html_Tag_Custom('textarea');
+			$input = Core::getObject('Core_Html_Tag_Custom', 'textarea');
 			$input
 				//->setType('text')
 				->setMaxlength(20)
@@ -62,7 +62,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Tipo de Nodo:</label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
+				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
 				$select
 					//->setMaxlength(300)
 					//->setType('text')
@@ -77,7 +77,7 @@ $x = $this->getObjectToEdit();
 				$html = '';
 				if($this->hasTiposNodos())
 					foreach($this->getTiposNodos() as $tipo){
-						$option = new Core_Html_Tag_Custom('option');
+						$option = Core::getObject('Core_Html_Tag_Custom', 'option');
 						$option
 							->setValue($tipo->getId())
 							->setInnerHtml($tipo->getNombre())
@@ -96,7 +96,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>&iquest;Es home?:</label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('checkbox')
 					->setId('es_home')
@@ -110,7 +110,7 @@ $x = $this->getObjectToEdit();
 			</span>
 			<label>&iquest;Est&aacute; activa?</label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('checkbox')
 					->setId('es_activa')
@@ -125,7 +125,7 @@ $x = $this->getObjectToEdit();
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script type="text/javascript">

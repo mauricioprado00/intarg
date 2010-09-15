@@ -1,0 +1,16 @@
+.contenedor_top{
+	background-color: #258cd1;
+	float: left;
+	width: 100%;
+	padding: 5px 0px 0px 0px;
+	border-bottom-width: 2px;
+	border-bottom-style: solid;
+	border-bottom-color: #95C9EC;
+	margin: 0px;
+}
+.contenedor_top{
+	background-repeat: repeat-x;
+	background-image: url(../images/header_highlighter.png);
+	*position:relative; 		z-index:2;
+	margin-bottom: 15px;
+}

@@ -5,11 +5,8 @@ if(!$this->hasObjectToEdit()){
 }
 $x = $this->getObjectToEdit();
 
-$image_empty_src = $this->getSkinUrl('img/empty.gif');
-$image_empty_size = 42;
-//var_dump($x->getData(),Admin_Helper::getInstance()->getIdAgencia());
 ?><?if($this->getIdToEdit()):?>
-<input type="hidden" name="audiencia[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<input type="hidden" name="audiencia[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?> 
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
 	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Audiencia</legend>
 	<fieldset>
@@ -21,7 +18,7 @@ $image_empty_size = 42;
 				$agencias = $agencia->search();
 				$html_select = '';
 				foreach($agencias as $agencia){
-					$option = c(new Core_Html_Tag_Custom('option'))
+					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 						->setValue($agencia->getId())
 						->setInnerHtml($agencia->getNombre())
 					;
@@ -29,7 +26,7 @@ $image_empty_size = 42;
 						$option->setSelected('selected');
 					$html_select .= $option->getHtml();
 				}
-				echo c(new Core_Html_Tag_Custom('select'))
+				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 					->setName('audiencia[id_agencia]')
 					->setId('id_agencia')
 					->setDisabled('disabled')
@@ -37,7 +34,7 @@ $image_empty_size = 42;
 					->getHtml()
 				;
 				
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('hidden')
@@ -50,29 +47,20 @@ $image_empty_size = 42;
 			</span>
 			<label>Tipo Audiencia: </label>
 			<span><?
-				$tipo_audiencia = new Inta_Model_TipoAudiencia();
-				$tipo_audiencias = $tipo_audiencia->search();
-				$html_select = '';
-				foreach($tipo_audiencias as $tipo_audiencia){
-					$option = c(new Core_Html_Tag_Custom('option'))
-						->setValue($tipo_audiencia->getId())
-						->setInnerHtml($tipo_audiencia->getNombre())
-					;
-					if($tipo_audiencia->getId()==$x->getIdTipoAudiencia())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(new Core_Html_Tag_Custom('select'))
-					->setName('audiencia[id_tipo_audiencia]')
-					->setId('id_tipo_audiencia')
-					->setInnerHtml($html_select)
-					->getHtml()
+				echo c($selector_tipo_audiencia = $this->appendBlock('<selector_tipo_audiencia />'))
+					->setSelectedValue($x->getIdTipoAudiencia())
+					->void($selector_tipo_audiencia
+						->getSelectControl()
+							->setName('audiencia[id_tipo_audiencia]')
+							->setId('id_responsable')
+					)
+					->toHtml()
 				;
 			?> 
 			</span>
 			<label>Nombre: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -90,7 +78,7 @@ $image_empty_size = 42;
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

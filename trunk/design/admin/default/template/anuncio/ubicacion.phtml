@@ -13,7 +13,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Estado: </label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
+				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
 				$select
 					->setId('estado')
 					->setName('anuncio[estado]')
@@ -21,7 +21,7 @@ $x = $this->getObjectToEdit();
 				$html = '';
 				if($this->hasOpcionesEstado())
 					foreach($this->getOpcionesEstado() as $o){
-						$option = new Core_Html_Tag_Custom('option');
+						$option = Core::getObject('Core_Html_Tag_Custom', 'option');
 						$option
 							->setValue($o->getId())
 							->setInnerHtml($o->getNombre())
@@ -46,7 +46,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Barrio: </label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
+				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
 				$select
 					->setId('id_barrio')
 					->setName('anuncio[id_barrio]')
@@ -54,7 +54,7 @@ $x = $this->getObjectToEdit();
 				$html = '';
 				if($this->hasBarrios())
 					foreach($this->getBarrios() as $o){
-						$option = new Core_Html_Tag_Custom('option');
+						$option = Core::getObject('Core_Html_Tag_Custom', 'option');
 						$option
 							->setValue($o->getId())
 							->setData('data-imagen-mapa', $o->getImagenMapa())
@@ -72,7 +72,7 @@ $x = $this->getObjectToEdit();
 			</span>
 			<label>Tipo de Punto</label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
+				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
 				$select
 					->setId('id_tipo_punto')
 					->setName('anuncio[id_tipo_punto]')
@@ -80,7 +80,7 @@ $x = $this->getObjectToEdit();
 				$html = '';
 				if($this->hasTiposPuntos())
 					foreach($this->getTiposPuntos() as $o){
-						$option = new Core_Html_Tag_Custom('option');
+						$option = Core::getObject('Core_Html_Tag_Custom', 'option');
 						$option
 							->setValue($o->getId())
 							//->setData('data-imagen-mapa', $o->getImagenMapa())
@@ -100,7 +100,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Posici&oacute;n en mapa</label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('hidden')
 					->setId('posicion_x')
@@ -110,7 +110,7 @@ $x = $this->getObjectToEdit();
 					->setData('data-validator', '{empty:false,gt:0}')
 				;
 				echo $input->getHtml();
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('hidden')
 					->setId('posicion_y')
@@ -143,7 +143,7 @@ $x = $this->getObjectToEdit();
 					//->setSelectableRoot(1)//esto es si queres que el root sea seleccionable
 					->getHtml()
 				;
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('hidden')
 					->setId('id_categoria')
@@ -164,7 +164,7 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Destacar en barrio y categoria:</label>
 			<span><?
-				echo c($input = new Core_Html_Tag_Custom('input'))
+				echo c($input = Core::getObject('Core_Html_Tag_Custom', 'input'))
 					->setType('hidden')
 					->setName('anuncio[destacado]')
 					->setValue('0')
@@ -185,7 +185,7 @@ $x = $this->getObjectToEdit();
 	<div style="clear:both;"></div>
 	</div>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

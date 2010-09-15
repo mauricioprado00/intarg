@@ -15,7 +15,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Tipo: </label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
+				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
 				$select
 					//->setMaxlength(300)
 					//->setType('text')
@@ -28,7 +28,7 @@ $image_empty_size = 42;
 				$html = '';
 				if($this->hasTiposContactos())
 					foreach($this->getTiposContactos() as $tipo){
-						$option = new Core_Html_Tag_Custom('option');
+						$option = Core::getObject('Core_Html_Tag_Custom', 'option');
 						$option
 							->setValue($tipo->getId())
 							->setInnerHtml($tipo->getNombre())
@@ -47,7 +47,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Etiqueta del enlace: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('text')
 					->setMaxlength(50)
@@ -64,7 +64,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Texto del formulario: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('textarea');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'textarea');
 				$input
 					//->setType('text')
 					//->setMaxlength(255)
@@ -86,7 +86,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Email de env&iacute;o: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('text')
 					->setMaxlength(300)
@@ -102,7 +102,7 @@ $image_empty_size = 42;
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

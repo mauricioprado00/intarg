@@ -1,0 +1,16 @@
+.lstse, .lsted, .lstde{
+	float:left;
+	width:16px;
+	height:16px;
+	margin: 0 5px;
+	cursor:pointer;
+}
+.lstse{
+	background-image: url(../img/16x16/media_play_green.png);
+}
+.lsted{
+	background-image: url(../img/16x16/pencil.png);
+}
+.lstde{
+	background-image: url(../img/16x16/delete.png);
+}

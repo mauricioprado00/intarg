@@ -1,4 +1,4 @@
-﻿<?/*este archivo es útf8*/
+<?/*este archivo es útf8*/
 if(!$this->hasObjectToEdit()){
 	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
 	return;
@@ -41,7 +41,7 @@ $tree = $this->getTree();
 		<div>
 			<label>Nombre: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				echo $input
 					->setType('text')
 					->setValue($x->getData('nombre'))
@@ -54,7 +54,7 @@ $tree = $this->getTree();
 			</span>
 			<label>Componente Url: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				echo $input
 					->setType('text')
 					->setValue($x->getData('componente_url'))
@@ -67,7 +67,7 @@ $tree = $this->getTree();
 			</span>
 			<label>&iquest;Es default?:</label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setType('checkbox')
 					->setId('es_default')
@@ -90,7 +90,7 @@ $tree = $this->getTree();
 		<?/**/?>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

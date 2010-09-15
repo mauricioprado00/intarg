@@ -9,4 +9,8 @@
 	<routers>
 		<Admin_TipoAspecto_Router>administrator/tipo_aspecto</Admin_TipoAspecto_Router>
 	</routers>
+	<block>
+		<type>selector_tipo_aspecto</type>
+		<class>Admin_TipoAspecto_Block_Selector</class>
+	</block>
 </global>

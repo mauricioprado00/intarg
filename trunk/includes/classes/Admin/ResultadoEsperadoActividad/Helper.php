@@ -7,7 +7,7 @@ class Admin_ResultadoEsperadoActividad_Helper extends Core_Singleton{
 		if(!is_a($resultado_esperado_actividad,'Inta_Model_ResultadoEsperadoActividad')){
 			$resultado_esperado_actividad = new Inta_Model_ResultadoEsperadoActividad($resultado_esperado_actividad->getData());
 		}
-		$existente = $resultado_esperado_actividad->setWhere(Db_Helper::equal('id_actividad'),Db_Helper::equal('id_resultado_esperado'))->searchCount();
+		$existente = $resultado_esperado_actividad->setWhere(Db_Helper::equal('id_actividad'),Db_Helper::equal('id_resultado_esperado'))->search();
 		if(!$resultado_esperado_actividad->hasId()){/** aca hay que agregar a la base de datos*/
 			if($existente){
 				Admin_App::getInstance()->addInfoMessage("La ResultadoEsperadoActividad ya estaba agregada");
@@ -28,7 +28,7 @@ class Admin_ResultadoEsperadoActividad_Helper extends Core_Singleton{
 		}
 		else{/** aca hay que actualizar el registro*/
 			//$actualizada = true;// actualizarEnLaBase()
-			if($existente){
+			if($existente&&$existente[0]->getId()!=$resultado_esperado_actividad->getId()){
 				$resultado_esperado_actividad->delete(array('id'=>$resultado_esperado_actividad->getId()));
 				Admin_App::getInstance()->addInfoMessage("La ResultadoEsperadoActividad ya estaba agregada");
 				$resultado = true;

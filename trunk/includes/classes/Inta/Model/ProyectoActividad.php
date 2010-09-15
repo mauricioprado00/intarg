@@ -6,6 +6,7 @@ class Inta_Model_ProyectoActividad extends Core_Model_Abstract{
 			'id',
 			'id_actividad',
 			'id_proyecto',
+			'monto',
 		);
 		foreach($datafields as $datafield)
 			$this->setData($datafield);

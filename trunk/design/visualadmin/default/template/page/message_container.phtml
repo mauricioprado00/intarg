@@ -1,0 +1,24 @@
+<?
+$translate = array(
+'warning'=>'warning',
+'info'=>'information',
+'success'=>'success',
+'failure'=>'error',
+);
+if($messages = $this->getMessages()){?> 
+<div><?
+	foreach($messages as $message){
+		$tipo = $message->getTipo();
+		$class = isset($translate[$tipo])?$translate[$tipo]:$tipo;?> 
+		<div class="notification canhide message_box <?=$class?>"><?=$message->getMessage()?></div><?
+	}?> 
+</div>
+<script>
+jQuery(function(){
+	jQuery(".canhide").click(function() {
+		jQuery(this).fadeOut(700);
+	});
+})
+</script><?
+}
+?>

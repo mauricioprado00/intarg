@@ -10,6 +10,7 @@ else{
 		$x->loadFromArray(Core_Http_Post::getParameters('array'));
 	}
 }
+
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="id" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset>
@@ -62,7 +63,7 @@ else{
 				$agencias = $agencia->search();
 				$html_select = '';
 				foreach($agencias as $agencia){
-					$option = c(new Core_Html_Tag_Custom('option'))
+					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 						->setValue($agencia->getId())
 						->setInnerHtml($agencia->getNombre())
 					;
@@ -70,7 +71,7 @@ else{
 						$option->setSelected('selected');
 					$html_select .= $option->getHtml();
 				}
-				echo c(new Core_Html_Tag_Custom('select'))
+				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 					->setName('id_agencia')
 					->setId('id_agencia')
 					->setInnerHtml($html_select)
@@ -97,7 +98,7 @@ else{
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

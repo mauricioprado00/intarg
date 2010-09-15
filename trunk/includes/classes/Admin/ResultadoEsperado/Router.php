@@ -336,7 +336,7 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 				$medio_verificacions = $medio_verificacion->search();
 				$html_options = '';
 				foreach($medio_verificacions as $medio_verificacion){
-					$option = new Core_Html_Tag_Custom('option');
+					$option = Core::getObject('Core_Html_Tag_Custom', 'option');
 					$option
 						->setValue($medio_verificacion->getId())
 						->setInnerHtml($medio_verificacion->getNombre())

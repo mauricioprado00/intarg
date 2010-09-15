@@ -14,31 +14,22 @@ $x = $this->getObjectToEdit();
 	<fieldset>
 		<h3>Informacion de AspectoActividad</h3>
 		<div>
-			<label>Actividad: </label>
+			<label>Aspecto: </label>
 			<span><?
-				$aspecto = new Inta_Model_Aspecto();
-				$aspectos = $aspecto->search();
-				$html_select = '';
-				foreach($aspectos as $aspecto){
-					$option = c(new Core_Html_Tag_Custom('option'))
-						->setValue($aspecto->getId())
-						->setInnerHtml($aspecto->getNombre())
-					;
-					if($aspecto->getId()==$x->getIdActividad())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(new Core_Html_Tag_Custom('select'))
-					->setName('aspecto_actividad[id_aspecto]')
-					->setId('id_aspecto')
-					->setInnerHtml($html_select)
-					->getHtml()
+				echo c($selector_tipo_aspecto = $this->appendBlock('<selector_aspecto />'))
+					->setSelectedValue($x->getIdTipoAspecto())
+					->void($selector_tipo_aspecto
+						->getSelectControl()
+							->setName('aspecto_actividad[id_aspecto]')
+							->setId('id_tipo_aspecto')
+					)
+					->toHtml()
 				;
 			?> 
 			</span>
 			<label>Detalle: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
@@ -56,7 +47,7 @@ $x = $this->getObjectToEdit();
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

@@ -15,7 +15,7 @@ $image_empty_size = 42;
 		<div>
 			<label>Estado: </label>
 			<span><?
-				$select = new Core_Html_Tag_Custom('select');
+				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
 				$select
 					->setId('tiene_minisitio')
 					->setName('anuncio[tiene_minisitio]')
@@ -23,7 +23,7 @@ $image_empty_size = 42;
 				$html = '';
 				if($this->hasOpcionesMinisitio())
 					foreach($this->getOpcionesMinisitio() as $o){
-						$option = new Core_Html_Tag_Custom('option');
+						$option = Core::getObject('Core_Html_Tag_Custom', 'option');
 						$option
 							->setValue($o->getId())
 							->setInnerHtml($o->getNombre())
@@ -43,7 +43,7 @@ $image_empty_size = 42;
 		<div class="texto_minisitio">
 			<label>Texto del Link en el Visor<span style="font-weight: normal; font-size: 12px;">(vacio utiliza texto por defecto)</span>: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(255)
 					->setSize(50)
@@ -61,7 +61,7 @@ $image_empty_size = 42;
 		<div class="contenedor_minisitio">
 			<label>Desarrollo: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('textarea');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'textarea');
 				$input
 					//->setClass('cke '.$desarrollo_class=md5(rand(1,1000)))
 					//->setType('text')
@@ -81,7 +81,7 @@ $image_empty_size = 42;
 		<div class="url_externa">
 			<label>Url externa: </label>
 			<span><?
-				$input = new Core_Html_Tag_Custom('input');
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(255)
 					->setSize(100)
@@ -98,7 +98,7 @@ $image_empty_size = 42;
 		</div>
 	</fieldset>
 	<div class="controls">
-		<input type="submit" value="Guardar"/>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>

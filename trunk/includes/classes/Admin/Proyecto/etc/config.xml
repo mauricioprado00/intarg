@@ -6,6 +6,10 @@
 		<admin>Admin_Proyecto_Multimodo.xml</admin>
 		<ajax>Admin_Proyecto_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_proyecto</type>
+		<class>Admin_Proyecto_Block_Selector</class>
+	</block>
 	<routers>
 		<Admin_Proyecto_Router>administrator/proyecto</Admin_Proyecto_Router>
 	</routers>

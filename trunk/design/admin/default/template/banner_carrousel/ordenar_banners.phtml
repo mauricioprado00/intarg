@@ -6,7 +6,7 @@
 		<ul class="lista_banner_carrousel_ordenable"><?
 			if($this->hasBannersCarrousel())
 				foreach($this->getBannersCarrousel() as $banner_carrousel){
-					$li = new Core_Html_Tag_Custom('li');
+					$li = Core::getObject('Core_Html_Tag_Custom', 'li');
 					$li
 						->setData('data-id', $banner_carrousel->getId())
 						->setInnerHtml(htmlentities(utf8_decode($banner_carrousel->getNombre())))

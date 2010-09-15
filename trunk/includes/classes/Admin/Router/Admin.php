@@ -23,7 +23,9 @@ class Admin_Router_Admin extends Core_Router_Abstract{
 		//var_dump($this->arr_request_path);
 		Core_App::getLayout()
 			->setModo('ajax')
-			->addDesignPaths('ajax', 'admin/default/');
+//			->addDesignPaths('ajax', 'admin/default/')
+//			->addDesignPaths('ajax', 'visualadmin/default/')
+		;
 		$ret = $this->routeDelegate($this,$this->arr_request_path);
 		return($ret);
 	}
@@ -62,7 +64,9 @@ class Admin_Router_Admin extends Core_Router_Abstract{
 		}
 		Core_App::getLayout()
 			->setModo('admin')
-			->addDesignPaths('admin', 'admin/default/');
+//			->addDesignPaths('admin', 'admin/default/')
+//			->addDesignPaths('admin', 'visualadmin/default/')
+		;
 	}
 	public function localDispatch(){
 		parent::localDispatch();

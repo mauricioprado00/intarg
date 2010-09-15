@@ -20,7 +20,7 @@ class Admin_Config_Router extends Core_Router_Abstract{
 		}
 	}
 	protected function delete($id_config=null){
-		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Granguia_Model_Config()), 'd');
+		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Config()), 'd');
 		Core_App::getInstance()->clearLastErrorMessages();
 		if(!$permisos){
 			Core_App::getLayout()->addActions('security_restriction');
@@ -36,7 +36,7 @@ class Admin_Config_Router extends Core_Router_Abstract{
 	protected function addEdit($id_config=null){
 		Core_App::getInstance()->clearLastErrorMessages();
 		$guardado = false;
-		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Granguia_Model_Config()), 'w');
+		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Config()), 'w');
 		if(!$permisos){
 			Core_App::getLayout()->addActions('security_restriction');
 			Admin_App::getInstance()->addShieldMessage('No tiene permitido editar Configuraciones.');
@@ -115,9 +115,9 @@ class Admin_Config_Router extends Core_Router_Abstract{
 					if(isset($data[$var])){
 						$varname = 'background/'.$prefijo.'/'.$varpref.$var;
 						$value = $data[$var];
-						$config = Granguia_Model_Config::findConfig($varname);
+						$config = Inta_Model_Config::findConfig($varname);
 						if(!isset($config)){
-							$config = new Granguia_Model_Config();
+							$config = new Inta_Model_Config();
 							$config->setNombre($varname);
 						}
 						$config->setValor($value);
@@ -138,9 +138,9 @@ class Admin_Config_Router extends Core_Router_Abstract{
 						->getBlock('background_'.$posicion);
 				if($background_abajo){
 					$varname_prefix = 'background/'.$posicion.'/';
-					$imagen = Granguia_Model_Config::findConfigValue($varname_prefix.'img_imagen');
-					$color = Granguia_Model_Config::findConfigValue($varname_prefix.'cpkr_color');
-					$repetir = Granguia_Model_Config::findConfigValue($varname_prefix.'chk_repetir_imagen');
+					$imagen = Inta_Model_Config::findConfigValue($varname_prefix.'img_imagen');
+					$color = Inta_Model_Config::findConfigValue($varname_prefix.'cpkr_color');
+					$repetir = Inta_Model_Config::findConfigValue($varname_prefix.'chk_repetir_imagen');
 					
 					$x = new Core_Object();
 					$x
@@ -163,10 +163,10 @@ class Admin_Config_Router extends Core_Router_Abstract{
 		}
 	}
 	protected function regenerar_cache_busqueda(){
-		$nodo = new Granguia_Model_Nodo();
+		$nodo = new Inta_Model_Nodo();
 		$nodo->setEsActiva(1);
 		$nodo->setWhere(Db_Helper::equal('es_activa'));
-		$nodos = $nodo->search(null, 'ASC', null, 0, 'Granguia_Model_Nodo');
+		$nodos = $nodo->search(null, 'ASC', null, 0, 'Inta_Model_Nodo');
 		if($nodos){
 			foreach($nodos as $nodo){
 				$nodo->replace();

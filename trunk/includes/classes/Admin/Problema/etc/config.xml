@@ -6,6 +6,10 @@
 		<admin>Admin_Problema_Multimodo.xml</admin>
 		<ajax>Admin_Problema_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_problema</type>
+		<class>Admin_Problema_Block_Selector</class>
+	</block>
 	<routers>
 		<Admin_Problema_Router>administrator/problema</Admin_Problema_Router>
 	</routers>
