@@ -3,23 +3,14 @@ if(!$this->hasEntityToList()||!$this->getEntityToList()){?>
 	error, no hay entidad para el control <?php print get_class($this); ?><?
 	return;
 }
-	$selected_value = $this->hasSelectedValue()&&strlen($this->getSelectedValue())?$this->getSelectedValue():null;
-	$value_field = $this->getValueField();
-	$text_field = $this->getTextField();
-	
-	$entityes = $this->listEntityes();
+
 	$html_select = '';
-	foreach($entityes as $entity){
-		$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
-			->setValue($entity->getData($value_field))
-			->setInnerHtml($entity->getData($text_field))
-		;
-		if(isset($selected_value)&&$entity->getData($value_field)==$selected_value)
-			$option->setSelected('selected');
-		$html_select .= $option->getHtml();
-	}
+	if($options = $this->createOptions())
+		foreach($options as $option)
+			$html_select .= $option->getHtml();
+	
 	$c = $this->getSelectControl();
-	echo c($this->getSelectControl())
+	echo $c
 		->setInnerHtml($html_select)
 		->getHtml()
 	;

@@ -1,6 +1,10 @@
 <layout>
 	<default>
 		<reference name="html_head">
+			<action method="unsetChild">
+				<name>jqgrid_grid_css</name>
+			</action>	
+			<css>css/jqgrid.css</css>
 <!--
 			<action method="addCss">
 				<script>css/estilos.css</script>
@@ -51,4 +55,11 @@
 			</block>
 		</reference>
 	</default>
+	<entity_list>
+		<reference name="listado_datos_grid">
+			<action method="setButtonsInTop">
+				<seteado></seteado>
+			</action>
+		</reference>
+	</entity_list>
 </layout>

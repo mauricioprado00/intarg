@@ -1,0 +1,9 @@
+<layout>
+	<entity_list>
+		<reference name="listado_datos_grid">
+			<action method="setButtonsInTop">
+				<seteado></seteado>
+			</action>
+		</reference>
+	</entity_list>
+</layout>

@@ -30,7 +30,7 @@
 
 /* ------------ SUBMIT BUTTONS ------------ */
 
-	form input.submit {
+	input.submit {
 	line-height: 20px;
 	border: 0;
 	font-size: 9px;

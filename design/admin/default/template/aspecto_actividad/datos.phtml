@@ -17,11 +17,11 @@ $x = $this->getObjectToEdit();
 			<label>Aspecto: </label>
 			<span><?
 				echo c($selector_tipo_aspecto = $this->appendBlock('<selector_aspecto />'))
-					->setSelectedValue($x->getIdTipoAspecto())
+					->setSelectedValue($x->getIdAspecto())
 					->void($selector_tipo_aspecto
 						->getSelectControl()
 							->setName('aspecto_actividad[id_aspecto]')
-							->setId('id_tipo_aspecto')
+							->setId('id_aspecto')
 					)
 					->toHtml()
 				;

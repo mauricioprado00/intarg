@@ -35,6 +35,15 @@ class Visualadmin_Html_Tag extends Core_Html_Tag_Custom{
 						}
 						break;
 					}
+					case 'button':{
+						if($this->hasClass()){
+							$this->setClass('submit '.$this->getClass());
+						}
+						else{
+							$this->setClass('submit');
+						}
+						break;
+					}
 				}
 				break;
 			}

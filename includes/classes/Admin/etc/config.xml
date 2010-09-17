@@ -1,6 +1,5 @@
 <global>
 	<modules>
-		<!-- <Visualadmin/> -->
 		<!--<cosas_de_inta>-->
 		<Admin_Agencia/>
 		<Admin_User/>
@@ -24,6 +23,7 @@
 		<Admin_TipoAspecto/>
 		<Admin_TipoIndicador/>
 		<Admin_TipoAudiencia/>
+		<Admin_Chained/>
 		<Admin_Config/>
 		<!--</cosas_de_inta>-->
 		<!--<cosas_de_granguia>-->
@@ -54,6 +54,7 @@
 		<Admin_Novedad/>
 		<Admin_Testimonio/>
 		-->
+		<!-- <Visualadmin/> -->
 	</modules>
 	<routers>
 		<Admin_Router_Admin>administrator</Admin_Router_Admin>

@@ -1,0 +1,14 @@
+<global>
+	<routers>
+		<Admin_Chained_Router>administrator/chained</Admin_Chained_Router>
+	</routers>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin_chained>Chained.xml</admin_chained>
+	</layouts>
+	
+	<design>
+		<admin_chained><![CDATA[admin/default/]]></admin_chained>
+	</design>
+</global>

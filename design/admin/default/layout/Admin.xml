@@ -34,9 +34,10 @@
 				<action method="addJs" in="!modo_ajax">
 					<script>js/helper_url_normal.js</script>
 				</action>
+				<css>jqGrid/themes/jqModal.css</css>
+				<css name="jqgrid_grid_css">jqGrid/themes/basic/grid.css</css>
 				<action method="addCss">
-					<script>jqGrid/themes/jqModal.css</script>
-					<script>jqGrid/themes/basic/grid.css</script><!--
+				<!--
 					<script>jqGrid/themes/coffee/grid.css</script>
 					<script>jqGrid/themes/green/grid.css</script>
 					<script>jqGrid/themes/sand/grid.css</script>

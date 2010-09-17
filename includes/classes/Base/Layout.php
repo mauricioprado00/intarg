@@ -725,6 +725,9 @@ class Base_Layout extends Base_Singleton{
 			return null;
 		return($xml);
 	}
+	public function getBlockFrom($block, $parent_block=null, $classname=''){
+		return $this->_getBlockFrom($bloc, $parent_block, $classname);
+	}
 	private function _getBlockFrom($block, $parent_block=null, $classname=''){
 		if(is_object($block)){
 			if(is_a($block, 'Core_Block_Abstract')){
