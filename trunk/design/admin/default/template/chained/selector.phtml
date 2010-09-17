@@ -1,0 +1,82 @@
+<?php 
+if(!$this->hasEntityToList()||!$this->getEntityToList()){?> 
+	error, no hay entidad para el control <?php print get_class($this); ?><?
+	return;
+}
+	$im_child = $this->getParentBlock() instanceof Admin_Block_Selector;
+	$has_childs = $this->countChildren();
+	if(!$im_child)
+		echo '<div class="chained_control c'.$this->getControlId().'" data-reload="'.htmlentities($this->getUrl(Admin_Chained_Helper::getInstance()->getUrlChainControl($this))).'">';
+	else
+		echo '<div class="chained_child">';
+
+	if(!$this->getChild('chained') instanceof Admin_Chained_Block_Abstract){
+		echo '<div class="chained_child">';
+		echo $this->getChildHtml();
+		echo '</div>'; 
+	}
+	else{
+		echo $this->getChildHtml();
+	}
+	
+	if($has_childs)
+		echo '<div class="chained_parent">';
+	//echo get_class($this);
+	
+	$html_select = '';
+	if($options = $this->createOptions())
+		foreach($options as $option)
+			$html_select .= $option->getHtml();
+	
+	$c = $this->getSelectControl();
+	if(!$c->hasClass()){
+		$c->setClass($this->getControlId());
+	}
+	else $c->setClass($this->getControlId().' '.$this->getClass());
+	echo $c
+		->setInnerHtml($html_select)
+		->getHtml()
+	;
+	if($has_childs)
+		echo '</div>';
+
+	if($im_child){
+		echo '</div>';
+		return;
+	}
+?>
+<script>
+	jQuery(document).ready(function(){
+		jQuery('<?php print '.c'.$this->getControlId(); ?> .chained_child select').change(function(){
+			var start_clear = false;
+			var that = this;
+			//window.console.log(jQuery(this).parents('.chained_control:first'));
+			var selected_values = [];
+			var jqcontrol = jQuery(this).parents('.chained_control:first');
+			jqcontrol.find('select').each(function(){
+				if(!start_clear){
+					selected_values.push(this.value);
+					if(this==that){
+						start_clear = true;
+						return;
+					}
+				}	
+				jQuery(this).html('<option>cargando...</option>');
+			});
+			var url_reload = jqcontrol.attr('data-reload');
+			if(!url_reload){
+				return;
+			}
+			var name = jqcontrol.find('select:last').attr('name');
+			jQuery.post(
+				url_reload,
+				{chain_options: selected_values,name:name},
+				function(data){
+					jqcontrol.html(data);
+				}
+			);
+		});
+	});
+</script>
+<?php echo '</div>'; ?>
+<?return;?> 

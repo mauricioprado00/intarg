@@ -50,22 +50,47 @@ $more_params = array(
 
 
 ?>
-<div id="<?=$table_container_id?>">
+<div id="<?=$table_container_id?>" class="jqgrid_container">
 <table id="<?=$table_id?>" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="<?=$pager_id?>" class="scroll" style="text-align:center;"></div>
 </div>
-<div id="<?=$button_container?>">
+<div id="<?=$button_container?>" class="jqgrid_controles_personalizados">
 <?
 foreach($this->getButtons() as $button){
+	$control = Core::getObject('Core_Html_Tag_Custom', 'input')
+		->setType('button')
+		->setData('_require_selection', $button->getRequireSelection())
+		->setClass('boton_custom special')
+		->setValue($button->getTitulo());
+		//->getHtml()
+	if($button->hasActionUrl())
+		$control->setActionUrl($button->getActionUrl());
+	if($button->hasActionJs())
+		$control->setActionJs($button->getActionJs());
+	echo $control->getHtml();
+	{/** /
+	continue; 
 	$action_url = $button->hasActionUrl()?' action_url="'.htmlentities($button->getActionUrl()).'"':'';
-	$action_js = $button->hasActionJs()?' action_js="'.htmlentities($button->getActionJs()).'"':'';?> 
+	$action_js = $button->hasActionJs()?' action_js="'.htmlentities($button->getActionJs()).'"':'';
+	?> 
 	<input type="BUTTON" _require_selection="<?=$button->getRequireSelection()?>" class="boton_custom" value="<?=$button->getTitulo()?>" <?=$action_url.$action_js?> /><?
+	/**/}
 } 
-if($this->hasToolbarEditUrl()&&count($this->getToolbarEditUrl())==2){?> 
-	<input type="BUTTON" id="editar_seleccionado" value="Editar" /><?
+if($this->hasToolbarEditUrl()&&count($this->getToolbarEditUrl())==2){
+	echo Core::getObject('Core_Html_Tag_Custom', 'input')
+		->setId('editar_seleccionado')
+		->setType('button')
+		->setValue('Editar')
+		->getHtml();
+	/** /?><input type="BUTTON" id="editar_seleccionado" value="Editar" /><?/**/
 }
-if($this->hasToolbarDeleteUrl()&&count($this->getToolbarDeleteUrl())==2){?> 
-	<input type="BUTTON" id="eliminar_seleccionado" value="Eliminar" /><?
+if($this->hasToolbarDeleteUrl()&&count($this->getToolbarDeleteUrl())==2){
+	echo Core::getObject('Core_Html_Tag_Custom', 'input')
+		->setId('eliminar_seleccionado')
+		->setType('button')
+		->setValue('Eliminar')
+		->getHtml();
+	/** /?><input type="BUTTON" id="eliminar_seleccionado" value="Eliminar" /><?/**/
 }?> 
 </div>
 <script>
@@ -105,8 +130,10 @@ jQuery(document).ready(function(){
 				var ret = jQuery("#<?=$table_id?>").getRowData(id);
 				HelperUrl().goUrl("<?=$this->getUrl($editdata[0])?>/"+ret.<?=$editdata[1]?>);
 			} else { alert("Seleccione una fila");}
-		})
+		})<?php 
+		if($this->getButtonsInTop()||!$this->hasButtonsInTop()){ ?> 
 		.appendTo('#t_<?=$table_id?>');<?
+		}
 		
 	}?> 
 	<? if($this->hasToolbarDeleteUrl()&&count($this->getToolbarDeleteUrl())==2){
@@ -123,8 +150,10 @@ jQuery(document).ready(function(){
 				//window.console.log(ret);
 				HelperUrl().goUrl("<?=$this->getUrl($deletedata[0])?>/"+ret.<?=$deletedata[1]?>);
 			} else { alert("Seleccione una fila");}
-		})
+		})<?php 
+		if($this->getButtonsInTop()||!$this->hasButtonsInTop()){ ?>
 		.appendTo('#t_<?=$table_id?>');<?
+		}
 	}?> 
 	jQuery("#<?=$button_container?> .boton_custom[action_url]")
 		.unbind('click')
@@ -164,16 +193,17 @@ jQuery(document).ready(function(){
 				HelperUrl().goUrl(new_url);
 				//HelperUrl().goUrl("<?=$this->getUrl($deletedata[0])?>/"+ret.<?=$deletedata[1]?>);
 			} else { alert("Seleccione una fila");}
-		})
-		.appendTo('#t_<?=$table_id?>');
+		})<?php 
+		if($this->getButtonsInTop()||!$this->hasButtonsInTop()){ ?>
+		.appendTo('#t_<?=$table_id?>');<?php 
+		}?> 
 	{jQuery("#<?=$button_container?> .boton_custom[action_js]")
 		.click(function(){
 			eval(jQuery(this).attr('action_js'));
-		})
-		.appendTo('#t_<?=$table_id?>')
+		})<?php 
+		if($this->getButtonsInTop()||!$this->hasButtonsInTop()){ ?>
+		.appendTo('#t_<?=$table_id?>')<?php 
+		}?> 
 	}
 }) 
 </script>
-
-
- 

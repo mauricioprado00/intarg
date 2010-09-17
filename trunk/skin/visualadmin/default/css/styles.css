@@ -204,7 +204,7 @@ form label {
 	padding-left: 0px;
 }
 
-form input.text {
+input.text {
 	width: 35%;
 	border: 1px solid #BFBFBF;
 	font-size: 13px;
@@ -228,16 +228,16 @@ form textarea {
 }
 
 	
-	form input:focus, textarea:focus	{ background-color: #F2F2F2; border: 1px solid #999999;}
+	input:focus, textarea:focus	{ background-color: #F2F2F2; border: 1px solid #999999;}
 	
-form input.text.date 		{ width: 20%;}
-form input.text.medium 		{ width: 65%;}
-form input.text.big			{ width: 95%;}
+input.text.date 		{ width: 20%;}
+input.text.medium 		{ width: 65%;}
+input.text.big			{ width: 95%;}
 
-form input.radio,
-form input.checkbox 		{ vertical-align: middle;}
+input.radio,
+input.checkbox 		{ vertical-align: middle;}
 
-form input.file {
+input.file {
 	width: 250px;
 	height: 20px;
 	background: #fefefe;
@@ -255,9 +255,9 @@ form input.file {
 	}
 
 
-	form input.submit.special	{ background-color: #000000; }
+	input.submit.special	{ background-color: #000000; }
 	
-form input.submit:hover 		{ text-decoration: underline; background-color: #333333;}
+input.submit:hover 		{ text-decoration: underline; background-color: #333333;}
 form .select					{ padding: 2px; margin: 5px 5px 5px 0px;}
 
 /* -----------------------------------

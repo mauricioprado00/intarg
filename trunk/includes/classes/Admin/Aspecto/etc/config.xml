@@ -7,8 +7,12 @@
 		<ajax>Admin_Aspecto_Multimodo.xml</ajax>
 	</layouts>
 	<block>
-		<type>selector_aspecto</type>
+		<type>selector_aspecto_simple</type>
 		<class>Admin_Aspecto_Block_Selector</class>
+	</block>
+	<block>
+		<type>selector_aspecto</type>
+		<class>Admin_Aspecto_Block_Selector_ChainedTipoAspecto</class>
 	</block>
 	<routers>
 		<Admin_Aspecto_Router>administrator/aspecto</Admin_Aspecto_Router>

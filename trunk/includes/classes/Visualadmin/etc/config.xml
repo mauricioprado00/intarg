@@ -6,4 +6,7 @@
 	<rewrite>
 		<Core_Html_Tag_Custom>Visualadmin_Html_Tag</Core_Html_Tag_Custom>
 	</rewrite>
+	<layouts>
+		<ajax>Visualadmin_ajax.xml</ajax>
+	</layouts>
 </global>

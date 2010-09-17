@@ -1,0 +1,42 @@
+.jqgrid_container table{
+	margin:0;
+}
+.jqgrid_container .navtable td{
+	padding:0;
+}
+.jqgrid_container .grid_hdiv{
+	overflow:visible!important;
+}
+.jqgrid_container .loadingui{
+	display:none;
+}
+.jqgrid_container .grid_htable>thead>tr>th>span{
+	display:none;
+}
+.jqgrid_container .grid_hdiv{
+	position:relative;
+}
+.jqgrid_container .loading{
+	background-color:red;
+	border:1px solid black;
+	color:white;
+	font-size:12px;
+	font-weight:bold;
+	left:2px;
+	padding:0 5px;
+	position:absolute;
+	top:38px;
+}
+.jqgrid_container .grid_bdiv>table>tbody>tr{
+	cursor:pointer;
+}
+.jqgrid_container .grid_bdiv>table>tbody>tr.alt{
+	background-color:#FBFBFB;
+}
+
+.jqgrid_container .grid_bdiv>table>tbody>tr:hover{
+	background-color:#DBDBDB;
+}
+.jqgrid_container .grid_bdiv>table>tbody>tr.selected{
+	background-color:#DBDBBB;
+}
