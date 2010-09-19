@@ -1,4 +1,8 @@
 <?
+/**
+ *@referencia Objetivo(id_objetivo) Inta_Model_Objetivo(id)
+ *@referencia Audiencia(id_audiencia) Inta_Model_Audiencia(id)
+*/
 class Inta_Model_Problema extends Core_Model_Abstract{
 	public function init(){
 		parent::init();

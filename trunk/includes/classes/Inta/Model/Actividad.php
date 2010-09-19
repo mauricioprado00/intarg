@@ -1,10 +1,8 @@
 <?php
 
 /**
- * Description of Actividad
- *
- * @author mati
- */
+ *@referencia Responsable(id_responsable) Inta_Model_Usuario(id)
+*/
 class Inta_Model_Actividad extends Core_Model_Abstract{
     public function init(){
         parent::init();

@@ -14,7 +14,8 @@ $x = $this->getObjectToEdit();
 	<fieldset>
 		<div>
 				<div class="indicadores_resultado"><?
-					if(!($indicadores = $x->getIndicadores())){
+					//if(!($indicadores = $x->getIndicadores())){
+					if(!($indicadores = $x->getListIndicador())){
 						echo '<div class="fila">'.$fila_indicador.'</div>';
 					}
 					else{

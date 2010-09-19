@@ -1,4 +1,8 @@
 <?
+/**
+ *@referencia Actividad(id_actividad) Inta_Model_Actividad(id)
+ *@referencia ResultadoEsperado(id_resultado_esperado) Inta_Model_ResultadoEsperado(id)
+*/
 class Inta_Model_ResultadoEsperadoActividad extends Core_Model_Abstract{
 	public function init(){
 		parent::init();
@@ -9,32 +13,6 @@ class Inta_Model_ResultadoEsperadoActividad extends Core_Model_Abstract{
 		);
 		foreach($datafields as $datafield)
 			$this->setData($datafield);
-	}
-	private $_actividad = null;
-	public function getActividad(){
-		if(!$this->hasIdActividad()||!($id_actividad = $this->getIdActividad()))
-			return null;
-		if(!isset($this->_actividad)||$this->_actividad->getId()!=$id_actividad){
-			$actividad = new Inta_Model_Actividad();
-			$actividad->setId($id_actividad);
-			if(!$actividad->load())
-				$actividad = null;
-			$this->_actividad = $actividad;
-		}
-		return $this->_actividad;
-	}
-	private $_resultado_esperado = null;
-	public function getResultadoEsperado(){
-		if(!$this->hasIdResultadoEsperado()||!($id_resultado_esperado = $this->getIdResultadoEsperado()))
-			return null;
-		if(!isset($this->_resultado_esperado)||$this->_resultado_esperado->getId()!=$id_resultado_esperado){
-			$resultado_esperado = new Inta_Model_ResultadoEsperado();
-			$resultado_esperado->setId($id_resultado_esperado);
-			if(!$resultado_esperado->load())
-				$resultado_esperado = null;
-			$this->_resultado_esperado = $resultado_esperado;
-		}
-		return $this->_resultado_esperado;
 	}
 	public function getNombre(){
 		if($this->getResultadoEsperado()){
@@ -48,4 +26,31 @@ class Inta_Model_ResultadoEsperadoActividad extends Core_Model_Abstract{
 		return 'inta_resultado_esperado_actividad';
 	}
 }
+//	private $_actividad = null;
+//	public function getActividad(){
+//		if(!$this->hasIdActividad()||!($id_actividad = $this->getIdActividad()))
+//			return null;
+//		if(!isset($this->_actividad)||$this->_actividad->getId()!=$id_actividad){
+//			$actividad = new Inta_Model_Actividad();
+//			$actividad->setId($id_actividad);
+//			if(!$actividad->load())
+//				$actividad = null;
+//			$this->_actividad = $actividad;
+//		}
+//		return $this->_actividad;
+//	}
+//	private $_resultado_esperado = null;
+//	public function getResultadoEsperado(){
+//		if(!$this->hasIdResultadoEsperado()||!($id_resultado_esperado = $this->getIdResultadoEsperado()))
+//			return null;
+//		if(!isset($this->_resultado_esperado)||$this->_resultado_esperado->getId()!=$id_resultado_esperado){
+//			$resultado_esperado = new Inta_Model_ResultadoEsperado();
+//			$resultado_esperado->setId($id_resultado_esperado);
+//			if(!$resultado_esperado->load())
+//				$resultado_esperado = null;
+//			$this->_resultado_esperado = $resultado_esperado;
+//		}
+//		return $this->_resultado_esperado;
+//	}
+//
 ?>

@@ -24,6 +24,7 @@
 		<Admin_TipoIndicador/>
 		<Admin_TipoAudiencia/>
 		<Admin_Chained/>
+		<Admin_Pruebas/>
 		<Admin_Config/>
 		<!--</cosas_de_inta>-->
 		<!--<cosas_de_granguia>-->

@@ -118,7 +118,7 @@
 					}
 				//	$packed_js = $content;
 				}
-				echo '	<script type="text/javascript" src="'.$this->getUrl($cache_file_link_url).'"></script>';
+				echo '	<script type="text/javascript" src="'.$this->getUrl($cache_file_link_url).'?'.Core_App::getInstance()->getVersion().'"></script>';
 				$js_scripts = array();
 				$js_seed = array();
 			}

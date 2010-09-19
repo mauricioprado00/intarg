@@ -7,6 +7,15 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 			if(count($items)==1){
 				$items = array_pop($items);
 			}
+			if(is_array($items)){
+				$items = array_values($items);
+				if(is_array($items[0])){
+					foreach($items as &$item){
+						$item = new Core_Object($item);
+					}
+					unset($item);
+				}
+			}
 			$this->setItems($items);
 		}
 	}

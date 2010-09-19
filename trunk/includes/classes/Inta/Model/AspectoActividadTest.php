@@ -1,9 +1,9 @@
 <?
 /**
  *@referencia Actividad(id_actividad) Inta_Model_Actividad(id)
- *@referencia Aspecto(id_aspecto) Inta_Model_Aspecto(id)
+ *@referencia     Otracosa   (   id_aspecto  )   Inta_Model_Aspecto   (   id   )   
 */
-class Inta_Model_AspectoActividad extends Core_Model_Abstract{
+class Inta_Model_AspectoActividadTest extends Core_Model_Abstract{
 	public function init(){
 		parent::init();
 		$datafields = array(
@@ -15,19 +15,6 @@ class Inta_Model_AspectoActividad extends Core_Model_Abstract{
 		foreach($datafields as $datafield)
 			$this->setData($datafield);
 	}
-	public function getNombreCompuesto(){
-		$nombre = $this->getNombreExtendido();
-		if($aspecto = $this->getAspecto()){
-			$nombre .= ' - '.$aspecto->getNombre();
-		}
-		return $nombre;
-	}
-
-	public function getDbTableName() 
-	{
-		return 'inta_aspecto_actividad';
-	}
-}
 //	private $_actividad = null;
 //	public function getActividad(){
 //		if(!$this->hasIdActividad()||!($id_actividad = $this->getIdActividad()))
@@ -54,5 +41,17 @@ class Inta_Model_AspectoActividad extends Core_Model_Abstract{
 //		}
 //		return $this->_aspecto;
 //	}
-//
+	public function getNombreCompuesto(){
+		$nombre = $this->getNombreExtendido();
+		if($aspecto = $this->getAspecto()){
+			$nombre .= ' - '.$aspecto->getNombre();
+		}
+		return $nombre;
+	}
+
+	public function getDbTableName() 
+	{
+		return 'inta_aspecto_actividad';
+	}
+}
 ?>
