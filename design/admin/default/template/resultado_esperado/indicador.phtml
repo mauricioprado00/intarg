@@ -20,14 +20,24 @@ $x = $this->getObjectToEdit();
 		;
 	}
 	else echo " - Error: no se pudo cargar el indicador (".__FILE__.'/'.__LINE__.")";
-	
+	//var_dump(get_class($x));
+	//if($x->getMediosVerificacion()){
+//		var_dump($x->getMediosVerificacion());
+//		var_dump(Inta_Db::getInstance()->getLastQuery());
+//		var_dump($medio_verificacions = $x->getListMedioVerificacion());
+//		$medio_verificacions = $x->getListMedioVerificacion();
+//		$medio_verificacions = $x->getListMedioVerificacion();
+//		$medio_verificacions = $x->getListMedioVerificacion();
+//		die(__FILE__.__LINE__);
+	//}
 	?> 
 	<div class="indicador_resultado_toolbox">
 		<div class="btn_eliminar btn_eliminar_indicador" title="Eliminar Indicador"></div>
 		<div class="btn_editar btn_editar_indicador" title="Editar Indicador"></div>
 		<div class="btn_agregar_certificacion btn_agregar_medio_verificacion" title="Agregar Medio de Verificacion"></div>
 	</div><?php
-	if($medio_verificacions = $x->getMediosVerificacion()){
+	//if($medio_verificacions = $x->getMediosVerificacion()){
+	if($medio_verificacions = $x->getListMedioVerificacion()){	
 		echo '<br /><ul class="medios_verificacion_indicador_resultado">';
 		$block_vista_medio_verificacion_indicador_resultado = $this->getChild('ver_medio_verificacion_indicador_resultado_esperado');
 		foreach($medio_verificacions as $medio_verificacion_indicador_resultado){

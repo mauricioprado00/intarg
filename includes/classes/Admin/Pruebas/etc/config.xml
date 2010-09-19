@@ -1,0 +1,13 @@
+<global>
+	<!--
+	<layouts>
+		<admin>Admin_Actividad.xml</admin>
+		<admin>Admin_Actividad_Multimodo.xml</admin>
+		<ajax>Admin_Actividad_Multimodo.xml</ajax>
+	</layouts>
+	-->
+	<routers>
+		<Admin_Pruebas_Router>pruebas</Admin_Pruebas_Router>
+		<Admin_Pruebas_Router_Reflection>pruebas/reflection</Admin_Pruebas_Router_Reflection>
+	</routers>
+</global>

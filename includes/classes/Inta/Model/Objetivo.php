@@ -1,4 +1,7 @@
 <?
+/**
+ *@referencia Agencia(id_agencia) Inta_Model_Agencia(id)
+*/
 class Inta_Model_Objetivo extends Core_Model_Abstract{
 	public function init(){
 		parent::init();

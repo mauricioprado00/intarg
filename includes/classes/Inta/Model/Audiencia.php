@@ -1,4 +1,8 @@
 <?
+/**
+ *@referencia TipoAudiencia(id_tipo_audiencia) Inta_Model_TipoAudiencia(id)
+ *@referencia Agencia(id_agencia) Inta_Model_Agencia(id)
+*/
 class Inta_Model_Audiencia extends Core_Model_Abstract{
 	public function init(){
 		parent::init();

@@ -62,7 +62,7 @@ $x = $this->getObjectToEdit();
 					;
 					$fila_indicador .= '<div class="btn_eliminar"></div>';
 
-					if(!($indicadores = $x->getIndicadores())){
+					if(!($indicadores = $x->getListIndicador())){
 						
 						echo '<div class="fila">'.$fila_indicador.'</div>';
 					}

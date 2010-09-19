@@ -5,7 +5,7 @@
  * Varien Object
  *
  * @category   Varien
- * @package    Varien_Object
+ * @package    Core_Object
  * @author      Magento Core Team <core@magentocommerce.com>
  */
 class Core_Object
@@ -94,7 +94,7 @@ class Core_Object
      * set name of object id field
      *
      * @param   string $name
-     * @return  Varien_Object
+     * @return  Core_Object
      */
     public function setIdFieldName($name)
     {
@@ -105,8 +105,7 @@ class Core_Object
     /**
      * Retrieve name of object id field
      *
-     * @param   string $name
-     * @return  Varien_Object
+     * @return  Core_Object
      */
     public function getIdFieldName()
     {
@@ -130,7 +129,7 @@ class Core_Object
      * Set object id field value
      *
      * @param   mixed $value
-     * @return  Varien_Object
+     * @return  Core_Object
      */
     public function setId($value)
     {
@@ -149,7 +148,7 @@ class Core_Object
      * Retains previous data in the object.
      *
      * @param array $arr
-     * @return Varien_Object
+     * @return Core_Object
      */
     public function addData(array $arr)
     {
@@ -172,7 +171,7 @@ class Core_Object
      * @param string|array $key
      * @param mixed $value
      * @param boolean $isChanged
-     * @return Varien_Object
+     * @return Core_Object
      */
     private $__array_boolean_vars = array();/*esto es para soporte de tipos de datos cargados desde los atributos xml*/
     private $__array_array_vars = array();
@@ -220,8 +219,7 @@ class Core_Object
      * $isChanged will specify if the object needs to be saved after an update.
      *
      * @param string $key
-     * @param boolean $isChanged
-     * @return Varien_Object
+     * @return Core_Object
      */
     public function unsetData($key=null)
     {
@@ -243,12 +241,9 @@ class Core_Object
 	private $_fields_filters_input = array();
   /**
    * Core_Object::addAutofilterFieldOutput()
-   *
-   * @param mixed $key
+   * puede tener muchos parametros 
+   * @param mixed $key addAutofilterFieldOutput($key, $filter, $parametro1, $parametro2, $parametro3, ...)
    * @param mixed $filter
-   * @param mixed $parametro1
-   * @param mixed $parametro2
-   * @param mixed ...
    * @return
    */
 	public function addAutofilterFieldOutput($key, $filter){
@@ -312,7 +307,6 @@ class Core_Object
    *
    * @param mixed $key
    * @param mixed $filter
-   * @return
    * example: 	$obj->addAutofilterFieldOutput('orden', array(__CLASS__, 'filterOrden'));
    * 			$obj->addAutofilterFieldOutput('orden', __CLASS__.'::filterOrden'));
    * 			$obj->addAutofilterFieldOutput('orden', 'utf8_encode'));
@@ -346,7 +340,6 @@ class Core_Object
    *
    * @param mixed $key
    * @param mixed $filter
-   * @return
    * example: 	$obj->addAutofilterFieldInput('orden', array(__CLASS__, 'filterOrden'));
    * 			$obj->addAutofilterFieldInput('orden', __CLASS__.'::filterOrden'));
    * 			$obj->addAutofilterFieldInput('orden', 'utf8_encode'));
@@ -455,7 +448,7 @@ class Core_Object
                         return $default;
                     }
                     $data = $data[$k];
-                } elseif ($data instanceof Varien_Object) {
+                } elseif ($data instanceof Core_Object) {
                     $data = $data->getData($k);
                 } else {
                     return $default;
@@ -492,7 +485,7 @@ class Core_Object
                 if(isset($filter))
                 	$val = isset($val)?$this->_filter($val, $index, $filter):null;
                 return $val;
-            } elseif ($value instanceof Varien_Object) {
+            } elseif ($value instanceof Core_Object) {
                 return $value->getData($index, null, $filter);
             }
             return $default;
@@ -619,6 +612,8 @@ class Core_Object
      *
      * @param  array $arrAttributes array of required attributes
      * @param string $rootName name of the root element
+     * @param boolean $addOpenTag
+     * @param boolean $addCdata
      * @return string
      */
     protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
@@ -651,6 +646,8 @@ class Core_Object
      *
      * @param array $arrAttributes
      * @param string $rootName
+     * @param boolean $addOpenTag
+     * @param boolean $addCdata
      * @return string
      */
     public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
@@ -915,7 +912,7 @@ class Core_Object
      *
      * @param string $key
      * @param mixed $data
-     * @return Varien_Object
+     * @return Core_Object
      */
     public function setOrigData($key=null, $data=null)
     {
@@ -962,7 +959,7 @@ class Core_Object
      *
      * @param string $field
      * @param boolean $flag
-     * @return Varien_Object
+     * @return Core_Object
      */
     public function flagDirty($field, $flag=true)
     {
@@ -1006,7 +1003,7 @@ class Core_Object
                 $debug[$key] = $value;
             } elseif (is_array($value)) {
                 $debug[$key] = $this->debug($value, $objects);
-            } elseif ($value instanceof Varien_Object) {
+            } elseif ($value instanceof Core_Object) {
                 $debug[$key.' ('.get_class($value).')'] = $value->debug(null, $objects);
             }
         }

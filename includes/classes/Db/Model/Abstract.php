@@ -67,6 +67,7 @@ abstract class Db_Model_Abstract extends Core_Object{
 		$l = $this->search();
 		if($l && count($l) && (!$only_if_unique || ($only_if_unique&&count($l)==1))){
 			$this->loadFromArray($l[0]->getData());
+			$this->resetWhere();
 			return(true);
 		}
 		$this->resetData();
@@ -267,5 +268,193 @@ abstract class Db_Model_Abstract extends Core_Object{
 	protected function translateError($error){
 		return $error->getCode().'- '.$error->getDescription();
 	}
+	private static $_relation_data = array();
+	private function getClassRelationsData($class=null){
+		if(!isset($class))
+			$class = get_class($this);
+		if(!isset(self::$_relation_data[$class])){
+			$reflection = new Zend_Server_Reflection();
+			$relation_data = array();
+			if($doc_comment = $reflection->reflectClass($class)->getDocComment()){
+				$re = '/@referencia\s+(?P<relation>[A-Za-z0-9_]+)\s*\(\s*(?P<fk>[A-Za-z0-9_]+)\s*\)\s+(?P<class>[A-Za-z0-9_]+)\s*\(\s*(?P<pk>[A-Za-z0-9_]+)\s*\)/';
+				if(preg_match_all($re, $doc_comment, $matches)){
+					foreach($matches[0] as $idx=>$match){
+						$relation_data[$relation = $matches['relation'][$idx]] = array(
+							'relation'=>$relation,
+							'fk'=>$matches['fk'][$idx],
+							'class'=>$matches['class'][$idx],
+							'pk'=>$matches['pk'][$idx],
+						);
+					}
+					//var_dump($matches);
+				}
+				//var_dump($relation_data);
+			}
+			self::$_relation_data[$class] = $relation_data;
+		}
+		return self::$_relation_data[$class];
+	}
+	private function hasClassRelation($relation){
+		if($data = $this->getClassRelationsData()){
+			return isset($data[$relation]);
+		}
+		return false;
+	}
+	private function getClassRelation($relation){
+		if($data = $this->getClassRelationsData()){
+			if(isset($data[$relation])){
+				//var_dump($data[$relation]);
+				$related_object = $this->getRelatedObject(
+					$data[$relation]['relation'],
+					$data[$relation]['fk'],
+					$data[$relation]['class'],
+					$data[$relation]['pk']
+				);
+				return $related_object;
+//				var_dump($related_object);
+//				die(__FILE__.__LINE__);
+			}
+		}
+		return null;
+	}
+	private $_related_objects = array();
+	private function getRelatedObject($relation, $fk, $class, $pk){
+		if(!$this->hasData($fk)||!($fk_value = $this->getData($fk)))
+			return null;
+		if(!isset($this->_related_objects[$relation])||$this->_related_objects[$relation]->getData($pk)!=$fk_value){
+//		echo "buscando\n";
+//		var_dump($relation, $fk, $class, $pk);
+			$object = new $class();
+			$object->setData($pk, $fk_value);
+			if(!$object->load())
+				$object = null;
+//			var_dump(Inta_Db::getInstance()->getLastQuery());
+//			var_dump(get_class($object));
+			
+			$this->_related_objects[$relation] = $object;
+		}
+		return $this->_related_objects[$relation];
+	}
+	private static $_list_type_data = array();
+	private function _getListTypeData($list_type){
+		$class = get_class($this);
+		if(!isset(self::$_list_type_data[$class])){
+			$reflection = new Zend_Server_Reflection();
+			$list_type_data = array();
+			if($doc_comment = $reflection->reflectClass($class)->getDocComment()){
+				$re = '/@listar\s+(?P<list_type>[A-Za-z0-9_]+)\s+(?P<class>[A-Za-z0-9_]+)/';
+				$re = '/@listar\s+(?P<list_type>[A-Za-z0-9_]+)(\s*\(\s*(?P<pk>[A-Za-z0-9_]+)\s*\))?\s+(?P<class>[A-Za-z0-9_]+)(\s*\(\s*(?P<fk>[A-Za-z0-9_]+)\s*\))?/';
+				if(preg_match_all($re, $doc_comment, $matches)){
+					foreach($matches[0] as $idx=>$match){
+						$data = array(
+							'list_type'=>$list_type,
+							'fk'=>$matches['fk'][$idx],
+							'class'=>$matches['class'][$idx],
+							'pk'=>$matches['pk'][$idx],
+						);
+						if(!class_exists($data['class']))
+							continue;
+						if(empty($data['pk'])||empty($data['fk'])){
+							//Intento completar la información faltante con la información de la clase que referencia a la actual
+							if($other_data = $this->getClassRelationsData($data['class'])){
+//								var_dump($other_data);
+								$col = new Core_Collection($other_data);
+								$filcol = $col->addFilterEq('class', get_class($this));
+								if(!count($filcol))
+									continue;
+								$item = $filcol->getFirst()->getData();
+								if(empty($data['pk']))
+									$data['pk'] = $item['pk'];
+								if(empty($data['fk']))
+									$data['fk'] = $item['fk'];
+//								var_dump($item);
+								//die(__FILE__.__LINE__);
+							}
+							else continue;
+						}
+						$list_type_data[$list_type = $matches['list_type'][$idx]] = $data;
+					}
+					//var_dump($matches);
+				}
+				//var_dump($list_type_data);
+			}
+			self::$_list_type_data[$class] = $list_type_data;
+		}
+		return self::$_list_type_data[$class];
+	}
+	private function _hasListType($list_type){
+		if($data = $this->_getListTypeData($list_type)){
+			return isset($data[$list_type]);
+		}
+		return false;
+	}
+	private function _getListType($list_type){
+		if($data = $this->_getListTypeData($list_type)){
+			//return isset($data[$list_type]);
+			if(isset($data[$list_type])){
+//				var_dump($data[$list_type]);
+				return $this->_getListTypeObjects(
+					$data[$list_type]['list_type'], 
+					$data[$list_type]['fk'], 
+					$data[$list_type]['class'], 
+					$data[$list_type]['pk']
+				);
+				//die("aca".__FILE__.__LINE__);
+			}
+		}
+		return null;
+	}
+	private $_list_type_objects = array();
+	public function _getListTypeObjects($list_type, $fk, $class, $pk){
+		if(!$this->hasData($pk)||!$this->getData($pk))
+			return null;
+		if(!isset($this->_list_type_objects[$list_type])){
+			$o = new $class();
+			$o
+				->setData($fk, $this->getData($pk))
+				->setWhere(Db_Helper::equal($fk))
+			;
+//			var_dump(Inta_Db::getInstance()->getLastQuery());
+//
+			if($listado = $o->search(null, null, null, null, get_class($o))){
+				$this->_list_type_objects[$list_type] = $listado;
+			}
+//			var_dump($listado);
+//						die("aca".__FILE__.__LINE__);
+		}
+		return $this->_list_type_objects[$list_type];
+	}
+
+	
+    public function __call($method, $args)
+    {
+    	switch (substr($method, 0, 3)) {
+            case 'get' :
+            	if(strpos($method, 'getList')===0&& $this->_hasListType($list_type = substr($method, 7))){
+            		$listado = $this->_getListType($list_type);
+            		return $listado;
+//            		var_dump($listado);
+//					die("aca".__FILE__.__LINE__);
+				}
+            	elseif($this->hasClassRelation($relation = substr($method, 3))){
+//            		echo "\n";
+            		$related_object = $this->getClassRelation($relation);
+//	            	if($related_object)
+//	            		echo "encontrado \n";
+//	            	else echo "no encontrado \n";
+//	            	var_dump($method);
+					return $related_object;
+	            	//die(__FILE__.__LINE__);
+	            }
+                //Varien_Profiler::start('GETTER: '.get_class($this).'::'.$method);
+//                $key = $this->_underscore(substr($method,3));
+//                $data = $this->getData($key, isset($args[0]) ? $args[0] : null);
+//                //Varien_Profiler::stop('GETTER: '.get_class($this).'::'.$method);
+//                return $data;
+        }
+    	return parent::__call($method, $args);
+    	die("ok".$method);
+    }
+
 }
 ?>

@@ -1,10 +1,7 @@
 <?php
-
 /**
- * Description of Usuario
- *
- * @author mati
- */
+ *@referencia Agencia(id_agencia) Inta_Model_Agencia(id)
+*/
 class Inta_Model_Usuario extends Core_Model_Abstract{
     public function init(){
         parent::init();
