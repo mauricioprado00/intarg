@@ -23,13 +23,16 @@ class Admin_Pruebas_Router_Reflection extends Core_Router_Abstract{
 	//Zend_Server_Reflection_Method
 	//Zend_Server_Reflection_Prototype
 	public function TestRelation(){
-		$x = new Inta_Model_AspectoActividadTest();
+		Core_Http_Header::ContentType('text/plain');
+		$x = new Inta_Model_AspectoActividadTestInherit();
 		$rels = $x->search(null, 'ASC', null, 0, get_class($x));
 		foreach($rels as $rel){
 			//var_dump(get_class($rel));
 			$actividad = $rel->getActividad();
 			var_dump(get_class($actividad));
 			$aspecto = $rel->getOtracosa();
+			var_dump(get_class($aspecto));
+			$aspecto = $rel->getAlgomas();
 			var_dump(get_class($aspecto));
 		}
 //		$x->setId(1);

@@ -51,9 +51,11 @@ function newHelperUrl(){
 		},
 		getReturn: function(url){
 			var that = this;
+			jQuery('<div class="loading_url"></div>').ScreenBlock();
 			jQuery.get(
 				url,
 				function(data){
+					jQuery.ScreenBlock(false);
 					if(this.replaceWith)
 						jQuery(that.jqs_contenedor).html("").replaceWith(data);
 					else jQuery(that.jqs_contenedor).html("").replaceWith(data);

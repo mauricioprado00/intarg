@@ -363,3 +363,8 @@ margin:0 5px;
 	width:16px;
 	height:16px;
 }
+.loading_url{
+	background-image:url(../img/loading.gif);
+	height:45px;
+	width:128px;
+}
