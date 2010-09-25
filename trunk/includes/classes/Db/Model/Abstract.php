@@ -269,12 +269,18 @@ abstract class Db_Model_Abstract extends Core_Object{
 		return $error->getCode().'- '.$error->getDescription();
 	}
 	private static $_relation_data = array();
-	private function getClassRelationsData($class=null){
+	private function _getClassRelationsData($class=null){
 		if(!isset($class))
 			$class = get_class($this);
 		if(!isset(self::$_relation_data[$class])){
+			$parent_class = get_parent_class($class);
+			if($parent_class!='Core_Model_Abstract'){
+				$relation_data = $this->_getClassRelationsData($parent_class);//herencia de informacion
+			}
+			else $relation_data = array();
+			
 			$reflection = new Zend_Server_Reflection();
-			$relation_data = array();
+			
 			if($doc_comment = $reflection->reflectClass($class)->getDocComment()){
 				$re = '/@referencia\s+(?P<relation>[A-Za-z0-9_]+)\s*\(\s*(?P<fk>[A-Za-z0-9_]+)\s*\)\s+(?P<class>[A-Za-z0-9_]+)\s*\(\s*(?P<pk>[A-Za-z0-9_]+)\s*\)/';
 				if(preg_match_all($re, $doc_comment, $matches)){
@@ -294,17 +300,17 @@ abstract class Db_Model_Abstract extends Core_Object{
 		}
 		return self::$_relation_data[$class];
 	}
-	private function hasClassRelation($relation){
-		if($data = $this->getClassRelationsData()){
+	private function _hasClassRelation($relation){
+		if($data = $this->_getClassRelationsData()){
 			return isset($data[$relation]);
 		}
 		return false;
 	}
-	private function getClassRelation($relation){
-		if($data = $this->getClassRelationsData()){
+	private function _getClassRelation($relation){
+		if($data = $this->_getClassRelationsData()){
 			if(isset($data[$relation])){
 				//var_dump($data[$relation]);
-				$related_object = $this->getRelatedObject(
+				$related_object = $this->_getRelatedObject(
 					$data[$relation]['relation'],
 					$data[$relation]['fk'],
 					$data[$relation]['class'],
@@ -318,7 +324,7 @@ abstract class Db_Model_Abstract extends Core_Object{
 		return null;
 	}
 	private $_related_objects = array();
-	private function getRelatedObject($relation, $fk, $class, $pk){
+	private function _getRelatedObject($relation, $fk, $class, $pk){
 		if(!$this->hasData($fk)||!($fk_value = $this->getData($fk)))
 			return null;
 		if(!isset($this->_related_objects[$relation])||$this->_related_objects[$relation]->getData($pk)!=$fk_value){
@@ -339,8 +345,14 @@ abstract class Db_Model_Abstract extends Core_Object{
 	private function _getListTypeData($list_type){
 		$class = get_class($this);
 		if(!isset(self::$_list_type_data[$class])){
+			$parent_class = get_parent_class($class);
+			if($parent_class!='Core_Model_Abstract'){
+				$list_type_data = $this->_getListTypeData($parent_class);//herencia de informacion
+			}
+			else $list_type_data = array();
+
+			//$list_type_data = array();
 			$reflection = new Zend_Server_Reflection();
-			$list_type_data = array();
 			if($doc_comment = $reflection->reflectClass($class)->getDocComment()){
 				$re = '/@listar\s+(?P<list_type>[A-Za-z0-9_]+)\s+(?P<class>[A-Za-z0-9_]+)/';
 				$re = '/@listar\s+(?P<list_type>[A-Za-z0-9_]+)(\s*\(\s*(?P<pk>[A-Za-z0-9_]+)\s*\))?\s+(?P<class>[A-Za-z0-9_]+)(\s*\(\s*(?P<fk>[A-Za-z0-9_]+)\s*\))?/';
@@ -356,7 +368,7 @@ abstract class Db_Model_Abstract extends Core_Object{
 							continue;
 						if(empty($data['pk'])||empty($data['fk'])){
 							//Intento completar la información faltante con la información de la clase que referencia a la actual
-							if($other_data = $this->getClassRelationsData($data['class'])){
+							if($other_data = $this->_getClassRelationsData($data['class'])){
 //								var_dump($other_data);
 								$col = new Core_Collection($other_data);
 								$filcol = $col->addFilterEq('class', get_class($this));
@@ -436,9 +448,9 @@ abstract class Db_Model_Abstract extends Core_Object{
 //            		var_dump($listado);
 //					die("aca".__FILE__.__LINE__);
 				}
-            	elseif($this->hasClassRelation($relation = substr($method, 3))){
+            	elseif($this->_hasClassRelation($relation = substr($method, 3))){
 //            		echo "\n";
-            		$related_object = $this->getClassRelation($relation);
+            		$related_object = $this->_getClassRelation($relation);
 //	            	if($related_object)
 //	            		echo "encontrado \n";
 //	            	else echo "no encontrado \n";

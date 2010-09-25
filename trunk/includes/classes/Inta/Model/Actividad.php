@@ -2,6 +2,7 @@
 
 /**
  *@referencia Responsable(id_responsable) Inta_Model_Usuario(id)
+ *@listar Audiencia Inta_Model_AudienciaActividad
 */
 class Inta_Model_Actividad extends Core_Model_Abstract{
     public function init(){
@@ -14,6 +15,8 @@ class Inta_Model_Actividad extends Core_Model_Abstract{
             'porcentaje_cumplimiento',
             'porcentaje_tiempo',
             'presupuesto_estimado',
+            'fecha_inicio',
+            'fecha_fin',
             'mes_enero',
             'mes_febrero',
             'mes_marzo',
@@ -33,6 +36,10 @@ class Inta_Model_Actividad extends Core_Model_Abstract{
         );
         foreach($datafields as $datafield)
             $this->setData($datafield);
+		$this->addAutofilterFieldInput('fecha_inicio', array('Mysql_Helper','filterDateInput'));
+		$this->addAutofilterFieldInput('fecha_fin', array('Mysql_Helper','filterDateInput'));
+		$this->addAutofilterFieldOutput('fecha_inicio', array('Mysql_Helper','filterDateOutput'));
+		$this->addAutofilterFieldOutput('fecha_fin', array('Mysql_Helper','filterDateOutput'));
     }
     public function getDbTableName()
     {
