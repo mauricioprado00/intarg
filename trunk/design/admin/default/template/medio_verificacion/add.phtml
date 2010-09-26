@@ -8,7 +8,11 @@ $x = $this->getObjectToEdit();
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="medio_verificacion[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> MedioVerificacion</legend>
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo MedioVerificacion');
+	else:
+		echo $this->__t('Editar MedioVerificacions');
+	endif;?></legend>
 	<fieldset>
 		<h3>Informacion de MedioVerificacion</h3>
 		<div>
@@ -35,6 +39,9 @@ $x = $this->getObjectToEdit();
 						->getSelectControl()
 							->setName('medio_verificacion[id_indicador]')
 							->setId('id_indicador')
+							->setData('data-campo', '<b>Indicador</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
 					)
 					->toHtml()
 				;

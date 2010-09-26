@@ -11,7 +11,7 @@ class Admin_TipoPunto_Helper extends Core_Singleton{
 			$resultado = $tipo_punto->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('TipoPunto añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoPunto añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la TipoPunto, error en la operación");
@@ -21,7 +21,7 @@ class Admin_TipoPunto_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $tipo_punto->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('TipoPunto actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoPunto actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la TipoPunto, error en la operación");
@@ -31,10 +31,10 @@ class Admin_TipoPunto_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarTipoPunto($id_tipo_punto){
 		if(self::eliminarTipoPunto($id_tipo_punto)){
-			Admin_App::getInstance()->addSuccessMessage('TipoPunto Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoPunto Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la TipoPunto');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la TipoPunto'));
 		}
 	}
 	public static function eliminarTipoPunto($id_tipo_punto){

@@ -13,16 +13,17 @@
 			<div class="links_top">
 				<a><?php
 					$user = Admin_User_Model_User::getLogedUser();
-					print "Bienvenido ".$user->getNombre();
+					//print "Bienvenido ".$user->getNombre();
+					print $this->__t('Bienvenido {!nombre}', $user->getData());
 					?></a><hr />
-				<a href="<?php print '#user/addEdit/'.Admin_User_Model_User::getLogedUser()->getId(); ?>">Mi cuenta</a><br />
+				<a href="<?php print '#user/addEdit/'.Admin_User_Model_User::getLogedUser()->getId(); ?>"><?php print $this->__t('Mi cuenta'); ?></a><br />
 				<?=$this->getChildHtml('contenedor_top')?>
-				<a href="<?=$this->getUrl('administrator/user/cerrar_sesion')?>">Cerrar sesi&oacute;n</a><?
+				<a href="<?=$this->getUrl('administrator/user/cerrar_sesion')?>"><?php print $this->__t(utf8_encode('Cerrar sesión'));?></a><?
 				if(Admin_App::getInstance()->getModoAjax()){?> 
-				<a href="#" onclick="deshabilitar_ajax('<?=$this->getUrl('administrator')?>')">Deshabilitar ajax</a><?
+				<a href="#" onclick="deshabilitar_ajax('<?=$this->getUrl('administrator')?>')"><?php print $this->__t(utf8_encode('Deshabilitar ajax'));?></a><?
 				}
 				else{?> 
-				<a href="#"  onclick="habilitar_ajax('<?=$this->getUrl('administrator')?>')">Modo ajax</a><?
+				<a href="#"  onclick="habilitar_ajax('<?=$this->getUrl('administrator')?>')"><?php print $this->__t(utf8_encode('Modo ajax'));?></a><?
 				}?> 
 			</div>
 			
@@ -31,12 +32,12 @@
 			<div class="contenedor_left">
 				<?=$this->getChildHtml('contenedor_left')?> 
 			</div>
-			<div class="contenedor_main">
-				<?=$this->getChildHtml('contenedor_main')?><?
-					if($right = $this->getChildHtml('contenedor_right')){?> 
-				<div class="contenedor_right"><?=$right?></div>
-					<?	
-					}
+			<div class="contenedor_main"><?php
+				print $this->getChildHtml('contenedor_main');
+				if($right = $this->getChildHtml('contenedor_right')){?> 
+				<div class="contenedor_right"><?=$right?></div><?
+				}
+				print $this->getChildHtml('bottom_container'); 
 				?> 
 			</div>
 		</div>

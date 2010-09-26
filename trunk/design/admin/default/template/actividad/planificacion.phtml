@@ -7,11 +7,17 @@ $x = $this->getObjectToEdit();
 
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<?php if(!$this->getNofieldset()): ?> 
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Actividad</legend>
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo Actividad');
+	else:
+		echo $this->__t('Editar Actividad');
+	endif;?></legend>
+<?php endif; ?> 
 	<fieldset>
-            <h3>Cronograma</h3>
-            <div><?php
+            <h3>Cronograma de Planeaci&oacute;n</h3>
+            <div><ul class="cronograma_actividad"><?php
             $meses = array(
             	array(
             		'name'=>'mes_enero',
@@ -63,8 +69,11 @@ $x = $this->getObjectToEdit();
 				),
 			);
 			foreach($meses as $data){
-				$mes = new Core_Object($data);?>
-				<span style="float:left;margin:4px 2px 0 0;"> 
+				$mes = new Core_Object($data);
+				$checked = $x->getData($mes->getName());
+				?> 
+				<li class="<?php print $checked?'activo':''?>">
+				<span> 
                     <?
 //                            $input = Core::getObject('Core_Html_Tag_Custom', 'input');
 //                            $input
@@ -76,34 +85,45 @@ $x = $this->getObjectToEdit();
 //                            if($x->getMesEnero())
 //                                $input->setChecked($x->getMesEnero('on'));
 //                            echo $input->getHtml();
-                            
-							echo c($input = Core::getObject('Core_Html_Tag_Custom', 'input'))
-								->setType('hidden')
-								->setName('actividad['.$mes->getName().']')
-								->setValue('0')
-								->getHtml();
-							if($x->getData($mes->getName())){
-								$input->setChecked('checked');
+                            if(Admin_Actividad_Helper::canEditCronograma($x)){
+								echo c($input = Core::getObject('Core_Html_Tag_Custom', 'input'))
+									->setType('hidden')
+									->setName('actividad['.$mes->getName().']')
+									->setValue('0')
+									->getHtml();
+								if($checked){
+									$input->setChecked('checked');
+								}
+								echo $input
+									->setType('checkbox')
+									->setId($mes->getName())
+									->setValue('1')
+									->getHtml()
+								;
 							}
-							echo $input
-								->setType('checkbox')
-								->setId($mes->getName())
-								->setValue('1')
-								->getHtml()
-							;
                     ?></span>
-                    <label style="cursor:pointer;margin-bottom:3px;white-space:nowrap;" for="<?php print $mes->getName(); ?>"><?php print $mes->getLabel(); ?></label>
+                    <label for="<?php print $mes->getName(); ?>"><?php print $mes->getLabel(); ?></label>
+                    <div style="clear:both;"></div>
+                    </li>
                     <?php
 				}?> 
-            </div>
+            </ul></div>
 	</fieldset>
+<?php if(!$this->getNofieldset()): ?> 
 	<div class="controls">
 		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
+<?php endif; ?> 
 <script>
 
 jQuery(document).ready(function(){
+	jQuery('.cronograma_actividad li input').change(function(){
+		if(this.checked)
+			jQuery(this).parents('li:first').addClass('activo')
+		else
+			jQuery(this).parents('li:first').removeClass('activo')
+	});
 //    jQuery('input[type=submit]').unbind('click');
 //    $('input[type=submit]').bind('click', function() {
 //      //jQuery('input[type=checkbox][#^=mes]:not(:checked)').val(0).attr('checked','true');

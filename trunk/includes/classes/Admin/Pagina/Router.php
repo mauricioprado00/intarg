@@ -81,7 +81,7 @@ class Admin_Pagina_Router extends Core_Router_Abstract{
 						$nodo->setId($id_nodo);
 						if(!$nodo->load()){
 							$nodo = Granguia_Model_Pagina::NewNodo();
-							Admin_App::getInstance()->addErrorMessage('Error durante la carga del nodo asociado');
+							Admin_App::getInstance()->addErrorMessage($this->__t('Error durante la carga del nodo asociado'));
 							echo Core_Helper::DebugVars($nodo);
 						}
 					}

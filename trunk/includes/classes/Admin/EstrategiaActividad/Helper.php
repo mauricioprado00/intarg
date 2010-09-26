@@ -17,7 +17,7 @@ class Admin_EstrategiaActividad_Helper extends Core_Singleton{
 				$resultado = $estrategia_actividad->replace()?true:false;
 				//$insertada = true;// insertarEnLaBase()
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage('EstrategiaActividad añadida correctamente');
+					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('EstrategiaActividad añadida correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo agregar la EstrategiaActividad, error en la operación");
@@ -36,7 +36,7 @@ class Admin_EstrategiaActividad_Helper extends Core_Singleton{
 			else{
 				$resultado = $estrategia_actividad->update(null)?true:false;
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage('EstrategiaActividad actualizada correctamente');
+					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('EstrategiaActividad actualizada correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la EstrategiaActividad, error en la operación");
@@ -47,10 +47,10 @@ class Admin_EstrategiaActividad_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarEstrategiaActividad($id_estrategia_actividad){
 		if(self::eliminarEstrategiaActividad($id_estrategia_actividad)){
-			Admin_App::getInstance()->addSuccessMessage('EstrategiaActividad Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('EstrategiaActividad Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la EstrategiaActividad');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la EstrategiaActividad'));
 		}
 	}
 	public static function eliminarEstrategiaActividad($id_estrategia_actividad){

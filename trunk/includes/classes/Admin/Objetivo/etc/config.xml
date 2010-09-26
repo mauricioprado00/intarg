@@ -6,6 +6,14 @@
 		<admin>Admin_Objetivo_Multimodo.xml</admin>
 		<ajax>Admin_Objetivo_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_objetivo_simple</type>
+		<class>Admin_Objetivo_Block_Selector</class>
+	</block>
+	<block>
+		<type>selector_objetivo</type>
+		<class>Admin_Objetivo_Block_Selector_ChainedAgencia</class>
+	</block>
 	<routers>
 		<Admin_Objetivo_Router>administrator/objetivo</Admin_Objetivo_Router>
 	</routers>

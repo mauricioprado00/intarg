@@ -14,7 +14,7 @@ class Admin_Nodo_Helper extends Core_Singleton{
 			$resultado = $nodo->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Nodo añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Nodo añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Nodo, error en la operación");
@@ -24,7 +24,7 @@ class Admin_Nodo_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $nodo->update(null, array('es_home', 'es_activa'))?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Nodo actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Nodo actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Nodo, error en la operación");
@@ -94,10 +94,10 @@ class Admin_Nodo_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarNodo($id_nodo){
 		if(self::eliminarNodo($id_nodo)){
-			Admin_App::getInstance()->addSuccessMessage('Nodo Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Nodo Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Nodo');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Nodo'));
 		}
 	}
 	public static function eliminarNodo($id_nodo){

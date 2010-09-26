@@ -11,7 +11,7 @@ class Admin_Proyecto_Helper extends Core_Singleton{
 			$resultado = $proyecto->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Proyecto añadido correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Proyecto añadido correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar el Proyecto, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Proyecto_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $proyecto->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Proyecto actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Proyecto actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar el Proyecto, error en el operación");
@@ -31,10 +31,10 @@ class Admin_Proyecto_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarProyecto($id_proyecto){
 		if(self::eliminarProyecto($id_proyecto)){
-			Admin_App::getInstance()->addSuccessMessage('Proyecto Eliminado Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Proyecto Eliminado Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar el Proyecto');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar el Proyecto'));
 		}
 	}
 	public static function eliminarProyecto($id_proyecto){

@@ -4,7 +4,7 @@ class Admin_Documento_Router extends Core_Router_Abstract{
 		//$this->addRouter('admin','Router.Admin');
 		$this->addActions(
 			'cerrar_sesion',
-			'addEdit','delete','listar','datalist',
+			'addEdit','delete','listar','datalist','download',
 			'ordenar','setorden',
 			'listarDocumentos'
 		);
@@ -112,6 +112,15 @@ class Admin_Documento_Router extends Core_Router_Abstract{
 				}
 			}
 		}
+	}
+	protected function download($id_documento){
+		$documento = new Inta_Model_Documento();
+		$documento->setId($id_documento);
+		if($documento->load()){
+			$documento->download();
+			//var_dump($documento->getFullPath(), $documento->getMimeType());
+		}
+		die();
 	}
 	protected function listarDocumentos($tipo_entidad=null,$id_entidad=null){
 		Core_App::getLayout()->addActions('listar_admin_documentos');

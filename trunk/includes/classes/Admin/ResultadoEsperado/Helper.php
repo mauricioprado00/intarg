@@ -11,7 +11,7 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 			$resultado = $resultado_esperado->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('ResultadoEsperado añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ResultadoEsperado añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la ResultadoEsperado, error en la operación");
@@ -21,7 +21,7 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $resultado_esperado->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('ResultadoEsperado actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ResultadoEsperado actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la ResultadoEsperado, error en la operación");
@@ -60,10 +60,10 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarResultadoEsperado($id_resultado_esperado){
 		if(self::eliminarResultadoEsperado($id_resultado_esperado)){
-			Admin_App::getInstance()->addSuccessMessage('ResultadoEsperado Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ResultadoEsperado Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la ResultadoEsperado');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la ResultadoEsperado'));
 		}
 	}
 	public static function eliminarResultadoEsperado($id_resultado_esperado){
@@ -83,7 +83,7 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 			$resultado = $indicador_resultado->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('IndicadorResultado añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('IndicadorResultado añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la IndicadorResultado, error en la operación");
@@ -93,7 +93,7 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $indicador_resultado->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('IndicadorResultado actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('IndicadorResultado actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la IndicadorResultado, error en la operación");
@@ -103,10 +103,10 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarIndicadorResultado($id_indicador_resultado){
 		if(self::eliminarIndicadorResultado($id_indicador_resultado)){
-			Admin_App::getInstance()->addSuccessMessage('IndicadorResultado Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('IndicadorResultado Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la IndicadorResultado');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la IndicadorResultado'));
 		}
 	}
 	public static function eliminarIndicadorResultado($id_indicador_resultado){
@@ -125,7 +125,7 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 			$resultado = $medio_verificacion_indicador_resultado->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('MedioVerificacionIndicadorResultado añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('MedioVerificacionIndicadorResultado añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la MedioVerificacionIndicadorResultado, error en la operación");
@@ -135,7 +135,7 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $medio_verificacion_indicador_resultado->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('MedioVerificacionIndicadorResultado actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('MedioVerificacionIndicadorResultado actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la MedioVerificacionIndicadorResultado, error en la operación");
@@ -145,10 +145,10 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarMedioVerificacionIndicadorResultado($id_medio_verificacion_indicador_resultado){
 		if(self::eliminarMedioVerificacionIndicadorResultado($id_medio_verificacion_indicador_resultado)){
-			Admin_App::getInstance()->addSuccessMessage('MedioVerificacionIndicadorResultado Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('MedioVerificacionIndicadorResultado Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la MedioVerificacionIndicadorResultado');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la MedioVerificacionIndicadorResultado'));
 		}
 	}
 	public static function eliminarMedioVerificacionIndicadorResultado($id_medio_verificacion_indicador_resultado){

@@ -1,0 +1,95 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="audiencia_actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<input type="hidden" name="audiencia_actividad[id_actividad]" value="<?=$x->getIdActividad()?>" /> 
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo AudienciaActividad');
+	else:
+		echo $this->__t('Editar AudienciaActividad');
+	endif;?></legend>
+	<fieldset>
+		<h3>Informacion de AudienciaActividad</h3>
+		<div>
+			<label>Audiencia: </label>
+			<span><?
+				echo c($selector_tipo_audiencia = $this->appendBlock('<selector_audiencia />'))
+					->setSelectedValue($x->getIdAudiencia())
+					->void($selector_tipo_audiencia
+						->getSelectControl()
+							->setName('audiencia_actividad[id_audiencia]')
+							->setId('id_audiencia')
+							->setData('data-campo', '<b>Audiencia</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
+					)
+					->toHtml()
+				;
+			?> 
+			</span>
+			<label>Cantidad Esperada: </label>
+			<span><?
+				if(Admin_AudienciaActividad_Helper::canEditCantidadEsperada($x)){
+					$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+					$input
+						->setMaxlength(4)
+						->setType('text')
+						->setId('nombre')
+						->setName('audiencia_actividad[cantidad_esperada]')
+						->setValue(intval($x->getCantidadEsperada()))
+						->setData('data-campo', '<b>Cantidad Esperada</b>')
+						->setData('data-validator', '{empty:false,entero:null}')
+					;
+					echo $input->getHtml();
+				}
+				else{
+					echo intval($x->getCantidadEsperada());
+				}
+			?> 
+			</span>
+			<?php if(Admin_AudienciaActividad_Helper::canEditAsistencia($x)): ?>
+			<label>Asistencia: </label>
+			<span><?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+				$input
+					->setMaxlength(4)
+					->setType('text')
+					->setId('nombre')
+					->setName('audiencia_actividad[asistencia]')
+					->setValue(intval($x->getAsistencia()))
+					->setData('data-campo', '<b>Asistencia</b>')
+					->setData('data-validator', '{empty:false,entero:null}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<?php endif; ?>
+			<div>
+		</div>
+		</div>
+	</fieldset>
+	<div class="controls">
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
+	</div>
+</fieldset>
+<script>
+
+function audiencia_actividad_enviado(responseText, statusText, xhr, $form){
+	jQuery.ScreenBlock(false);
+}
+
+function validar_agregar_audiencia_actividad_datos(formData, jqForm, options) {
+	if(!validar_estatico_en('#<?php print $id_fielset; ?>')){
+		tabpanelfocus(jQuery('#<?php print $id_fielset; ?>'));
+		return false;
+	}
+	return(true);
+}
+</script>

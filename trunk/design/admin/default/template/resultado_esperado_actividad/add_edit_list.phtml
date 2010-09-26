@@ -6,10 +6,12 @@ if(!$this->hasIdActividad()){
 
 ?>
 <div class="add_edit_list add_edit_list_resultado_esperado_actividads <?php print $id_control=$this->generateRandomId(); ?>" data-json="<?php print htmlentities(json_encode(array('id_actividad'=>$this->getIdActividad(), 'target'=>'.'.$id_control.' .listado_resultado_esperado_actividads'))); ?>">
+	<?php if(!$this->getViewOnly()): ?>
 	<div class="add_edit_list_toolbox add_edit_list_toolbox_resultado_esperado_actividads">
 		<div class="btn_agregar btn_agregar_resultado_esperado_actividad" title="Agregar ResultadoEsperadoActividad"></div>
 		<div class="btn_refresh btn_refresh_resultado_esperado_actividad" title="Actualizar ResultadoEsperadoActividad"></div>
 	</div>
+	<?php endif; ?>
 	<?php print $this->getListadoResultadoEsperadoActividadsToHtml(); ?> 
 </div>
 <script type="text/javascript">

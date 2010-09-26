@@ -17,7 +17,7 @@ class Admin_ProyectoActividad_Helper extends Core_Singleton{
 				$resultado = $proyecto_actividad->replace()?true:false;
 				//$insertada = true;// insertarEnLaBase()
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage('ProyectoActividad añadida correctamente');
+					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ProyectoActividad añadida correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo agregar la ProyectoActividad, error en la operación");
@@ -36,7 +36,7 @@ class Admin_ProyectoActividad_Helper extends Core_Singleton{
 			else{
 				$resultado = $proyecto_actividad->update(null)?true:false;
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage('ProyectoActividad actualizada correctamente');
+					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ProyectoActividad actualizada correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la ProyectoActividad, error en la operación");
@@ -47,10 +47,10 @@ class Admin_ProyectoActividad_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarProyectoActividad($id_proyecto_actividad){
 		if(self::eliminarProyectoActividad($id_proyecto_actividad)){
-			Admin_App::getInstance()->addSuccessMessage('ProyectoActividad Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ProyectoActividad Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la ProyectoActividad');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la ProyectoActividad'));
 		}
 	}
 	public static function eliminarProyectoActividad($id_proyecto_actividad){

@@ -10,11 +10,11 @@
 	$classnames = implode(' ', $classnames);
 	$classnames = $classnames?' class="'.$classnames.'"':'';
 ?>
-<div <?=$classnames?>>
-	<?=$this->getChildHtml('contenedor_main')?><?
-		if($right = $this->getChildHtml('contenedor_right')){?> 
-	<div class="contenedor_right"><?=$right?></div>
-		<?	
-		}
-	?> 
+<div <?=$classnames?>><?php
+
+	print $this->getChildHtml('contenedor_main');
+	if($right = $this->getChildHtml('contenedor_right')){?> 
+	<div class="contenedor_right"><?=$right?></div><?	
+	}
+	print $this->getChildHtml('bottom_container'); ?> 
 </div>

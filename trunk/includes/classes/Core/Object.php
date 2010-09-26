@@ -187,6 +187,17 @@ class Core_Object
 	}
     public function setData($key, $value=null, $filter=null)
     {
+    	if($key=='translate'){
+    		$translate_fields = array();
+			if(is_string($value)){
+				$translate_fields = explode(',', $value);
+			}
+			foreach($translate_fields as $fieldname){
+				$this->addAutofiltersFieldOutput($fieldname, array($this, '__t'));
+			}
+//			var_dump($translate_fields);
+//			die("ok".__FILE__.__LINE__);
+		}
     	if(in_array($key, $this->__array_boolean_vars )){
 			$value = $value&&$value!=='false'?true:false;
 		}
@@ -408,7 +419,6 @@ class Core_Object
 		}
 		return $value;
 	}
-
     /**
      * Retrieves data from the object
      *
@@ -1009,4 +1019,33 @@ class Core_Object
         }
         return $debug;
     }
+    protected $mytranslate_context = null;
+    public function getAllTranslateContexts($contexto=null){
+    	if(!isset($this->mytranslate_context)&&$this->getParentBlock()){
+    		$this->mytranslate_context = array();
+			if($this->getParentBlock()){
+				$this->mytranslate_context[] = $this->getParentBlock()->getAllTranslateContexts();
+			}
+			if($this->hasTranslateContext()){
+				$this->mytranslate_context[] = $this->getTranslateContext();
+			}
+			$this->mytranslate_context = implode('/', $this->mytranslate_context);
+		}
+		return $this->mytranslate_context;
+	}
+    public function getBestTranslateContext($contexto){
+		if($this->hasTranslateContext()){
+			return $this->getTranslateContext();
+		}
+		if($this->getParentBlock()){
+			return $this->getParentBlock()->getAllTranslateContexts($contexto);
+		}
+		return $contexto;
+	}
+    public function __t($texto, $vars=null, $explicacion=null, $contexto=null){
+    	if($contexto===null){
+    		$contexto = $this->getBestTranslateContext(get_class($this));
+    	}
+		return Core_Translate_Singleton::getInstance()->translate($texto, $vars, $explicacion, $contexto);
+	}
 }

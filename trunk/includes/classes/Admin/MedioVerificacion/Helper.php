@@ -11,7 +11,7 @@ class Admin_MedioVerificacion_Helper extends Core_Singleton{
 			$resultado = $medio_verificacion->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('MedioVerificacion a�adida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('MedioVerificacion a�adida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la MedioVerificacion, error en la operaci�n");
@@ -21,7 +21,7 @@ class Admin_MedioVerificacion_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $medio_verificacion->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('MedioVerificacion actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('MedioVerificacion actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la MedioVerificacion, error en la operaci�n");
@@ -31,10 +31,10 @@ class Admin_MedioVerificacion_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarMedioVerificacion($id_medio_verificacion){
 		if(self::eliminarMedioVerificacion($id_medio_verificacion)){
-			Admin_App::getInstance()->addSuccessMessage('MedioVerificacion Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('MedioVerificacion Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la MedioVerificacion');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la MedioVerificacion'));
 		}
 	}
 	public static function eliminarMedioVerificacion($id_medio_verificacion){

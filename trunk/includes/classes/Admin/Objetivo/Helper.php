@@ -11,7 +11,7 @@ class Admin_Objetivo_Helper extends Core_Singleton{
 			$resultado = $objetivo->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Objetivo añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Objetivo añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Objetivo, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Objetivo_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $objetivo->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Objetivo actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Objetivo actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Objetivo, error en la operación");
@@ -36,10 +36,10 @@ class Admin_Objetivo_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarObjetivo($id_objetivo){
 		if(self::eliminarObjetivo($id_objetivo)){
-			Admin_App::getInstance()->addSuccessMessage('Objetivo Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Objetivo Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Objetivo');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Objetivo'));
 		}
 	}
 	public static function eliminarObjetivo($id_objetivo){

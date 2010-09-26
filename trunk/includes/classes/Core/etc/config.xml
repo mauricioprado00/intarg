@@ -1,6 +1,7 @@
 <global>
 	<modules>
 		<granguia />
+		<inta />
 		<frontend />
 		<jqgrid />
 		<admin>
@@ -35,6 +36,10 @@
 	<block>
 		<type>excel</type>
 		<class>Core_Block_Excel</class>
+	</block>
+	<block>
+		<type>fieldset</type>
+		<class>Core_Block_Fieldset</class>
 	</block>
 	<layouts>
 		<!-- la idea es que se puedan cargar layouts segun el modo 

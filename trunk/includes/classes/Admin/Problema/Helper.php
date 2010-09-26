@@ -14,7 +14,7 @@ class Admin_Problema_Helper extends Core_Singleton{
 			$resultado = $problema->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Problema añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Problema añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Problema, error en la operación");
@@ -24,7 +24,7 @@ class Admin_Problema_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $problema->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Problema actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Problema actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Problema, error en la operación");
@@ -34,10 +34,10 @@ class Admin_Problema_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarProblema($id_problema){
 		if(self::eliminarProblema($id_problema)){
-			Admin_App::getInstance()->addSuccessMessage('Problema Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Problema Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Problema');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Problema'));
 		}
 	}
 	public static function eliminarProblema($id_problema){

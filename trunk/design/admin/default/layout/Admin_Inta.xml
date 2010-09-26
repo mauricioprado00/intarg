@@ -1,0 +1,16 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>man</link_url>
+				<text>Mantenimiento</text>
+				<title>Mantenimiento</title>
+				<name>menu_admin_mantenimiento</name>
+			</action>
+		</reference>
+		<reference name="menu_admin_mantenimiento">
+			<block type="Admin/Menu" name="submenu_admin_mantenimiento">
+			</block>
+		</reference>
+	</default>
+</layout>

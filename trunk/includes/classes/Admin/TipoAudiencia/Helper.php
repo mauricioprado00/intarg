@@ -11,7 +11,7 @@ class Admin_TipoAudiencia_Helper extends Core_Singleton{
 			$resultado = $tipo_audiencia->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('TipoAudiencia añadido correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoAudiencia añadido correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar el TipoAudiencia, error en la operación");
@@ -21,7 +21,7 @@ class Admin_TipoAudiencia_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $tipo_audiencia->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('TipoAudiencia actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoAudiencia actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar el TipoAudiencia, error en el operación");
@@ -31,10 +31,10 @@ class Admin_TipoAudiencia_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarTipoAudiencia($id_tipo_audiencia){
 		if(self::eliminarTipoAudiencia($id_tipo_audiencia)){
-			Admin_App::getInstance()->addSuccessMessage('TipoAudiencia Eliminado Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoAudiencia Eliminado Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar el TipoAudiencia');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar el TipoAudiencia'));
 		}
 	}
 	public static function eliminarTipoAudiencia($id_tipo_audiencia){

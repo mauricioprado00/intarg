@@ -45,3 +45,11 @@
 	display:inline-block;
 	background-repeat:no-repeat;
 }
+.btn_descargar_documento{
+	background-image:url(../img/16x16/download.png);
+	background-position:0 50%;
+	padding-left:16px;
+	height:16px;
+	display:inline-block;
+	background-repeat:no-repeat;
+}

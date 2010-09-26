@@ -57,7 +57,7 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 		}	
 		return $this;
 	}
-	protected function getItems(){
+	public function getItems(){
 		return $this->_items;
 	}
 	protected function _getMin($field, $ignore_null=true){

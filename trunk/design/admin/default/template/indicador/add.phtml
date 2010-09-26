@@ -8,10 +8,30 @@ $x = $this->getObjectToEdit();
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="indicador[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Indicador</legend>
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo Indicador');
+	else:
+		echo $this->__t('Editar Indicador');
+	endif;?></legend>
 	<fieldset>
 		<h3>Informacion de Indicador</h3>
 		<div>
+			<label>Tipo Indicador: </label>
+			<span><?
+				echo c($selector_tipo_indicador = $this->appendBlock('<selector_tipo_indicador />'))
+					->setSelectedValue($x->getTipoIndicador())
+					->void($selector_tipo_indicador
+						->getSelectControl()
+							->setName('indicador[tipo_indicador]')
+							->setId('id_tipo_indicador')
+							->setData('data-campo', '<b>Tipo Indicador</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
+					)
+					->toHtml()
+				;
+			?> 
+			</span>
 			<label>Nombre: </label>
 			<span><?
 				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
@@ -25,19 +45,6 @@ $x = $this->getObjectToEdit();
 					->setData('data-validator', '{empty:false}')
 				;
 				echo $input->getHtml();
-			?> 
-			</span>
-			<label>Tipo Indicador: </label>
-			<span><?
-				echo c($selector_tipo_indicador = $this->appendBlock('<selector_tipo_indicador />'))
-					->setSelectedValue($x->getTipoIndicador())
-					->void($selector_tipo_indicador
-						->getSelectControl()
-							->setName('indicador[tipo_indicador]')
-							->setId('id_tipo_indicador')
-					)
-					->toHtml()
-				;
 			?> 
 			</span>
 		</div>

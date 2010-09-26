@@ -1,0 +1,26 @@
+<?php
+if(!Admin_Translate_Debug::getInstance()->isEnabled())
+	return;
+?><div><a href="#translate/disable">Deshabilitar seguimiento de traducciones</a></div><?
+$tranducciones =  Core_App::getInstance()->getData('message_container_translate');
+if(!$tranducciones){
+	return;
+}
+if(!$tranducciones->count()){
+	echo 'No hay traducciones en esta seccion<br />';
+	return;
+}
+	echo '<span style="text-decoration:underline">Visualizacion de traducciones</span><br />';
+	$x = $tranducciones->groupBy('id');
+	?> 
+	<ul><?php
+	foreach($x as $tranducciones){
+		//foreach($tranducciones as $traduccion)
+		$traduccion = $tranducciones->getFirst();
+		{?> 
+		<li><a href="#translate/addEdit/<?php print $traduccion->getId(); ?>"><div class="lsted"></div><?php print $traduccion->getTexto(); ?></a></li><?
+		}
+	}
+	?></ul><?
+	
+?>

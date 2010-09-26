@@ -6,6 +6,10 @@
 		<admin>Admin_Agencia_Multimodo.xml</admin>
 		<ajax>Admin_Agencia_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_agencia</type>
+		<class>Admin_Agencia_Block_Selector</class>
+	</block>
 	<routers>
 		<Admin_Agencia_Router>administrator/agencia</Admin_Agencia_Router>
 	</routers>

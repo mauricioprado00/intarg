@@ -11,7 +11,7 @@ class Admin_AspectoActividad_Helper extends Core_Singleton{
 			$resultado = $aspecto_actividad->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('AspectoActividad añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('AspectoActividad añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la AspectoActividad, error en la operación");
@@ -23,7 +23,7 @@ class Admin_AspectoActividad_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $aspecto_actividad->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('AspectoActividad actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('AspectoActividad actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la AspectoActividad, error en la operación");
@@ -33,10 +33,10 @@ class Admin_AspectoActividad_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarAspectoActividad($id_aspecto_actividad){
 		if(self::eliminarAspectoActividad($id_aspecto_actividad)){
-			Admin_App::getInstance()->addSuccessMessage('AspectoActividad Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('AspectoActividad Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la AspectoActividad');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la AspectoActividad'));
 		}
 	}
 	public static function eliminarAspectoActividad($id_aspecto_actividad){

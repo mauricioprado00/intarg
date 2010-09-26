@@ -214,11 +214,34 @@
 				method="post">
 				<tabset>
 					<tab title="Datos de Actividad">
-						<block name="actividad_add_edit_form" type="template" template="actividad/add.phtml"></block>
+						<block name="actividad_add_edit_form" as="datos" type="template" template="actividad/add.phtml">
+							<block as="hijos_arriba">
+								<fieldset html_style="float:none;" when="!accion(entity_new)&amp;!accion(edit_actividad_estado_planificado)" caption="Resultados a los que aporta">
+									<add_edit_list_resultado_esperado_actividad view_only="1" name="add_edit_list_resultado_esperado_actividad" />
+								</fieldset>
+							</block>
+							<block as="hijos_abajo">
+								<block name="actividad_add_edit_form" as="cronograma"
+									nofieldset="1" 
+									type="template" template="actividad/planificacion.phtml" />
+								<fieldset when="!accion(entity_new)" caption="Concurrencia">
+									<add_edit_list_audiencia_actividad name="add_edit_list_audiencia_actividad" />
+								</fieldset>
+								<fieldset when="!accion(entity_new)" caption="Documentos">
+									<add_edit_list_documentos name="add_edit_list_documentos_actividad" 
+									tipo_entidad="actividad" />
+								</fieldset>
+								<fieldset html_style="clear:both;" when="!accion(entity_new)" caption="Proyectos">
+									<add_edit_list_proyecto_actividad name="add_edit_list_proyecto_actividad" />
+								</fieldset>
+							</block>
+						</block>
 					</tab>
+					<!--
 					<tab title="Planificacion">
 						<block name="actividad_add_edit_form" type="template" template="actividad/planificacion.phtml"></block>
 					</tab>
+					-->
 					<!--
                                         <tab title="Datos de Proyecto">
 						<block name="actividad_add_edit_form" type="template" template="actividad/link_proyecto.phtml"></block>
@@ -230,21 +253,30 @@
 					<tab when="!accion(entity_new)" title="Usuarios Involucrados">
 						<add_edit_list_usuario_actividad name="add_edit_list_usuario_actividad" />
 					</tab>
-					<tab when="!accion(entity_new)" title="Aspectos">
+					<!--
+					<tab when="!accion(entity_new)" title="Concurrencia">
+						<add_edit_list_audiencia_actividad name="add_edit_list_audiencia_actividad" />
+					</tab>
+					-->
+					<tab when="!accion(entity_new,edit_actividad_estado_planificado)" title="Aspectos">
 						<add_edit_list_aspecto_actividad name="add_edit_list_aspecto_actividad" />
 					</tab>
-					<tab when="!accion(entity_new)" title="Estrategias">
+					<tab when="!accion(entity_new,edit_actividad_estado_planificado)" title="Estrategias">
 						<add_edit_list_estrategia_actividad name="add_edit_list_estrategia_actividad" />
 					</tab>
+					<!--
 					<tab when="!accion(entity_new)" title="Proyectos">
 						<add_edit_list_proyecto_actividad name="add_edit_list_proyecto_actividad" />
 					</tab>
-					<tab when="!accion(entity_new)" title="Resultado Esperado">
+					-->
+					<tab when="!accion(entity_new)&amp;accion(edit_actividad_estado_planificado)" title="Resultado Esperado">
 						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" />
 					</tab>
+					<!--
 					<tab when="!accion(entity_new)" title="Documentos">
 						<add_edit_list_documentos name="add_edit_list_documentos_actividad" tipo_entidad="actividad" />
 					</tab>
+					-->
 				</tabset>
 			</block>
 		</reference>

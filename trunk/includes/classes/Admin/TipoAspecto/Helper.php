@@ -11,7 +11,7 @@ class Admin_TipoAspecto_Helper extends Core_Singleton{
 			$resultado = $tipo_aspecto->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('TipoAspecto añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoAspecto añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la TipoAspecto, error en la operación");
@@ -21,7 +21,7 @@ class Admin_TipoAspecto_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $tipo_aspecto->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('TipoAspecto actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoAspecto actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la TipoAspecto, error en la operación");
@@ -31,10 +31,10 @@ class Admin_TipoAspecto_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarTipoAspecto($id_tipo_aspecto){
 		if(self::eliminarTipoAspecto($id_tipo_aspecto)){
-			Admin_App::getInstance()->addSuccessMessage('TipoAspecto Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('TipoAspecto Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la TipoAspecto');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la TipoAspecto'));
 		}
 	}
 	public static function eliminarTipoAspecto($id_tipo_aspecto){

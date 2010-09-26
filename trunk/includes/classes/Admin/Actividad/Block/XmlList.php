@@ -7,9 +7,23 @@ class Admin_Actividad_Block_XmlList extends Jqgrid_Block_XmlList{
 		*/
 		//$actividad = new Inta_Model_Actividad();
 		$actividad = new Inta_Model_Actividad();
+		$wheres = array();
 		if($comparator!=null){
-			$actividad->setWhere($comparator);
+			$wheres[] = $comparator;
+			//$actividad->setWhere($comparator);
 		}
+		if($this->hasHardFiltros()){
+			foreach($this->getHardFiltros() as $fieldname=>$value){
+				if($fieldname=='id_agencia'){
+					$wheres[] = $actividad->crearFiltroAgencia($value);
+				}
+				else{
+					$wheres[] = Db_Helper::equal($fieldname, $value);
+				}
+			}
+		}
+		if(count($wheres))
+			$actividad->setWhereByArray($wheres);
 		$datos = array();
 		$total_items = $actividad->searchCount();
 		$cantidad_paginas = ceil($total_items/$rows);
@@ -33,7 +47,7 @@ class Admin_Actividad_Block_XmlList extends Jqgrid_Block_XmlList{
 		//$datos = $actividad->search(null,'ASC',null,0,true,array('id', 'username', 'nombre', 'apellido', 'activo', 'privilegios', 'ultimo_acceso'));
 		$datos = $actividad->search($sidx,$sord,$rows,$rows*($page-1),get_class($actividad));
 		//aca termina la consulta a la base
-		
+		//echo Inta_Db::getInstance()->getLastQuery();
 		
 		$this->setPage($page);
 		$this->setRecords($total_items);

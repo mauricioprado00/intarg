@@ -17,7 +17,7 @@ class Admin_UsuarioActividad_Helper extends Core_Singleton{
 				$resultado = $usuario_actividad->replace()?true:false;
 				//$insertada = true;// insertarEnLaBase()
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage('UsuarioActividad añadida correctamente');
+					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('UsuarioActividad añadida correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo agregar la UsuarioActividad, error en la operación");
@@ -35,7 +35,7 @@ class Admin_UsuarioActividad_Helper extends Core_Singleton{
 			else{
 				$resultado = $usuario_actividad->update(null)?true:false;
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage('UsuarioActividad actualizada correctamente');
+					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('UsuarioActividad actualizada correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la UsuarioActividad, error en la operación");
@@ -46,10 +46,10 @@ class Admin_UsuarioActividad_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarUsuarioActividad($id_usuario_actividad){
 		if(self::eliminarUsuarioActividad($id_usuario_actividad)){
-			Admin_App::getInstance()->addSuccessMessage('UsuarioActividad Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('UsuarioActividad Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la UsuarioActividad');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la UsuarioActividad'));
 		}
 	}
 	public static function eliminarUsuarioActividad($id_usuario_actividad){

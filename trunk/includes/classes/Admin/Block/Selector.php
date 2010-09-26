@@ -69,6 +69,13 @@ class Admin_Block_Selector extends Core_Block_Template{
 		
 		$options = array();
 		$entityes = $this->listEntityes();
+		if(!$this->hasSelectedValue()){
+			$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
+				->setValue('')
+				->setInnerHtml('[Seleccione]')
+			;
+			$options[] = $option;
+		}
 		foreach($entityes as $entity){
 			$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 				->setValue($entity->getData($value_field))

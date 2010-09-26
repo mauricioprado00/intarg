@@ -13,14 +13,24 @@
 		<reference name="menu_admin_actividad">
 			<block type="Admin/Menu">
 				<action method="addItem">
-					<link_url>actividad/listar</link_url>
-					<text>Listado</text>
-					<title>Listado</title>
-				</action>
-				<action method="addItem">
 					<link_url>actividad/addEdit</link_url>
 					<text>Agregar</text>
 					<title>Agregar</title>
+				</action>
+				<action method="addItem">
+					<link_url>actividad/listar_planificadas</link_url>
+					<text>Planificadas</text>
+					<title>Planificadas</title>
+				</action>
+				<action method="addItem">
+					<link_url>actividad/listar_iniciadas</link_url>
+					<text>Seguimiento</text>
+					<title>Seguimiento</title>
+				</action>
+				<action method="addItem">
+					<link_url>actividad/listar</link_url>
+					<text>Ver todas</text>
+					<title>Ver todas</title>
 				</action>
 			</block>
 		</reference>

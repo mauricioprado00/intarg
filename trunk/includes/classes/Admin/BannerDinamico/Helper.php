@@ -11,7 +11,7 @@ class Admin_BannerDinamico_Helper extends Core_Singleton{
 			$resultado = $banner_dinamico->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('BannerDinamico añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('BannerDinamico añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la BannerDinamico, error en la operación");
@@ -21,7 +21,7 @@ class Admin_BannerDinamico_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $banner_dinamico->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('BannerDinamico actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('BannerDinamico actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la BannerDinamico, error en la operación");
@@ -31,10 +31,10 @@ class Admin_BannerDinamico_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarBannerDinamico($id_banner_dinamico){
 		if(self::eliminarBannerDinamico($id_banner_dinamico)){
-			Admin_App::getInstance()->addSuccessMessage('BannerDinamico Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('BannerDinamico Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la BannerDinamico');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la BannerDinamico'));
 		}
 	}
 	public static function eliminarBannerDinamico($id_banner_dinamico){

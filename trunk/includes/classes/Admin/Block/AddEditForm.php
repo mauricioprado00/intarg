@@ -8,6 +8,9 @@ class Admin_Block_AddEditForm extends Core_Block_Template{
 			->setAjaxMethod('ajaxSubmit')
 		;
 	}
+	public function onAfterLayoutLoad(){
+		$this->setTranslateContext($this->getActionUrl());
+	}
 	public function getUrl($link_url){
 		if(Admin_App::getInstance()->getModoAjax())
 			$link_url = 'administrator/ajax/'.$link_url;
