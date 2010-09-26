@@ -1,0 +1,6 @@
+<global>
+	<translate>
+		<weight>10</weight>
+		<class>Inta_Translate</class>
+	</translate>
+</global>

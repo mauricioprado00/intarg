@@ -1,12 +1,14 @@
 <div class="listado_proyecto_actividads" id="<?php print $id_control_big = $this->generateRandomId(); ?>"><?
 $proyecto_actividads = $this->getProyectoActividads();
 if($proyecto_actividads){
+	$total = 0;
 	echo '<ul class="box_listado_proyecto_actividads" id="'.($id_control = $this->generateRandomId()).'">';
 	foreach($proyecto_actividads as $proyecto_actividad){
 		echo
 			'<li data-id="'.$proyecto_actividad->getId().'">'. 
 			'<span>'.$proyecto_actividad->getNombre().'</span><br />'.
 			'<i>Presupuesto estimado: $'.$proyecto_actividad->getMonto().'</i>';
+		$total += floatval($proyecto_actividad->getMonto());
 		?>
 		<div class="listado_toolbox listado_toolbox_proyecto_actividads">
 			<div class="btn_eliminar btn_eliminar_proyecto_actividad" title="Eliminar ProyectoActividad"></div>
@@ -15,6 +17,7 @@ if($proyecto_actividads){
 		echo '</li>';
 	}
 	echo '</ul>';?> 
+	<div class="total">Total <i><?php print $total; ?></i></div>
 <script>
 jQuery(document).ready(function(){
 	var jqicon = jQuery('#<?php print $id_control?> .show_icon');

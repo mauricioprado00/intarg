@@ -29,7 +29,7 @@ class Admin_Categoria_Helper extends Core_Singleton{
 			}
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Categoria añadido correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Categoria añadido correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar el Categoria, error en la operación");
@@ -39,7 +39,7 @@ class Admin_Categoria_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $categoria->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Categoria actualizado correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Categoria actualizado correctamente'));
 			}
 			else{
 				foreach($categoria->getTranslatedErrors() as $error)
@@ -51,10 +51,10 @@ class Admin_Categoria_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarCategoria($id_categoria){
 		if(self::eliminarCategoria($id_categoria)){
-			Admin_App::getInstance()->addSuccessMessage('Categoria Eliminado Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Categoria Eliminado Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar el Categoria');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar el Categoria'));
 		}
 	}
 	public static function eliminarCategoria($id_categoria){

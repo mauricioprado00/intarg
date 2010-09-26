@@ -1,6 +1,6 @@
 <layout>
 	<default>
-		<block type="Page/html_document" name="html_document">
+		<block type="Page/html_document" name="html_document" translate_context="administrador">
 			<block type="Page/html_head" name="html_head">
 				<container name="scripts_multimodo" />
 				<!-- <action named_args="true" method="addJs"> asi se usa para uqe los parametros lleven nombres (debe existir el metodo addJs_named_args que tiene 1 argumento(array de parametros))-->
@@ -91,6 +91,9 @@
 							</action>
 						</block>
 					</block>
+					<block name="bottom_container">
+						<template name="contenedor_mensajes_translate_debug" template="translate/debug.phtml" />
+					</block>
 				</block>
 				<container name="scripts_multimodo_bottom" />
 			</block>
@@ -120,8 +123,7 @@
 			width="1150"
 			height="100%"
 			row_list="10,20,30"
-			view_records="false"
-						>
+			view_records="false">
 				</block>
 				<!-- source="administrator/user/datalist"-->
 				<!-- algo viejo y feo 

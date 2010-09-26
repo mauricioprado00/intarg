@@ -23,7 +23,7 @@ class Admin_Config_Helper extends Core_Singleton{
 			$resultado = $x->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Configuración añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Configuración añadida correctamente'));
 			}
 			else{
 				
@@ -37,7 +37,7 @@ class Admin_Config_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $x->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Configuración actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Configuración actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Configuración, error en la operación");
@@ -50,10 +50,10 @@ class Admin_Config_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarConfig($id_config){
 		if(self::eliminarConfig($id_config)){
-			Admin_App::getInstance()->addSuccessMessage('Configuración Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Configuración Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Configuración');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Configuración'));
 		}
 	}
 	public static function eliminarConfig($id_config){

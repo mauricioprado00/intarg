@@ -7,10 +7,13 @@ if($resultado_esperado_actividads){
 			'<li data-id="'.$resultado_esperado_actividad->getId().'">'. 
 			'<span>'.$resultado_esperado_actividad->getNombre().'</span>';
 		?>
+	<?php if(!$this->getViewOnly()&&!$this->getParentBlock()->getViewOnly()): ?> 
 		<div class="listado_toolbox listado_toolbox_resultado_esperado_actividads">
 			<div class="btn_eliminar btn_eliminar_resultado_esperado_actividad" title="Eliminar ResultadoEsperadoActividad"></div>
 			<div class="btn_editar btn_editar_resultado_esperado_actividad" title="Editar ResultadoEsperadoActividad"></div>
-		</div><?php
+		</div>
+	<?php endif; ?><?php
+	
 		echo '</li>';
 	}
 	echo '</ul>';?> 

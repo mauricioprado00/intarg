@@ -11,7 +11,7 @@ class Admin_Anuncio_Helper extends Core_Singleton{
 			$resultado = $anuncio->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Anuncio añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Anuncio añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Anuncio, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Anuncio_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $anuncio->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Anuncio actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Anuncio actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Anuncio, error en la operación");
@@ -41,7 +41,7 @@ class Admin_Anuncio_Helper extends Core_Singleton{
 			$resultado = $horario_anuncio->replace(null, true)?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('HorarioAnuncio añadido correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('HorarioAnuncio añadido correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar el HorarioAnuncio, error en la operación");
@@ -51,7 +51,7 @@ class Admin_Anuncio_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $horario_anuncio->update(null, true)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('HorarioAnuncio actualizado correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('HorarioAnuncio actualizado correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar el HorarioAnuncio, error en la operación");
@@ -62,10 +62,10 @@ class Admin_Anuncio_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarAnuncio($id_anuncio){
 		if(self::eliminarAnuncio($id_anuncio)){
-			Admin_App::getInstance()->addSuccessMessage('Anuncio Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Anuncio Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Anuncio');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Anuncio'));
 		}
 	}
 	public static function eliminarAnuncio($id_anuncio){

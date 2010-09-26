@@ -8,7 +8,11 @@ $x = $this->getObjectToEdit();
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="tipo_audiencia[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> TipoAudiencia</legend>
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo TipoAudiencia');
+	else:
+		echo $this->__t('Editar TipoAudiencia');
+	endif;?></legend>
 	<fieldset>
 		<h3>Datos</h3>
 		<div>

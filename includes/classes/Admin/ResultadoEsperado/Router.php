@@ -203,7 +203,7 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 				}
 			}
 		}
-		Admin_App::getInstance()->addErrorMessage('Error en la eliminacion.');
+		Admin_App::getInstance()->addErrorMessage($this->__t('Error en la eliminacion.'));
 	}
 	
 	protected function addEditMedioVerificacion($id_indicador_resultado=null, $id_medio_verificacion_indicador_resultado=null){
@@ -249,7 +249,7 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 					$this->listarIndicador($indicador_resultado->getIdResultadoEsperado());
 				}
 				else{
-					Admin_App::getInstance()->addErrorMessage('Error, datos incorrectos no se pudo obtener "indicador de resultado"');
+					Admin_App::getInstance()->addErrorMessage($this->__t('Error, datos incorrectos no se pudo obtener "indicador de resultado"'));
 				}
 			}
 			else{
@@ -304,13 +304,13 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 						$this->listarIndicador($indicador_resultado->getIdResultadoEsperado());
 					}
 					else{
-						Admin_App::getInstance()->addErrorMessage('Error, datos incorrectos no se pudo obtener "indicador de resultado"');
+						Admin_App::getInstance()->addErrorMessage($this->__t('Error, datos incorrectos no se pudo obtener "indicador de resultado"'));
 					}
 					return;
 				}
 			}
 		}
-		Admin_App::getInstance()->addErrorMessage('Error en la eliminacion.');
+		Admin_App::getInstance()->addErrorMessage($this->__t('Error en la eliminacion.'));
 	}
 
 	protected function listar(){

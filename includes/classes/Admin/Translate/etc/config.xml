@@ -1,0 +1,16 @@
+<global>
+	<layouts>
+		<!-- la idea es que se puedan cargar layouts segun el modo 
+			ej: para mostrar pagina normal, para ajax, para print, rss, etc -->
+		<admin>Admin_Translate.xml</admin>
+		<admin>Admin_Translate_Multimodo.xml</admin>
+		<ajax>Admin_Translate_Multimodo.xml</ajax>
+	</layouts>
+	<block>
+		<type>selector_translate</type>
+		<class>Admin_Translate_Block_Selector</class>
+	</block>
+	<routers>
+		<Admin_Translate_Router>administrator/translate</Admin_Translate_Router>
+	</routers>
+</global>

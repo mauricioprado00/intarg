@@ -12,6 +12,7 @@ class Core_Config{
 			'update_to_modulo'=>array(),
 			'layout_updates_to_modulo'=>array(),
 			'class_rewrite'=>array(),
+			'translate'=>array(),
 		);
 	}
 	private $updates = array();
@@ -186,9 +187,22 @@ class Core_Config{
 					$this->addDesignPath($element);
 					break;
 				}
+				case 'translate':{
+					$this->addTranslate($element);
+					break;
+				}
 			}
             $i++;
         }
+	}
+	private function addTranslate($element){
+		$translate = (object)(array)$element;
+		if($translate->class){
+			$this->global['translate'][intval($translate->weight)][] = $translate->class;
+		}
+	}
+	public function addTranslator($class, $weight=0){
+		$this->global['translate'][intval($weight)][] = $class;
 	}
 	private function addDesignPath($element){
 		foreach($element as $modo=>$path){
@@ -289,6 +303,9 @@ class Core_Config{
 	}
 	public function getClassRewrites(){
 		return($this->global['class_rewrite']);
+	}
+	public function getTranslate(){
+		return($this->global['translate']);
 	}
 }
 ?>

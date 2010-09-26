@@ -16,7 +16,7 @@ class Admin_Menu_Helper extends Core_Singleton{
 			$resultado = $menu->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Menu añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Menu añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Menu, error en la operación");
@@ -26,7 +26,7 @@ class Admin_Menu_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $menu->update(null, array('id_nodo'))?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Menu actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Menu actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Menu, error en la operación");
@@ -36,10 +36,10 @@ class Admin_Menu_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarMenu($id_menu){
 		if(self::eliminarMenu($id_menu)){
-			Admin_App::getInstance()->addSuccessMessage('Menu Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Menu Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Menu');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Menu'));
 		}
 	}
 	public static function eliminarMenu($id_menu){

@@ -8,7 +8,11 @@ $x = $this->getObjectToEdit();
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="aspecto[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?> 
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Aspecto</legend>
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo Aspecto');
+	else:
+		echo $this->__t('Editar Aspecto');
+	endif;?></legend>
 	<fieldset>
 		<h3>Informacion de Aspecto</h3>
 		<div>
@@ -20,6 +24,9 @@ $x = $this->getObjectToEdit();
 						->getSelectControl()
 							->setName('aspecto[id_tipo_aspecto]')
 							->setId('id_tipo_aspecto')
+							->setData('data-campo', '<b>Tipo Aspecto</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
 					)
 					->toHtml()
 				;

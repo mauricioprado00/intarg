@@ -1,0 +1,59 @@
+<?
+if(!$this->hasObjectToEdit()){
+	echo  ("no hay objeto a editar ".__FILE__.'-'.__LINE__);
+	return;
+}
+$x = $this->getObjectToEdit();
+
+?><?if($this->getIdToEdit()):?>
+<input type="hidden" name="translate[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo Translate');
+	else:
+		echo $this->__t('Editar Translate');
+	endif;?></legend>
+	<fieldset>
+		<h3>Datos</h3>
+		<div>
+			<label>Texto Original: </label>
+			<div class="motivo"><?php print htmlentities($x->getData('texto')); ?></div>
+			<label>Traducci&oacute;n: </label>
+			<span><?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+				$input
+					->setType('text')
+					->setMaxlength(300)
+					->setSize(50)
+					->setId('traduccion')
+					->setName('translate[traduccion]')
+					->setValue($x->getData('traduccion'))
+					->setData('data-campo', '<b>traduccion</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<br />
+			<span>Contexto:</span>
+			<div class="motivo"><?php print $x->getContexto(); ?></div>
+			<?php if($x->getExplicacion()): ?> 
+			<span>Explicacion/detalles:</span>
+			<div class="motivo"><?php print $x->getExplicacion(); ?></div>
+			<?php endif; ?> 
+		</div>
+	</fieldset>
+	<div class="controls">
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
+	</div>
+</fieldset>
+<script>
+function validar_agregar_translate(formData, jqForm, options) {
+	if(!validar({
+		donde: '#<?php print $id_fielset; ?>',
+		estatico:true})){
+		return false;
+	}
+	return(true);
+}
+</script>

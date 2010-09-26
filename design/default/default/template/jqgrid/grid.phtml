@@ -13,6 +13,7 @@ foreach($this->getColumns() as $columna){
 	$colNames[] = $columna->getTitle();
 	$colModel[] = $columna->getData();
 }
+$this->setData('translate','caption');
 $parametros = array(
 	'url'=>$this->getUrl($this->getSource()).'?',
 	'datatype'=>$this->getDatatype(),

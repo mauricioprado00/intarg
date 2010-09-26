@@ -27,7 +27,12 @@ $app
 	->setDbUser(DB_USER)
 	->setDbPassword(DB_PASS)
 	->setDbModel(DB_DATABASE);
-
+//$x = Inta_Model_Traduccion::Traducir('alguna cosa', 'x: kradkk', 'Core');
+//var_dump($x);
+//$x = Inta_Model_Traduccion::Traducir('alguna cosa', 'x: kradkk', 'Core_kradkk');
+////echo Inta_Db::getInstance()->getLastQuery();
+//var_dump($x);
+//die(); 
 if(1){
 	$app->run();
 	return;

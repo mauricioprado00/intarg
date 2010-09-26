@@ -11,7 +11,7 @@ class Admin_Archivo_Helper extends Core_Singleton{
 			$resultado = $archivo->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Archivo añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Archivo añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Archivo, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Archivo_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $archivo->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Archivo actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Archivo actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Archivo, error en la operación");
@@ -31,10 +31,10 @@ class Admin_Archivo_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarArchivo($id_archivo){
 		if(self::eliminarArchivo($id_archivo)){
-			Admin_App::getInstance()->addSuccessMessage('Archivo Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Archivo Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Archivo');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Archivo'));
 		}
 	}
 	public static function eliminarArchivo($id_archivo){

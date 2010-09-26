@@ -1,6 +1,6 @@
 <layout>
 	<default>
-		<reference name="menu_admin">
+		<reference name="submenu_admin_mantenimiento">
 			<action method="addItem">
 				<link_url>medio_verificacion</link_url>
 				<text>MedioVerificacion</text>

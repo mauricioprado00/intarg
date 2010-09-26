@@ -79,6 +79,20 @@ class Core_App extends Core_Singleton{
 		foreach($this->config->getModules() as $module_name=>$module_library){
 			//Base_Library::import($module_library.'.*');
 		}
+		
+		;
+		$enable_translate_debug = Admin_Translate_Debug::getInstance()->isEnabled();
+		if($enable_translate_debug){
+			$enable_translate_debug = true;
+			//Core_Translate_Singleton::getInstance()->addTranslator(new Admin_Translate_Debug());
+			Core_App::getConfig()->addTranslator('Admin_Translate_Debug', 0);
+			//Core_Translate_Singleton::getInstance()->translate('algo');
+			self::setData('message_container_translate', new Core_Collection());
+		}
+		
+		$trans = $this->config->getTranslate();
+		asort($trans);
+		Core_Translate_Singleton::getInstance()->initialize($trans);
 		//var_dump($this->config);
 		$this->router
 			->setRouteData(

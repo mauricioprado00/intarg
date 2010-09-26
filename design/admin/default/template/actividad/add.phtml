@@ -20,58 +20,94 @@ $configcke2 = array(
 		'toolbarStartupExpanded'=> false
 	)
 );
-		
 
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="actividad[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Actividad</legend>
+	<legend><?if(!$this->getIdToEdit()||!$x->getEstado()||$x->getEstado()=='planificado'):
+		echo $this->__t('Planificar Actividad');
+	else:
+		echo $this->__t('Seguimiento de Actividad');
+	endif;?></legend>
+	<?php print $this->getChildHtml('hijos_arriba'); ?>
 	<fieldset>
-		<h3>Informacion de Actividad</h3>
+		<h3><?php print $this->__t('Informacion de Actividad'); ?></h3>
 		<div>
-            <label>Responsable: </label>
-			<span><?
-				echo c($selector_usuario = $this->appendBlock('<selector_usuario />'))
-					->setSelectedValue($x->getIdResponsable())
-					->void($selector_usuario
-						->getSelectControl()
-							->setName('actividad[id_responsable]')
-							->setId('id_responsable')
-					)
-					->toHtml()
-				;
-			?> 
-			</span>			
-			<label>Nombre: </label>
-			<span><?
-				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
-				$input
-					->setMaxlength(300)
-					->setType('text')
-					->setId('nombre')
-					->setName('actividad[nombre]')
-					->setValue($x->getNombre())
-					->setData('data-campo', '<b>Nombre</b>')
-					->setData('data-validator', '{empty:false}')
-				;
-				echo $input->getHtml();
-			?>
-			</span>
-			<label>A&ntilde;o: </label>
-			<span><?
-				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
-				$input
-					->setMaxlength(300)
-					->setType('text')
-					->setId('ano')
-					->setName('actividad[ano]')
-					->setValue($x->getAno())
-					->setData('data-campo', '<b>Año</b>')
-					->setData('data-validator', '{empty:false,entero:4}')
-				;
-				echo $input->getHtml();
-			?>
-			</span>
+			<label for="nombre"><?
+				if(Admin_Actividad_Helper::canEditNombre($x)){
+					echo 'Nombre: ';
+					$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+					$input
+						->setMaxlength(300)
+						->setType('text')
+						->setId('nombre')
+						->setSize(50)
+						->setName('actividad[nombre]')
+						->setValue($x->getNombre())
+						->setData('data-campo', '<b>Nombre</b>')
+						->setData('data-validator', '{empty:false}')
+					;
+					echo $input->getHtml();
+				}
+				else{
+					echo '<h4>'.$x->getNombre().'</h4>';
+				}
+			?></label>
+			<table>
+				<tr>
+					<td>
+						<label><?
+						if(Admin_Actividad_Helper::canEditAno($x)){
+							echo 'A&ntilde;o: ';
+							$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+							if(!$x->getAno()){
+								$x->setAno(date('Y'));
+							}
+							$input
+								->setMaxlength(4)
+								->setType('text')
+								->setId('ano')
+								->setReadonly('readonly')
+								//->setName('actividad[ano]')
+								->setValue($x->getAno())
+								->setData('data-campo', '<b>Año</b>')
+								->setData('data-validator', '{empty:false,entero:4}')
+								->setSize(4)
+							;
+							echo $input->getHtml();
+						}
+						else{
+							echo 'A&ntilde;o '.$x->getAno().' -';
+						}
+						?></label>
+			            
+					</td>
+					<td style="padding-left:10px">
+						<label><?
+							if(Admin_Actividad_Helper::canEditIdResponsable($x)){
+								echo 'Responsable: ';
+								echo c($selector_usuario = $this->appendBlock('<selector_usuario />'))
+									->setSelectedValue($x->getIdResponsable())
+									->void($selector_usuario
+										->getSelectControl()
+											->setName('actividad[id_responsable]')
+											->setId('id_responsable')
+											->setData('data-campo', '<b>Responsable</b>')
+											->setData('data-mensaje', 'Seleccione %field')
+											->setData('data-validator', '{empty:false}')
+									)
+									->toHtml()
+								;
+							}
+							else{
+								$responsable = Admin_Actividad_Helper::getResponsable($x);
+								echo 'Responsable: '.($responsable->getApellido()).', '.($responsable->getNombre()); 
+							}
+						?></label>
+					</td>
+				</tr>
+			</table>
+			<?php if(Admin_Actividad_Helper::canEditPorcentajeCumplimiento($x)): ?> 
 			<label>Porcentaje Cumplimiento: <?
 				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
@@ -88,64 +124,125 @@ $configcke2 = array(
 				echo $input->getHtml();
 			?></label>
 			<span>
-			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#porcentaje_cumplimiento', 'min'=>0,'max'=>100, 'step'=>10, 'fixed'=>2))); ?>"></div>
+			<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#porcentaje_cumplimiento', 'min'=>0,'max'=>100, 'step'=>10, 'fixed'=>2, 'value_sufix'=>' %'))); ?>"></div>
 			</span>
-			<label>Porcentaje Tiempo: <?
+			<?php endif; ?>
+			<label>Porcentaje Tiempo Anual: <?
 				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('porcentaje_tiempo')
 					->setReadonly('readonly')
-					->setName('actividad[porcentaje_tiempo]')
 					->setStyle('border: 0pt none; color: rgb(246, 147, 31); font-weight: bold;')
 					->setValue($x->getPorcentajeTiempo())
 					->setData('data-campo', '<b>Porcentaje Tiempo</b>')
 					->setData('data-validator', '{empty:false,porcentaje:true}')
 				;
+				if(Admin_Actividad_Helper::canEditPorcentajeTiempo($x)){
+					$input
+						->setName('actividad[porcentaje_tiempo]');
+				}
 				echo $input->getHtml();
 			?></label>
+			<?php if(Admin_Actividad_Helper::canEditPorcentajeTiempo($x)): ?> 
 			<span>
-				<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#porcentaje_tiempo', 'min'=>0,'max'=>100, 'step'=>10, 'fixed'=>2))); ?>"></div>
+				<div class="slider" data-info="<?php print htmlentities(json_encode(array('target'=>'#porcentaje_tiempo', 'min'=>0,'max'=>100, 'step'=>10, 'fixed'=>2, 'value_sufix'=>' %'))); ?>"></div>
 			</span>
-			<label>Presupuesto Estimado: </label>
-			<span><?
+			<?php endif; ?> 
+			<?php if(false): /*esta deprecated este campo, el listao de proyectos lo contempla*/?> 
+			<label for="presupuesto_estimado">Presupuesto Estimado: <?
 				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
 					->setType('text')
 					->setId('presupuesto_estimado')
-					->setName('actividad[presupuesto_estimado]')
+					->setStyle('border: 0pt none; color: rgb(147,190, 31); font-weight: bold;')
 					->setValue($x->getPresupuestoEstimado())
 					->setData('data-campo', '<b>Presupuesto Estimado</b>')
-//					->setData('data-validator', '{empty:false,decimal:2}')
+					->setData('data-validator', '{empty:false,decimal:2}')
 				;
+				if(Admin_Actividad_Helper::canEditPresupuestoEstimado($x)){
+					$input
+						->setName('actividad[presupuesto_estimado]');
+				}
+				else{
+					$input->setReadonly('readonly');
+				}
 				echo $input->getHtml();
-			?>
-			</span>
-			<label>Estado: </label>
-			<span><?
-				$select = Core::getObject('Core_Html_Tag_Custom', 'select');
-                                $select
-                                        ->setId('estado')
-                                        ->setName('indicador[estado]')
-                                ;
-                                $html = '';
-                                $aOptions = array('planificado' => 'Planificado','cancelado' => 'Cancelado', 'realizado' => 'Realizado');
-                                foreach($aOptions As $key => $value){
-                                    $option = Core::getObject('Core_Html_Tag_Custom', 'option');
-                                    $option
-                                            ->setValue($key)
-                                            ->setInnerHtml($value)
-                                    ;
-                                    if($x->getEstado()==$key)
-                                            $option->setSelected('selected');
-                                    $html .= $option->getHtml();
-                                }
-                                $select->setInnerHtml($html);
-				echo $select->getHtml();
-			?>
-			</span>
+			?></label>
+			<?php endif; ?>
+			<label for="estado">Estado: <?
+					$aOptionsEstados = $aOptions = Admin_Actividad_Helper::getOpcionesEstadosPosiblesDeCambio($x);
+					if(true){
+						$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+						$input
+							->setType('hidden')
+							->setId('estado')
+							->setName('actividad[estado]')
+							->setValue($x->getEstado())
+						;
+						echo $input->getHtml();
+						$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+						$input
+							->setType('hidden')
+							->setId('motivo_atrasado')
+							->setName('actividad[motivo_atrasado]')
+							->setValue($x->getMotivoAtrasado())
+						;
+						echo $input->getHtml();
+						$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+						$input
+							->setType('hidden')
+							->setId('motivo_cancelado')
+							->setName('actividad[motivo_cancelado]')
+							->setValue($x->getMotivoCancelado())
+						;
+						echo $input->getHtml();
+						
+						while(true){
+							if($x->getEstado()){
+								$estado = $x->getEstado();
+								if(isset($aOptionsEstados[$estado])){
+									echo $aOptionsEstados[$estado];
+									break;
+								}
+							}
+							echo array_pop(array_slice($aOptionsEstados, 0, 1));
+							break;
+						}
+					}
+					else{
+						$select = Core::getObject('Core_Html_Tag_Custom', 'select');
+						$select
+							->setId('estado')
+							->setName('actividad[estado]')	
+						;
+						$html = '';
+						$aOptionsEstados = $aOptions = Admin_Actividad_Helper::getOpcionesEstadosPosiblesDeCambio($x);
+						foreach($aOptions As $key => $value){
+							$option = Core::getObject('Core_Html_Tag_Custom', 'option');
+							$option
+								->setValue($key)
+								->setInnerHtml($value)
+							;
+							if($x->getEstado()==$key)
+								$option->setSelected('selected');
+							$html .= $option->getHtml();
+						}
+						$select->setInnerHtml($html);
+                        echo $select->getHtml();
+                    }
+				
+			?></label>
+			<?php if(Admin_Actividad_Helper::canViewMotivoAtrasado($x)): ?> 
+				<label>Motivo de atraso:</label>
+				<div class="motivo"><?php print nl2br(htmlentities($x->getMotivoAtrasado())); ?></div> 
+			<?php endif; ?> 
+			<?php if(Admin_Actividad_Helper::canViewMotivoCancelado($x)): ?> 
+				<label>Motivo de cancelaci&oacute;n:</label>
+				<div class="motivo"><?php print nl2br(htmlentities($x->getMotivoCancelado())); ?></div>
+			<?php endif; ?> 
 		</div>
 	</fieldset>
 	<fieldset>
@@ -185,12 +282,53 @@ $configcke2 = array(
 			</span><?/**/}?>
 		</div>
 	</fieldset>
+	<?php print $this->getChildHtml('hijos_abajo'); ?>
 	<div class="controls">
+		<?php
+		foreach($aOptionsEstados as $estado=>$nombre_estado){
+			if($estado==$x->getEstado())
+				continue;
+			print Core::getObject('Core_Html_Tag_Custom', 'input')
+				->settype('button')
+				->setData('data-cambia-estado',json_encode(array('estado'=>$estado, 'nombre_estado'=>$nombre_estado)))
+				->setValue('Guardar como "'.$nombre_estado.'"')
+				->getHtml()
+			; 
+		}?> 
 		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
 </fieldset>
 <script>
 jQuery(document).ready(function(){
+	var form_id = <?php print json_encode($id_fielset); ?>;
+	jQuery('[data-cambia-estado]').click(function(){
+		var jqform = jQuery(this).parents('form:first');
+		var opciones = jQuery(this).attr('data-cambia-estado');
+		try{
+			eval('opciones='+opciones);
+		}catch(e){
+			return;
+		}
+		var jqwindow = jQuery('<div class="pregunta"></div>');
+		jqwindow.html('¿Desea continuar cambiando el estado de la actividad a <b>'+opciones.nombre_estado+'</b>?');
+		var jqmotivo = jQuery('#'+form_id+' #motivo_'+opciones.estado);
+		if(jqmotivo.length){
+			jqwindow.append('<div>Motivo:<textarea id="motivoingresado" rows="5" cols="50"></textarea></div>');
+		}
+		jqwindow.append('<div><input type="button" value="continuar" /></div>');
+		jqwindow.find('input').css('cursor','pointer').click(function(){
+			if(jqmotivo.length){
+				var jqmotivoingresado = jQuery(this).parents('.pregunta').find('textarea');
+				if(jqmotivoingresado.length){
+					jqmotivo.val(jqmotivoingresado.val());
+				}
+			}
+			jQuery('#'+form_id+' #estado').val(opciones.estado);
+			jQuery.ScreenBlock(false);
+			jqform.submit();
+		});
+		jqwindow.ScreenBlock();
+	});
 	jQuery('#observaciones').ckeditor(<?php print json_encode( $configcke1 ); ?>);
 	jQuery('#comentario').ckeditor(<?php print json_encode($configcke1); ?>);
     jQuery('input[type=button][value=Agregar]').live('click',function(){
@@ -219,9 +357,15 @@ jQuery(document).ready(function(){
 			if(options.fixed){
 				val = (new Number(parseFloat(val))).toFixed(options.fixed);
 			}
+			if(options.value_sufix)
+				val += options.value_sufix;
 			jQuery(options.target).val(val);
 		}
 		jQuery(this).slider(options);
+		var valor = jQuery(options.target).val();//esto es para actualizar la visualización en la edición cuando se carga el form
+		valor = parseInt(valor);
+		valor = isNaN(valor)?0:valor;
+		options.slide(null, {value:valor});
 		//jQuery(options.target).val(ui.value);
 	})
 	//$("#amount").val('$' + $("#slider").slider("value"));

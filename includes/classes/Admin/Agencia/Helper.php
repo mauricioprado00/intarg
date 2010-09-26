@@ -11,7 +11,7 @@ class Admin_Agencia_Helper extends Core_Singleton{
 			$resultado = $agencia->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Agencia añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Agencia añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Agencia, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Agencia_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $agencia->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Agencia actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Agencia actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Agencia, error en la operación");
@@ -31,10 +31,10 @@ class Admin_Agencia_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarAgencia($id_agencia){
 		if(self::eliminarAgencia($id_agencia)){
-			Admin_App::getInstance()->addSuccessMessage('Agencia Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Agencia Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Agencia');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Agencia'));
 		}
 	}
 	public static function eliminarAgencia($id_agencia){

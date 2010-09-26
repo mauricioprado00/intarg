@@ -11,7 +11,7 @@ class Admin_Audiencia_Helper extends Core_Singleton{
 			$resultado = $audiencia->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Audiencia añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Audiencia añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Audiencia, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Audiencia_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $audiencia->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Audiencia actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Audiencia actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Audiencia, error en la operación");
@@ -31,10 +31,10 @@ class Admin_Audiencia_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarAudiencia($id_audiencia){
 		if(self::eliminarAudiencia($id_audiencia)){
-			Admin_App::getInstance()->addSuccessMessage('Audiencia Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Audiencia Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Audiencia');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Audiencia'));
 		}
 	}
 	public static function eliminarAudiencia($id_audiencia){

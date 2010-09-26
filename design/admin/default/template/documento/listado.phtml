@@ -18,6 +18,7 @@ if($documentos){
 		<div class="listado_toolbox listado_toolbox_documentos listado_documentos_toolbox">
 			<div class="btn_eliminar btn_eliminar_documento" title="Eliminar Documento"></div>
 			<div class="btn_editar btn_editar_documento" title="Editar Documento"></div>
+			<div class="btn_editar btn_descargar_documento" title="Descargar Documento"></div>
 		</div><?php
 		echo '</li>';
 	}
@@ -55,7 +56,7 @@ jQuery(document).ready(function(){
 					jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
 					jqwait.ScreenBlock();
 					jQuery.get(
-						'administrator/ajax/documento/delete/'+id_documento+'/',
+						'<?php print $this->getUrl('administrator/ajax/documento/delete/'); ?>'+id_documento+'/',
 						function (data){
 							jQuery.ScreenBlock(false);
 							jQuery('#<?php print $id_control; ?>')
@@ -91,7 +92,7 @@ jQuery(document).ready(function(){
 			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
 			jqwait.ScreenBlock();
 			jQuery.get(
-				'<?php print 'administrator/ajax/documento/addEdit/'.$this->getTipoEntidad().'/'.$this->getIdEntidad().'/'; ?>'+id_documento,
+				'<?php print $this->getUrl('administrator/ajax/documento/addEdit/'.$this->getTipoEntidad().'/'.$this->getIdEntidad().'/'); ?>'+id_documento,
 				{
 					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.listado_documentos:last').attr('id')
 				},
@@ -103,6 +104,37 @@ jQuery(document).ready(function(){
 			)
 		})
 	;
+	jQuery('#<?php print $id_control?> .btn_descargar_documento')
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#1FBE93')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_documento = jqthat.parents('li:eq(0)').attr('data-id');
+			
+			window.open('<?php print $this->getUrl('administrator/documento/download/'); ?>'+id_documento); 
+			
+//			var jqwait = jQuery('<div></div>');
+			//jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
+//			jqwait.ScreenBlock();
+//			jQuery.get(
+//				'<?php print 'administrator/ajax/documento/addEdit/'.$this->getTipoEntidad().'/'.$this->getIdEntidad().'/'; ?>'+id_documento,
+//				{
+//					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.listado_documentos:last').attr('id')
+//				},
+//				function (data){
+//					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+//					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+//					jqwindow.html(data);
+//				}
+//			)
+		})
+	;
+	
 
 })
 </script><?

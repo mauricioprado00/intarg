@@ -10,7 +10,11 @@ $x = $this->getObjectToEdit();
 <input type="hidden" name="documento[tipo_entidad]" value="<?=$x->getTipoEntidad()?>" />
 <input type="hidden" name="documento[id_entidad]" value="<?=$x->getIdEntidad()?>" />
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Documento</legend>
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo Documento');
+	else:
+		echo $this->__t('Editar Documento');
+	endif;?></legend>
 	<fieldset>
 		<h3>Contenido</h3>
 		<div style="display:inline;float:left;">

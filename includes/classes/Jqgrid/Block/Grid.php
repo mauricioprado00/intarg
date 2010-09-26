@@ -21,7 +21,15 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 			->setPage(1)
 			//->setEditUrl('urledit')
 		;
+		$this->addAutofilterFieldInput('source', array($this, 'reset_translate_context'));
+		
 	}
+	protected function reset_translate_context($new){
+		$this->setTranslateContext($new);
+		return $new;
+	}
+	
+	
 	protected function generarRandomId(){
 		if(!$this->hasRandomId()){
 			$id = $this->getNameInLayout();

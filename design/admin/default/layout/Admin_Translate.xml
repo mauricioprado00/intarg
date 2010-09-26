@@ -1,0 +1,62 @@
+<layout>
+	<default>
+		<reference name="menu_admin_configuraciones">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>translate</link_url>
+					<text>Traducir</text>
+					<title>Traducir</title>
+					<name>menu_admin_translate</name>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_translate">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>translate/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>translate/enable</link_url>
+					<text>Seguimiento</text>
+					<title>Seguimiento</title>
+				</action>
+				<!--
+				<action method="addItem">
+					<link_url>translate/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+				-->
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_translate>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Translate/XmlList"
+			name="xml_data_admin_translate">
+			<action method="appListFields">
+				<fieldname>acciones</fieldname>
+				<fieldname>id</fieldname>
+				<fieldname>contexto</fieldname>
+				<fieldname>texto</fieldname>
+				<fieldname>traduccion</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<a href="#translate/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#translate/addEdit/{!id}"><div class="lsted"></div></a>
+					<a href="#translate/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el tipo de audiencia seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_translate>
+</layout>

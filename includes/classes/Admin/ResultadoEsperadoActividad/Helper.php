@@ -17,7 +17,7 @@ class Admin_ResultadoEsperadoActividad_Helper extends Core_Singleton{
 				$resultado = $resultado_esperado_actividad->replace()?true:false;
 				//$insertada = true;// insertarEnLaBase()
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage('ResultadoEsperadoActividad añadida correctamente');
+					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ResultadoEsperadoActividad añadida correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo agregar la ResultadoEsperadoActividad, error en la operación");
@@ -36,7 +36,7 @@ class Admin_ResultadoEsperadoActividad_Helper extends Core_Singleton{
 			else{
 				$resultado = $resultado_esperado_actividad->update(null)?true:false;
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage('ResultadoEsperadoActividad actualizada correctamente');
+					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ResultadoEsperadoActividad actualizada correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la ResultadoEsperadoActividad, error en la operación");
@@ -47,10 +47,10 @@ class Admin_ResultadoEsperadoActividad_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarResultadoEsperadoActividad($id_resultado_esperado_actividad){
 		if(self::eliminarResultadoEsperadoActividad($id_resultado_esperado_actividad)){
-			Admin_App::getInstance()->addSuccessMessage('ResultadoEsperadoActividad Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('ResultadoEsperadoActividad Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la ResultadoEsperadoActividad');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la ResultadoEsperadoActividad'));
 		}
 	}
 	public static function eliminarResultadoEsperadoActividad($id_resultado_esperado_actividad){

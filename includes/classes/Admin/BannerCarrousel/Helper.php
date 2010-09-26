@@ -13,7 +13,7 @@ class Admin_BannerCarrousel_Helper extends Core_Singleton{
 			$resultado = $banner_carrousel->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('BannerCarrousel añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('BannerCarrousel añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la BannerCarrousel, error en la operación");
@@ -23,7 +23,7 @@ class Admin_BannerCarrousel_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $banner_carrousel->update(null, array('es_activa'))?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('BannerCarrousel actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('BannerCarrousel actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la BannerCarrousel, error en la operación");
@@ -33,10 +33,10 @@ class Admin_BannerCarrousel_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarBannerCarrousel($id_banner_carrousel){
 		if(self::eliminarBannerCarrousel($id_banner_carrousel)){
-			Admin_App::getInstance()->addSuccessMessage('BannerCarrousel Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('BannerCarrousel Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la BannerCarrousel');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la BannerCarrousel'));
 		}
 	}
 	public static function eliminarBannerCarrousel($id_banner_carrousel){

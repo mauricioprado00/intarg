@@ -204,7 +204,7 @@ white-space:nowrap;
 	border:1px solid #407585;
 	color:#00577B;
 }
-.entity_addedit fieldset input[type='submit'], input[type='button']{
+.entity_addedit fieldset input[type='submit'], .entity_addedit fieldset input[type='button']{
 	background-color:#407585;
 	border:none;
 	color:#FEFEFF;

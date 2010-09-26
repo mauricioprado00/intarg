@@ -1,5 +1,77 @@
 <?
 class Admin_Actividad_Helper extends Core_Singleton{
+	public function getOpcionesEstadosPosiblesDeCambio($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->getOpcionesEstadosPosiblesDeCambio();
+	}
+	public function canEditPorcentajeCumplimiento($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canEditPorcentajeCumplimiento();
+	}
+	public function canEditCronograma($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canEditCronograma();
+	}
+	public function canEditPorcentajeTiempo($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canEditPorcentajeTiempo();
+	}
+	public function canEditPresupuestoEstimado($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canEditPresupuestoEstimado();
+	}
+	public function canEditNombre($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canEditNombre();
+	}
+	public function canEditAno($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canEditAno();
+	}
+	public function canEditIdResponsable($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canEditIdResponsable();
+	}
+	public function canViewMotivoAtrasado($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canViewMotivoAtrasado();
+	}
+	public function canViewMotivoCancelado($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->canViewMotivoCancelado();
+	}
+	public function getResponsable($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad->getResponsable();
+	}
+	public function getActividad($actividad){
+		if(!is_a($actividad,'Inta_Model_Actividad')){
+			$actividad = new Inta_Model_Actividad($actividad->getData());
+		}
+		return $actividad;
+	}
 	public function getInstance(){
 		return(self::getInstanceOf(__CLASS__));
 	}
@@ -15,7 +87,7 @@ class Admin_Actividad_Helper extends Core_Singleton{
 			$resultado = $actividad->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Actividad añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Actividad, error en la operación");
@@ -39,8 +111,9 @@ class Admin_Actividad_Helper extends Core_Singleton{
 		else{/** aca hay que actualizar el registro*/
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $actividad->update(null)?true:false;
+			//echo Core_Helper::DebugVars(Inta_Db::getInstance()->getLastQuery());
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Actividad actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Actividad, error en la operaci�n");
@@ -74,7 +147,7 @@ class Admin_Actividad_Helper extends Core_Singleton{
 //                            echo "<br>vd_actividad_proyecto: " . var_dump($actividad_proyecto);
 //                            $resultado_proyecto = $actividad_proyecto->replace()?true:false;
 //                            if($resultado_proyecto){
-//                             Admin_App::getInstance()->addSuccessMessage('Actividad añadida correctamente');
+//                             Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad añadida correctamente'));
 //                            }
 //                            else{
 //                                    Admin_App::getInstance()->addErrorMessage("No se pudo relacionar con el Proyecto, error en la operación");
@@ -87,10 +160,10 @@ class Admin_Actividad_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarActividad($id_actividad){
 		if(self::eliminarActividad($id_actividad)){
-			Admin_App::getInstance()->addSuccessMessage('Actividad Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Actividad');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Actividad'));
 		}
 	}
 	public static function eliminarActividad($id_actividad){

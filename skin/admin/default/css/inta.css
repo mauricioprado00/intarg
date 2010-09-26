@@ -92,3 +92,45 @@ li:hover>.listado_toolbox{
 .add_edit_list .box_listado_documentos>li{
 	list-style:none outside none;
 }
+
+
+
+.cronograma_actividad{
+	width:450px;
+}
+.cronograma_actividad li{
+	float:left;
+	height:30px;
+	border:1px solid black;
+	list-style:none;
+	padding:8px 9px 0;
+	width:130px;
+}
+.cronograma_actividad li.activo{
+	background-color:#DDEEFF;
+}
+.cronograma_actividad li label{
+	cursor:pointer;margin-bottom:3px;white-space:nowrap;
+	display:inline;
+}
+
+
+.listado_proyecto_actividads .total{
+	text-align:left;
+	margin-top:3px;
+	border-top:1px solid #00577B;
+}
+.listado_proyecto_actividads .total i{
+	float:right;
+	color:#53BE1F;
+	font-weight:bold;
+}
+.listado_proyecto_actividads .total i:before{
+	content:'$ ';
+}
+
+.motivo{
+	background-color:#FFFFBB;
+	border:1px solid black;
+	padding:2px;
+}

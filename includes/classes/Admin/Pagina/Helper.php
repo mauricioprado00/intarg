@@ -11,7 +11,7 @@ class Admin_Pagina_Helper extends Core_Singleton{
 			$resultado = $pagina->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Pagina añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Pagina añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Pagina, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Pagina_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $pagina->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Pagina actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Pagina actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Pagina, error en la operación");
@@ -35,10 +35,10 @@ class Admin_Pagina_Helper extends Core_Singleton{
 			->addInfoMessage('Las Paginas Internas son necesarias para el funcionamiento correcto del sistema');
 		}
 		elseif(self::eliminarPagina($id_pagina)){
-			Admin_App::getInstance()->addSuccessMessage('Pagina Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Pagina Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Pagina');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Pagina'));
 		}
 	}
 	public static function esPaginaInterna($id_pagina){

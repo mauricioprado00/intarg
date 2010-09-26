@@ -4,7 +4,7 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 		//$this->addRouter('admin','Router.Admin');
 		$this->addActions(
 			'cerrar_sesion',
-			'addEdit','delete','listar','datalist',
+			'addEdit','delete','listar','datalist','listar_planificadas','listar_iniciadas',
 			'ordenar','setorden'
 		);
 	}
@@ -71,6 +71,8 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 			$actividad = new Inta_Model_Actividad();
 			if(isset($post_actividad)){
 				$actividad->loadFromArray($post_actividad->getData());
+				if(!$actividad->getAno())
+					$actividad->setAno(date('Y'));
 				//echo Core_Helper::DebugVars($actividad->getData());
 				$guardado = 
 					Admin_Actividad_Helper::actionAgregarEditarActividad($actividad,$aActividadProyecto,$aResultadoEsperadoActividad)?true:false;
@@ -97,6 +99,9 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 			}
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_actividad');
+				if($actividad->getId()){
+					Core_App::getLayout()->addActions('edit_actividad_estado_'.$actividad->getEstado());
+				}
 				$layout = Core_App::getLoadedLayout();
 
 				if($block_add_edit_list_documentos_actividad = $layout->getBlock('add_edit_list_documentos_actividad')){
@@ -104,6 +109,9 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 				}
 				if($block_add_edit_list_aspecto_actividad = $layout->getBlock('add_edit_list_aspecto_actividad')){
 					$block_add_edit_list_aspecto_actividad->setIdActividad($actividad->getId());
+				}
+				if($block_add_edit_list_audiencia_actividad = $layout->getBlock('add_edit_list_audiencia_actividad')){
+					$block_add_edit_list_audiencia_actividad->setIdActividad($actividad->getId());
 				}
 				if($block_add_edit_list_estrategia_actividad = $layout->getBlock('add_edit_list_estrategia_actividad')){
 					$block_add_edit_list_estrategia_actividad->setIdActividad($actividad->getId());
@@ -135,6 +143,43 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 	protected function datalist(){
 		Core_App::getLayout()->setActions(array());//reset
 		Core_App::getLayout()->addActions('datalist', 'datalist_admin_actividad');
+		if($args = func_get_args()){
+			if($block = Core_App::getLoadedLayout()->getBlock('xml_data_admin_actividad')){
+				if(count($args)%2===0){
+					$filtros = array();
+					$fieldname = null;
+					for($i=0;$i<count($args);$i++){
+						if(($i%2)==0){
+							$fieldname = $args[$i];
+							continue;
+						}
+						$filtros[$fieldname] = $args[$i];
+					}
+				}
+				$filtros['id_agencia'] = Admin_Helper::getInstance()->getIdAgencia();
+				$block->setHardFiltros($filtros);
+			}
+		}
+	}
+	protected function listar_planificadas(){
+		Core_App::getLayout()->addActions('entity_list', 'list_admin_actividad');
+		if($block = Core_App::getLoadedLayout()->getBlock('listado_datos_grid')){
+			$block
+				->setCaption('Actividades Planificadas')
+				->setSource('administrator/actividad/datalist/estado/planificado')
+			;
+		}
+		$this->cambiarUrlAjax('administrator/actividad/listar_planificadas');
+	}
+	protected function listar_iniciadas(){
+		Core_App::getLayout()->addActions('entity_list', 'list_admin_actividad');
+		if($block = Core_App::getLoadedLayout()->getBlock('listado_datos_grid')){
+			$block
+				->setCaption('Actividades en Curso')
+				->setSource('administrator/actividad/datalist/estado/parcial')
+			;
+		}
+		$this->cambiarUrlAjax('administrator/actividad/listar_iniciadas');
 	}
 	protected function dispatchNode(){
 		return;

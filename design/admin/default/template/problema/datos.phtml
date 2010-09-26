@@ -16,7 +16,11 @@ $arr_ponderaciones = array(
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="problema[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> Problema</legend>
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo Problema');
+	else:
+		echo $this->__t('Editar Problema');
+	endif;?></legend>
 	<fieldset>
 		<h3>Informacion de Problema</h3>
 		<div>
@@ -28,6 +32,9 @@ $arr_ponderaciones = array(
 						->getSelectControl()
 							->setName('problema[id_audiencia]')
 							->setId('id_audiencia')
+							->setData('data-campo', '<b>Audiencia</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
 					)
 					->toHtml()
 				;

@@ -11,7 +11,7 @@ class Admin_Documento_Helper extends Core_Singleton{
 			$resultado = $documento->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Documento añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Documento añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Documento, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Documento_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $documento->update(null)?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Documento actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Documento actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Documento, error en la operación");
@@ -31,10 +31,10 @@ class Admin_Documento_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarDocumento($id_documento){
 		if(self::eliminarDocumento($id_documento)){
-			Admin_App::getInstance()->addSuccessMessage('Documento Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Documento Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Documento');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Documento'));
 		}
 	}
 	public static function eliminarDocumento($id_documento){

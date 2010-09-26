@@ -710,6 +710,11 @@ class Base_Layout extends Base_Singleton{
 			}
 			//var_dump($name);
 		}
+//		if($obj->hasTranslate()){
+//			$arr_translate = explode(',', $obj->hasTranslate());
+//			$attr['translate'] = Core_App::getInstance()->__t($attr['translate'], null, null, $classname);
+//			die($obj->getTranslate());
+//		}
 		if($obj->hasInlineContent()&&strtolower($obj->getInlineContent())==true){
 		//if($classname == 'Core_Page_Block_Html_Head_Script'){
 			$obj->setInlineContent((string)$xml_block);
@@ -791,7 +796,12 @@ class Base_Layout extends Base_Singleton{
 			$siblingName = $obj->getBefore();
 			$after = false;
 		}
-		$parent_block->insert($obj, $siblingName, $after);
+		$alias = '';
+		if($obj->hasAs()){
+			$alias = $obj->getAs();
+			$obj->setIsAnonymous(false);
+		}
+		$parent_block->insert($obj, $siblingName, $after, $alias);
 		$obj->onAfterLayoutLoad();
 		return $obj;
 	}

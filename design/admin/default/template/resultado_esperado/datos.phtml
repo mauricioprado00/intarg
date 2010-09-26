@@ -8,12 +8,30 @@ $x = $this->getObjectToEdit();
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="resultado_esperado[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):?>Nuevo<?else:?>Editar<?endif;?> ResultadoEsperado</legend>
+	<legend><?if(!$this->getIdToEdit()):
+		echo $this->__t('Nuevo ResultadoEsperado');
+	else:
+		echo $this->__t('Editar ResultadoEsperado');
+	endif;?></legend>
 	<fieldset>
 		<h3>Informacion de ResultadoEsperado</h3>
 		<div>
 			<label>Objetivo: </label>
 			<span><?
+				echo c($selector_tipo_objetivo = $this->appendBlock('<selector_objetivo/>'))
+					->setSelectedValue($x->getIdObjetivo())
+					->void($selector_tipo_objetivo
+						->getSelectControl()
+							->setName('resultado_esperado[id_objetivo]')
+							->setId('id_objetivo')
+							->setData('data-campo', '<b>Objetivo</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
+					)
+					->toHtml()
+				;
+
+			if(false):
 				$objetivo = new Inta_Model_Objetivo();
 				$objetivos = $objetivo->search();
 				$html_select = '';
@@ -33,6 +51,7 @@ $x = $this->getObjectToEdit();
 					->setInnerHtml($html_select)
 					->getHtml()
 				;
+			endif;
 			?> 
 			</span>
 			<label>Descripcion: </label>

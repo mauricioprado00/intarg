@@ -11,7 +11,7 @@ class Admin_Barrio_Helper extends Core_Singleton{
 			$resultado = $barrio->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Barrio añadida correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Barrio añadida correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Barrio, error en la operación");
@@ -21,7 +21,7 @@ class Admin_Barrio_Helper extends Core_Singleton{
 			//$actualizada = true;// actualizarEnLaBase()
 			$resultado = $barrio->update()?true:false;
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage('Barrio actualizada correctamente');
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Barrio actualizada correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Barrio, error en la operación");
@@ -31,10 +31,10 @@ class Admin_Barrio_Helper extends Core_Singleton{
 	}
 	public static function actionEliminarBarrio($id_barrio){
 		if(self::eliminarBarrio($id_barrio)){
-			Admin_App::getInstance()->addSuccessMessage('Barrio Eliminada Correctamente');
+			Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Barrio Eliminada Correctamente'));
 		}
 		else{
-			Admin_App::getInstance()->addErrorMessage('No se pudo eliminar la Barrio');
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la Barrio'));
 		}
 	}
 	public static function eliminarBarrio($id_barrio){

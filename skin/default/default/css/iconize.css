@@ -42,6 +42,18 @@
 	background-image:url(../img/16x16/xls.png);
 	background-repeat:no-repeat;
 }
+.show_iconized_16_xlsx{
+	background-image:url(../img/16x16/xls.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_doc{
+	background-image:url(../img/16x16/doc.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_16_docx{
+	background-image:url(../img/16x16/doc.png);
+	background-repeat:no-repeat;
+}
 
 
 /*48x48*/
@@ -88,5 +100,17 @@
 }
 .show_iconized_48_xls{
 	background-image:url(../img/48x48/xls.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_xlsx{
+	background-image:url(../img/48x48/xls.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_doc{
+	background-image:url(../img/48x48/doc.png);
+	background-repeat:no-repeat;
+}
+.show_iconized_48_docx{
+	background-image:url(../img/48x48/doc.png);
 	background-repeat:no-repeat;
 }
