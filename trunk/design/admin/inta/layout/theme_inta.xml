@@ -1,0 +1,14 @@
+<layout>
+	<login_page>
+		<reference name="html_head">
+			<action method="unsetChild">
+				<name>admin_css_estilos</name>
+			</action>
+			<css name="inta_legacy_css_estilos">legacy/css/nice-content.css</css>
+			<css name="inta_legacy_css_estilos">legacy/css/login.css</css>
+		</reference>	
+		<reference name="contenedor_main">
+			
+		</reference>
+	</login_page>
+</layout>

@@ -1,0 +1,50 @@
+<?
+$lf = $this->getListFields();
+$vf = $this->getVirtualFields();
+	$data = $this->getDatos();
+?><rows>
+<page><?=$this->getPage()?></page>
+<total><?=$this->getTotal()?></total>
+<records><?=$this->getRecords()?></records><?
+	if($data)
+	foreach($data as $item){?> 
+	<row id="<?=$item->getId()?>"><?
+		if(!isset($lf)||!count($lf)){
+			foreach($item->setData($var, '')->getData() as $var=>$value){
+			if(in_array($var, $vf)):?> 
+		<cell><![CDATA[<?=$item->getData($var)?>]]></cell><?
+			elseif($value!==null):?> 
+		<cell><![CDATA[<?=$value?>]]></cell><?
+			else:?> 
+		<cell><![CDATA[]]></cell><?
+			endif;
+			}
+		}
+		else{
+			foreach($lf as $var){
+				if(preg_match('/(?P<varname>[^@]*)@(?P<special>.*)/', $var, $matches)){
+					$var = $matches['varname'];
+					$special = $matches['special'];
+					$special = $special?' special="'.$special.'"':'';
+				}
+				else $special = '';
+				$value = $item->getData($var);
+					
+				if(in_array($var, $vf)):
+					$value = $item->setData($var, '')->getData($var);
+				elseif($value!==null):
+					$value = $this->outputFilter($value);
+				else:
+					$value = '';
+				endif;
+				
+				$output = $this->renderValue($item, $var, $value);
+			
+			?> 
+		<cell<?php print $special; ?>><![CDATA[<?php print $output; ?>]]></cell><?
+			}
+		}?> 
+	</row><?
+	}
+?> 
+</rows>

@@ -67,6 +67,9 @@ class Admin_MedioVerificacion_Router extends Core_Router_Abstract{
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_medio_verificacion');
 				$layout = Core_App::getLoadedLayout();
+				if($medio_verificacion->getId()&&!$id_medio_verificacion){
+					$this->cambiarUrlAjax('administrator/medio_verificacion/addEdit/'.$medio_verificacion->getId());
+				}
 
 				$medio_verificacion->addAutofilterOutput('utf8_decode');
 				

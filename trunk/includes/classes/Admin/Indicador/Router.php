@@ -67,6 +67,9 @@ class Admin_Indicador_Router extends Core_Router_Abstract{
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_indicador');
 				$layout = Core_App::getLoadedLayout();
+				if($indicador->getId()&&!$id_indicador){
+					$this->cambiarUrlAjax('administrator/indicador/addEdit/'.$indicador->getId());
+				}
 
 				$indicador->addAutofilterOutput('utf8_decode');
 				

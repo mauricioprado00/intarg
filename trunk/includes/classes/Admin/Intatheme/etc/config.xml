@@ -1,0 +1,11 @@
+<global>
+	<design>
+		<ajax><![CDATA[admin/inta/]]></ajax>
+		<admin><![CDATA[admin/inta/]]></admin>
+	</design>
+	<layouts>
+		<ajax>theme_inta.xml</ajax>
+		<admin>theme_inta.xml</admin>
+		<simple>theme_inta.xml</simple>
+	</layouts>
+</global>

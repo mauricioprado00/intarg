@@ -87,10 +87,10 @@ class Admin_Actividad_Helper extends Core_Singleton{
 			$resultado = $actividad->replace()?true:false;
 			//$insertada = true;// insertarEnLaBase()
 			if($resultado){
-				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad aÃ±adida correctamente'));
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad añadida correctamente'));
 			}
 			else{
-				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Actividad, error en la operaciÃ³n");
+				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la Actividad, error en la operación");
 			}
                         //Mat, meto el link actividad proyecto
                         $resultadoActividadProyecto = true;
@@ -116,7 +116,7 @@ class Admin_Actividad_Helper extends Core_Singleton{
 				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad actualizada correctamente'));
 			}
 			else{
-				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Actividad, error en la operaciï¿½n");
+				Admin_App::getInstance()->addErrorMessage("No se pudo actualizar la Actividad, error en la operaci?n");
 			}
 //                        return($resultado);
 
@@ -147,10 +147,10 @@ class Admin_Actividad_Helper extends Core_Singleton{
 //                            echo "<br>vd_actividad_proyecto: " . var_dump($actividad_proyecto);
 //                            $resultado_proyecto = $actividad_proyecto->replace()?true:false;
 //                            if($resultado_proyecto){
-//                             Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad aÃ±adida correctamente'));
+//                             Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Actividad añadida correctamente'));
 //                            }
 //                            else{
-//                                    Admin_App::getInstance()->addErrorMessage("No se pudo relacionar con el Proyecto, error en la operaciÃ³n");
+//                                    Admin_App::getInstance()->addErrorMessage("No se pudo relacionar con el Proyecto, error en la operación");
 //                            }
 //                            $contador ++;
 //                        }

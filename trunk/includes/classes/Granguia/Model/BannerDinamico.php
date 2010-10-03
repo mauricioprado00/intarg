@@ -29,7 +29,7 @@ class Granguia_Model_BannerDinamico extends Core_Model_Abstract{
 		$this->addAutofilterFieldOutput('links', 'unserialize');
 	}
 	public function capturarLinks($contenido){
-		$reg_exp = '(href="(?<urls>[^"{}]+)")';
+		$reg_exp = '(href="(?P<urls>[^"{}]+)")';
 		if(!preg_match_all($reg_exp, $contenido, $matches))
 			return $contenido;
 		$this->fixLinksFilters();

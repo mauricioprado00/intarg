@@ -1,4 +1,5 @@
 <?
+//sleep(3);
 //time_nanosleep(0, 500000000);
 //ini_set('display_errors','on');
 //error_reporting(E_ALL);

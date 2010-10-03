@@ -103,6 +103,9 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 				if($block_add_edit_list_documentos_audiencia = $layout->getBlock('add_edit_list_documentos_audiencia')){
 					$block_add_edit_list_documentos_audiencia->setIdEntidad($audiencia->getId());
 				}
+				if($audiencia->getId()&&!$id_audiencia){
+					$this->cambiarUrlAjax('administrator/audiencia/addEdit/'.$audiencia->getId());
+				}
 
 				$audiencia->addAutofilterOutput('utf8_decode');
 				

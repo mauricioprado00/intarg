@@ -8,6 +8,7 @@
 		<Admin_Actividad/>
 		<Admin_Objetivo/>
 		<Admin_ResultadoEsperado/>
+		<Admin_Reporte/>
 
 		<Admin_Inta/>
 		<Admin_Proyecto/>
@@ -60,6 +61,7 @@
 		<Admin_Testimonio/>
 		-->
 		<!-- <Visualadmin/> -->
+		<Admin_Intatheme/>
 	</modules>
 	<block>
 		<type>frame</type>

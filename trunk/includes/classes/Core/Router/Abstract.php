@@ -59,7 +59,11 @@ abstract class Core_Router_Abstract extends Core_Object{
 		if(!isset($request_path)){
 			if(Core_App::getFancyUrlEnabled()){
 				//self::$request_url = $_SERVER['REQUEST_URI'];
-				self::$request_url = $_SERVER['REDIRECT_URL'];
+				//self::$request_url = $_SERVER['REDIRECT_URL'];
+				if(basename($_SERVER['REDIRECT_URL'])=='app_index.php')
+					self::$request_url = $_SERVER['REQUEST_URI'];
+				else
+					self::$request_url = $_SERVER['REDIRECT_URL'];
 				//$request_path = str_replace(CONF_PATH_APP, '', self::$request_url);
 				$request_path = explode(CONF_SUBURL_APP, self::$request_url);;//str_replace(CONF_SUBURL_APP, '', self::$request_url);
 				array_shift($request_path);

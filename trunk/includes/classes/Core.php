@@ -11,8 +11,13 @@ class Core extends Core_Singleton{
 		if(is_string($o)){
 			$args = array_slice($args, 1);
 			$classname = self::getRewriteClass($o);
-			$o = @(new $classname());
-			call_user_func_array(array($o, '__construct'), $args);
+			if(class_exists($classname)){
+				$o = @(new $classname());
+				call_user_func_array(array($o, '__construct'), $args);
+			}
+			else{
+				return null;
+			}
 		}
 		return $o;
 	}

@@ -101,6 +101,9 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 				else 
 					$problema->setWhere(Db_Helper::in('id_audiencia', true, $ids_audiencia),' AND (',Db_Helper::equal('id_resultado_esperado', 0),')');
 				$problemas = $problema->search();
+				if($resultado_esperado->getId()&&!$id_resultado_esperado){
+					$this->cambiarUrlAjax('administrator/resultado_esperado/addEdit/'.$resultado_esperado->getId());
+				}
 				//echo Core_Helper::DebugVars($ids_audiencia);
 				//echo Core_Helper::DebugVars($problema->searchGetSql());
 				

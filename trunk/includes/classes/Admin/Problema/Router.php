@@ -67,6 +67,9 @@ class Admin_Problema_Router extends Core_Router_Abstract{
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_problema');
 				$layout = Core_App::getLoadedLayout();
+				if($problema->getId()&&!$id_problema){
+					$this->cambiarUrlAjax('administrator/problema/addEdit/'.$problema->getId());
+				}
 
 				$problema->addAutofilterOutput('utf8_decode');
 				

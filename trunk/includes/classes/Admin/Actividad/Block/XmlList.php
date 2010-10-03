@@ -7,15 +7,21 @@ class Admin_Actividad_Block_XmlList extends Jqgrid_Block_XmlList{
 		*/
 		//$actividad = new Inta_Model_Actividad();
 		$actividad = new Inta_Model_Actividad();
+		$actividad = new Inta_Model_View_Actividad();
+		$actividad = new Admin_Actividad_Block_XmlList_View();
 		$wheres = array();
 		if($comparator!=null){
 			$wheres[] = $comparator;
 			//$actividad->setWhere($comparator);
 		}
 		if($this->hasHardFiltros()){
+			$translate = array('estado'=>'actividad_estado');
 			foreach($this->getHardFiltros() as $fieldname=>$value){
 				if($fieldname=='id_agencia'){
 					$wheres[] = $actividad->crearFiltroAgencia($value);
+				}
+				elseif(isset($translate[$fieldname])){
+					$wheres[] = Db_Helper::equal($translate[$fieldname], $value);
 				}
 				else{
 					$wheres[] = Db_Helper::equal($fieldname, $value);
@@ -46,6 +52,7 @@ class Admin_Actividad_Block_XmlList extends Jqgrid_Block_XmlList{
 		
 		//$datos = $actividad->search(null,'ASC',null,0,true,array('id', 'username', 'nombre', 'apellido', 'activo', 'privilegios', 'ultimo_acceso'));
 		$datos = $actividad->search($sidx,$sord,$rows,$rows*($page-1),get_class($actividad));
+		//echo $actividad->searchGetSql($sidx,$sord,$rows,$rows*($page-1),get_class($actividad));
 		//aca termina la consulta a la base
 		//echo Inta_Db::getInstance()->getLastQuery();
 		

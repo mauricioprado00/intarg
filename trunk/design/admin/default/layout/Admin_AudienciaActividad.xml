@@ -30,7 +30,7 @@
 		<block type="Admin_AudienciaActividad/XmlList"
 			name="xml_data_admin_audiencia_actividad">
 			<action method="appListFields">
-				<fieldname>acciones</fieldname>
+				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>nombre</fieldname>
 			</action>

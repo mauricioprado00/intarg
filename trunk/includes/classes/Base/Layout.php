@@ -208,7 +208,7 @@ class Base_Layout extends Base_Singleton{
 		$paths = array($this->default_design_path);
 		if(isset($this->design_paths[$this->modo]))
 			$paths = array_merge($paths, $this->design_paths[$this->modo]);
-		//var_dump($paths);
+			
 		$cant = count($paths);
 		for($i=0; $i<$cant; $i++){
 			$relative_file = CONF_SUBPATH_DESIGN.$paths[$cant-1-$i].$file;
@@ -392,7 +392,7 @@ class Base_Layout extends Base_Singleton{
 //				echo "la expresion when:\"$when\", es incorrecta";
 //				die();
 //			}
-			$re = '((?<denied>!)?(?<qualifier>accion|modo)[(](?<params>([a-zA-Z0-9_]+)([,][a-zA-Z0-9_]+)*)[)])';
+			$re = '((?P<denied>!)?(?P<qualifier>accion|modo)[(](?P<params>([a-zA-Z0-9_]+)([,][a-zA-Z0-9_]+)*)[)])';
 			if(preg_match_all($re, $when, $matches)){
 				//var_dump($matches);
 				foreach($matches[0] as $idx=>$full_string){
@@ -416,7 +416,7 @@ class Base_Layout extends Base_Singleton{
 				$arr_checks['modo_'.$this->modo] = true;
 			}
 			//var_dump($arr_checks);
-			if(preg_match_all('([$](?<varnames>[A-Za-z0-9_]+))', $when, $matches)){
+			if(preg_match_all('([$](?P<varnames>[A-Za-z0-9_]+))', $when, $matches)){
 				foreach($matches['varnames'] as $varname){
 					if(!isset($arr_checks[$varname])){
 						//echo 'set false '. $varname."\n";

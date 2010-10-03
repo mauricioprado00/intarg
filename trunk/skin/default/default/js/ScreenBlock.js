@@ -108,6 +108,9 @@ jQuery.ScreenBlock = jQuery.fn.ScreenBlock = function(options){
 		jqbutton[0].scrollLeft = 2;
 		jqbutton[0].scrollTop = 1;
 		jqbutton.click(function(){
+			if(params.onclose){
+				params.onclose();
+			}
 			jQuery.ScreenBlock(false);
 		});
 		jqbutton = null;
@@ -185,7 +188,8 @@ jQuery.fn.ScreenBlock.params = {
 		position: 'fixed',
 		'z-index': 51,
 		'text-align':'center'
-	}
+	},
+	onclose:null
 }
 //jQuery.ScreenBlock({message:'kradkk.com'});
 //jQuery.ScreenBlock(false);

@@ -4,6 +4,7 @@ $table_id = $this->getTableId();//$id.'_list';
 $pager_id = $this->getPagerId();//$id.'_pager';
 $table_container_id = $this->getTableContainerId();//$id.'_container';
 $button_container = $this->getButtonContainerId();//$id.'_button_container';
+
 $colNames = array();
 $colModel = array();
 ;
@@ -26,7 +27,8 @@ $parametros = array(
 	'viewrecords'=>$this->getViewRecords(),
 	'sortorder'=>$this->getSortOrder(),
 	'caption'=>$this->getCaption(),
-	'page'=>$this->getPage()
+	'page'=>$this->getPage(),
+	'loadtext'=>'Cargando...'
 );
 if($this->hasToolbar()){
 	$parametros['toolbar'] = array(
@@ -47,6 +49,7 @@ $more_params = array(
 	'edit'=>$this->getCanEdit(),
 	'add'=>$this->getCanAdd(),
 	'del'=>$this->getCanDelete(),
+	'view'=>$this->getCanView(),
 );
 
 
@@ -55,7 +58,7 @@ $more_params = array(
 <table id="<?=$table_id?>" class="scroll" cellpadding="0" cellspacing="0"></table>
 <div id="<?=$pager_id?>" class="scroll" style="text-align:center;"></div>
 </div>
-<div id="<?=$button_container?>" class="jqgrid_controles_personalizados">
+<div class="ui-widget-content" id="<?=$button_container?>" class="jqgrid_controles_personalizados">
 <?
 foreach($this->getButtons() as $button){
 	$control = Core::getObject('Core_Html_Tag_Custom', 'input')
@@ -85,6 +88,15 @@ if($this->hasToolbarEditUrl()&&count($this->getToolbarEditUrl())==2){
 		->getHtml();
 	/** /?><input type="BUTTON" id="editar_seleccionado" value="Editar" /><?/**/
 }
+if($this->canExport()){
+	echo Core::getObject('Core_Html_Tag_Custom', 'input')
+		->setClass('jqgrid_export_data')
+		->setId('exportar_data')
+		->setType('button')
+		->setValue('Exportar')
+		->getHtml()
+	;
+}
 if($this->hasToolbarDeleteUrl()&&count($this->getToolbarDeleteUrl())==2){
 	echo Core::getObject('Core_Html_Tag_Custom', 'input')
 		->setId('eliminar_seleccionado')
@@ -104,9 +116,9 @@ jQuery(document).ready(function(){
 	$("#badata").click(function(){
 		jQuery("#addgrid").editGridRow("new",{height:280,reloadAfterSubmit:false});
 	});
-
+try{
 	var params = <?=json_encode($parametros)?>;
-	params.editurl = 'index.php?x=1&';
+	//params.editurl = 'index.php?x=1&';
 	var more_params = <?=json_encode($more_params)?>;
 	params.pager = jQuery('#<?=$pager_id?>');
 	<? if($this->hasFullWidth()&&$this->getFullWidth()){?> 
@@ -115,7 +127,7 @@ jQuery(document).ready(function(){
 	//window.console.log(more_params,params);
 	//window.console.log(jQuery("#<?=$table_id?>"),jQuery("#<?=$pager_id?>"));
 	jQuery("#<?=$table_id?>").attr('jqgrid','si').jqGrid(params).navGrid('#<?=$pager_id?>',more_params);
-	
+}catch(e){alert(e);}
 	<? if($this->hasFullWidth()&&$this->getFullWidth()&&false){?> 
 	jQuery('.grid_hdiv, #t_<?=$table_id?>, .GridHeader, .grid_htable, .grid_bdiv, #<?=$table_id?>, #<?=$pager_id?>','#<?=$table_container_id?>')
 		.css('width', '100%');<?
@@ -152,9 +164,6 @@ jQuery(document).ready(function(){
 				HelperUrl().goUrl("<?=$this->getUrl($deletedata[0])?>/"+ret.<?=$deletedata[1]?>);
 			} else { alert("Seleccione una fila");}
 		})<?php 
-		if($this->getButtonsInTop()||!$this->hasButtonsInTop()){ ?>
-		.appendTo('#t_<?=$table_id?>');<?
-		}
 	}?> 
 	jQuery("#<?=$button_container?> .boton_custom[action_url]")
 		.unbind('click')
@@ -194,17 +203,49 @@ jQuery(document).ready(function(){
 				HelperUrl().goUrl(new_url);
 				//HelperUrl().goUrl("<?=$this->getUrl($deletedata[0])?>/"+ret.<?=$deletedata[1]?>);
 			} else { alert("Seleccione una fila");}
-		})<?php 
-		if($this->getButtonsInTop()||!$this->hasButtonsInTop()){ ?>
-		.appendTo('#t_<?=$table_id?>');<?php 
-		}?> 
+		})
 	{jQuery("#<?=$button_container?> .boton_custom[action_js]")
 		.click(function(){
 			eval(jQuery(this).attr('action_js'));
-		})<?php 
-		if($this->getButtonsInTop()||!$this->hasButtonsInTop()){ ?>
-		.appendTo('#t_<?=$table_id?>')<?php 
-		}?> 
+		})
 	}
+	jQuery("#t_<?=$table_id?>").addClass('jqgrid_top_controls');
+	<?php 
+		if($this->getButtonsInTop()||!$this->hasButtonsInTop()){ ?> 
+		jQuery("#<?=$button_container?>>*")
+			.appendTo('#t_<?=$table_id?>');
+		;<?php 
+		}?> 
+	{jQuery('#t_<?=$table_id?> input')
+		.addClass('ui-state-default')
+		.css('cursor','pointer')
+		.addClass('ui-corner-all')
+		.hover(
+			function(){ 
+				$(this).addClass("ui-state-hover"); 
+			},
+			function(){ 
+				$(this).removeClass("ui-state-hover"); 
+			}
+		)
+	}
+
+	/*
+	opt= jqgrid.jqGridExport()
+	jqgrid = getGrid(jQuery('td:eq(20)'))
+	jqgrid.jqGrid({miconfiguracion:'mivalor de la config'})
+	jqgrid.getUserData().funcabien='yeye'
+	jqgrid.getGridParam()
+	jqgrid.getGridParam('caption')
+	*/
+
 }) 
 </script>
+<? 	
+
+if($this->hasCanExportAsHtml()&&$this->getCanExportAsHtml()): 
+	$this->appendXmlBlocks('<block type="Jqgrid/ExportHandler_Widget" as="export_window_widget"/>');
+	echo $this->getChildHtml('export_window_widget');
+endif;
+
+?>

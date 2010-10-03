@@ -15,7 +15,7 @@ class Frontend_Contacto_Block_Form extends Core_Block_Template{
 	protected function getFirma(){
 		if(!isset($this->_firma)){
 			$firma = '';
-			$reg = '(name="(?<campos>[^"]+)")';
+			$reg = '(name="(?P<campos>[^"]+)")';
 			if(preg_match_all($reg, $this->getFormulario(), $matches)){
 				$campos = implode('-',$matches['campos']).Frontend_Contacto_Helper::getInstance()->getClaveEncriptacion();
 				$firma = sha1($campos);

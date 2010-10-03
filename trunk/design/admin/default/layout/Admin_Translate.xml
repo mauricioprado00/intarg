@@ -39,7 +39,7 @@
 		<block type="Admin_Translate/XmlList"
 			name="xml_data_admin_translate">
 			<action method="appListFields">
-				<fieldname>acciones</fieldname>
+				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>contexto</fieldname>
 				<fieldname>texto</fieldname>
@@ -57,6 +57,12 @@
 					<a href="#translate/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el tipo de audiencia seleccionado?')"><div class="lstde"></div></a>
 					]]></param>
 			</action>
+			<!--
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+			-->
 		</block>
 	</datalist_admin_translate>
 </layout>

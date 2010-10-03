@@ -39,7 +39,7 @@
 			cel, mail, nac, categoria, pass, checked, web, msn, lastlogin
 			-->
 			<action method="appListFields">
-				<fieldname>acciones</fieldname>
+				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>nombre</fieldname>
 				<fieldname>componente_url</fieldname>
@@ -64,6 +64,12 @@
 					<a href="#categoria/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
 					]]></param>
 			</action>
+			<!--
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+			-->
 		</block>
 	</datalist_admin_categoria>
 </layout>

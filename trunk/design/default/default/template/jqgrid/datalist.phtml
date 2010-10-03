@@ -22,14 +22,31 @@ $vf = $this->getVirtualFields();
 		}
 		else{
 			foreach($lf as $var){
+				if(preg_match('/(?P<varname>[^@]*)@(?P<special>.*)/', $var, $matches)){
+					$var = $matches['varname'];
+					$special = $matches['special'];
+					$special = $special?' special="'.$special.'"':'';
+				}
+				else $special = '';
 				$value = $item->getData($var);
-			if(in_array($var, $vf)):?> 
-		<cell><![CDATA[<?=$item->setData($var, '')->getData($var)?>]]></cell><?
-			elseif($value!==null):?> 
-		<cell><![CDATA[<?=$this->outputFilter($value)?>]]></cell><?
-			else:?> 
-		<cell><![CDATA[]]></cell><?
-			endif;
+					
+				if(in_array($var, $vf)):
+					$value = $item->setData($var, '')->getData($var);
+				elseif($value!==null):
+					$value = $this->outputFilter($value);
+				else:
+					$value = '';
+				endif;
+				
+				$output = $this->renderValue($item, $var, $value);
+			if(!$this->hasUseCData()||$this->getUseCData()){
+			?> 
+		<cell<?php print $special; ?>><![CDATA[<?php print $output; ?>]]></cell><?
+			}
+			else{
+			?> 
+		<cell<?php print $special; ?>><?php print $output; ?></cell><?
+			}
 			}
 		}?> 
 	</row><?

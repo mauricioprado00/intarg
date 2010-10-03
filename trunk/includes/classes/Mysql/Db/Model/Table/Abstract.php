@@ -14,7 +14,7 @@ abstract class Mysql_Db_Model_Table_Abstract extends Db_Model_Table_Abstract{
 		return $error->getCode().'- '.$error->getDescription();
 	}
 	protected function translateInexistentTable($error){
-		$re = '/Table \'(?<nombre_tabla>[^\']+)\' doesn\'t exist/';
+		$re = '/Table \'(?P<nombre_tabla>[^\']+)\' doesn\'t exist/';
 		$return = 'Tabla inexistente';
 		if(preg_match($re, $error->getDescription(), $matches)){
 			$return = $this->translateInexistentTableName($matches['nombre_tabla']);
@@ -28,7 +28,7 @@ abstract class Mysql_Db_Model_Table_Abstract extends Db_Model_Table_Abstract{
 	}
 	
 	protected function translateDuplicatedKey($error){
-		$re = '/Duplicate entry \'(?<valor>[^\']+)\' for key (?<nro_campo>[0-9]+)/';
+		$re = '/Duplicate entry \'(?P<valor>[^\']+)\' for key (?P<nro_campo>[0-9]+)/';
 		$return = 'campo duplicado';
 		if(preg_match($re, $error->getDescription(), $matches)){
 			$return = $this->translateDuplicatedKeyNumber($matches['nro_campo'], $matches['valor']);

@@ -79,6 +79,9 @@ class Admin_Agencia_Router extends Core_Router_Abstract{
 				if($block_add_edit_list_documentos_agencia = $layout->getBlock('add_edit_list_documentos_agencia')){
 					$block_add_edit_list_documentos_agencia->setIdEntidad($agencia->getId());
 				}
+				if($agencia->getId()&&!$id_agencia){
+					$this->cambiarUrlAjax('administrator/agencia/addEdit/'.$agencia->getId());
+				}
 
 				$agencia->addAutofilterOutput('utf8_decode');
 				

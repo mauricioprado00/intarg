@@ -67,6 +67,9 @@ class Admin_TipoAudiencia_Router extends Core_Router_Abstract{
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_tipo_audiencia');
 				$layout = Core_App::getLoadedLayout();
+				if($tipo_audiencia->getId()&&!$id_tipo_audiencia){
+					$this->cambiarUrlAjax('administrator/tipo_audiencia/addEdit/'.$tipo_audiencia->getId());
+				}
 
 				$tipo_audiencia->addAutofilterOutput('utf8_decode');
 				

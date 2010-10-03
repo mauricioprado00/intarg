@@ -51,17 +51,52 @@ function newHelperUrl(){
 		},
 		getReturn: function(url){
 			var that = this;
-			jQuery('<div class="loading_url"></div>').ScreenBlock();
-			jQuery.get(
-				url,
-				function(data){
+//			jQuery('<div class="loading_url"></div>').ScreenBlock();
+//			jQuery.get(
+//				url,
+//				function(data){
+//					jQuery.ScreenBlock(false);
+//					if(this.replaceWith)
+//						jQuery(that.jqs_contenedor).html("").replaceWith(data);
+//					else jQuery(that.jqs_contenedor).html("").replaceWith(data);
+//					that.modificarLinks(that.jqs_contenedor);
+//				}
+//			);
+//			var that = this;
+			//this.showWaitScreen();
+			jQuery('<div class="loading_url"></div>').ScreenBlock({onclose:function(){
+				that.abortCurrent();
+			}});
+			var ajax_options = {
+				type: "GET",
+				url: url,
+				//data: {},
+				success: function(data, state, xhr){
+					if(xhr.status!=200)//sino es que fue cancelada u ocurrieron errores
+						return;
+//					window.console.log(xhr.status, xhr.statusText);
+//					window.console.log(arguments);
 					jQuery.ScreenBlock(false);
 					if(this.replaceWith)
 						jQuery(that.jqs_contenedor).html("").replaceWith(data);
 					else jQuery(that.jqs_contenedor).html("").replaceWith(data);
 					that.modificarLinks(that.jqs_contenedor);
+				},
+				beforeSend: function(xhr){
+					that.setXhr(xhr);
+					//xhr.setRequestHeader('SCREENBLOCK', '1');
 				}
-			);
+			};
+			jQuery.ajax(ajax_options);
+		},
+		abortCurrent:function(){
+			if(this.xhr!=null){
+				this.xhr.abort();
+			}
+		},
+		setXhr: function(xhr){
+			this.abortCurrent();
+			this.xhr = xhr;
 		},
 		goLink: function(url_link){
 			this.current_link_url = url_link;

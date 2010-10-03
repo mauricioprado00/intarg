@@ -76,6 +76,9 @@ class Admin_Aspecto_Router extends Core_Router_Abstract{
 				if($block_add_edit_list_documentos_aspecto = $layout->getBlock('add_edit_list_documentos_aspecto')){
 					$block_add_edit_list_documentos_aspecto->setIdEntidad($aspecto->getId());
 				}
+				if($aspecto->getId()&&!$id_aspecto){
+					$this->cambiarUrlAjax('administrator/aspecto/addEdit/'.$aspecto->getId());
+				}
 
 				$aspecto->addAutofilterOutput('utf8_decode');
 				

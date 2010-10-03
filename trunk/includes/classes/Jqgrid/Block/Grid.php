@@ -16,8 +16,11 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 			->setCanAdd(false)
 			->setCanDelete(false)
 			->setCanSearch(true)
-			->setBooleanData('full_width','view_records','can_add','can_edit','can_delete','can_search')
+			->setBooleanData('can_export_as_html','full_width','view_records','can_add','can_edit','can_delete','can_search')
 			->addArrayData('row_list','toolbar_edit_url','toolbar_delete_url')
+			->setCanExportAsHtmlView(true)
+			->setCanExportAsHtml(true)
+			->setCanExportAsExcel(true)
 			->setPage(1)
 			//->setEditUrl('urledit')
 		;
@@ -28,7 +31,25 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 		$this->setTranslateContext($new);
 		return $new;
 	}
-	
+	private $_export_types = array();
+	public function addExportType($filetype_description, $export_handler_class, $layout_descripcion=null){
+		if(!isset($layout_descripcion)){
+			$layout_descripcion = $this->__t('Sin agrupar');
+		}
+		$this->_export_types[] =$export_type = new Core_Object(array(
+			'filetype_description'=>$filetype_description,
+			'export_handler_class'=>$export_handler_class,
+			'layout_description'=>$layout_descripcion,
+		));
+		
+		return $this;
+	}
+	public function getExportTypes(){
+		return $this->_export_types;
+	}
+	public function canExport(){
+		return count($this->getExportTypes())>0;
+	}
 	
 	protected function generarRandomId(){
 		if(!$this->hasRandomId()){
@@ -43,6 +64,17 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
     	return($this);
 	}
     protected function _allwaysBeforeToHtml(){
+    	if($this->getCanExportAsExcel()){
+			$this->addExportType('Descarga de Excel','Jqgrid_XmlList_ExportHandler_Xlst_Downloader_Excel');
+		}
+		if($this->getCanExportAsHtml()){
+			$this->addExportType('Descarga de Html','Jqgrid_XmlList_ExportHandler_Xlst_Downloader');
+		}
+		if($this->getCanExportAsHtmlView()){
+			$this->addExportType('Vista de Html','Jqgrid_XmlList_ExportHandler_Xlst');
+		}
+		
+    	
 //    	$id = $this->generarRandomId();
 		return($this);
 	}
@@ -107,15 +139,16 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 		    'width' => '55',
 		    'align' => 'left',
 		    'sortable' => 'true',
+		    'hideinexport' => 'false',
   		);
   		$args = func_get_args();
 		foreach($args[0] as $name=>$value)
 			$default[$name] = $value;
 		extract($default);
-		return($this->addColumn($title, $name, $index, $width, $align, $sortable));
+		return($this->addColumn($title, $name, $index, $width, $align, $sortable, $hideinexport));
 		die();
 	}
-	public function addColumn($title, $name, $index, $width, $align='left', $sortable=true){
+	public function addColumn($title, $name, $index, $width, $align='left', $sortable=true, $hideinexport=false){
 		$columna = new Core_Object();
 		$columna
 			->setTitle($title)
@@ -124,6 +157,7 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 			->setWidth($width)
 			->setAlign($align)
 			->setSortable($sortable&&$sortable!='false'?true:false)
+			->setHideinexport($hideinexport)
 		;
 		$this->_addColumn($columna);
 	} 

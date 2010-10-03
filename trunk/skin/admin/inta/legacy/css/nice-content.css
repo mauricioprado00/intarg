@@ -1,0 +1,104 @@
+body {
+ font-family:"Trebuchet MS", Arial ,sans-serif;
+ font-size:11px;
+ color:#000;
+ margin:0;
+ padding:0;
+ background:#333;
+ background-image:url(../img/login/back.jpg);
+ background-repeat:repeat-x;
+}
+
+.nice_logout_link {
+  color: #fff !important;
+  float: right;
+  margin-right: 5px;
+}
+
+#nice_content{
+ height:auto;
+}
+
+#nice_subcontent {
+ background-image:url(../img/login/bg_back.png);
+ background-repeat:repeat;
+ padding: 10px 15px 10px 15px;
+ width: 400px;
+ margin-left: auto;
+ margin-right: auto;
+ margin-top: 100px;
+}
+
+#content_top {
+  padding: 15px 15px 15px;
+  border: 0px solid #f2f2f2;
+  height: auto;
+  background: #01567B none repeat scroll 0 0;
+  border-color: #fff #fff;
+  border-style: solid solid none;
+  border-width: 1px;
+}
+
+#content_top .nice_logo_title {
+  border-top: 1px solid #fff;
+  color: #fff;
+  font-size: 12px;
+  padding: 5px 0 0 0;
+  text-align: left;
+}
+
+
+#content_top .nice_logo_subtitle {
+  color: #fff;
+  font-size: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+#content_bottom {
+ padding:15px 15px 15px 15px;
+ border:1px solid #f2f2f2;
+ height:auto;
+ background:#f2f2f2;
+}
+
+#nice_content h2 {
+  font-size: 18px;
+  color: #00577B;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#nice_content h3 {
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#content_bottom div.application {
+  margin-left: 15px;
+}
+
+#nice_content a {
+  color: #555;
+  text-decoration: none;
+}
+
+#nice_top .nice_left {
+ border:1px solid #fff;
+ border-bottom:none;
+ height:190px;
+ background:#00577b;
+}
+
+.nice_footer {
+  text-align: center;
+  color: #ccc;
+  padding-top: 8px;
+  border: 0 solid red;
+}
+
+#content_bottom p {
+  color: #555;
+  margin-left: 10px;
+}

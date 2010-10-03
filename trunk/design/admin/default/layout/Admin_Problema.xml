@@ -30,7 +30,7 @@
 		<block type="Admin_Problema/XmlList"
 			name="xml_data_admin_problema">
 			<action method="appListFields">
-				<fieldname>acciones</fieldname>
+				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>prioridad</fieldname>
 				<fieldname>nombre</fieldname>
@@ -54,6 +54,12 @@
 					<a href="#problema/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el problema seleccionado?')"><div class="lstde"></div></a>
 					]]></param>
 			</action>
+			<!--
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+			-->
 		</block>
 	</datalist_admin_problema>
 </layout>
