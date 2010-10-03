@@ -1,0 +1,106 @@
+<layout>
+	<list_admin_reporte>
+		<!--
+		<reference in="superadmin" name="listado_datos_grid"
+			toolbar_edit_url="administrator/reporte/addEdit,id"
+			toolbar_delete_url="administrator/reporte/delete,id">
+		</reference>
+		-->
+		<reference name="listado_datos_grid"
+			caption="Listado de Reporte"
+			source="administrator/reporte/datalist"
+			sort_name="id"
+			row_number="5"
+			row_list="1,3,5,10"
+			sort_order="asc"
+			can_edit="false"
+			can_add="false"
+			can_delete="false"
+			full_width="true"
+			toolbar="top"
+			can_export_as_html="true"
+			>
+			<!--
+			<block custom_type="boton" 
+				titulo="Buscar"
+				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
+				-->
+			<action named_args="true" method="addColumn">	
+				<title></title>
+				<name>acciones</name>
+				<index>acciones</index>
+				<width>57</width>
+				<align>left</align>
+				<sortable>false</sortable>
+				<hideinexport>1</hideinexport>
+			</action>
+			<!--<action named_args="true" method="addColumn">
+				<title>Inv No</title>
+				<name>id</name>
+				<index>id</index>
+				<width>55</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			-->
+			<action named_args="true" method="addColumn">
+				<title>Agencia</title>
+				<name>nombre_agencia</name>
+				<index>nombre_agencia</index>
+				<width>150</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<!--
+			<action named_args="true" method="addColumn">	
+				<title>Data</title>
+				<name>data</name>
+				<index>data</index>
+				<width>540</width>
+				<align>left</align>
+				<sortable>false</sortable>
+			</action>
+			-->
+			<action named_args="true" method="addColumn">
+				<title>Actividad</title>
+				<name>nombre_actividad</name>
+				<index>nombre_actividad</index>
+				<width>600</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Responsable</title>
+				<name>nombre_responsable</name>
+				<index>nombre_responsable</index>
+				<width>180</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action method="addExportType">
+				<param>Excel</param>
+				<param>Jqgrid_XmlList_ExportHandler_Xlst_Downloader</param>
+			</action>
+		</reference>
+	</list_admin_reporte>
+	<addedit_admin_reporte>
+		<reference name="contenedor_main">
+			<block 
+				type="Admin/AddEditForm"
+				action_url="reporte/addEdit" 
+				ajax_target=".contenedor_main"
+				ajax_replace_with="true"
+				validador_js="validar_agregar_reporte" 
+				method="post">
+				<tabset>
+					<tab title="Datos de Reporte">
+						<block name="reporte_add_edit_form" type="template" template="reporte/add.phtml" ></block>
+					</tab>
+					<tab when="!accion(entity_new)" title="Documentos">
+						<add_edit_list_documentos name="add_edit_list_documentos_reporte" tipo_entidad="reporte" />
+					</tab>
+				</tabset>
+			</block>
+		</reference>
+	</addedit_admin_reporte>
+</layout>

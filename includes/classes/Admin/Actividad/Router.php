@@ -125,6 +125,9 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 				if($block_add_edit_list_resultado_esperado_actividad = $layout->getBlock('add_edit_list_resultado_esperado_actividad')){
 					$block_add_edit_list_resultado_esperado_actividad->setIdActividad($actividad->getId());
 				}
+				if($actividad->getId()&&!$id_actividad){
+					$this->cambiarUrlAjax('administrator/actividad/addEdit/'.$actividad->getId());
+				}
 
 
 				$actividad->addAutofilterOutput('utf8_decode');

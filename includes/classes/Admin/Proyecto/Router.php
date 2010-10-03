@@ -67,6 +67,9 @@ class Admin_Proyecto_Router extends Core_Router_Abstract{
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_proyecto');
 				$layout = Core_App::getLoadedLayout();
+				if($proyecto->getId()&&!$id_proyecto){
+					$this->cambiarUrlAjax('administrator/proyecto/addEdit/'.$proyecto->getId());
+				}
 
 				$proyecto->addAutofilterOutput('utf8_decode');
 

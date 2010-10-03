@@ -30,7 +30,7 @@
 		<block type="Admin_Barrio/XmlList"
 			name="xml_data_admin_barrio">
 			<action method="appListFields">
-				<fieldname>acciones</fieldname>
+				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>nombre</fieldname>
 				<fieldname>imagen_mapa</fieldname>
@@ -55,6 +55,12 @@
 					<a href="#barrio/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
 					]]></param>
 			</action>
+			<!--
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+			-->
 		</block>
 	</datalist_admin_barrio>
 </layout>

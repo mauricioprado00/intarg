@@ -108,7 +108,7 @@ class Inta_Model_Actividad extends Core_Model_Abstract{
 	public function canViewMotivoAtrasado(){
 		return $this->esAtrasada();
 	}
-	public function crearFiltroAgencia($id_agencia=null){
+	public static function crearFiltroAgencia($id_agencia=null){
 		if(!isset($id_agencia))
 			$id_agencia = Admin_Helper::getInstance()->getIdAgencia();
 		return Db_Helper::custom('id IN (select distinct(rea.id_actividad)

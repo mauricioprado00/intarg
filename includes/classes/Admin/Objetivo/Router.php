@@ -89,6 +89,9 @@ class Admin_Objetivo_Router extends Core_Router_Abstract{
 				else 
 					$problema->setWhere(Db_Helper::in('id_audiencia', true, $ids_audiencia),' AND (',Db_Helper::equal('id_objetivo', 0),')');
 				$problemas = $problema->search();
+				if($objetivo->getId()&&!$id_objetivo){
+					$this->cambiarUrlAjax('administrator/objetivo/addEdit/'.$objetivo->getId());
+				}
 				//echo Core_Helper::DebugVars($ids_audiencia);
 				//echo Core_Helper::DebugVars($problema->searchGetSql());
 				

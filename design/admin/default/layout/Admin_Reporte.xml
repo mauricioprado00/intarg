@@ -1,0 +1,75 @@
+<layout>
+	<default>
+		<reference name="menu_admin">
+			<action method="addItem">
+				<link_url>reporte</link_url>
+				<text>Reporte</text>
+				<title>Reporte</title>
+				<name>menu_admin_reporte</name>
+			</action>
+		</reference>
+	</default>
+	<default>
+		<reference name="menu_admin_reporte">
+			<block type="Admin/Menu">
+				<action method="addItem">
+					<link_url>reporte/listar</link_url>
+					<text>Listado</text>
+					<title>Listado</title>
+				</action>
+				<action method="addItem">
+					<link_url>reporte/addEdit</link_url>
+					<text>Agregar</text>
+					<title>Agregar</title>
+				</action>
+			</block>
+		</reference>
+	</default>
+	<datalist_admin_reporte>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Reporte/XmlList"
+			name="xml_data_admin_reporte">
+			<action method="appListFields">
+				<fieldname>acciones@ui</fieldname>
+				<!-- <fieldname>id</fieldname> -->
+				<fieldname>nombre_agencia</fieldname>
+				<!--<fieldname>data</fieldname> -->
+				<fieldname>nombre_actividad</fieldname>
+				<fieldname>nombre_responsable</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<block type="Jqgrid/Field_Renderer" field_name="nombre_actividad"/>
+			<!--
+			<action method="appVirtualFields">
+				<fieldname>data</fieldname>
+			</action>
+			-->
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<a href="#reporte/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#reporte/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+			<!--
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+			-->
+			<!-- 
+			<action method="addAutofilterFieldOutput">
+				<fieldname>nombre_actividad</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					aca iria la data templateada<br />
+					actividad: {!nombre_actividad}
+					]]></param>
+			</action>
+			-->
+		</block>
+	</datalist_admin_reporte>
+</layout>

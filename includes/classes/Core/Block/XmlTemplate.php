@@ -4,6 +4,9 @@ class Core_Block_XmlTemplate extends Core_Block_Template{
 	public function getHtml(){
 		return($this->_toHtml());
 	}
+	public function toXml(){
+		return parent::_toHtml();
+	}
 	public function _toHtml(){
 		if ( stristr($_SERVER["HTTP_ACCEPT"],"application/xhtml+xml") ) {
 			header("Content-type: application/xhtml+xml;charset=utf-8"); } else {
@@ -11,7 +14,7 @@ class Core_Block_XmlTemplate extends Core_Block_Template{
 		}
 		return(
 			'<'.'?xml version=\'1.0\' encoding=\'utf-8\'?'.'>'."\n".
-			parent::_toHtml()
+			$this->toXml()
 		);
 //		$c = $this->getTemplateHtml(); 
 //		return("\n<template>$c\n</template>");

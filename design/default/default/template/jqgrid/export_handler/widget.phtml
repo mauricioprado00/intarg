@@ -1,0 +1,103 @@
+<div style="display:none;">
+	<div class="ventanaexportacion ui-dialog ui-widget ui-widget-content ui-corner-all" style="position:relative;cursor:auto;width:470px;">
+	<form> 
+		<div class="hiddenparams"></div>
+		<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"> 
+			<span class="ui-dialog-title">Exportacion de datos</span> 
+			<a href="#" class="ui-dialog-titlebar-close ui-corner-all" title="Close"><span class="ui-icon ui-icon-closethick">Close</span></a> 
+		</div>
+		<div class="ui-dialog-content ui-widget-content">
+			<label>Rango: </label>
+			<select name="rango">
+				<option value="todo">Todo</option>
+				<option value="pagina_actual">Pagina Actual</option>
+			</select> 
+		</div>
+		<div class="ui-dialog-content ui-widget-content">
+			<label>Formato: </label>
+			<select name="xml_list_export_to">
+				<?php foreach($this->getParentBlock()->getExportTypes() as $export_type): ?>
+				<option value="<?php print $export_type->getExportHandlerClass(); ?>"><?php print $export_type->getFiletypeDescription(); ?> - <?php print $export_type->getLayoutDescription(); ?></option>
+				<?php endforeach; ?>
+			</select> 
+		</div>
+		<div>
+			<label for="utilizar_filtros">Utilizar filtros
+				<input type="hidden" name="utilizar_filtros" value="0"/>
+				<input type="checkbox" id="utilizar_filtros" name="utilizar_filtros" checked="checked" value="1"/>
+			</label>
+		</div>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"> 
+			<button class="enviar ui-state-default ui-priority-primary ui-corner-all">Continuar</button> 
+		</div> 
+		<!--
+		<div class="ui-resizable-n ui-resizable-handle"></div> 
+		<div class="ui-resizable-s ui-resizable-handle"></div> 
+		<div class="ui-resizable-e ui-resizable-handle"></div> 
+		<div class="ui-resizable-w ui-resizable-handle"></div> 
+		<div class="ui-resizable-ne ui-resizable-handle"></div> 
+		<div class="ui-resizable-se ui-resizable-handle ui-icon ui-icon-grip-diagonal-se"></div> 
+		<div class="ui-resizable-sw ui-resizable-handle"></div> 
+		<div class="ui-resizable-nw ui-resizable-handle"></div>
+		-->
+	</form> 
+	</div>
+</div>
+
+<script>
+jQuery(function(){
+	//jQuery.blockUI({
+//		message:jQuery('.ventanaexportacion'),
+//		css:{
+//			border:'none',
+//			background:'none',
+//		}
+//	});
+	jQuery('.ventanaexportacion .ui-dialog-titlebar-close').click(function(){
+		jQuery.unblockUI();
+		return false;
+	});
+	jQuery('.ventanaexportacion .enviar').click(function(){
+		jQuery(this).parents('form:first').submit();
+		jQuery.unblockUI();
+		return false;
+	});
+	{jQuery("#<?php print $this->getParentBlock()->getTableContainerId(); ?> .jqgrid_export_data")
+		.css('cursor','pointer')
+		.click(function(){
+			var jqventana = jQuery('.ventanaexportacion');
+			var jqform = jqventana.find('form');
+			var jqhiddenparams = jqventana.find('.hiddenparams').html('');
+			var jqgrid = jQuery("#<?php print $this->getParentBlock()->getTableContainerId(); ?> [jqgrid]");
+			jqform
+				.attr('target','_blank')
+				.attr('action', jqgrid.getGridParam('url'))
+				.attr('method','post')
+			;
+			var info = {
+				'xml_list_export_to':'Jqgrid_XmlList_ExportHandler_Xlst',
+				'caption':jqgrid.getGridParam('caption'),
+				//'config':jqgrid.jqGridExport()
+				'json_config':jqgrid.jqGrid('jqGridExport',{exptype:"jsonstring"})
+			};
+			//jqform.appendTo('body');
+			for(varname in info){
+				jQuery('<input type="hidden" />')
+					.attr('name', varname)
+					.val(info[varname])
+					.appendTo(jqhiddenparams)
+				;
+			}
+			//jqform.submit();
+			//jqform.remove();
+			jQuery.blockUI({
+				message:jqventana,
+				css:{
+					border:'none',
+					background:'none',
+				}
+			});
+		})
+	}
+});
+</script>

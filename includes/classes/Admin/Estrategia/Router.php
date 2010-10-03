@@ -67,6 +67,9 @@ class Admin_Estrategia_Router extends Core_Router_Abstract{
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_estrategia');
 				$layout = Core_App::getLoadedLayout();
+				if($estrategia->getId()&&!$id_estrategia){
+					$this->cambiarUrlAjax('administrator/estrategia/addEdit/'.$estrategia->getId());
+				}
 
 				$estrategia->addAutofilterOutput('utf8_decode');
 				

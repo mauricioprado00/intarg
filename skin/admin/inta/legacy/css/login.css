@@ -1,0 +1,191 @@
+body {
+ font-family:"Trebuchet MS", Arial ,sans-serif;
+ font-size:10px;
+ color:#000;
+ margin:0;
+ padding:0;
+ background:#333;
+}
+
+
+
+#login {
+ width:100%;
+ height:auto;
+ padding-left:38%;
+ padding-top:2%;
+ background-image:url(../img/login/back.jpg);
+ background-repeat:repeat;
+}
+
+#login_top {
+ border:0px solid #f2f2f2;
+ width:100%;
+ height:auto;
+ padding-left:38%;
+ padding-top:2%;
+ background-image:url(../img/login/back.jpg);
+ background-repeat:repeat;
+}
+
+#login_bottom {
+ width:100%;
+ height:auto;
+ padding-left:38%;
+}
+
+#login_top .content {
+ width:250px;
+ height:auto;
+ padding:15px 15px 0px 15px;
+ background-image:url(../img/login/bg_back.png);
+ background-repeat:repeat;
+}
+
+#login_bottom .content{
+ width:250px;
+ height:auto;
+ padding:0px 15px 10px 15px;
+ background-image:url(../img/login/bg_back.png);
+ background-repeat:repeat;
+}
+
+#login_top .left {
+ border:1px solid #fff;
+ border-bottom:none;
+ padding-bottom:15px;
+ width:250px;
+ height:190px;
+ background:#00577b;
+}
+
+
+#login_bottom .right {
+ border:1px solid #f2f2f2;
+ float:left;
+ width:250px;
+ height:auto;
+ background:#f2f2f2;
+}
+
+
+
+#login_top .logo {
+ font-family: Arial, sans-serif;
+ font-size:40px;
+ font-weight:bold;
+ color:red;
+ margin:20px 22px 0px 22px;
+ border:0px solid red;
+ text-align:left;
+}
+
+#login_top .logo_title{
+ font-size:12px;
+ color:#fff;
+ margin:5px 22px 0px 22px;
+ padding-top:5px;
+ border-top:1px solid #fff;
+ text-align:left;
+}
+
+#login_top .logo_subtitle {
+ font-size:10px;
+ font-weight:bold;
+ color:#fff;
+ margin:0px 22px 15px 22px;
+ text-align:left;
+}
+
+#login_bottom .title_login {
+ font-size:18px;
+ font-weight:bold;
+ color:#00577b;
+ margin:10px 22px 5px 22px;
+
+}
+
+#login_bottom  .form_row {
+ margin:5px 22px 5px 22px;
+}
+
+#login_bottom  .name {
+ font-size:12px;
+ color:#555;
+ margin-top:5px;
+}
+
+#login_bottom  .password {
+ font-size:12px;
+ color:#555;
+ margin-top:5px;
+
+}
+
+#login_bottom  .remember {
+ font-size:12px;
+ color:#555;
+ margin-top:5px;
+}
+
+#password,
+#username {
+ border:1px solid #ccc;
+ margin:0px;
+ width:100%;
+}
+
+#login_bottom .link_login {
+ font-size:11px;
+ font-weight:bold;
+ color:#00577b;
+}
+
+#login_bottom .button {
+ margin:5px 0px 5px 0px;
+ border:0px solid #ccc;
+ font-weight:bold;
+ font-size:11px;
+ color:#000;
+ height:30px;
+ width:180px;
+ text-decoration:none;
+ outline:none;
+ background-image:url(../img/login/bn_login.jpg);
+ background-repeat:no-repeat;
+}
+
+
+#login_bottom .form_footer {
+ width:auto;
+ margin:0px 0px 2px 0px;
+ padding-top:8px;
+ /*margin-left:22px;*/
+ border:0px solid red;
+ text-align:center;
+ color:#ccc;
+ clear:both;
+}
+
+#login_bottom .form_footer a  {
+  color:#ccc;
+  text-decoration:none;
+  outline:none;
+  font-weight:bold;
+}
+
+#login_bottom .actions_row {
+  text-align: center;
+}
+
+#login_bottom div.error {
+  margin: 0 22px;
+  color: #DA251C;
+  font-weight: bold;
+}
+
+#login_bottom label { 
+  display: block; 
+  clear: both 
+}
+

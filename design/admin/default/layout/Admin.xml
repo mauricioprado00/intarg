@@ -34,8 +34,8 @@
 				<action method="addJs" in="!modo_ajax">
 					<script>js/helper_url_normal.js</script>
 				</action>
-				<css>jqGrid/themes/jqModal.css</css>
-				<css name="jqgrid_grid_css">jqGrid/themes/basic/grid.css</css>
+				<!-- <css>jqGrid/themes/jqModal.css</css> -->
+				<!--<css name="jqgrid_grid_css">jqGrid/themes/basic/grid.css</css>-->
 				<action method="addCss">
 				<!--
 					<script>jqGrid/themes/coffee/grid.css</script>
@@ -44,11 +44,22 @@
 					<script>jqGrid/themes/steel/grid.css</script>-->
 				</action>
 				<action method="addJs"><!-- 
-					<script>jqGrid/jquery.jqGrid.js</script> -->
+					<script>jqGrid/jquery.jqGrid.js</script> --><!--
 					<script>jqGrid/jqGridInclude.js</script>
 					<script>jqGrid/js/jqModal.js</script>
-					<script>jqGrid/js/jqDnR.js</script>
+					<script>jqGrid/js/jqDnR.js</script>-->
 				</action>
+				<script>jqGriddemo38/js/jquery.layout.js</script>
+				<script>jqGriddemo38/js/i18n/grid.locale-en.js</script>
+				<script>jqGriddemo38/js/jquery.jqGrid.js</script>
+				<css>jqGriddemo38/themes/ui.jqgrid.css</css>
+				<css inline_script="true"><![CDATA[.ui-jqgrid tr.jqgrow td{white-space:normal;}
+				.ui-searchFilter{position:absolute;z-index:100;}
+				.ui-search{cursor:pointer;}
+				.ui-reset{cursor:pointer;}
+				]]>
+				</css>
+				
 				<!-- <script charset="UTF-8">js/jQuery/jquery.blockUI.js</script> -->
 				<script charset="UTF-8">js/jQuery/jquery.blockUI-2.33.js</script>
 				<script>js/jQuery/jquery.FCKEditor.js</script>

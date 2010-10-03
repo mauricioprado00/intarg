@@ -29,6 +29,7 @@ if(strpos($_SERVER["REQUEST_URI"], "~bigmoto") !== false)
 	define('CONF_SUBPATH_SKIN', 'skin/');
 	define('CONF_PATH_SKIN', CONF_PATH_APP.CONF_SUBPATH_SKIN);
 	define('CONF_SUBPATH_TEMPLATE', 'template/');
+	define('CONF_SUBPATH_RESOURCE', 'resource/');
 	define('CONF_SUBURL_APP','/~bigmoto/');
 	define("CONF_URL_APP", 'http://'.$_SERVER['HTTP_HOST'].CONF_SUBURL_APP);
 	define("CONF_DEBUG_ENVIRONMENT", 0);
@@ -62,6 +63,7 @@ else
 	define('CONF_PATH_SKIN', CONF_PATH_APP.CONF_SUBPATH_SKIN);
 	define('CONF_PATH_UPLOADS', CONF_PATH_APP.CONF_SUBPATH_UPLOADS);
 	define('CONF_SUBPATH_TEMPLATE', 'template/');
+	define('CONF_SUBPATH_RESOURCE', 'resource/');
 	define('CONF_SUBURL_APP','/inta/');
 	define("CONF_URL_APP", 'http://'.$_SERVER['HTTP_HOST'].CONF_SUBURL_APP);
 	define("CONF_DEBUG_ENVIRONMENT", 0);

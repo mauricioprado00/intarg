@@ -30,7 +30,7 @@
 		<block type="Admin_Agencia/XmlList"
 			name="xml_data_admin_agencia">
 			<action method="appListFields">
-				<fieldname>acciones</fieldname>
+				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>nombre</fieldname>
 				<fieldname>direccion</fieldname>
@@ -49,6 +49,12 @@
 					<a href="#agencia/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
 					]]></param>
 			</action>
+			<!--
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+			-->
 		</block>
 	</datalist_admin_agencia>
 </layout>

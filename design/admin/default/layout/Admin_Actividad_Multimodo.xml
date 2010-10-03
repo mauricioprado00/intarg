@@ -7,13 +7,15 @@
 		<reference name="listado_datos_grid"
 			caption="Listado de Actividad"
 			source="administrator/actividad/datalist"
-			sort_name="id"
+			sort_name="actividad_id"
 			sort_order="asc"
 			can_edit="false"
 			can_add="false"
 			can_delete="false"
 			full_width="true"
-			toolbar="top">
+			toolbar="top"
+			can_export_as_html="true"
+			>
 			<block custom_type="boton"
 				titulo="Buscar"
 				action_js="jQuery(&quot;###table_id##&quot;).searchGrid( {sopt:['cn','bw','eq','ne','lt','gt','ew']} );" />
@@ -24,179 +26,76 @@
 				<width>82</width>
 				<align>left</align>
 				<sortable>false</sortable>
+				<hideinexport>1</hideinexport>
 			</action>
 			<action named_args="true" method="addColumn">
 				<title>Inv No</title>
-				<name>id</name>
-				<index>id</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-        		<action named_args="true" method="addColumn">
-				<title>Inv No</title>
-				<name>id_responsable</name>
-				<index>id_responsable</index>
+				<name>actividad_id</name>
+				<index>actividad_id</index>
 				<width>55</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
 			<action named_args="true" method="addColumn">
 				<title>Nombre</title>
-				<name>nombre</name>
-				<index>nombre</index>
+				<name>actividad_nombre</name>
+				<index>actividad_nombre</index>
+				<width>350</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+       		<action named_args="true" method="addColumn">
+				<title>Responsable</title>
+				<name>responsable_nombre_completo</name>
+				<index>responsable_nombre_completo</index>
 				<width>100</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
 			<action named_args="true" method="addColumn">
 				<title>Año</title>
-				<name>ano</name>
-				<index>ano</index>
+				<name>actividad_ano</name>
+				<index>actividad_ano</index>
 				<width>55</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
 			<action named_args="true" method="addColumn">
-				<title>Porcentaje Cumplimiento</title>
-				<name>porcentaje_cumplimiento</name>
-				<index>porcentaje_cumplimiento</index>
+				<title>Cumplimiento</title>
+				<name>actividad_porcentaje_cumplimiento</name>
+				<index>actividad_porcentaje_cumplimiento</index>
 				<width>55</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
 			<action named_args="true" method="addColumn">
-				<title>Porcentaje Tiempo</title>
-				<name>porcentaje_tiempo</name>
-				<index>porcentaje_tiempo</index>
+				<title>Tiempo</title>
+				<name>actividad_porcentaje_tiempo</name>
+				<index>actividad_porcentaje_tiempo</index>
 				<width>55</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
 			<action named_args="true" method="addColumn">
-				<title>Presupuesto Estimado</title>
-				<name>presupuesto_estimado</name>
-				<index>presupuesto_estimado</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Enero</title>
-				<name>mes_enero</name>
-				<index>mes_enero</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Febrero</title>
-				<name>mes_febrero</name>
-				<index>mes_febrero</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Marzo</title>
-				<name>mes_marzo</name>
-				<index>mes_marzo</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Abril</title>
-				<name>mes_abril</name>
-				<index>mes_abril</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Mayo</title>
-				<name>mes_mayo</name>
-				<index>mes_mayo</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Junio</title>
-				<name>mes_junio</name>
-				<index>mes_junio</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Julio</title>
-				<name>mes_julio</name>
-				<index>mes_julio</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Agosto</title>
-				<name>mes_agosto</name>
-				<index>mes_agosto</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Septiembre</title>
-				<name>mes_septiembre</name>
-				<index>mes_septiembre</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Octubre</title>
-				<name>mes_octubre</name>
-				<index>mes_octubre</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Noviembre</title>
-				<name>mes_noviembre</name>
-				<index>mes_noviembre</index>
-				<width>55</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
-				<title>Mes Diciembre</title>
-				<name>mes_diciembre</name>
-				<index>mes_diciembre</index>
+				<title>Presupuesto</title>
+				<name>actividad_presupuesto_sum</name>
+				<index>actividad_presupuesto_sum</index>
 				<width>55</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
 			<action named_args="true" method="addColumn">
 				<title>Observaciones</title>
-				<name>observaciones</name>
-				<index>observaciones</index>
+				<name>actividad_observaciones</name>
+				<index>actividad_observaciones</index>
 				<width>200</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
 			<action named_args="true" method="addColumn">
-				<title>Comentario</title>
-				<name>comentario</name>
-				<index>comentario</index>
-				<width>100</width>
-				<align>left</align>
-				<sortable>true</sortable>
-			</action>
-			<action named_args="true" method="addColumn">
 				<title>Estado</title>
-				<name>estado</name>
-				<index>estado</index>
+				<name>actividad_estado</name>
+				<index>actividad_estado</index>
 				<width>100</width>
 				<align>left</align>
 				<sortable>true</sortable>

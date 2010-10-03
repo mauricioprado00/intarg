@@ -36,7 +36,7 @@ class Core_Mailer2 extends PHPMailer{
 		$emails = explode(',', $emails);
 		foreach($emails as $email){
 			$email = trim($email);
-			$re = '((?<primera_parte>[^<]*)([<](?<email>[^<]+)[>])?)';
+			$re = '((?P<primera_parte>[^<]*)([<](?P<email>[^<]+)[>])?)';
 			if(preg_match($re, $email, $matches)){
 				if($matches['email']){
 					$nombre = $matches['primera_parte'];

@@ -70,6 +70,9 @@ class Admin_TipoAspecto_Router extends Core_Router_Abstract{
 			else{
 				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_tipo_aspecto');
 				$layout = Core_App::getLoadedLayout();
+				if($tipo_aspecto->getId()&&!$id_tipo_aspecto){
+					$this->cambiarUrlAjax('administrator/tipo_aspecto/addEdit/'.$tipo_aspecto->getId());
+				}
 				
 				$tipo_aspecto->addAutofilterOutput('utf8_decode');
 				

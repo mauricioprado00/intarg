@@ -1,3 +1,6 @@
+.jqgrid_top_controls>*{
+	margin: 0 4px;
+}
 .btn_eliminar{
 	background-image:url(../img/delete2.png);
 	background-position:0 50%;

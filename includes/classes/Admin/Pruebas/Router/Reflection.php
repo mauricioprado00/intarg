@@ -363,7 +363,7 @@ class EsaClaseRara
 			die("filtro incorrecto ".__FILE__.__LINE__);
 			return;
 		}
-		if(preg_match_all('/^(?<class>[a-zA-Z_]+)::(?<method>[a-zA-Z0-9_]+)([?](?<more>.*))?$/', $filter, $matches)){
+		if(preg_match_all('/^(?P<class>[a-zA-Z_]+)::(?P<method>[a-zA-Z0-9_]+)([?](?P<more>.*))?$/', $filter, $matches)){
 			if(!count($matches['class']) || !count($matches['method'])){
 				die("filtro incorrecto ".__FILE__.__LINE__);
 				return;

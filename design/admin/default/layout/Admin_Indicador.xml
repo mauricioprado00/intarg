@@ -30,7 +30,7 @@
 		<block type="Admin_Indicador/XmlList"
 			name="xml_data_admin_indicador">
 			<action method="appListFields">
-				<fieldname>acciones</fieldname>
+				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>nombre</fieldname>
 				<fieldname>tipo_indicador</fieldname>
@@ -47,6 +47,12 @@
 					<a href="#indicador/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el indicador seleccionado?')"><div class="lstde"></div></a>
 					]]></param>
 			</action>
+			<!--
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+			-->
 		</block>
 	</datalist_admin_indicador>
 </layout>

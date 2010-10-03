@@ -8,8 +8,8 @@ class Mysql_Db_Compare_Custom extends Db_Compare_Custom{
 		if(!$this->hasString())
 			return false;
 		//var_dump($this->getString());
-		$re_name = '/\{\@(?<campo>[a-zA-Z_0-9]+)\}/';
-		$re_value = '/\{\#(?<campo>[a-zA-Z_0-9]+)\}/';
+		$re_name = '/\{\@(?P<campo>[a-zA-Z_0-9]+)\}/';
+		$re_value = '/\{\#(?P<campo>[a-zA-Z_0-9]+)\}/';
 		//$re_param = '/\{\(%s)\}/';
 		$string = $this->getString();
 		if(preg_match_all($re_name, $string, $matches)){//usa nombres de campos en el string

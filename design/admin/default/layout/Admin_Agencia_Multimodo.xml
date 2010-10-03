@@ -24,6 +24,7 @@
 				<width>82</width>
 				<align>left</align>
 				<sortable>false</sortable>
+				<hideinexport>1</hideinexport>
 			</action>
 			<action named_args="true" method="addColumn">
 				<title>Inv No</title>
@@ -64,6 +65,10 @@
 				<width>150</width>
 				<align>left</align>
 				<sortable>true</sortable>
+			</action>
+			<action method="addExportType">
+				<param>Excel</param>
+				<param>Jqgrid_XmlList_ExportHandler_Xlst_Downloader_Excel</param>
 			</action>
 		</reference>
 	</list_admin_agencia>

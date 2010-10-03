@@ -137,7 +137,7 @@ class Admin_User_Model_User extends Core_Model_User{
 			//$id = $this->getId();
 			$eliminada = true;//deleteEnLaBase()
 			if($eliminada){
-				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Usuario eliminado correctamente'));
+				Admin_App::getInstance()->addSuccessMessage(Admin_App::getInstance()->__t('Usuario eliminado correctamente'));
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo eliminar usuario, error en la operación");
@@ -162,7 +162,7 @@ class Admin_User_Model_User extends Core_Model_User{
 				$resultado = $x->replace()?true:false;
 				//$insertada = true;// insertarEnLaBase()
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Usuario añadido correctamente'));
+					Admin_App::getInstance()->addSuccessMessage(Admin_App::getInstance()->__t('Usuario añadido correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo agregar usuario, error en la operación");
@@ -172,7 +172,7 @@ class Admin_User_Model_User extends Core_Model_User{
 				//$actualizada = true;// actualizarEnLaBase()
 				$resultado = $x->update()?true:false;
 				if($resultado){
-					Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Usuario actualizado correctamente'));
+					Admin_App::getInstance()->addSuccessMessage(Admin_App::getInstance()->__t('Usuario actualizado correctamente'));
 				}
 				else{
 					Admin_App::getInstance()->addErrorMessage("No se pudo actualizar usuario, error en la operación");

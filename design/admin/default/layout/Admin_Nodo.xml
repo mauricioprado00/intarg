@@ -30,7 +30,7 @@
 		<block type="Admin_Nodo/XmlList"
 			name="xml_data_admin_nodo">
 			<action method="appListFields">
-				<fieldname>acciones</fieldname>
+				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>path_url</fieldname>
 				<fieldname>tags</fieldname>
@@ -57,6 +57,12 @@
 					<a href="#nodo/addEdit/{!id}"><div class="lsted"></div></a>
 					]]></param>
 			</action>
+			<!--
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>htmlentities</filter>
+			</action>
+			-->
 		</block>
 	</datalist_admin_nodo>
 </layout>

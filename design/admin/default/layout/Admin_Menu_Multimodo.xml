@@ -27,6 +27,7 @@
 				<width>82</width>
 				<align>left</align>
 				<sortable>false</sortable>
+				<hideinexport>1</hideinexport>
 			</action>
 			<action named_args="true" method="addColumn">
 				<title>Inv No</title>
