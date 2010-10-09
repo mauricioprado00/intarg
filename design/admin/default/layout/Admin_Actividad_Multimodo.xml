@@ -6,7 +6,7 @@
 		</reference>
 		<reference name="listado_datos_grid"
 			caption="Listado de Actividad"
-			source="administrator/actividad/datalist"
+			source="administrator/actividad/datalist2"
 			sort_name="actividad_id"
 			sort_order="asc"
 			can_edit="false"
@@ -46,8 +46,8 @@
 			</action>
        		<action named_args="true" method="addColumn">
 				<title>Responsable</title>
-				<name>responsable_nombre_completo</name>
-				<index>responsable_nombre_completo</index>
+				<name>responsable_apellido</name>
+				<index>responsable_apellido</index>
 				<width>100</width>
 				<align>left</align>
 				<sortable>true</sortable>

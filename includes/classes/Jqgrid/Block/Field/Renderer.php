@@ -7,11 +7,25 @@ class Jqgrid_Block_Field_Renderer extends Core_Block_Template{
 			->setObject(null)
 			->setFieldName(null)
 			->setFieldValue(null)
+			->setReturnCData(false)
 		;
+		$this->setBooleanData('return_cdata');
 	}
 	public function canRender($fieldname){
 		return $fieldname==$this->getFieldName();
 	}
+	public function setObject($object){
+		$this->setData('object');
+		return $this;
+	}
+	public function setFieldName($field_name){
+		$this->setData('field_name');
+		return $this;
+	}
+	public function setFieldValue($field_value){
+		$this->setData('field_value');
+		return $this;
+	} 
 
 }
 ?>

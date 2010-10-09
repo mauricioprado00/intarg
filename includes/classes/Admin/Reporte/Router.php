@@ -4,7 +4,7 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 		//$this->addRouter('admin','Router.Admin');
 		$this->addActions(
 			'cerrar_sesion',
-			'addEdit','delete','listar','datalist',
+			'addEdit','delete','listar','datalist','datalist2',
 			'ordenar','setorden'
 		);
 	}
@@ -99,6 +99,10 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 	protected function datalist(){
 		Core_App::getLayout()->setActions(array());//reset
 		Core_App::getLayout()->addActions('datalist', 'datalist_admin_reporte');
+	}
+	protected function datalist2(){
+		Core_App::getLayout()->setActions(array());//reset
+		Core_App::getLayout()->addActions('datalist', 'datalist_admin_reporte2');
 	}
 	protected function dispatchNode(){
 		return;

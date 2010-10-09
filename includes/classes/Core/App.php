@@ -38,10 +38,11 @@ class Core_App extends Core_Singleton{
 		$args = func_get_args();
 		return(call_user_func_array(array(self::getInstance(),'_run'), $args));
 	}
-	private function _run(){
-		header('X-UA-Compatible:IE=8');
-		session_start();
-		$start = microtime(true);
+	private $initialized = false;
+	public function initialize(){
+		if($this->initialized)
+			return;
+		$this->initialized = true;
 		$this->setVersion('1.2.0.1.2');
 		$this->config = new Core_Config();
 //		$nodo = new Granguia_Model_Nodo();
@@ -94,6 +95,8 @@ class Core_App extends Core_Singleton{
 		asort($trans);
 		Core_Translate_Singleton::getInstance()->initialize($trans);
 		//var_dump($this->config);
+	}
+	private function route(){
 		$this->router
 			->setRouteData(
 				Core_App::getInstance()->getConfig()->getRouteData()
@@ -101,8 +104,9 @@ class Core_App extends Core_Singleton{
 			->route()
 		;
 		//var_dump($this->config->getLayoutUpdates());
+	}
+	private function render(){
 		$this->loadLayoutUpdates();
-		
 		if(Core_Http_Header::isAjaxRequest()&&!headers_sent()){
 			Core_Http_Header::ContentEncoding('gzip');
 			$this->layout->renderOutput(true, true);
@@ -114,8 +118,15 @@ class Core_App extends Core_Singleton{
 		$usuario->actionEnviarCorreoRegistro();*/
 		
 //		var_dump($usuario);
+	}
+	private function _run(){
+		header('X-UA-Compatible:IE=8');
+		session_start();
+		$start = microtime(true);
+		$this->initialize();
+		$this->route();
+		$this->render();
 
-		
 	}
 	public function loadLayoutUpdates($layout_object=null){
 		static $called;

@@ -8,7 +8,7 @@
 		-->
 		<reference name="listado_datos_grid"
 			caption="Listado de Reporte"
-			source="administrator/reporte/datalist"
+			source="administrator/reporte/datalist2"
 			sort_name="id"
 			row_number="5"
 			row_list="1,3,5,10"

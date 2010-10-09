@@ -392,7 +392,7 @@ class Base_Layout extends Base_Singleton{
 //				echo "la expresion when:\"$when\", es incorrecta";
 //				die();
 //			}
-			$re = '((?P<denied>!)?(?P<qualifier>accion|modo)[(](?P<params>([a-zA-Z0-9_]+)([,][a-zA-Z0-9_]+)*)[)])';
+			$re = '((?P<denied>!)?(?P<qualifier>accion|modo|get|req)[(](?P<params>([a-zA-Z0-9_]+)([,][a-zA-Z0-9_]+)*)[)])';
 			if(preg_match_all($re, $when, $matches)){
 				//var_dump($matches);
 				foreach($matches[0] as $idx=>$full_string){
@@ -412,6 +412,20 @@ class Base_Layout extends Base_Singleton{
 			if(!isset($arr_checks)){
 				foreach($this->actions as $action){
 					$arr_checks['accion_'.$action] = true;
+				}
+				if(Core_Http_Get::hasParameters())
+				foreach(Core_Http_Get::getParameters() as $name=>$value){
+					$arr_checks['get_'.$name] = true;
+					$arr_checks['get_'.$name.'_eq_'.$value] = true;
+					$arr_checks['req_'.$name] = true;
+					$arr_checks['req_'.$name.'_eq_'.$value] = true;
+				}
+				if(Core_Http_Post::hasParameters())
+				foreach(Core_Http_Post::getParameters('array') as $name=>$value){
+					$arr_checks['post_'.$name] = true;
+					$arr_checks['post_'.$name.'_eq_'.$value] = true;
+					$arr_checks['req_'.$name] = true;
+					$arr_checks['req_'.$name.'_eq_'.$value] = true;
 				}
 				$arr_checks['modo_'.$this->modo] = true;
 			}
@@ -644,7 +658,10 @@ class Base_Layout extends Base_Singleton{
 			}
 			elseif(method_exists($block, $method)||method_exists($block, '__call')){
 				foreach($xml_action as $param_name=>$value){
-					$argumentos[] = (string)$value;
+					if(isset($value->attributes()->as_xml))
+						$argumentos[] = $value;
+					else
+						$argumentos[] = (string)$value;
 				}
 			}
 			else{

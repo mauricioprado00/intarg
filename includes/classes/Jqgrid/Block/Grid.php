@@ -32,13 +32,14 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 		return $new;
 	}
 	private $_export_types = array();
-	public function addExportType($filetype_description, $export_handler_class, $layout_descripcion=null){
+	public function addExportType($filetype_description, $export_name, $xmllist_export_handler_class, $layout_descripcion=null){
 		if(!isset($layout_descripcion)){
 			$layout_descripcion = $this->__t('Sin agrupar');
 		}
 		$this->_export_types[] =$export_type = new Core_Object(array(
 			'filetype_description'=>$filetype_description,
-			'export_handler_class'=>$export_handler_class,
+			'export_name'=>$export_name,
+			'export_handler_class'=>$xmllist_export_handler_class,
 			'layout_description'=>$layout_descripcion,
 		));
 		
@@ -46,6 +47,13 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 	}
 	public function getExportTypes(){
 		return $this->_export_types;
+	}
+	public function getExportTypesNames(){
+		$names = array();
+		foreach($this->_export_types as $type=>$data){
+			$names[] = $data->getExportName();
+		}
+		return $names;
 	}
 	public function canExport(){
 		return count($this->getExportTypes())>0;
@@ -65,13 +73,13 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 	}
     protected function _allwaysBeforeToHtml(){
     	if($this->getCanExportAsExcel()){
-			$this->addExportType('Descarga de Excel','Jqgrid_XmlList_ExportHandler_Xlst_Downloader_Excel');
+			$this->addExportType('Descarga de Excel','excel','Jqgrid_XmlList_ExportHandler_Xlst_Downloader_Excel');
 		}
 		if($this->getCanExportAsHtml()){
-			$this->addExportType('Descarga de Html','Jqgrid_XmlList_ExportHandler_Xlst_Downloader');
+			$this->addExportType('Descarga de Html','html_download','Jqgrid_XmlList_ExportHandler_Xlst_Downloader');
 		}
 		if($this->getCanExportAsHtmlView()){
-			$this->addExportType('Vista de Html','Jqgrid_XmlList_ExportHandler_Xlst');
+			$this->addExportType('Vista de Html','html_view','Jqgrid_XmlList_ExportHandler_Xlst');
 		}
 		
     	

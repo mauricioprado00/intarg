@@ -438,6 +438,11 @@ class Core_Object
         if (''===$key) {
             return $this->_data;
         }
+        elseif('<!classname>'===$key){
+        	if(!isset($this->_data[$key]))
+        		return get_class($this);
+        	return $this->_data[$key];
+        }
 
         $default = null;
         
@@ -559,6 +564,9 @@ class Core_Object
      */
     public function hasData($key='')
     {
+        if('<!classname>'===$key){
+        	return true;
+        }
         if (empty($key) || !is_string($key)) {
             return !empty($this->_data);
         }
@@ -626,7 +634,7 @@ class Core_Object
      * @param boolean $addCdata
      * @return string
      */
-    protected function __toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
+    protected function __toXmlOld(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
     {
         $xml = '';
         if ($addOpenTag) {
@@ -660,9 +668,9 @@ class Core_Object
      * @param boolean $addCdata
      * @return string
      */
-    public function toXml(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
+    public function toXmlOld(array $arrAttributes = array(), $rootName = 'item', $addOpenTag=false, $addCdata=true)
     {
-        return $this->__toXml($arrAttributes, $rootName, $addOpenTag, $addCdata);
+        return $this->__toXmlOld($arrAttributes, $rootName, $addOpenTag, $addCdata);
     }
 
     /**
@@ -1047,5 +1055,195 @@ class Core_Object
     		$contexto = $this->getBestTranslateContext(get_class($this));
     	}
 		return Core_Translate_Singleton::getInstance()->translate($texto, $vars, $explicacion, $contexto);
+	}
+  /**
+   * Core_Object::toXmlString()
+   * @example ztrunk/Core/example_toXmlString.php
+   * @return
+   */
+	public function toXmlString($data_model=null){
+		//$writer->openURI('php://output');
+		if(isset($data_model)){
+			if(is_string($data_model)){
+				$doc = new Core_DataModel_Document();
+				$doc->loadXML($data_model);
+				$data_model = $doc;
+				//$docxpath = new DOMXPath($doc);
+				//$data_model = $docxpath;
+				//$this->getXmlEntityTagname()
+				$data_model = $doc->lookupModel($this->getXmlEntityTagname());
+				//$data_model = $this->lookupDataModelByLocalName($data_model, 'model');
+			}
+			elseif(!($data_model instanceof Core_DataModel_Document)){
+				$data_model = null;
+			}
+			//var_dump(array(get_class($data_model)," >>".__FILE__.__LINE__));
+		}
+		$writer = new XMLWriter();
+		$writer->openMemory();
+		$writer->config = func_get_args();
+		$this->__toXmlString($writer, $data_model);
+		return $writer->outputMemory(true);
+	}
+	//public static function lookupDataModelByAttribute()
+	public static function lookupDataModelByLocalName($data_model, $local_name){
+		foreach($data_model->getElementsByTagName($local_name) as $subitem){
+			if($subitem->localName==$local_name){
+				return $subitem;
+			}
+		}
+		return null;
+	}
+	private $_xml_tag_name = 'entity';
+	protected function getXmlEntityTagname(){
+		return $this->_xml_tag_name;
+	}
+	public function setXmlEntityTagname($tagname){
+		if(!preg_match('/^[a-z]/i', $tagname))
+			$key = 'item_'.$tagname;
+		$this->_xml_tag_name = $tagname;
+	}
+	protected function getXmlEntityCollectionTagname(){
+		return $this->getXmlEntityTagname().'_list';
+	}
+	protected function getUseCData(){
+		return true;
+	}
+	private static function __value_toXmlString($writer, $data_model, $use_cdata, $value){
+		if($value instanceof SimpleXMLElement){
+			$writer->writeRaw($value->asXML());
+			return;
+		}
+		
+		if(is_object($value)||is_array($value)){
+			foreach($value as $key=>$value_value){
+				if(!preg_match('/^[a-z]/i', $key))
+					$key = 'item_'.$key;
+				$writer->startElement($key);
+				self::__value_toXmlString($writer, $data_model, $use_cdata, $value_value);
+				$writer->endElement();
+			}
+			return;
+		}
+		if($use_cdata)
+			$writer->startCData();
+		$writer->text($value);
+		if($use_cdata)
+			$writer->endCData();
+	}
+	protected function extendDataModel($data_model){
+		//aca habría que mergear con los datos del datamodel default
+		return $data_model;
+	}
+	protected function __childToXmlString($writer, $data_model, $value){
+		//var_dump(get_class($data_model));
+		//var_dump($value instanceof Core_Object);
+		//var_dump(gettype($value));
+		if($value instanceof Core_Object){
+			$value->__toXmlString($writer, $data_model);
+		}
+		else{
+			self::__value_toXmlString($writer, $data_model, $use_cdata = $this->getUseCData(), $value);
+		}
+	}
+	protected function handleModelComponent($writer, $data_model, $component, $name){
+		echo 'other component '.$name."\n";
+		return;
+	}
+	protected function __childsToXmlString($writer, $data_model){
+		if($data_model){
+			foreach($this->extendDataModel($data_model)->getModelComponents() as $component){
+				switch($component->nodeName){
+					case 'field':{
+						if($fieldname = $component->getTargetFieldname()){
+							//echo "campo $fieldname\n";
+							$writer->startElement($fieldname);
+							if($this->hasData($fieldname)){
+								$value = $this->getData($fieldname);
+								$this->__childToXmlString($writer, $component->getDataModelFromComponent(), $value);
+							}
+							$writer->endElement();
+						}
+						//echo "\n";
+						break;
+					}
+					case 'method':{
+						$method = $component->gattr('method');
+						$name = $component->gattr('name');
+						$multiplicity = $component->gattr('multiplicity');
+						try{
+							//throw(new Exception());
+							$return = $this->$method();
+						}catch(Exception $e){
+							die("invalid method $method in data model ".$data_model->saveXML());
+						}
+						if($multiplicity=='single'){
+							//var_dump($return->getData(),$return->getXmlEntityTagname());
+							$return = c(new Core_Object())->setData($name, $return);
+							//var_dump($return->getData());
+							///$return->setData($name, $return);
+							//$model = $component->getDataModelFromComponent();
+							//$return->setXmlEntityTagname($name);
+							$child_data_model = $component->getDataModelFromComponentMethodSingle($return->getXmlEntityTagname());
+							//$data_model = null;
+//							echo $data_model->saveXML();
+//							die();
+							$return->__childsToXmlString($writer, $child_data_model);
+							//$return->__toXmlString($writer, $data_model);
+						}
+						else{
+							//echo Inta_Db::getInstance()->getLastQuery();
+							if(!count($return))
+								continue;
+							if(!is_object($return)){
+								if(!is_array($return)){
+									$return = array($return);
+								}
+								$return = new Core_Collection($return);
+							}
+							else{
+								if(!($return instanceof Core_Collection)){
+									$return = new Core_Collection(array($return));
+								}
+							}
+							$return->setXmlEntityTagname($name);
+							$child_data_model = $component->getDataModelFromComponentMethodMultiple($name);
+							//echo $data_model->saveXML();
+							//var_dump($return);
+							//echo $child_data_model->saveXML().__FILE__.__LINE__;
+							//die("falta .... creo no funciona la llamada getListAudiencia, devuelve todos los datos como si no tomada el datamodel".__FILE__.__LINE__);
+							//var_dump($name);
+							//var_dump(get_class($return));
+							$return->__toXmlString($writer, $child_data_model);
+						}
+						
+						//echo "metodo $multiplicity>$method>$name>>".__FILE__.__LINE__."\n";
+						break;
+					}
+					case '#comment':
+					case '#text':{
+						break;
+					}
+					default:{
+						$this->handleModelComponent($writer, $data_model, $component, $component->nodeName);
+						break;
+					}
+				}
+			}
+			
+		}
+		else{
+			foreach($this->getData() as $name=>$value){
+				$writer->startElement($name);
+				$this->__childToXmlString($writer, null, $value);
+				$writer->endElement();
+			}
+		}
+	}
+	protected function __toXmlString($writer, $data_model){
+		//var_dump($data_model->localName);
+		$writer->startElement($this->getXmlEntityTagname());
+		$this->__childsToXmlString($writer, $data_model);
+		$writer->endElement();
 	}
 }
