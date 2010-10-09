@@ -5,6 +5,7 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 		$this->addActions(
 			'cerrar_sesion',
 			'addEdit','delete','listar','datalist','listar_planificadas','listar_iniciadas',
+			'datalist2',
 			'ordenar','setorden'
 		);
 	}
@@ -164,12 +165,39 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 			}
 		}
 	}
+	protected function datalist2(){
+		Core_App::getLayout()->setActions(array());//reset
+		Core_App::getLayout()->addActions('datalist', 'datalist_admin_actividad2');
+		if($args = func_get_args()){
+			$wheres = array();
+			if($block = Core_App::getLoadedLayout()->getBlock('xml_data_admin_actividad')){
+				if(count($args)%2===0){
+					$filtros = array();
+					$fieldname = null;
+					for($i=0;$i<count($args);$i++){
+						if(($i%2)==0){
+							$fieldname = $args[$i];
+							continue;
+						}
+						//$filtros[$fieldname] = $args[$i];
+						$wheres[] = Db_Helper::equal($fieldname, $args[$i]);
+					}
+				}
+				//$filtros['id_agencia'] = Admin_Helper::getInstance()->getIdAgencia();
+				$wheres[] = Db_Helper::equal('responsable_id_agencia', Admin_Helper::getInstance()->getIdAgencia());
+				$block->setHardFiltros($wheres);
+//				var_dump($wheres);
+//				die();
+			}
+		}
+	}
 	protected function listar_planificadas(){
 		Core_App::getLayout()->addActions('entity_list', 'list_admin_actividad');
 		if($block = Core_App::getLoadedLayout()->getBlock('listado_datos_grid')){
 			$block
 				->setCaption('Actividades Planificadas')
-				->setSource('administrator/actividad/datalist/estado/planificado')
+				//->setSource('administrator/actividad/datalist/estado/planificado')
+				->setSource('administrator/actividad/datalist2/actividad_estado/planificado')
 			;
 		}
 		$this->cambiarUrlAjax('administrator/actividad/listar_planificadas');
@@ -179,7 +207,8 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 		if($block = Core_App::getLoadedLayout()->getBlock('listado_datos_grid')){
 			$block
 				->setCaption('Actividades en Curso')
-				->setSource('administrator/actividad/datalist/estado/parcial')
+				//->setSource('administrator/actividad/datalist/estado/parcial')
+				->setSource('administrator/actividad/datalist2/actividad_estado/parcial')
 			;
 		}
 		$this->cambiarUrlAjax('administrator/actividad/listar_iniciadas');

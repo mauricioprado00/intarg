@@ -15,6 +15,7 @@ class Inta_Model_View_Actividad extends Inta_Db_Model_View_Abstract{
 				'actividad_estado'=>'a.estado',
 			))
 			->addTable('inta_usuario', 'a.id_responsable= r.id', 'r', array(
+				'responsable_id_agencia'=>'r.id_agencia',
 				'responsable_id'=>'r.id',
 				'responsable_nombre'=>'r.nombre',
 				'responsable_apellido'=>'r.apellido',
@@ -30,6 +31,7 @@ class Inta_Model_View_Actividad extends Inta_Db_Model_View_Abstract{
 			//->setGroupBy('i.id')
 		;	
 		$this->addView($view, 'actividad', array(
+				'id'=>'actividad_id',
 				'actividad_id',
 				'actividad_nombre',
 				'actividad_ano',
@@ -41,7 +43,8 @@ class Inta_Model_View_Actividad extends Inta_Db_Model_View_Abstract{
 				'responsable_id',
 				'responsable_nombre',
 				'responsable_apellido',
-				'actividad_presupuesto_sum'
+				'actividad_presupuesto_sum',
+				'responsable_id_agencia',
 		));
 	}
 	public static function crearFiltroAgencia2($id_agencia=null){

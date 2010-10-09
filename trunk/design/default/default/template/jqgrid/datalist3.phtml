@@ -2,13 +2,13 @@
 $lf = $this->getListFields();
 $vf = $this->getVirtualFields();
 	$data = $this->getDatos();
-?><<?php print $this->getRowsTag()?>>
+?><rows>
 <page><?=$this->getPage()?></page>
 <total><?=$this->getTotal()?></total>
 <records><?=$this->getRecords()?></records><?
 	if($data)
 	foreach($data as $item){?> 
-	<<?php print $this->getRowTag()?> id="<?=$item->getId()?>"><?
+	<row id="<?=$item->getId()?>"><?
 		if(!isset($lf)||!count($lf)){
 			foreach($item->setData($var, '')->getData() as $var=>$value){
 			$tag = $this->getFieldTag($item, $var);
@@ -40,8 +40,9 @@ $vf = $this->getVirtualFields();
 				endif;
 				
 				$output = $this->renderValue($item, $var, $value);
-				$tag = $this->getFieldTag($item, $var);
+				
 			if($this->fieldUseCData($item, $var)){
+				$tag = $this->getFieldTag($item, $var);
 			?> 
 		<<?php print $tag; ?><?php print $special; ?>><![CDATA[<?php print $output; ?>]]></<?php print $tag; ?>><?
 			}
@@ -51,7 +52,7 @@ $vf = $this->getVirtualFields();
 			}
 			}
 		}?> 
-	</<?php print $this->getRowTag()?>><?
+	</row><?
 	}
 ?> 
-</<?php print $this->getRowsTag()?>>
+</rows>

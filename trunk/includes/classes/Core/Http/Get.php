@@ -3,7 +3,9 @@ abstract class Core_Http_Get{
 	private static $parameters;
 	private static $request;
 	private static $path;
-	
+	public static function hasParameters(){
+		return count($_GET);
+	}
 	public static function getParameters($modo=null){
 		if(true||Core_App::getFancyUrlEnabled()){
 			self::initialize();

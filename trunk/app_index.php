@@ -33,7 +33,31 @@ $app
 //$x = Inta_Model_Traduccion::Traducir('alguna cosa', 'x: kradkk', 'Core_kradkk');
 ////echo Inta_Db::getInstance()->getLastQuery();
 //var_dump($x);
-//die(); 
+//die();
+
+//Test_DataModel::getInstance()->pruebaXmlOutputEntity();
+//Test_DataModel::getInstance()->testXmlOutputCollectionHomogenea();
+//Test_DataModel::getInstance()->testXmlOutputCollectionHeterogenea();
+//Test_DataModel::getInstance()->textXmlOutputGroupedCollectionAndMethodSingle();
+//Test_DataModel::getInstance()->testXmlOutputGroupeCollectionAndMethodMultiple();
+$app->initialize();
+if(isset($_GET['dotest'])){
+	//Test_XsltTemplates::getInstance()->test1();
+}
+//Test_XsltServer::getInstance()->testNoFormating();
+//Test_XsltServer::getInstance()->testSingleFormating();
+//Test_XsltServer::getInstance()->testMultipleFormating();
+//Test_XsltServer::getInstance()->testAll();
+//
+////echo $c->toXmlString();
+//$file = $app->getLayout()->getDesignFilePath('resource/xsl/test/agencia.xsl');
+//$file2 = $app->getLayout()->getDesignFilePath('resource/xsl/test/agencia2.xsl');
+//$xs = new Core_Xslt_Server();
+//$xs->setSource($c);
+//$xs->appendStyle($file);
+//$xs->appendStyle($file2);
+//echo $xs->toXmlString();
+//die();
 if(1){
 	$app->run();
 	return;

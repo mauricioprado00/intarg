@@ -1,5 +1,16 @@
 <?
-class Core_Helper{
+class Core_Helper extends Core_Singleton{
+	public function getInstance(){
+		return self::getInstanceOf(__CLASS__);
+	}
+	public function LookUpLayout(){
+		$bt = debug_backtrace();
+		foreach($bt as $bti){
+			if($bti['object'] instanceof Base_Layout)
+				return $bti['object'];
+		}
+		return Core_App::getInstance()->getLayout();
+	}
 	public static function max_execution_time($seg=null,$min=null,$horas=null){
 		$min = $min + $horas * 60;
 		$seg = $seg + $min * 60;

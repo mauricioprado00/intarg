@@ -1,3 +1,4 @@
+<!-- es útf8 -->
 <layout>
 	<default>
 		<reference name="menu_admin">
@@ -35,6 +36,58 @@
 			</block>
 		</reference>
 	</default>
+	<datalist_admin_actividad2>
+		<block type="Admin_Actividad/XmlServer" name="xml_data_admin_actividad">
+			<action method="setDataModel">
+				<datamodel><![CDATA[
+				<model for="entity">
+					<model for="actividad">
+						<field name="id" />
+						<field name="actividad_nombre" />
+						<field name="responsable_apellido" />
+						<field name="actividad_ano" />
+						<field name="actividad_porcentaje_cumplimiento" />
+						<field name="actividad_porcentaje_tiempo" />
+						<field name="actividad_presupuesto_sum" />
+						<field name="actividad_observaciones" />
+						<field name="actividad_estado" />
+					</model>
+				</model>
+			]]></datamodel>
+			</action>
+			<action method="appendStyle">
+				<param>resource/xsl/jqgrid/standart-botones.xsl</param>
+			</action>
+			<action when="req(export_eq_html_view)" method="appendStyle">
+				<param>resource/xsl/jqgrid/export/html-view.xsl</param>
+			</action>
+			<action when="req(export_eq_html_download)" method="appendStyle">
+				<param>resource/xsl/jqgrid/export/html-download.xsl</param>
+			</action>
+			<action when="req(export_eq_excel)" method="appendStyle">
+				<param>resource/xsl/jqgrid/export/excel.xsl</param>
+			</action>
+			<action method="addParam">
+				<name>mensaje_eliminacion</name>
+				<value><![CDATA[¿Desea continuar eliminando la actividad?]]></value>
+			</action>
+			<action method="addParam">
+				<name>edit_url</name>
+				<value>actividad/addEdit/</value>
+			</action>
+			<!---
+			<action method="addParam">
+				<name>extra</name>
+				<config as_xml="true">
+					<type>
+						<title>edit_url</title>
+						<param>actividad/addEdit</param>
+					</type>
+				</config>
+			</action>
+			-->
+		</block>
+	</datalist_admin_actividad2>
 	<datalist_admin_actividad>
 <!--			output_filters="utf8_encode"   -->
 		<block type="Admin_Actividad/XmlList"

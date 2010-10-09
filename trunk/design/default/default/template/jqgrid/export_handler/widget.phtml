@@ -19,7 +19,8 @@
 				<?php foreach($this->getParentBlock()->getExportTypes() as $export_type): ?>
 				<option value="<?php print $export_type->getExportHandlerClass(); ?>"><?php print $export_type->getFiletypeDescription(); ?> - <?php print $export_type->getLayoutDescription(); ?></option>
 				<?php endforeach; ?>
-			</select> 
+			</select>
+			<input type="hidden" name="export" /> 
 		</div>
 		<div>
 			<label for="utilizar_filtros">Utilizar filtros
@@ -53,6 +54,10 @@ jQuery(function(){
 //			background:'none',
 //		}
 //	});
+	jQuery('.ventanaexportacion [name=xml_list_export_to]').change(function(){
+		var names = <?php print json_encode($this->getParentBlock()->getExportTypesNames()); ?>;
+		jQuery(this).nextAll('input:first').val(names[this.selectedIndex]);
+	}).change();
 	jQuery('.ventanaexportacion .ui-dialog-titlebar-close').click(function(){
 		jQuery.unblockUI();
 		return false;

@@ -188,6 +188,8 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 				$collection = new $class;
 				$key = array();
 				foreach($campos as $campo){
+					if($campo=='<!classname>')
+						$collection->setXmlEntityTagname($item->getXmlEntityCollectionTagname());
 					$value = $item->getData($campo);
 					$key[] = $value;
 					$collection->setData($campo, $value);
@@ -274,5 +276,29 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 		}
 		return $return;
 	}
+	public function toXmlStringLegacy(){
+		return parent::toXmlString(null, c(new Core_Object())->setLegacy(true));
+	}
+	protected function __childsToXmlString($writer, $data_model){
+		if(count($writer->config)>1&&($writer->config[1] instanceof Core_Object) && $writer->config[1]->getLegacy()){
+			return parent::__childsToXmlString($writer, $data_model);
+		}
+//		echo"\n";
+//		var_dump($this->getXmlEntityTagname().__FILE__.__LINE__);
+//		echo"\n";
+		foreach($this->getItems() as $item){
+			if($data_model)
+				$child_data_model = $data_model->lookupChildModel($item->getXmlEntityTagname());
+			else $child_data_model = null;
+			if($this->getXmlEntityTagname()=='audiencias'){
+				//echo $data_model->saveXML();
+				//var_dump($child_data_model);
+				//echo get_class($child_data_model). __FILE__.__LINE__."\n";
+			}
+			$item->__toXmlString($writer, $child_data_model);
+			//parent::__childsToXmlString($writer);
+		}
+	}
+
 }
 ?>

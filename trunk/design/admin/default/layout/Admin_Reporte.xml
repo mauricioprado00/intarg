@@ -72,4 +72,39 @@
 			-->
 		</block>
 	</datalist_admin_reporte>
+	<datalist_admin_reporte2>
+<!--			output_filters="utf8_encode"   -->
+		<block type="Admin_Reporte/XmlList_Actividad"
+			name="xml_data_admin_reporte" use_field_names="true" row_tag="actividad" rows_tag="actividades">
+			<action method="appListFields">
+				<fieldname>acciones@ui</fieldname>
+				<!-- <fieldname>id</fieldname> -->
+				<fieldname>nombre_agencia</fieldname>
+				<!--<fieldname>data</fieldname> -->
+				<fieldname>nombre_actividad</fieldname>
+				<fieldname>usuarios</fieldname>
+				<fieldname>nombre_responsable</fieldname>
+			</action>
+			<action method="appVirtualFields">
+				<fieldname>acciones</fieldname>
+			</action>
+			<block type="Jqgrid/Field_Renderer_Container" field_name="usuarios" return_cdata="false">
+				<block type="Admin_Reporte/XmlList_Actividad" use_cdata="false"><!--  xsl="xsl/jqgrid/export_handler/generic.xsl" -->
+					<action method="appListFields">
+						<fieldname>nombre_agencia</fieldname>
+						<fieldname>nombre_actividad</fieldname>
+						<fieldname>nombre_responsable</fieldname>
+					</action>
+				</block>
+			</block>
+			<action method="addAutofilterFieldOutput">
+				<fieldname>acciones</fieldname>
+				<filter>Core_Object::DataStrtr</filter>
+				<param><![CDATA[
+					<a href="#reporte/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
+					<a href="#reporte/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el anuncio seleccionado?')"><div class="lstde"></div></a>
+					]]></param>
+			</action>
+		</block>
+	</datalist_admin_reporte2>
 </layout>
