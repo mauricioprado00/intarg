@@ -358,6 +358,7 @@ abstract class Db_Model_Abstract extends Core_Object{
 				$re = '/@listar\s+(?P<list_type>[A-Za-z0-9_]+)(\s*\(\s*(?P<pk>[A-Za-z0-9_]+)\s*\))?\s+(?P<class>[A-Za-z0-9_]+)(\s*\(\s*(?P<fk>[A-Za-z0-9_]+)\s*\))?/';
 				if(preg_match_all($re, $doc_comment, $matches)){
 					foreach($matches[0] as $idx=>$match){
+						$list_type = $matches['list_type'][$idx];
 						$data = array(
 							'list_type'=>$list_type,
 							'fk'=>$matches['fk'][$idx],
@@ -384,7 +385,7 @@ abstract class Db_Model_Abstract extends Core_Object{
 							}
 							else continue;
 						}
-						$list_type_data[$list_type = $matches['list_type'][$idx]] = $data;
+						$list_type_data[$list_type] = $data;
 					}
 					//var_dump($matches);
 				}

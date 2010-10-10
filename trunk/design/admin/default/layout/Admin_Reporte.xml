@@ -1,3 +1,4 @@
+﻿<!-- es útf8 -->
 <layout>
 	<default>
 		<reference name="menu_admin">
@@ -107,4 +108,183 @@
 			</action>
 		</block>
 	</datalist_admin_reporte2>
+	<datalist_admin_reporte3>
+		<block type="Admin_Reporte/XmlServer" name="xml_data_admin_reporte">
+			<action method="setDataModel">
+				<datamodel><![CDATA[
+				<model for="entity">
+					<model for="resultado_actividad">
+						<field name="id" />
+						<field name="id_usuario_logeado" />
+						<field name="id_agencia" />
+						<field name="nombre_agencia" />
+						<method name="agencia_actividad" method="getAgencia" multiplicity="single" >
+						</method>
+						<field name="id_actividad" />
+						<field name="nombre_actividad" />
+						<method name="actividad_resultado" method="getActividad" multiplicity="single" >
+							<model for="resultado_actividad">
+								<field name="id" />
+								<field name="nombre" />
+								<field name="ano" />
+								<field name="porcentaje_cumplimiento" />
+								<field name="porcentaje_tiempo" />
+								<field name="presupuesto_estimado" />
+								<field name="mes_enero" />
+								<field name="mes_febrero" />
+								<field name="mes_marzo" />
+								<field name="mes_abril" />
+								<field name="mes_mayo" />
+								<field name="mes_junio" />
+								<field name="mes_julio" />
+								<field name="mes_agosto" />
+								<field name="mes_septiembre" />
+								<field name="mes_octubre" />
+								<field name="mes_noviembre" />
+								<field name="mes_diciembre" />
+								<field name="observaciones" />
+								<field name="comentario" />
+								<field name="motivo_atrasado" />
+								<field name="motivo_cancelado" />
+								<field name="estado" />
+								<method name="list_aspecto_actividad" method="getListAspecto" multiplicity="multiple" >
+									<model for="aspecto_actividad">
+										<field name="id_aspecto" />
+										<field name="nombre_extendido" />
+										<method name="detalle_aspecto" method="getAspecto" multiplicity="single" >
+											<model for="aspecto_actividad">
+												<field name="nombre" />
+												<method name="detalle_tipo_aspecto" method="getTipoAspecto" multiplicity="single" >
+													<model for="aspecto_actividad">
+														<field name="nombre" />
+													</model>
+												</method>
+											</model>
+										</method>
+									</model>
+								</method>
+								<method name="list_estrategia_actividad" method="getListEstrategia" multiplicity="multiple" >
+									<model for="estrategia_actividad">
+										<field name="id_estrategia" />
+										<method name="detalle_estrategia" method="getEstrategia" multiplicity="single" >
+											<model for="estrategia_actividad">
+												<field name="nombre" />
+											</model>
+										</method>
+									</model>
+								</method>
+								<method name="list_proyecto_actividad" method="getListProyecto" multiplicity="multiple" >
+									<model for="proyecto_actividad">
+										<field name="id_proyecto" />
+										<field name="monto" />
+										<method name="detalle_proyecto" method="getProyecto" multiplicity="single" >
+											<model for="proyecto_actividad">
+												<field name="nombre" />
+											</model>
+										</method>
+									</model>
+								</method>
+								<method name="list_resultado_esperado_actividad" method="getListResultadoEsperado" multiplicity="multiple" >
+									<model for="resultado_esperado_actividad">
+										<field name="id_resultado_esperado" />
+										<method name="detalle_resultado_esperado" method="getResultadoEsperado" multiplicity="single" >
+											<model for="resultado_esperado">
+												<field name="id_objetivo" />
+												<field name="descripcion" />
+												<method name="detalle_objetivo" method="getObjetivo" multiplicity="single" >
+													<model for="detalle_objetivo">
+														<field name="nombre" />
+														<field name="descripcion" />
+													</model>
+												</method>
+											</model>
+										</method>
+									</model>
+								</method>
+								<method name="list_audiencia_actividad" method="getListAudiencia" multiplicity="multiple" >
+									<model for="audiencia_actividad">
+										<field name="id_audiencia" />
+										<field name="asistencia" />
+										<field name="cantidad_esperada" />
+										<method name="detalle_audiencia" method="getAudiencia" multiplicity="single" >
+											<model for="audiencia_actividad">
+												<field name="nombre" />
+												<method name="detalle_tipo_audiencia" method="getTipoAudiencia" multiplicity="single" >
+													<model for="tipo_audiencia">
+														<field name="nombre" />
+													</model>
+												</method>
+											</model>
+										</method>
+									</model>
+								</method>
+							</model>
+						</method>
+						<field name="id_responsable" />
+						<field name="nombre_responsable" />
+						<method name="responsable_actividad" method="getResponsable" multiplicity="single" >
+						</method>
+					</model>
+				</model>
+			]]></datamodel>
+			</action>
+			<action method="appendStyle">
+				<param>resource/xsl/inta/reporte/actividad-flat.xsl</param>
+			</action>
+			<action when="!req(export) || req(export_eq_html_view,export_eq_html_download)" method="appendStyle">
+				<param>resource/xsl/inta/reporte/actividad-jqgrid.xsl</param>
+			</action>
+			<action when="!req(export)" method="appendStyle">
+				<param>resource/xsl/jqgrid/standart-botones.xsl</param>
+			</action>
+			<action when="req(export_eq_html_view)" method="appendStyle">
+				<param>resource/xsl/inta/reporte/actividad-html-view.xsl</param>
+			</action>
+			<action when="req(export_eq_html_download)" method="appendStyle">
+				<param>resource/xsl/inta/reporte/actividad-html-download.xsl</param>
+			</action>
+			<!--
+			
+			
+			
+			
+			
+			<action when="!req(export)" method="appendStyle">
+				<param>resource/xsl/jqgrid/standart-botones.xsl</param>
+			</action>
+			<action method="appendStyle">
+				<param>resource/xsl/jqgrid/standart-botones.xsl</param>
+			</action>
+			<action when="req(export_eq_html_view)" method="appendStyle">
+				<param>resource/xsl/jqgrid/export/html-view.xsl</param>
+			</action>
+			<action when="req(export_eq_html_download)" method="appendStyle">
+				<param>resource/xsl/jqgrid/export/html-download.xsl</param>
+			</action>
+			<action when="req(export_eq_excel)" method="appendStyle">
+				<param>resource/xsl/jqgrid/export/excel.xsl</param>
+			</action>
+			<action method="addParam">
+				<name>mensaje_eliminacion</name>
+				<value><![CDATA[¿Desea continuar eliminando la reporte?]]></value>
+			</action>
+			-->
+			<action method="addParam">
+				<name>edit_url</name>
+				<value>reporte/addEdit/</value>
+			</action>
+			<!---
+			<action method="addParam">
+				<name>extra</name>
+				<config as_xml="true">
+					<type>
+						<title>edit_url</title>
+						<param>reporte/addEdit</param>
+					</type>
+				</config>
+			</action>
+			-->
+		</block>
+	</datalist_admin_reporte3>
+
 </layout>

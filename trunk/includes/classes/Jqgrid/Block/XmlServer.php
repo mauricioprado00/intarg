@@ -26,6 +26,26 @@ class Jqgrid_Block_XmlServer extends Core_Block_Abstract{
 		return $root;
 		//	//$newDom = new DOMDocument('1.0');//$root = $newDom->createElement('root');//$root = $newDom->appendChild($root);//foreach($xml as $item){//	$domNode = $newDom->importNode($item, true);//	$root->appendChild($domNode);//}//$xPath = new DOMXPath($newDom);//return $xPath->query('./*');//echo $newDom->saveXML();//echo $xml[0]->asXML();//		return $xml[0];//		return array($xml);//		die("ok llamando a ble");
 	}
+	public static function xmlTextToNodes($xml){
+		$doc = new DOMDocument();
+		$html_encoded =  $xml[0]->ownerDocument->saveXML($xml[0]->childNodes->item(0));
+		$html = html_entity_decode($html_encoded);
+		$doc->loadXML('<root>'.$html.'</root>');
+		return $doc->childNodes->item(0);
+		foreach($doc->childNodes as $child){
+			echo $child->nodeName;
+		}
+		die();
+		$root = $xml[0]->ownerDocument->createElement('group');
+		foreach($xml as $node){
+			if($name == $node->nodeName){
+				$root->appendChild($node);
+			}
+		}
+		return $root;
+		var_dump($xml[0]->textContent);
+		die("ok creando nodos");
+	}
 	public function __construct(){
 		parent::__construct();
 		$this->xs = new Core_Xslt_Server();

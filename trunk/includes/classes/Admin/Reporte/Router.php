@@ -5,7 +5,7 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 		$this->addActions(
 			'cerrar_sesion',
 			'addEdit','delete','listar','datalist','datalist2',
-			'ordenar','setorden'
+			'ordenar','setorden','datalist3'
 		);
 	}
 	protected function onThrought(){
@@ -103,6 +103,11 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 	protected function datalist2(){
 		Core_App::getLayout()->setActions(array());//reset
 		Core_App::getLayout()->addActions('datalist', 'datalist_admin_reporte2');
+	}
+	protected function datalist3(){
+		Core_Http_Header::ContentType('text/xml');
+		Core_App::getLayout()->setActions(array());//reset
+		Core_App::getLayout()->addActions('datalist', 'datalist_admin_reporte3');
 	}
 	protected function dispatchNode(){
 		return;

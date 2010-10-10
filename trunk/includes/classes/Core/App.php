@@ -108,6 +108,7 @@ class Core_App extends Core_Singleton{
 	private function render(){
 		$this->loadLayoutUpdates();
 		if(Core_Http_Header::isAjaxRequest()&&!headers_sent()){
+//		if(!headers_sent()){
 			Core_Http_Header::ContentEncoding('gzip');
 			$this->layout->renderOutput(true, true);
 		}

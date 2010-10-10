@@ -3,8 +3,19 @@
 /**
  *@referencia Responsable(id_responsable) Inta_Model_Usuario(id)
  *@listar Audiencia Inta_Model_AudienciaActividad
+ *@listar Aspecto Inta_Model_AspectoActividad
+ *@listar Estrategia Inta_Model_EstrategiaActividad
+ *@listar Proyecto Inta_Model_ProyectoActividad
+ *@listar ResultadoEsperado Inta_Model_ResultadoEsperadoActividad
 */
 class Inta_Model_Actividad extends Core_Model_Abstract{
+	public function getListAudiencias(){
+		die("ok".__FILE__.__LINE__);
+		$result = $this->getListAudiencia();
+		$ltd = $this->_getListTypeData("Audiencia");
+		var_dump($result);
+		die("ok");
+	}
     public function init(){
         parent::init();
         $datafields = array(
