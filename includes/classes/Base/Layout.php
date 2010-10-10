@@ -429,6 +429,7 @@ class Base_Layout extends Base_Singleton{
 				}
 				$arr_checks['modo_'.$this->modo] = true;
 			}
+
 			//var_dump($arr_checks);
 			if(preg_match_all('([$](?P<varnames>[A-Za-z0-9_]+))', $when, $matches)){
 				foreach($matches['varnames'] as $varname){
@@ -436,7 +437,7 @@ class Base_Layout extends Base_Singleton{
 						//echo 'set false '. $varname."\n";
 						$$varname = false;
 					}
-					$when = str_replace('$'.$varname, '$arr_checks["'.$varname.'"]', $when);
+					$when = preg_replace('/\\$'.$varname.'\\b/', '\\$arr_checks["'.$varname.'"]', $when);
 				}
 			}
 			//var_dump($when);
