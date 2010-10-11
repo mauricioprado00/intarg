@@ -20,6 +20,14 @@ class Inta_Model_View_Actividad extends Inta_Db_Model_View_Abstract{
 				'responsable_nombre'=>'r.nombre',
 				'responsable_apellido'=>'r.apellido',
 			))
+			->addTable('inta_agencia', 'ag.id= r.id_agencia', 'ag', array(
+				'agencia_id'=>'ag.id',
+				'agencia_nombre'=>'ag.nombre',
+//				'agencia_id_localidad'=>'ag.id_localidad',
+//				'agencia_direccion'=>'ag.direccion',
+//				'agencia_telefono'=>'ag.telefono',
+//				'agencia_email'=>'ag.email',
+			))
 			->addTable('inta_proyecto_actividad', 'a.id=p.id_actividad', 'p', array(
 				'proyecto_monto'=>'p.monto',
 			))
@@ -45,6 +53,12 @@ class Inta_Model_View_Actividad extends Inta_Db_Model_View_Abstract{
 				'responsable_apellido',
 				'actividad_presupuesto_sum',
 				'responsable_id_agencia',
+				'agencia_id',
+				'agencia_nombre',
+//				'agencia_id_localidad',
+//				'agencia_direccion',
+//				'agencia_telefono',
+//				'agencia_email',
 		));
 	}
 	public static function crearFiltroAgencia2($id_agencia=null){

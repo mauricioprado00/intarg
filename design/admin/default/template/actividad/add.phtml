@@ -175,12 +175,15 @@ $configcke2 = array(
 			<label for="estado">Estado: <?
 					$aOptionsEstados = $aOptions = Admin_Actividad_Helper::getOpcionesEstadosPosiblesDeCambio($x);
 					if(true){
+						$estado = $x->getEstado();
+						if(!$estado)
+							$estado = array_pop(array_slice(array_keys($aOptionsEstados), 0, 1));
 						$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 						$input
 							->setType('hidden')
 							->setId('estado')
 							->setName('actividad[estado]')
-							->setValue($x->getEstado())
+							->setValue($estado)
 						;
 						echo $input->getHtml();
 						$input = Core::getObject('Core_Html_Tag_Custom', 'input');

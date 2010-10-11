@@ -7,6 +7,7 @@ class Admin_Problema_Block_XmlList extends Jqgrid_Block_XmlList{
 		*/
 		//$problema = new Inta_Model_Problema();
 		$problema = new Inta_Model_Problema();
+		$problema = new Inta_Model_View_Problema();
 		if($comparator!=null){
 			$problema->setWhere($comparator);
 		}
@@ -32,6 +33,7 @@ class Admin_Problema_Block_XmlList extends Jqgrid_Block_XmlList{
 		
 		//$datos = $problema->search(null,'ASC',null,0,true,array('id', 'username', 'nombre', 'apellido', 'activo', 'privilegios', 'ultimo_acceso'));
 		$datos = $problema->search($sidx,$sord,$rows,$rows*($page-1),get_class($problema));
+		//echo $problema->searchGetSql($sidx,$sord,$rows,$rows*($page-1),get_class($problema));
 		//aca termina la consulta a la base
 		
 		

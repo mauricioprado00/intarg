@@ -32,7 +32,15 @@
 				<title>Inv No</title>
 				<name>actividad_id</name>
 				<index>actividad_id</index>
-				<width>55</width>
+				<width>36</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Agencia</title>
+				<name>agencia_nombre</name>
+				<index>agencia_nombre</index>
+				<width>104</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -40,7 +48,7 @@
 				<title>Nombre</title>
 				<name>actividad_nombre</name>
 				<index>actividad_nombre</index>
-				<width>350</width>
+				<width>300</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -48,7 +56,7 @@
 				<title>Responsable</title>
 				<name>responsable_apellido</name>
 				<index>responsable_apellido</index>
-				<width>100</width>
+				<width>90</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -56,7 +64,7 @@
 				<title>Año</title>
 				<name>actividad_ano</name>
 				<index>actividad_ano</index>
-				<width>55</width>
+				<width>50</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -64,7 +72,7 @@
 				<title>Cumplimiento</title>
 				<name>actividad_porcentaje_cumplimiento</name>
 				<index>actividad_porcentaje_cumplimiento</index>
-				<width>55</width>
+				<width>50</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -72,7 +80,7 @@
 				<title>Tiempo</title>
 				<name>actividad_porcentaje_tiempo</name>
 				<index>actividad_porcentaje_tiempo</index>
-				<width>55</width>
+				<width>50</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -80,7 +88,7 @@
 				<title>Presupuesto</title>
 				<name>actividad_presupuesto_sum</name>
 				<index>actividad_presupuesto_sum</index>
-				<width>55</width>
+				<width>50</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -88,7 +96,7 @@
 				<title>Observaciones</title>
 				<name>actividad_observaciones</name>
 				<index>actividad_observaciones</index>
-				<width>200</width>
+				<width>170</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -96,7 +104,7 @@
 				<title>Estado</title>
 				<name>actividad_estado</name>
 				<index>actividad_estado</index>
-				<width>100</width>
+				<width>90</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -109,9 +117,13 @@
 				action_url="actividad/addEdit"
 				ajax_target=".contenedor_main"
 				ajax_replace_with="true"
-				validador_js="validar_agregar_actividad"
+				validador_js="validar_agregar_actividad,validar_seleccion_resultado_esperado"
 				method="post">
 				<tabset>
+					<!-- cuando agregamos una nueva forzamos a que seleccionen el resultado esperado -->
+					<tab when="accion(entity_new)" title="Resultado Esperado">
+						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" allow_in_new="si_dejar" validator="validar_seleccion_resultado_esperado" />
+					</tab>
 					<tab title="Datos de Actividad">
 						<block name="actividad_add_edit_form" as="datos" type="template" template="actividad/add.phtml">
 							<block as="hijos_arriba">
@@ -168,8 +180,11 @@
 						<add_edit_list_proyecto_actividad name="add_edit_list_proyecto_actividad" />
 					</tab>
 					-->
+					
+					<!-- solo se puede agregar resultados esperados una vez que existe la entidad 
+					-->
 					<tab when="!accion(entity_new)&amp;accion(edit_actividad_estado_planificado)" title="Resultado Esperado">
-						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" />
+						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" validator="validar_seleccion_resultado_esperado" />
 					</tab>
 					<!--
 					<tab when="!accion(entity_new)" title="Documentos">

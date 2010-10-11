@@ -7,6 +7,7 @@ class Admin_Objetivo_Block_XmlList extends Jqgrid_Block_XmlList{
 		*/
 		//$objetivo = new Inta_Model_Objetivo();
 		$objetivo = new Inta_Model_Objetivo();
+		$objetivo = new Inta_Model_View_Objetivo();
 		if($comparator!=null){
 			$objetivo->setWhere($comparator);
 		}

@@ -8,13 +8,13 @@ class Admin_ResultadoEsperadoActividad_Block_AddEditList extends Core_Block_Temp
 	}
 	private $_listado_resultado_esperado_actividads = null;
 	private function crearBloqueListadoResultadoEsperadoActividads($name=null){
-		if(!$this->getIdActividad()){
+		if(!$this->getIdActividad()&&!$this->hasAllowInNew()){
 			return;
 		}
 		$name = !isset($name)?$this->generateRandomId():$name;
 		$this->_listado_resultado_esperado_actividads = 
 			$block = $this->appendBlock('<listado_resultado_esperado_actividad name="'.$name.'" />', '', $this);
-		$block->setIdActividad($this->getIdActividad());
+		//$block->setIdActividad($this->getIdActividad());
 		$block->setShowEmptyMessage(true);
 		return $block;
 	}
@@ -26,12 +26,12 @@ class Admin_ResultadoEsperadoActividad_Block_AddEditList extends Core_Block_Temp
 	}
 	protected function getListadoResultadoEsperadoActividadsToHtml(){
 		if(isset($this->_listado_resultado_esperado_actividads)){
-			return $this->_listado_resultado_esperado_actividads->toHtml();
+			return $this->_listado_resultado_esperado_actividads->setIdActividad($this->getIdActividad())->toHtml();
 		}
 		else{
 			$block = $this->crearBloqueListadoResultadoEsperadoActividads();
 			if($block){
-				return $block->toHtml();
+				return $block->setIdActividad($this->getIdActividad())->toHtml();
 			}
 		}
 		return '';

@@ -7,6 +7,7 @@ class Admin_ResultadoEsperado_Block_XmlList extends Jqgrid_Block_XmlList{
 		*/
 		//$resultado_esperado = new Inta_Model_ResultadoEsperado();
 		$resultado_esperado = new Inta_Model_ResultadoEsperado();
+		$resultado_esperado = new Inta_Model_View_ResultadoEsperado();
 		if($comparator!=null){
 			$resultado_esperado->setWhere($comparator);
 		}

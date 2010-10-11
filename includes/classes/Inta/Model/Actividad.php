@@ -128,6 +128,12 @@ from inta_objetivo as o
     inner join inta_resultado_esperado_actividad as rea on rea.id_resultado_esperado = re.id
 	where o.id_agencia={%s})', $id_agencia);
 	}
+	protected function afterReplace($data){
+		parent::afterReplace($data);
+		if($this->hasId()){
+			Inta_Model_ResultadoEsperadoActividad::flushSessionParaActividad($this->getId());
+		}
+	}
     public function getDbTableName()
     {
         return 'inta_actividad';

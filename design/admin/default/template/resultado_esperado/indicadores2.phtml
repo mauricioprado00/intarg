@@ -10,11 +10,7 @@ $x = $this->getObjectToEdit();
 <?if($this->getIdToEdit()):?>
 <input type="hidden" name="resultado_esperado[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
-	<legend><?if(!$this->getIdToEdit()):
-		echo $this->__t('Nuevo ResultadoEsperado');
-	else:
-		echo $this->__t('Editar ResultadoEsperado');
-	endif;?></legend>
+	<legend><?php print $this->__t('Indicadores de ResultadoEsperado'); ?></legend>
 	<fieldset>
 		<div>
 				<div class="indicadores_resultado"><?

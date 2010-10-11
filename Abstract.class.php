@@ -1,4 +1,4 @@
-<?
+<?die("cargando...".__FILE__.__LINE__);
 abstract class Db_Model_Abstract extends Core_Object{
 	private $__db_model_abstract_where;
 	private $__db_model_abstract_db;

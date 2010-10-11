@@ -69,9 +69,6 @@ class Admin_Objetivo_Router extends Core_Router_Abstract{
 				$this->listar();
 			}
 			else{
-				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_objetivo');
-				$layout = Core_App::getLoadedLayout();
-
 				$objetivo->addAutofilterOutput('utf8_decode');
 				
 				$audiencia = new Inta_Model_Audiencia();
@@ -89,12 +86,22 @@ class Admin_Objetivo_Router extends Core_Router_Abstract{
 				else 
 					$problema->setWhere(Db_Helper::in('id_audiencia', true, $ids_audiencia),' AND (',Db_Helper::equal('id_objetivo', 0),')');
 				$problemas = $problema->search();
+				//echo Core_Helper::DebugVars($ids_audiencia, Admin_Helper::getInstance()->getIdAgencia());
+				if(!$problemas){
+					Admin_App::getInstance()->AddWarningMessage("No hay problemas sin asignar, no puede crear el objetivo");
+					return $this->listar();
+				}
+
+
+
+				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_objetivo');
+				$layout = Core_App::getLoadedLayout();
+
 				if($objetivo->getId()&&!$id_objetivo){
 					$this->cambiarUrlAjax('administrator/objetivo/addEdit/'.$objetivo->getId());
 				}
 				//echo Core_Helper::DebugVars($ids_audiencia);
 				//echo Core_Helper::DebugVars($problema->searchGetSql());
-				
 				foreach($layout->getBlocks('objetivo_add_edit_form') as $block){
 					$block->setIdToEdit($objetivo->getId());
 					$block->setObjectToEdit($objetivo);

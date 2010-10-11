@@ -1,5 +1,5 @@
 <?php
-if(!$this->hasIdActividad()){
+if(!$this->hasIdActividad()&&!$this->hasAllowInNew()){
 	echo  ("no hay actividad a editar ".__FILE__.'-'.__LINE__);
 	return;
 }
@@ -42,7 +42,7 @@ jQuery(document).ready(function(){
 			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
 			jqwait.ScreenBlock();
 			jQuery.get(
-				'administrator/ajax/resultado_esperado_actividad/listarResultadoEsperadoActividad/'+data.id_actividad+'/',
+				'administrator/ajax/resultado_esperado_actividad/listarResultadoEsperadoActividad/'+(data.id_actividad?data.id_actividad:'')+'/',
 				function (dataret){
 					jqwait.ScreenBlock(false);
 					jQuery(data.target).html(dataret);
@@ -74,7 +74,7 @@ jQuery(document).ready(function(){
 			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
 			jqwait.ScreenBlock();
 			jQuery.get(
-				'administrator/ajax/resultado_esperado_actividad/addEdit/'+data.id_actividad+'/',
+				'administrator/ajax/resultado_esperado_actividad/addEdit/'+(data.id_actividad?data.id_actividad:'')+'/',
 				{
 					target: data.target
 				},
@@ -87,4 +87,16 @@ jQuery(document).ready(function(){
 		})
 	;
 });
+<?php if($this->getValidator()): ?> 
+//alert("<?php print $this->getValidator(); ?>");
+function <?php print $this->getValidator(); ?>(){
+	ok = jQuery('.<?php print $id_control; ?> .box_listado_resultado_esperado_actividads li').length>0;
+	if(ok){
+		return true;
+	}
+	show_messages(['Seleccione al menos un resultado esperado'], true);
+	tabpanelfocus(jQuery('.<?php print $id_control; ?>'));
+	return false;
+}
+<?php endif; ?>
 </script>

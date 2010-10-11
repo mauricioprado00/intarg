@@ -32,7 +32,9 @@
 			<action method="appListFields">
 				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
+				<fieldname>agencia_nombre</fieldname>
 				<fieldname>descripcion</fieldname>
+				<fieldname>objetivo_nombre</fieldname>
 			</action>
 			<action method="appVirtualFields">
 				<fieldname>acciones</fieldname>

@@ -21,7 +21,7 @@
 				<title>Acciones</title>
 				<name>acciones</name>
 				<index>acciones</index>
-				<width>82</width>
+				<width>84</width>
 				<align>left</align>
 				<sortable>false</sortable>
 				<hideinexport>1</hideinexport>
@@ -30,7 +30,15 @@
 				<title>Inv No</title>
 				<name>id</name>
 				<index>id</index>
-				<width>55</width>
+				<width>50</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Agencia</title>
+				<name>agencia_nombre</name>
+				<index>agencia_nombre</index>
+				<width>300</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -38,10 +46,19 @@
 				<title>Nombre</title>
 				<name>nombre</name>
 				<index>nombre</index>
-				<width>150</width>
+				<width>300</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
+			<action named_args="true" method="addColumn">
+				<title>Resultados Esperados</title>
+				<name>resultados_esperados</name>
+				<index>resultados_esperados</index>
+				<width>400</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			
 		</reference>
 	</list_admin_objetivo>
 	<addedit_admin_objetivo>

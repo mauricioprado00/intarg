@@ -9,6 +9,8 @@ class Inta_Model_Agencia extends Core_Model_Abstract{
 			'direccion',
 			'telefono',
 			'email',
+			'agentes',
+			'descripcion',
 		);
 		foreach($datafields as $datafield)
 			$this->setData($datafield);
