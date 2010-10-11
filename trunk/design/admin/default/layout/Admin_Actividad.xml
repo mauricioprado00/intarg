@@ -43,6 +43,7 @@
 				<model for="entity">
 					<model for="actividad">
 						<field name="id" />
+						<field name="agencia_nombre" />
 						<field name="actividad_nombre" />
 						<field name="responsable_apellido" />
 						<field name="actividad_ano" />
@@ -95,6 +96,7 @@
 			<action method="appListFields">
 				<fieldname>acciones@ui</fieldname>
 				<fieldname>actividad_id</fieldname>
+				<fieldname>agencia_nombre</fieldname>
 				<fieldname>actividad_nombre</fieldname>
 				<fieldname>responsable_nombre_completo</fieldname>
 				<fieldname>actividad_ano</fieldname>

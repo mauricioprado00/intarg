@@ -26,6 +26,14 @@
 				<sortable>true</sortable>
 			</action>
 			<action named_args="true" method="addColumn">
+				<title>Agencia</title>
+				<name>agencia_nombre</name>
+				<index>agencia_nombre</index>
+				<width>70</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
 				<title>Username</title>
 				<name>username</name>
 				<index>username</index>
@@ -64,7 +72,7 @@
 				<width>80</width>
 				<align>left</align>
 				<sortable>false</sortable>
-			</action>
+			</action><!--
 			<action named_args="true" method="addColumn">
 				<title>Ultimo Acceso</title>
 				<name>ultimo_acceso</name>
@@ -72,7 +80,7 @@
 				<width>150</width>
 				<align>left</align>
 				<sortable>true</sortable>
-			</action>
+			</action>-->
 		</reference>
 	</list_admin_user>
 	<addedit_admin_user>

@@ -33,6 +33,7 @@
 				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
 				<fieldname>nombre</fieldname>
+				<fieldname>nombre</fieldname>
 				<fieldname>direccion</fieldname>
 				<fieldname>telefono</fieldname>
 				<fieldname>email</fieldname>

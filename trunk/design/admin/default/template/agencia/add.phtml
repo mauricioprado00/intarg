@@ -83,6 +83,42 @@ $x = $this->getObjectToEdit();
 			</span>
 		</div>
 	</fieldset>
+	<div style="clear:both;"></div>
+	<fieldset>
+			<label>Agentes: </label>
+			<span><?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('agentes')
+					->setName('agencia[agentes]')
+					->setValue($x->getAgentes())
+					->setData('data-campo', '<b>Agentes</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<label>Descripcion: </label>
+			<span><?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'textarea');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setRows('6')
+					->setCols('70')
+					->setId('agentes')
+					->setName('agencia[descripcion]')
+					->setData('data-campo', '<b>Descripcion</b>')
+					->setData('data-validator', '{empty:false}')
+					->setInnerHtml($x->getDescripcion())
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+
+	</fieldset>
 	<div class="controls">
 		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>

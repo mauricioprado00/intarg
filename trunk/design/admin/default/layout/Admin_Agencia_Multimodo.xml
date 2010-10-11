@@ -66,10 +66,12 @@
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
+			<!--
 			<action method="addExportType">
 				<param>Excel</param>
 				<param>Jqgrid_XmlList_ExportHandler_Xlst_Downloader_Excel</param>
 			</action>
+			-->
 		</reference>
 	</list_admin_agencia>
 	<addedit_admin_agencia>

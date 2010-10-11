@@ -6,6 +6,8 @@ class Admin_User_Block_XmlList extends Jqgrid_Block_XmlList{
 			sord = orden de ordenacion (asc/desc)
 		*/
 		$admin_user = new Admin_User_Model_User();
+		$admin_user = new Inta_Model_View_Usuario();
+		
 		if($comparator!=null){
 			$admin_user->setWhere($comparator);
 		}

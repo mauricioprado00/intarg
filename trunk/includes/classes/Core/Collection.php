@@ -1,7 +1,7 @@
 <?php 
 class Core_Collection extends Core_Collection_Abstract{
-	public function addFilterEq($field, $value, $match_null=false){
-		return parent::_filterEq($field, $value, $match_null);
+	public function addFilterEq($field, $value, $match_null=false, $reverse=false){
+		return parent::_filterEq($field, $value, $match_null, $reverse);
 	}
 	protected function addFilterGt($field, $value, $match_null=false){
 		return parent::_filterGt($field, $value, $match_null);

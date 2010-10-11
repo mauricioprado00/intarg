@@ -207,7 +207,7 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 		return $grouped;
 	}
 	
-	protected function _filterByGeneric($function, $field, $params){
+	protected function _filterByGeneric($function, $field, $params, $reverse=false){
 		$class = get_class($this);
 		$filtered = new $class();
 		foreach($this->getItems() as $item){
@@ -216,6 +216,8 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 				'params'=>$params
 			);
 			$res = call_user_func_array($function, $args);
+			if($reverse)
+				$res = !$res;
 			if($res)
 				$filtered->addItem($item);
 		}
@@ -224,8 +226,8 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 	private function _function_filter_eq($value, $params){
 		return (!isset($value)&&($params['match_null']||!isset($params['value'])))||(isset($value)&&$value==$params['value']);
 	}
-	protected function _filterEq($field, $value, $match_null=false){
-		return $this->_filterByGeneric(array(__CLASS__,'_function_filter_eq'), $field, array('value'=>$value,'match_null'=>$match_null));
+	protected function _filterEq($field, $value, $match_null=false, $reverse=false){
+		return $this->_filterByGeneric(array(__CLASS__,'_function_filter_eq'), $field, array('value'=>$value,'match_null'=>$match_null), $reverse);
 	}
 	private function _function_filter_gt($value, $params){
 		return ($params['match_null']&&!isset($value))||(isset($value)&&$value>$params['value']);

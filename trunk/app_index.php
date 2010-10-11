@@ -5,6 +5,7 @@
 //error_reporting(E_ALL);
 //var_dump(strtotime('12:30'), time());
 //die();
+ini_set('log_errors', 'On');
 ini_set('memory_limit', '50M');
 include_once(dirname(__FILE__).'/basic.php');
 //Core_Http_Header::ContentType('text/plain');

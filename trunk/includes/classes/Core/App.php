@@ -42,6 +42,7 @@ class Core_App extends Core_Singleton{
 	public function initialize(){
 		if($this->initialized)
 			return;
+		session_start();
 		$this->initialized = true;
 		$this->setVersion('1.2.0.1.2');
 		$this->config = new Core_Config();
@@ -122,7 +123,6 @@ class Core_App extends Core_Singleton{
 	}
 	private function _run(){
 		header('X-UA-Compatible:IE=8');
-		session_start();
 		$start = microtime(true);
 		$this->initialize();
 		$this->route();

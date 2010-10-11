@@ -4,7 +4,24 @@ if(!$this->hasObjectToEdit()){
 	return;
 }
 $x = $this->getObjectToEdit();
-
+$configcke1 = array(
+	'config'=>array(
+		'toolbar' => 'Basic',
+		'toolbarStartupExpanded'=> false,
+		'width'=>'663px',
+		'height'=>'100px',
+		'resize_enabled'=> false,
+	)
+);
+$configcke2 = array(
+	'config'=>array(
+		'toolbar' => array(
+		    array( 'Source', '-', 'Bold', 'Italic', 'Underline', 'Strike' ),
+		    array( 'Image', 'Link', 'Unlink', 'Anchor' )
+		),
+		'toolbarStartupExpanded'=> false
+	)
+);
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="resultado_esperado[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
@@ -61,6 +78,8 @@ $x = $this->getObjectToEdit();
 					->setMaxlength(300)
 					->setType('textarea')
 					->setId('descripcion')
+					->setRows(5)
+					->setCols(30)
 					->setName('resultado_esperado[descripcion]')
 					->setInnerHtml(htmlentities(stripslashes($x->getDescripcion())))
 					->setData('data-campo', '<b>Descripcion</b>')
@@ -73,6 +92,7 @@ $x = $this->getObjectToEdit();
 		</div>
 		</div>
 	</fieldset>
+	<?php print $this->getChildHtml('hijos_abajo'); ?>
 	<div class="controls">
 		<?php if(in_array('entity_new',$this->getLayout()->getActions())): ?> 
 		<input type="submit" value="Continuar"/>
@@ -84,7 +104,7 @@ $x = $this->getObjectToEdit();
 <script>
 
 jQuery(document).ready(function(){
-	jQuery('#descripcion').ckeditor();
+	jQuery('#descripcion').ckeditor(<?php print json_encode($configcke1); ?>);
 });
 
 function validar_agregar_resultado_esperado_datos(formData, jqForm, options) {

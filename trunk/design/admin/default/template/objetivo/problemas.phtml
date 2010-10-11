@@ -23,23 +23,28 @@ $x = $this->getObjectToEdit();
 				$problemas = $this->getProblemas();
 				$html_select = '';
 				
-				foreach($problemas as $problema){
-					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
-						->setValue($problema->getId())
-						->setInnerHtml($problema->getNombre())
+				if($problemas){
+					foreach($problemas as $problema){
+						$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
+							->setValue($problema->getId())
+							->setInnerHtml($problema->getNombre())
+						;
+						if($problema->getIdObjetivo()==$x->getId())
+							$option->setSelected('selected');
+						$html_select .= $option->getHtml();
+					}
+					echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
+						->setName('problemas_asociados[]')
+						->setSize(15)
+						->setStyle("padding:4px 24px;")
+						->setMultiple('multiple')
+						->setInnerHtml($html_select)
+						->getHtml()
 					;
-					if($problema->getIdObjetivo()==$x->getId())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
 				}
-				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
-					->setName('problemas_asociados[]')
-					->setSize(15)
-					->setStyle("padding:4px 24px;")
-					->setMultiple('multiple')
-					->setInnerHtml($html_select)
-					->getHtml()
-				;
+				else{
+					echo "no hay problemas a asignar, cree nuevos problemas antes de crear el objetivo";
+				}
 			?> 
 			</span>
 			<div>

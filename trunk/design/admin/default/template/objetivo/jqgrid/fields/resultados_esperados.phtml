@@ -1,0 +1,25 @@
+<?php $o = $this->getObject();
+//$x = $o->getAgencia();
+$this->setData('return_cdata', true);
+$objetivo = $o->getObjetivo();
+$agencia = $objetivo->getAgencia();
+$list_resultado_esperado = $objetivo->getListResultadoEsperado();
+if(!$list_resultado_esperado){
+	echo "sin asignar";
+	return;
+}
+echo '<ul>';
+foreach($list_resultado_esperado as $resultado_esperado){
+	echo '<li> - ';
+	echo strip_tags($resultado_esperado->getDescripcion());
+	echo '</li>';
+}
+echo '</ul>';
+
+
+//var_dump(get_class($x));
+//var_dump($o->getData());
+//var_dump(get_class($o));
+//var_dump($this->getFieldName());
+//var_dump(get_class($o),array_keys($this->getData()));
+?>

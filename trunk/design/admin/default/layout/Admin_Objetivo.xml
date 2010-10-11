@@ -32,11 +32,14 @@
 			<action method="appListFields">
 				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
+				<fieldname>agencia_nombre</fieldname>
 				<fieldname>nombre</fieldname>
+				<fieldname>resultados_esperados</fieldname>
 			</action>
 			<action method="appVirtualFields">
 				<fieldname>acciones</fieldname>
 			</action>
+			<block type="Jqgrid/Field_Renderer" field_name="resultados_esperados" template="objetivo/jqgrid/fields/resultados_esperados.phtml"/>
 			<action method="addAutofilterFieldOutput">
 				<fieldname>acciones</fieldname>
 				<filter>Core_Object::DataStrtr</filter>

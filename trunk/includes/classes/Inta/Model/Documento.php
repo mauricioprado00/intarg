@@ -33,13 +33,13 @@ class Inta_Model_Documento extends Core_Model_Abstract{
 		$baseDir = self::getBaseDir();
 
 		$tipos_recursos = Core_Session::getVar('RESOURCETYPES', 'CKFINDER');
-		if(!file_exists($baseDir.$sub_directorio.'/')){
+		if(!file_exists($baseDir.'/'.$sub_directorio.'/')){
 			mkdir($baseDir.$sub_directorio.'/',0777,true);;
 		}
 		$tipos_recursos[$tipo_recurso] = Array(
 				'name' => $tipo_recurso,
 				'url' => $baseUrl.'/'.$sub_directorio,// . 'image',
-				'directory' => $baseDir.$sub_directorio.'/',
+				'directory' => $baseDir.'/'.$sub_directorio.'/',
 				'maxSize' => 0,
 				'allowedExtensions' => $allowedExtensions,
 				'deniedExtensions' => $deniedExtensions
