@@ -145,7 +145,7 @@
 				success_js="indicador_resultado_enviado"
 				name="formulariox">
 				<tabset>
-					<tab title="Datos Resultado">
+					<tab title="Datos Indicador Resultado">
 						<template name="indicador_resultado_add_edit_form" template="resultado_esperado/indicador/datos.phtml" />
 					</tab>
 				</tabset>
@@ -188,7 +188,7 @@
 				success_js="medio_verificacion_indicador_resultado_enviado"
 				name="formulariox">
 				<tabset>
-					<tab title="Datos Resultado">
+					<tab title="Datos Medio Verificacion Resultado">
 						<template name="medio_verificacion_indicador_resultado_add_edit_form" template="resultado_esperado/indicador/medio_verificacion/datos.phtml" />
 					</tab>
 				</tabset>

@@ -18,6 +18,14 @@
 		</block>
 		<container name="scripts_multimodo_bottom" />
 	</default>
+	<empty>
+	<!--
+		<block name="contenedor_ajax" html_class="emtpy" type="template" template="page/main_ajax.phtml" translate_context="administrador">
+			
+		</block>
+		-->
+		<block name="contenedor_main"/>
+	</empty>
 	<entity_list>
 		<reference name="contenedor_main">
 			<block name="listado_datos" type="template" template="page/listado_datos.phtml">

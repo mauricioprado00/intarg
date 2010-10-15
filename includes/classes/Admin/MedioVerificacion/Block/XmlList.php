@@ -7,6 +7,7 @@ class Admin_MedioVerificacion_Block_XmlList extends Jqgrid_Block_XmlList{
 		*/
 		//$medio_verificacion = new Inta_Model_MedioVerificacion();
 		$medio_verificacion = new Inta_Model_MedioVerificacion();
+		$medio_verificacion = new Inta_Model_View_MedioVerificacion();
 		if($comparator!=null){
 			$medio_verificacion->setWhere($comparator);
 		}
@@ -32,6 +33,7 @@ class Admin_MedioVerificacion_Block_XmlList extends Jqgrid_Block_XmlList{
 		
 		//$datos = $medio_verificacion->search(null,'ASC',null,0,true,array('id', 'username', 'nombre', 'apellido', 'activo', 'privilegios', 'ultimo_acceso'));
 		$datos = $medio_verificacion->search($sidx,$sord,$rows,$rows*($page-1),get_class($medio_verificacion));
+		//echo $medio_verificacion->searchGetSql($sidx,$sord,$rows,$rows*($page-1),get_class($medio_verificacion));
 		//aca termina la consulta a la base
 		
 		

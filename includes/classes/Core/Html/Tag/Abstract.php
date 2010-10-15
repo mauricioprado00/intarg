@@ -46,6 +46,8 @@ abstract class Core_Html_Tag_Abstract extends Core_Object implements Core_IHtmlR
 		foreach($attrs as $key=>&$attr){
 			if(in_array($key, array('tagname','inner_html')))
 				continue;
+			if(strpos($key, 'html_')===0)
+				$key = substr($key, 5);
 			$arr_attrs[] = $key.'="'.htmlentities($attr).'"';
 		}unset($attrs);
 		$arr_attrs = implode(' ', $arr_attrs);

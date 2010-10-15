@@ -24,6 +24,22 @@ $arr_ponderaciones = array(
 	<fieldset>
 		<h3>Informacion de Problema</h3>
 		<div>
+			<label>Nombre: </label>
+			<span><?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+				$input
+					->setMaxlength(300)
+					->setType('text')
+					->setId('nombre')
+					->setSize(56)
+					->setName('problema[nombre]')
+					->setValue($x->getNombre())
+					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
 			<label>Audiencia: </label>
 			<span><?
 				echo c($selector_audiencia = $this->appendBlock('<selector_audiencia />'))
@@ -38,21 +54,19 @@ $arr_ponderaciones = array(
 					)
 					->toHtml()
 				;
-			?> 
-			</span>
-			<label>Nombre: </label>
-			<span><?
-				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
-				$input
-					->setMaxlength(300)
-					->setType('text')
-					->setId('nombre')
-					->setName('problema[nombre]')
-					->setValue($x->getNombre())
-					->setData('data-campo', '<b>Nombre</b>')
-					->setData('data-validator', '{empty:false}')
+				echo c($selector_audiencia = $this->appendBlock('<selector_audiencia_abm />'))
+					->setSelectedValue($x->getIdAudiencia())
+					->void($selector_audiencia
+						->getSelectControl()
+							->setName('problema[id_audiencia]')
+							->setId('id_audiencia')
+							->setData('data-campo', '<b>Audiencia</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
+					)
+					->toHtml()
 				;
-				echo $input->getHtml();
+				//
 			?> 
 			</span>
 			<label>Importancia Econ&oacute;mica: <?

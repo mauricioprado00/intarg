@@ -1007,6 +1007,7 @@ abstract class Core_Block_Abstract extends Core_Object implements Core_IHtmlRend
 		return((array_shift(explode('_Block_', get_class($this)))));
 	}
 	protected static function generateRandomId(){
+		return uniqid();//debería ser más rapido
 		return(md5(rand(0,1000).microtime(true)));
 	}
 	public function appendBlock($obj, $classname='', $parent_block=null){

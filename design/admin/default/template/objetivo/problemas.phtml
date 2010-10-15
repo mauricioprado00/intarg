@@ -36,7 +36,8 @@ $x = $this->getObjectToEdit();
 					echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 						->setName('problemas_asociados[]')
 						->setSize(15)
-						->setStyle("padding:4px 24px;")
+						
+						->setStyle("padding:4px 24px;width:600px;")
 						->setMultiple('multiple')
 						->setInnerHtml($html_select)
 						->getHtml()
@@ -58,7 +59,10 @@ $x = $this->getObjectToEdit();
 <script>
 
 jQuery(document).ready(function(){
-	jQuery('#descripcion').ckeditor();
+	var jqform = jQuery('#<?php print $id_fielset; ?>');
+	//jqform.find('#descripcion').ckeditor();
+	jqform.find('select').multiselect();
+	
 });
 
 function validar_agregar_objetivo_datos(formData, jqForm, options) {

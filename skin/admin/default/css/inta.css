@@ -134,3 +134,7 @@ li:hover>.listado_toolbox{
 	border:1px solid black;
 	padding:2px;
 }
+
+.entity_addedit fieldset select{
+	min-width:267px;
+}

@@ -22,6 +22,10 @@
 		<core_ui/>
 	</modules>
 	<block>
+		<type>inline</type>
+		<class>Core_Block_Inline</class>
+	</block>
+	<block>
 		<type>container</type>
 		<class>Core_Block_Container</class>
 	</block>

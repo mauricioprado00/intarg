@@ -32,8 +32,10 @@
 			<action method="appListFields">
 				<fieldname>acciones@ui</fieldname>
 				<fieldname>id</fieldname>
-				<fieldname>id_indicador</fieldname>
+				<!-- <fieldname>id_indicador</fieldname> -->
 				<fieldname>nombre</fieldname>
+				<fieldname>indicador_nombre</fieldname>
+				<fieldname>indicador_tipo_indicador</fieldname>
 			</action>
 			<action method="appVirtualFields">
 				<fieldname>acciones</fieldname>

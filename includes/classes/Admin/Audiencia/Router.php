@@ -5,7 +5,7 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 		$this->addActions(
 			'cerrar_sesion',
 			'addEdit','delete','listar','datalist',
-			'ordenar','setorden'
+			'ordenar','setorden','addEditPopup'
 		);
 	}
 	protected function onThrought(){
@@ -32,7 +32,7 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 		}
 		$this->listar();
 	}
-	protected function addEdit($id_audiencia=null){
+	protected function addEdit($id_audiencia=null, $nombre=null){
 		Core_App::getInstance()->clearLastErrorMessages();
 		$guardado = false;
 		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Audiencia()), 'w');
@@ -106,12 +106,86 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 				if($audiencia->getId()&&!$id_audiencia){
 					$this->cambiarUrlAjax('administrator/audiencia/addEdit/'.$audiencia->getId());
 				}
+				if(!$audiencia->getId()&&isset($nombre)){
+					$audiencia->setNombre($nombre);
+//					foreach($layout->getBlocks('formulariox') as $block){
+//						$i = $block->appendBlock('<input_text />');// ->appendXmlBlocks('<input_text />');
+//						$i->setValue('hola');
+//					}
+				}
 
 				$audiencia->addAutofilterOutput('utf8_decode');
 				
 				foreach($layout->getBlocks('audiencia_add_edit_form') as $block){
 					$block->setIdToEdit($audiencia->getId());
 					$block->setObjectToEdit($audiencia);
+					
+				}
+			}
+		}
+	}
+	protected function addEditPopup($id_audiencia=null, $nombre=null){
+		//var_dump(var_export(Core_App::getLayout()->getActions(), true));
+		//array ( 0 => 'default', 1 => 'superadmin', 2 => 'modo_ajax', 3 => 'modulo', 4 => 'modulo_admin_audiencia', )
+		//Core_App::getLayout()->setActions('empty');
+		
+		
+		//var_dump(var_export(Core_App::getLayout()->getActions(), true));
+		$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
+		$post_audiencia = $post&&$post->hasAudiencia()?$post->GetAudiencia(true):null;
+		$audiencia = new Inta_Model_Audiencia();
+		$guardado = false;
+		if(isset($post_audiencia)){
+			$audiencia->loadFromArray($post_audiencia->getData());
+			//echo Core_Helper::DebugVars($audiencia->getData());
+			$guardado =
+				//false;
+				Admin_Audiencia_Helper::actionAgregarEditarAudiencia($audiencia)?true:false;
+		}
+		if($guardado){
+			Core_App::getLayout()->setActions('empty');
+			$bmain = Core_App::getLoadedLayout()->getBlock('contenedor_main');
+			$post = Core_Http_Post::getParameters('Core_Object');
+			$configuracion_select = null;
+			if($post->hasConfiguracionSelect()){
+				$configuracion_select = $post->getConfiguracionSelect();
+			}
+			//var_dump(get_class($bmain));
+			$bmain->appendBlock('<script inline_script="inline_script"><![CDATA[jQuery.ScreenBlock(false);]]></script>');
+			$control = c($selector_audiencia = $bmain->appendBlock('<selector_audiencia_abm />'))
+					->setSelectedValue($audiencia->getId());
+			$sc = $selector_audiencia->getSelectControl();
+			if($configuracion_select){
+				$new = array_merge($sc->getData(), $configuracion_select);
+				$sc->setData($new);
+			}
+			//var_dump(Core_App::getLayout()->getActions());
+			//echo "ok agregado";
+//			var_dump($configuracion_select);
+//			var_dump($audiencia->getData());
+			return true;
+		}
+		else{
+			$this->addEdit($id_audiencia, $nombre);
+			if($bmain = Core_App::getLayout()->getBlock('contenedor_ajax')){
+				$bmain->setHtmlClass('');
+			}
+			Core_App::getLayout()->getBlock('formulariox')->setActionUrl('audiencia/addEditPopup');
+			if(Core_Http_Post::hasParameters()){
+				$post = Core_Http_Post::getParameters('Core_Object');
+				if($post->hasConfiguracionSelect()){
+					foreach(Core_App::getLayout()->getBlocks('formulariox') as $block){
+//						$i = $block->appendBlock('<script inline_script="inline_script"><![CDATA[
+//						alert("hola mundo");
+//						]]></script>');
+						foreach($post->getConfiguracionSelect() as $key=>$value){
+							$i = $block->appendBlock('<input_text />');// ->appendXmlBlocks('<input_text />');
+							$i
+								->setHtmlName('configuracion_select['.$key.']')
+								->setValue($value)
+							;
+						}
+					}
 				}
 			}
 		}

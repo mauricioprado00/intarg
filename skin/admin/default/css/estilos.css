@@ -368,3 +368,4 @@ margin:0 5px;
 	height:45px;
 	width:128px;
 }
+.ui-selectmenu-menu,.ui-autocomplete{z-index:53!important;}/*encima de los screenblock*/
