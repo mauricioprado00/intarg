@@ -10,6 +10,14 @@
 		<type>selector_audiencia</type>
 		<class>Admin_Audiencia_Block_Selector</class>
 	</block>
+	<block>
+		<type>selector_audiencia_simple</type>
+		<class>Admin_Audiencia_Block_Selector</class>
+	</block>
+	<block>
+		<type>selector_audiencia_abm</type>
+		<class>Admin_Audiencia_Block_Selector_Abm</class>
+	</block>
 	<routers>
 		<Admin_Audiencia_Router>administrator/audiencia</Admin_Audiencia_Router>
 	</routers>

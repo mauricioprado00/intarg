@@ -10,16 +10,8 @@ if(!$this->hasEntityToList()||!$this->getEntityToList()){?>
 			$html_select .= $option->getHtml();
 	
 	$c = $this->getSelectControl();
-
-?>
-<div class="<?php print $id = uniqid(); ?>">
-<?php 	echo $c
+	echo $c
 		->setInnerHtml($html_select)
 		->getHtml()
-	;?>
-</div>
-<script type="text/javascript">
-jQuery(function(){
-	jQuery('.<?php print $id; ?> select').selectmenu();
-})
-</script>
+	;
+?>

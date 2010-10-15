@@ -17,7 +17,6 @@
 					<script>js/admin.js</script>
 					<script>js/ie_menu_fix.js</script>
 				</action>
-				
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.core.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.widget.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.mouse.js</script>
@@ -25,9 +24,35 @@
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.tabs.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.slider.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.datepicker.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.button.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.position.js</script>
+				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.autocomplete.js</script>
 				<script>jquery-ui-1.8.1.custom/development-bundle/ui/frontierCalendar/smoothness/jquery-ui-1.8.1.custom.min.js</script>
+				<script>jquery-ui-1.8.1.custom/js/ui.autocomplete.combobox.js</script>
+
+				<css>jquery-ui-1.8.1.custom/css/ui.multiselect.css</css>
+				<script>jquery-ui-1.8.1.custom/plugins/localisation/jquery.localisation-min.js</script>
+				<!-- <script>jquery-ui-1.8.1.custom/plugins/scrollTo/jquery.scrollTo-min.js</script> -->
+				<script>jquery-ui-1.8.1.custom/js/ui.multiselect.js</script>
+				<template template="page/multiselect-init.phtml" />
+				<script>jquery.plugins/ui.selectmenu.js</script>
+				<css>jquery.plugins/ui.selectmenu.css</css>
 				<css>jquery-ui-1.8.1.custom/development-bundle/themes/base/jquery.ui.all.css</css>
+				
 				<script charset="utf8">js/ScreenBlock.js</script>
+				<script inline_script="true"><![CDATA[
+				
+				jQuery.fn.ScreenBlock.params = jQuery.extend({}, jQuery.fn.ScreenBlock.params, {message_container_css:{
+					top: 0,
+					left: 0, 
+					width: '100%', 
+					height: '100%', 
+					position: 'fixed',
+					'z-index': 51,
+					'text-align':''
+				}})
+				
+				]]></script>
 				<action method="addJs" in="modo_ajax">
 					<script>js/helper_url_ajax.js</script>
 				</action>

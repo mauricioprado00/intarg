@@ -4,6 +4,10 @@
 		<class>Core_Page_Block_Html_Tag_Input_Hidden</class>
 	</block>
 	<block>
+		<type>input_text</type>
+		<class>Core_Page_Block_Html_Tag_Input_Text</class>
+	</block>
+	<block>
 		<type>meta</type>
 		<class>Core_Page_Block_Html_Head_Meta</class>
 	</block>

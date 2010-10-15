@@ -30,23 +30,41 @@
 				<title>Inv No</title>
 				<name>id</name>
 				<index>id</index>
-				<width>55</width>
+				<width>47</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
-                        <action named_args="true" method="addColumn">
+			<!--
+            <action named_args="true" method="addColumn">
 				<title>Indicador</title>
 				<name>id_indicador</name>
 				<index>id_indicador</index>
-				<width>55</width>
+				<width>47</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
+			-->
 			<action named_args="true" method="addColumn">
 				<title>Nombre</title>
 				<name>nombre</name>
 				<index>nombre</index>
-				<width>100</width>
+				<width>300</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Indicador</title>
+				<name>indicador_nombre</name>
+				<index>indicador_nombre</index>
+				<width>300</width>
+				<align>left</align>
+				<sortable>true</sortable>
+			</action>
+			<action named_args="true" method="addColumn">
+				<title>Tipo Indicador</title>
+				<name>indicador_tipo_indicador</name>
+				<index>indicador_tipo_indicador</index>
+				<width>300</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>

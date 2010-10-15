@@ -57,6 +57,9 @@ class Admin_Block_Selector extends Core_Block_Template{
 				if(strpos($key, 'html_')===0){
 					$select_control->setData(substr($key, 5), $value);
 				}
+				if(strpos($key, 'select_')===0){
+					$select_control->setData(str_replace('__', '-', substr($key, 7)), $value);
+				}
 			}
 			$this->setSelectControl($select_control);
 		}

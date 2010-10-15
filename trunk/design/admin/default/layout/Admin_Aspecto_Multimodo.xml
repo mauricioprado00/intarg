@@ -30,7 +30,7 @@
 				<title>Inv No</title>
 				<name>id</name>
 				<index>id</index>
-				<width>55</width>
+				<width>47</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
@@ -38,7 +38,7 @@
 				<title>Nombre</title>
 				<name>nombre</name>
 				<index>nombre</index>
-				<width>150</width>
+				<width>350</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
