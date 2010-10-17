@@ -1,0 +1,399 @@
+<div  class="contenedor_main default superadmin modo_ajax modulo modulo_admin_resultado_esperado entity_addedit addedit_admin_resultado_esperado"><form id="4cb916ae4f15c" 
+		method="post" 
+	action="http://192.168.1.215/inta/administrator/ajax/resultado_esperado/addEdit"><div id="4cb916ae4f37b">
+	<ul>
+		<li><a href="#4cb916ae4f3ba">Datos Resultado</a></li>	</ul>
+	<div id="4cb916ae4f3ba"><input type="hidden" name="resultado_esperado[id]" value="1" /><!-- si esta a cero o vacio es agregar --><fieldset id="4cb916ae55814">
+	<legend>Editar ResultadoEsperado</legend>
+	<fieldset>
+		<h3>Informacion de ResultadoEsperado</h3>
+
+		<div>
+			<label>Objetivo: </label>
+			<span><div class="chained_control c4cb916ae6d096" data-reload="http://192.168.1.215/inta/administrator/chained/Admin_Objetivo_Block_Selector_ChainedAgencia"><div class="chained_child"><div class="4cb916ae6d986">
+<select><option value="1" selected="selected">MJ</option><option value="2">Otra Agéncia</option></select></div>
+<script type="text/javascript">
+jQuery(function(){
+	jQuery('.4cb916ae6d986 select').selectmenu();
+})
+</script></div><div class="chained_parent"><select name="resultado_esperado[id_objetivo]" id="id_objetivo" data-campo="&lt;b&gt;Objetivo&lt;/b&gt;" data-mensaje="Seleccione %field" data-validator="{empty:false}" class="4cb916ae6d096"><option value="1" selected="selected">Contribuir a mejorar la eficiencia productiva de los sistemas priorizados</option><option value="2">Otro objetivo de la agencia de MJ</option></select></div><script>
+	jQuery(document).ready(function(){
+		jQuery('.c4cb916ae6d096 .chained_child select').change(function(){
+			var start_clear = false;
+			var that = this;
+			//window.console.log(jQuery(this).parents('.chained_control:first'));
+			var selected_values = [];
+			var jqcontrol = jQuery(this).parents('.chained_control:first');
+			jqcontrol.find('select').each(function(){
+				if(!start_clear){
+					selected_values.push(this.value);
+					if(this==that){
+						start_clear = true;
+						return;
+					}
+				}	
+				jQuery(this).html('<option>cargando...</option>');
+			});
+			var url_reload = jqcontrol.attr('data-reload');
+			if(!url_reload){
+				return;
+			}
+			var name = jqcontrol.find('select:last').attr('name');
+			jQuery.post(
+				url_reload,
+				{chain_options: selected_values,name:name},
+				function(data){
+					jqcontrol.html(data);
+				}
+			);
+		});
+	});
+</script>
+</div> 
+			</span>
+
+			<label>Descripcion: </label>
+			<span><textarea maxlength="300" type="textarea" id="descripcion" rows="5" cols="30" name="resultado_esperado[descripcion]" data-campo="&lt;b&gt;Descripcion&lt;/b&gt;" data-validator="{empty:false}">Descripcion del resultado que se espera obtener en base al objetivo</textarea> 
+			</span>
+			<div>
+		</div>
+		</div>
+	</fieldset>
+	<div id="4cb916ae7f61f" class="listado_indicadores_resultado_esperado">
+
+<input type="hidden" name="resultado_esperado[id]" value="1" /><!-- si esta a cero o vacio es agregar --><fieldset id="4cb916ae7f67f">
+	<legend>Indicadores de ResultadoEsperado</legend>
+	<fieldset>
+		<div>
+				<div class="indicadores_resultado"><ul class="indicadores_resultado"><li data-id="1">
+	<b>Primer indicador</b>
+	<span> - Información publicada y difundida/resultado</span> 
+	<div class="indicador_resultado_toolbox">
+
+		<div class="btn_eliminar btn_eliminar_indicador" title="Eliminar Indicador"></div>
+		<div class="btn_editar btn_editar_indicador" title="Editar Indicador"></div>
+		<div class="btn_agregar_certificacion btn_agregar_medio_verificacion" title="Agregar Medio de Verificacion"></div>
+	</div><br /><ul class="medios_verificacion_indicador_resultado"><li data-id="1">
+	Documento de las publicaciones	<div class="medio_verificacion_toolbox">
+		<div class="btn_eliminar btn_eliminar_medio_verificacion" title="Eliminar Indicador"></div>
+		<div class="btn_editar btn_editar_medio_verificacion" title="Editar Indicador"></div>
+		<div class="btn_agregar_documento btn_agregar_indicador_attach" title="Agregar Documento"></div>
+
+	</div><div class="listado_documentos" id="4cb916ae9c905"></div></li><li data-id="2">
+	Documento de las publicaciones 2	<div class="medio_verificacion_toolbox">
+		<div class="btn_eliminar btn_eliminar_medio_verificacion" title="Eliminar Indicador"></div>
+		<div class="btn_editar btn_editar_medio_verificacion" title="Editar Indicador"></div>
+		<div class="btn_agregar_documento btn_agregar_indicador_attach" title="Agregar Documento"></div>
+	</div><div class="listado_documentos" id="4cb916ae9d89d"></div></li></ul> 
+</li><li data-id="2">
+	<b>Segundo indicador</b>
+
+	<span> - Participacion en las actividades Informativas/resultado</span> 
+	<div class="indicador_resultado_toolbox">
+		<div class="btn_eliminar btn_eliminar_indicador" title="Eliminar Indicador"></div>
+		<div class="btn_editar btn_editar_indicador" title="Editar Indicador"></div>
+		<div class="btn_agregar_certificacion btn_agregar_medio_verificacion" title="Agregar Medio de Verificacion"></div>
+	</div><br /><ul class="medios_verificacion_indicador_resultado"><li data-id="3">
+	Encuesta	<div class="medio_verificacion_toolbox">
+		<div class="btn_eliminar btn_eliminar_medio_verificacion" title="Eliminar Indicador"></div>
+
+		<div class="btn_editar btn_editar_medio_verificacion" title="Editar Indicador"></div>
+		<div class="btn_agregar_documento btn_agregar_indicador_attach" title="Agregar Documento"></div>
+	</div><div class="listado_documentos" id="4cb916aeb0367"></div></li><li data-id="5">
+	Encuesta email	<div class="medio_verificacion_toolbox">
+		<div class="btn_eliminar btn_eliminar_medio_verificacion" title="Eliminar Indicador"></div>
+		<div class="btn_editar btn_editar_medio_verificacion" title="Editar Indicador"></div>
+		<div class="btn_agregar_documento btn_agregar_indicador_attach" title="Agregar Documento"></div>
+	</div><div class="listado_documentos" id="4cb916aeb0981"></div></li></ul> 
+
+</li></ul>				</div> 
+			<br />
+			<div style="height:auto;width:auto;" class="btn_agregar btn_agregar_indicador">Agregar Indicador</div>
+		</div>
+	</fieldset>
+	</fieldset>
+<script>
+jQuery(document).ready(function(){
+	//jQuery('#descripcion').ckeditor();
+	var jqform = jQuery('#4cb916ae7f67f');
+	jQuery('.btn_agregar_indicador', jqform)
+		.css('cursor','pointer')
+		.click(function(){
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="http://192.168.1.215/inta/skin/admin/default/img/loading.gif" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/resultado_esperado/addEditIndicador/1/',
+				{
+					//target: '#'+jQuery('#4cb916ae7f61f').parents('.ui-tabs-panel:first').attr('id')
+					//t arget: '#'+jQuery('#4cb916ae7f61f').parents('.listado_indicadores_resultado_esperado:last').attr('id')
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			);
+		})
+	;
+	jQuery('.btn_eliminar_indicador', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFDDDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var jqwin = jQuery('<div></div>');
+			jqwin.html('&iquest;Desea continuar eliminando el indicador y sus medios de verificacion asociados?<br />');
+			var jqaceptar = jQuery('<input type="button" value="Continuar" />')
+				.click(function(){
+					var id_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+					var jqwait = jQuery('<div></div>');
+					jqwait.html('<center>Aguarde un momento ... <br /><img src="http://192.168.1.215/inta/skin/admin/default/img/loading.gif" /></center>');
+					jqwait.ScreenBlock();
+					jQuery.get(
+						'administrator/ajax/resultado_esperado/deleteIndicador/'+id_indicador_resultado+'/',
+						function (data){
+							jQuery.ScreenBlock(false);
+							jQuery('#4cb916ae7f61f')
+								.parents('.ui-tabs-panel:first')
+								.html(data)
+							;
+						}
+					)
+				})
+				.appendTo(jqwin)
+			;
+			var jqcancelar = jQuery('<input type="button" value="Cancelar" />')
+				.click(function(){
+					jQuery.ScreenBlock(false);
+				})
+				.appendTo(jqwin)
+			;
+			jqwin.ScreenBlock();
+		})
+	;
+	jQuery('.btn_editar_indicador', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFFFBB')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="http://192.168.1.215/inta/skin/admin/default/img/loading.gif" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/resultado_esperado/addEditIndicador/1/'+id_indicador_resultado,
+				{
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			)
+		})
+	;
+	jQuery('.btn_agregar_medio_verificacion', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#DDFFDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="http://192.168.1.215/inta/skin/admin/default/img/loading.gif" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/resultado_esperado/addEditMedioVerificacion/'+id_indicador_resultado+'/',
+				{
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			);
+		})
+	;
+	jQuery('.btn_eliminar_medio_verificacion', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFDDDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var jqwin = jQuery('<div></div>');
+			jqwin.html('&iquest;Desea continuar eliminando el medio de verificaci&oacute;n?<br />');
+			var jqaceptar = jQuery('<input type="button" value="Continuar" />')
+				.click(function(){
+					var id_medio_verificacion_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+					var jqwait = jQuery('<div></div>');
+					jqwait.html('<center>Aguarde un momento ... <br /><img src="http://192.168.1.215/inta/skin/admin/default/img/loading.gif" /></center>');
+					jqwait.ScreenBlock();
+					jQuery.get(
+						'administrator/ajax/resultado_esperado/deleteMedioVerificacion/'+id_medio_verificacion_indicador_resultado+'/',
+						function (data){
+							jQuery.ScreenBlock(false);
+							jQuery('#4cb916ae7f61f')
+								.parents('.ui-tabs-panel:first')
+								.html(data)
+							;
+						}
+					)
+				})
+				.appendTo(jqwin)
+			;
+			var jqcancelar = jQuery('<input type="button" value="Cancelar" />')
+				.click(function(){
+					jQuery.ScreenBlock(false);
+				})
+				.appendTo(jqwin)
+			;
+			jqwin.ScreenBlock();
+		})
+	;
+	jQuery('.btn_editar_medio_verificacion', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#FFFFBB')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_indicador_resultado = jqthat.parents('li:eq(1)').attr('data-id');
+			var id_medio_verificacion_indicador_resultado = jqthat.parents('li:eq(0)').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="http://192.168.1.215/inta/skin/admin/default/img/loading.gif" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/resultado_esperado/addEditMedioVerificacion/'+id_indicador_resultado+'/'+id_medio_verificacion_indicador_resultado,
+				{
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			)
+		})
+	;
+	jQuery('.btn_agregar_indicador_attach', jqform)
+		.css('cursor','pointer')
+		.mouseover(function(){
+			jQuery(this).parents('li:first').css('background-color','#DDFFDD')
+		})
+		.mouseout(function(){
+			jQuery(this).parents('li:first').css('background-color','')
+		})
+		.click(function(){
+			var jqthat = jQuery(this);
+			var id_medio_verificacion_indicador_resultado = jqthat.parents('li:first').attr('data-id');
+			var jqwait = jQuery('<div></div>');
+			jqwait.html('<center>Aguarde un momento ... <br /><img src="http://192.168.1.215/inta/skin/admin/default/img/loading.gif" /></center>');
+			jqwait.ScreenBlock();
+			jQuery.get(
+				'administrator/ajax/documento/addEdit/medio_verificacion_indicador_resultado/'+id_medio_verificacion_indicador_resultado+'/',
+				{
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')+' .medios_verificacion_indicador_resultado>li[data-id='+id_medio_verificacion_indicador_resultado+'] .listado_documentos'
+				},
+				function (data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({autocenter:false,message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			);
+		})
+	;
+
+});
+
+function validar_agregar_resultado_esperado_indicadores(formData, jqForm, options) {
+	
+	if(!validar_estatico_en('#4cb916ae7f67f')){
+		tabpanelfocus(jQuery('#4cb916ae7f67f'));
+		return false;
+	}
+	return(true);
+}
+</script>
+</div>	<div class="controls">
+		 
+		<input type="submit" value="Guardar"/>		 
+	</div>
+
+</fieldset>
+<script>
+
+jQuery(document).ready(function(){
+	jQuery('#descripcion').ckeditor({"config":{"toolbar":"Basic","toolbarStartupExpanded":false,"width":"663px","height":"100px","resize_enabled":false}});
+});
+
+function validar_agregar_resultado_esperado_datos(formData, jqForm, options) {
+	jQuery('#descripcion').ckeditor('refresh');
+	if(!validar_estatico_en('#4cb916ae55814')){
+		tabpanelfocus(jQuery('#4cb916ae55814'));
+		return false;
+	}
+	return(true);
+}
+</script></div></div>
+<script type="text/javascript">
+$(function() {
+	$("#4cb916ae4f37b").tabs();
+});
+</script> 
+	<input type='hidden' name='isajaxrequest' id='isajaxrequest' value='0' />
+</form> 
+<script>
+	jQuery(document).ready(function(){
+		try{
+		 
+		if(validar_agregar_resultado_esperado_datos!=null)
+			jQuery('#4cb916ae4f15c').multivalidator(validar_agregar_resultado_esperado_datos); 
+		jQuery('#4cb916ae4f15c').submit(function(){ 
+			var jqform = jQuery(this);
+			jQuery('#4cb916ae4f15c').multivalidate(function(resultado){
+				if(resultado){
+					var options = {"target":".contenedor_main","replaceWith":true};
+					 
+		//esto estaba mal, porque si un validador modifica los valores estos no se envian modificados con el beforeSubmit
+		//			options.beforeSubmit = function(){
+		//				return jQuery('#4cb916ae4f15c').multivalidate();
+		//			}
+					$("#isajaxrequest", this).attr("value", 1);
+					jqform.ajaxSubmit(options);
+				}
+			});
+			return(false); 
+		
+		});
+				}
+		catch(e){
+			alert(e);
+		}
+	});
+</script>
+ 
+</div>

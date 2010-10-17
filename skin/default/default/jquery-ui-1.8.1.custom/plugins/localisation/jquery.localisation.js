@@ -55,7 +55,7 @@ $.localise = function(packages, settings, loadBase, path, timeout) {
 		{language: settings, loadBase: loadBase, path: path, timeout: timeout});
 	var paths = (!settings.path ? ['', ''] :
 		(isArray(settings.path) ? settings.path : [settings.path, settings.path]));
-	$.ajaxSetup({async: false, timeout: (settings.timeout || 500)});
+	//$.ajaxSetup({async: false, timeout: (settings.timeout || 500)});
 	var localiseOne = function(package, lang) {
 		if (settings.loadBase) {
 			$.getScript(paths[0] + package + '.js');

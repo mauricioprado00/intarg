@@ -10,6 +10,14 @@
 		<type>selector_indicador</type>
 		<class>Admin_Indicador_Block_Selector</class>
 	</block>
+	<block>
+		<type>selector_indicador_simple</type>
+		<class>Admin_Indicador_Block_Selector</class>
+	</block>
+	<block>
+		<type>selector_indicador_abm</type>
+		<class>Admin_Indicador_Block_Selector_Abm</class>
+	</block>
 	<routers>
 		<Admin_Indicador_Router>administrator/indicador</Admin_Indicador_Router>
 	</routers>

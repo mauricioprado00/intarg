@@ -57,7 +57,7 @@
 			]]></datamodel>
 			</action>
 			<action method="appendStyle">
-				<param>resource/xsl/jqgrid/standart-botones.xsl</param>
+				<param>resource/xsl/inta/actividad/standart-botones.xsl</param>
 			</action>
 			<action when="req(export_eq_html_view)" method="appendStyle">
 				<param>resource/xsl/jqgrid/export/html-view.xsl</param>
@@ -75,6 +75,10 @@
 			<action method="addParam">
 				<name>edit_url</name>
 				<value>actividad/addEdit/</value>
+			</action>
+			<action method="addParam">
+				<name>delete_url</name>
+				<value>actividad/delete/</value>
 			</action>
 			<!---
 			<action method="addParam">

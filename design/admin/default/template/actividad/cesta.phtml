@@ -1,0 +1,108 @@
+<style>
+.contenedor_cesta{
+	position:relative;
+	z-index:2;
+}
+.cesta_agregar_reporte{
+	width:300px;
+	position:absolute;
+	top:18px;
+	display:none;
+	/*left:50px;*/
+}
+.contenedor_cesta:hover .cesta_agregar_reporte{
+	display:block !important;
+}
+.cesta_agregar_reporte .contenedor{
+	padding:20px 10px;
+}
+.contenedor_cesta .contenedor .eliminar{
+	display:inline-block;
+	cursor:pointer;
+}
+.contenedor_cesta .ui-dialog-buttonpane{
+	cursor:pointer;
+}
+
+</style>
+<div class="contenedor_cesta">
+	<div style="float:left" class="ui-icon ui-icon-cart"></div>
+	<div style="float:left" class="contador">0 items</div>
+	<div style="clear:both;"></div>
+	<div class="cesta_agregar_reporte <?php print $id = $this->generateRandomId(); ?> ui-widget-content ui-corner-all">
+		<div class="ui-widget-header ui-corner-all">Cesta para reporte</div>
+		<div class="contenedor ui-dialog-content">
+		</div>
+		<span class="ui-dialog-buttonpane">
+			<span class="ui-button ui-state-default ui-corner-all ui-state-hover agregar_a_reporte" style="display:none;">
+				<span class=" ui-icon ui-icon-plus" style="display:inline-block;">
+				</span>
+				Agregar a Reporte
+			</span>
+		</span>
+		<h2>Cesta vacia</h2>
+	</div>
+</div>
+<script type="text/javascript">
+jQuery(function(){
+	jQuery('.ui-dialog-buttonpane')
+		.click(function(){
+			jQuery(this).parents('form:first').submit();
+		});
+	;
+});
+function agregar_a_cesta(o, nombre, id){
+	var fila = jQuery(o).parents('tr:first');
+	var jqcontrol = jQuery('.<?php print $id; ?>');
+	if(jqcontrol.find('[data-id='+id+']').length>0){//ya esta agregado
+		return;
+	}
+	jQuery('<div></div>')
+		.attr('data-id', id)
+		.append(
+			jQuery('<div class="ui-icon ui-icon-trash ui-helper-clearfix eliminar" ></div>')
+				.click(function(){
+					jQuery(this).parents('div:first').remove();
+					show_agregar_a_reporte();
+					fila.css('background','').css('background-color', '');
+				})
+		)
+//		.hover(function(){
+//			fila.css('background-color', 'red')
+//		})
+		.mouseover(function(){
+				fila.css('background','none').css('background-color', '#FFDDDD');
+		})
+		.mouseout(function(){
+				fila.css('background','').css('background-color', '');
+		})
+		.append(
+			jQuery('<input name="id_actividad[]" type="hidden"/>').val(id)
+		)
+		.append(
+			jQuery('<span></span>').text(nombre)
+		)
+		.appendTo(jqcontrol.find('.contenedor'))
+	;
+	jQuery('.contenedor_cesta .cesta_agregar_reporte').css('display','block');
+	setTimeout(function(){jQuery('.contenedor_cesta .cesta_agregar_reporte').css('display','')}, 2000);
+	show_agregar_a_reporte();
+}
+function show_agregar_a_reporte(){
+	jQuery('.contenedor_cesta').each(function(){
+		var cant = jQuery(this).find('[data-id]').length;
+		var mostrar = cant>0;
+		jQuery(this).find('.contador').text(cant+' items')
+		jQuery(this).find('.agregar_a_reporte').css('display', mostrar?'':'none');
+		jQuery(this).find('h2').css('display', !mostrar?'':'none');
+	})
+}
+function validar_cantidad_items(){
+	var cant = jQuery('.contenedor_cesta').find('[data-id]').length;
+	if(!cant){
+		show_messages(['Debe agregar alguna actividad']);
+		return false;
+	}
+	return true;
+}
+</script>

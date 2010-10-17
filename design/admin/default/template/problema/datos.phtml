@@ -42,6 +42,7 @@ $arr_ponderaciones = array(
 			</span>
 			<label>Audiencia: </label>
 			<span><?
+				/** /
 				echo c($selector_audiencia = $this->appendBlock('<selector_audiencia />'))
 					->setSelectedValue($x->getIdAudiencia())
 					->void($selector_audiencia
@@ -54,6 +55,7 @@ $arr_ponderaciones = array(
 					)
 					->toHtml()
 				;
+				/**/
 				echo c($selector_audiencia = $this->appendBlock('<selector_audiencia_abm />'))
 					->setSelectedValue($x->getIdAudiencia())
 					->void($selector_audiencia

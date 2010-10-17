@@ -91,7 +91,6 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 				$audiencia->setWhere(Db_Helper::equal('id_agencia'));
 				$audiencias = $audiencia->search();
 				
-				
 				$ids_audiencia = array();
 				foreach($audiencias as $audiencia)
 					$ids_audiencia[] = $audiencia->getId();
@@ -104,6 +103,7 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 				if($resultado_esperado->getId()&&!$id_resultado_esperado){
 					$this->cambiarUrlAjax('administrator/resultado_esperado/addEdit/'.$resultado_esperado->getId());
 				}
+				
 				//echo Core_Helper::DebugVars($ids_audiencia);
 				//echo Core_Helper::DebugVars($problema->searchGetSql());
 				

@@ -110,7 +110,7 @@ function newHelperUrl(){
 				
 					this.goLink(document.location.href);
 			}
-			setTimeout(function(){HelperUrl().poolUrl()}, 100);
+			setTimeout(function(){HelperUrl().poolUrl()}, 500);
 		}
 	});
 }

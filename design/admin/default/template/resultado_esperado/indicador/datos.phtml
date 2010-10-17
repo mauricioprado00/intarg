@@ -29,25 +29,54 @@ $x = $this->getObjectToEdit();
 			</span>
 			<label>Tipo de Indicador: </label>
 			<span><?
-				$indicador = new Inta_Model_Indicador();
-				$indicadors = $indicador->search();
-				$html_select = '';
-				foreach($indicadors as $indicador){
-					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
-						->setValue($indicador->getId())
-						->setInnerHtml($indicador->getNombre())
-					;
-					if($indicador->getId()==$x->getIdIndicador())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
-					->setName('indicador_resultado[id_indicador]')
-					->setId('id_indicador')
-					//->setDisabled('disabled')
-					->setInnerHtml($html_select)
-					->getHtml()
+			
+//				echo c($selector_audiencia = $this->appendBlock('<selector_indicador />'))
+//					->setSelectedValue($x->getIdIndicador())
+//					->setData('tipo_indicador', 'resultado')
+//					->void($selector_audiencia
+//						->getSelectControl()
+//							->setName('indicador_resultado[id_indicador]')
+//							->setId('id_indicador')
+//							->setData('data-campo', '<b>Indicador</b>')
+//							->setData('data-mensaje', 'Seleccione %field')
+//							->setData('data-validator', '{empty:false}')
+//					)
+//					->toHtml()
+//				;
+				echo c($selector_audiencia = $this->appendBlock('<selector_indicador_abm />'))
+					->setSelectedValue($x->getIdIndicador())
+					->setData('tipo_indicador', 'resultado')
+					->void($selector_audiencia
+						->getSelectControl()
+							->setName('indicador_resultado[id_indicador]')
+							->setId('id_indicador')
+							->setData('data-campo', '<b>Indicador</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
+							
+					)
+					->toHtml()
 				;
+
+//				$indicador = new Inta_Model_Indicador();
+//				$indicadors = $indicador->search();
+//				$html_select = '';
+//				foreach($indicadors as $indicador){
+//					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
+//						->setValue($indicador->getId())
+//						->setInnerHtml($indicador->getNombre())
+//					;
+//					if($indicador->getId()==$x->getIdIndicador())
+//						$option->setSelected('selected');
+//					$html_select .= $option->getHtml();
+//				}
+//				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
+//					->setName('indicador_resultado[id_indicador]')
+//					->setId('id_indicador')
+//					//->setDisabled('disabled')
+//					->setInnerHtml($html_select)
+//					->getHtml()
+//				;
 			?> 
 			</span>
 		</div>

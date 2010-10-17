@@ -13,25 +13,48 @@ jQuery.ScreenBlock = jQuery.fn.ScreenBlock = function(options){
 			options = {message:options};
 		}
 		else if(typeof(options)=='boolean'){
-			if(options==false)
-				jQuery('.ScreenBlockWrapper').hide();
-				jQuery('.ScreenBlockWrapper').each(function(){
-					var message = jQuery(this).data('ScreenBlock/Message');
-					if(typeof(message)=='object'){
-						var postizo = null;
-						if(postizo = jQuery(message).data('ScreenBlock/Postizo'))
-							postizo.replaceWith(message);
-							//jQuery(message).appendTo(parent);
-						postizo = null;
+			if(options==false){
+				if(jQuery.ScreenBlock.pushedWindows.length){
+					//window.console.log(jQuery.ScreenBlock.pushedWindows);
+					var jqwindow = jQuery.ScreenBlock.pushedWindows.pop();
+					//window.console.log(jqwindow);
+					jqwindow.each(function(){
+						var message = jQuery(this).data('ScreenBlock/Message');
+						if(typeof(message)=='object'){
+							var postizo = null;
+							if(postizo = jQuery(message).data('ScreenBlock/Postizo'))
+								postizo.replaceWith(message);
+								//jQuery(message).appendTo(parent);
+							postizo = null;
+						}
+					});
+					jqwindow.remove();
+					// jQuery('<a>otra cssfsdfdfsa</a>').ScreenBlock({remover_anterior:false})
+					if(jQuery.ScreenBlock.pushedWindows.length){
+						var jqwindow = jQuery.ScreenBlock.pushedWindows[jQuery.ScreenBlock.pushedWindows.length-1];
+						jqwindow.show();
 					}
-				})
-				jQuery('.ScreenBlockWrapper').remove();
+				}
+//				jQuery('.ScreenBlockWrapper').each(function(){
+//					var message = jQuery(this).data('ScreenBlock/Message');
+//					if(typeof(message)=='object'){
+//						var postizo = null;
+//						if(postizo = jQuery(message).data('ScreenBlock/Postizo'))
+//							postizo.replaceWith(message);
+//							//jQuery(message).appendTo(parent);
+//						postizo = null;
+//					}
+//				})
+//				jQuery('.ScreenBlockWrapper').remove();
+			}
 			return;
 		}
 	}
-	jQuery.ScreenBlock(false);
 	if(options==null)
 		options = {};
+	if(options.remover_anterior==true || options.remover_anterior==null){
+		jQuery.ScreenBlock(false);
+	}
 	if(options.message==null){
 		if(staticmode==false){
 			options.message = this.first();
@@ -44,6 +67,9 @@ jQuery.ScreenBlock = jQuery.fn.ScreenBlock = function(options){
 		jqwindow = null;
 		return;
 	}
+	jQuery('.ScreenBlockWrapper').hide();
+	jQuery.ScreenBlock.pushedWindows.push(jqwindow);
+	
 	if(typeof(params.message)=='object'){
 		var postizo = jQuery('<div style="display:none;"></div>');
 		jQuery(params.message).after(postizo);
@@ -120,6 +146,7 @@ jQuery.ScreenBlock = jQuery.fn.ScreenBlock = function(options){
 	jqmessage=null;
 	jqwindow=null;
 }
+jQuery.ScreenBlock.pushedWindows = [];
 jQuery.fn.ScreenBlock.params = {
 	message:'Aguarde un momento...',
 	window_css:{
@@ -189,7 +216,8 @@ jQuery.fn.ScreenBlock.params = {
 		'z-index': 51,
 		'text-align':'center'
 	},
-	onclose:null
+	onclose:null,
+	remover_anterior: true
 }
 //jQuery.ScreenBlock({message:'kradkk.com'});
 //jQuery.ScreenBlock(false);
