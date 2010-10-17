@@ -5,7 +5,7 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 		$this->addActions(
 			'cerrar_sesion',
 			'addEdit','delete','listar','datalist','datalist2',
-			'ordenar','setorden','datalist3'
+			'ordenar','setorden','datalist3', 'agregarActividades'
 		);
 	}
 	protected function onThrought(){
@@ -91,6 +91,12 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 				}
 			}
 		}
+	}
+	protected function agregarActividades(){
+		$post = Core_Http_Post::getParameters('Core_Object');
+		Admin_Reporte_Helper::agregarActividades($post->getIdActividad());
+		$this->listar();
+		//echo Core_Helper::DebugVars($post->getIdActividad());
 	}
 	protected function listar(){
 		Core_App::getLayout()->addActions('entity_list', 'list_admin_reporte');

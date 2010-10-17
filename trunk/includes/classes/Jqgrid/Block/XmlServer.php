@@ -1,4 +1,5 @@
 <?
+//$_GET['nostyles'] = true;
 class Jqgrid_Block_XmlServer extends Core_Block_Abstract{
 	private $xs = null;
 	private $params = null;

@@ -26,6 +26,13 @@ encoding="iso-8859-1" indent="yes"/>
     </xsl:if>
   </h2>
     <table border="1">
+      	<xsl:for-each select="//columnas/*">
+        <col>
+		   <xsl:attribute name="width">
+		   <xsl:value-of select="width" />
+		   </xsl:attribute>
+        </col>
+        </xsl:for-each>
     	<thead>
       <tr bgcolor="#9acd32">
       	<xsl:for-each select="//columnas/*">

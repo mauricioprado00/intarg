@@ -60,6 +60,7 @@
 				ajax_target=".contenedor_main"
 				ajax_replace_with="true"
 				validador_js="validar_agregar_indicador"
+				name="formulariox"
 				method="post">
 				<tabset>
 					<tab title="Datos de Indicador">

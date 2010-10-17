@@ -6,6 +6,18 @@
 		<admin>Admin_MedioVerificacion_Multimodo.xml</admin>
 		<ajax>Admin_MedioVerificacion_Multimodo.xml</ajax>
 	</layouts>
+	<block>
+		<type>selector_medio_verificacion</type>
+		<class>Admin_MedioVerificacion_Block_Selector</class>
+	</block>
+	<block>
+		<type>selector_medio_verificacion_simple</type>
+		<class>Admin_MedioVerificacion_Block_Selector</class>
+	</block>
+	<block>
+		<type>selector_medio_verificacion_abm</type>
+		<class>Admin_MedioVerificacion_Block_Selector_Abm</class>
+	</block>
 	<routers>
 		<Admin_MedioVerificacion_Router>administrator/medio_verificacion</Admin_MedioVerificacion_Router>
 	</routers>

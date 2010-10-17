@@ -1,0 +1,76 @@
+<?php 
+if(!$this->hasEntityToList()||!$this->getEntityToList()){?> 
+	error, no hay entidad para el control <?php print get_class($this); ?><?
+	return;
+}
+
+	$html_select = '';
+	if($options = $this->createOptions())
+		foreach($options as $option){
+			//var_dump(get_class($option));
+			$html_select .= $option->getHtml();
+		}
+	
+	$c = $this->getSelectControl();
+	//var_dump(array_keys($c->getData()));
+	
+$config = $c->getData();
+unset($config['inner_html'], $config['tagname']);
+
+echo c($div = new Core_Html_Tag_Custom('div'))
+	->setData(array_merge($div->getData(), $config, array('name'=>'')))
+	->setClass('ui-widget ui-abm-select '.($id = uniqid()))
+	->setInnerHtml(
+		$c
+		->setInnerHtml($html_select)
+		->getHtml()
+	)
+	->getHtml()
+;
+
+
+?> 
+sdfdsf
+<script type="text/javascript">
+jQuery(function(){
+	jQuery('.<?php print $id; ?> select')
+	.combobox({
+		source:function(request, response, els){
+			//for(key in els){var el = els[key];el.label += '<div class="lsted"></div>';}
+			if(request.term=='')
+				return null;
+			return [{
+				id: 0,
+				label: '<span style="white-space:nowrap;">Agregar "<span style="cursor:pointer;" onclick="selector_abm_indicador.agregar(\''+request.term.split('\'').join('\\\'')+'\','+<?php print json_encode(htmlentities(json_encode($config)))?>+','+<?php print json_encode(htmlentities(json_encode($id))); ?>+','+<?php print json_encode(htmlentities(json_encode($this->getTipoIndicador()))); ?>+');"><i>'+request.term+'</i></span></span>"',
+				value: request.term
+			}];
+		}
+	})
+	.change(function(){
+		jQuery(this).parent('.ui-abm-select').val(this.value);
+	}).change();
+	;
+	jQuery('.<?php print $id; ?> .ui-autocomplete-input')
+})
+if(!window.selector_abm_indicador){
+	window.selector_abm_indicador = {
+		agregar: function(texto, config, class_contenedor, tipo_indicador){
+			jQuery.post(
+				<?php print json_encode($this->getUrl('administrator/ajax/indicador/addEditPopup//'))?>+encodeURI(texto)+'/'+encodeURI(tipo_indicador),//encodeURIComponent(encodeURI()),//encodeURI(texto),
+				{
+					configuracion_select:config,
+					configuracion_select_more: {
+						tipo_indicador: tipo_indicador
+					},
+					admin_addeditform: {ajax_target: '.'+class_contenedor}
+				},
+				function(data){
+					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
+					jqwindow.ScreenBlock({remover_anterior:false,autocenter:false,message_container_css:{'text-align':'left'},message_css:{top:'90px',left:'240px'}});
+					jqwindow.html(data);
+				}
+			);
+		}
+	}
+}
+</script>

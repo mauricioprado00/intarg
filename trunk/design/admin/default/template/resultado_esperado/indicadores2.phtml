@@ -6,7 +6,7 @@ if(!$this->hasObjectToEdit()){
 $x = $this->getObjectToEdit();
 
 ?>
-<div id="<?php print $id_control = $this->generateRandomId(); ?>">
+<div id="<?php print $id_control = $this->generateRandomId(); ?>" class="listado_indicadores_resultado_esperado">
 <?if($this->getIdToEdit()):?>
 <input type="hidden" name="resultado_esperado[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
 <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
@@ -52,7 +52,9 @@ jQuery(document).ready(function(){
 			jQuery.get(
 				'<?php print 'administrator/ajax/resultado_esperado/addEditIndicador/'.$x->getId().'/'; ?>',
 				{
-					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')
+					//target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')
+					//t arget: '#'+jQuery('#<?php print $id_control; ?>').parents('.listado_indicadores_resultado_esperado:last').attr('id')
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')
 				},
 				function (data){
 					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
@@ -119,7 +121,7 @@ jQuery(document).ready(function(){
 			jQuery.get(
 				'<?php print 'administrator/ajax/resultado_esperado/addEditIndicador/'.$x->getId().'/'; ?>'+id_indicador_resultado,
 				{
-					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')
 				},
 				function (data){
 					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
@@ -146,7 +148,7 @@ jQuery(document).ready(function(){
 			jQuery.get(
 				'administrator/ajax/resultado_esperado/addEditMedioVerificacion/'+id_indicador_resultado+'/',
 				{
-					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')
 				},
 				function (data){
 					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
@@ -214,7 +216,7 @@ jQuery(document).ready(function(){
 			jQuery.get(
 				'<?php print 'administrator/ajax/resultado_esperado/addEditMedioVerificacion/'; ?>'+id_indicador_resultado+'/'+id_medio_verificacion_indicador_resultado,
 				{
-					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')
 				},
 				function (data){
 					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);
@@ -241,7 +243,7 @@ jQuery(document).ready(function(){
 			jQuery.get(
 				'administrator/ajax/documento/addEdit/medio_verificacion_indicador_resultado/'+id_medio_verificacion_indicador_resultado+'/',
 				{
-					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.ui-tabs-panel:first').attr('id')+' .medios_verificacion_indicador_resultado>li[data-id='+id_medio_verificacion_indicador_resultado+'] .listado_documentos'
+					target: '#'+jQuery(this).parents('.listado_indicadores_resultado_esperado:last').attr('id')+' .medios_verificacion_indicador_resultado>li[data-id='+id_medio_verificacion_indicador_resultado+'] .listado_documentos'
 				},
 				function (data){
 					var jqwindow = jQuery('<div></div>');//.width(1024).height(300);

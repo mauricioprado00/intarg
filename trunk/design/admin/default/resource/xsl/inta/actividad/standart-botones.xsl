@@ -26,10 +26,10 @@ xmlns:php="http://php.net/xsl">
 					<xsl:value-of select="id" />
 				</xsl:attribute>
 				<cell special="ui"><![CDATA[
-				<a style="cursor:pointer;" onclick="getGrid(this).setSelection(']]><xsl:value-of select="id" /><![CDATA[')"><div class="lstse" ></div></a>
+					<a style="cursor:pointer;" onclick="getGrid(this).setSelection(']]><xsl:value-of select="id" /><![CDATA[')"><div class="lstse" ></div></a>
+					<a style="cursor:pointer;" title="agregar a reporte" onclick="agregar_a_cesta(this,]]><xsl:value-of select="php:function('htmlentities',php:function('json_encode',string(actividad_nombre)))" /><![CDATA[,']]><xsl:value-of select="id" /><![CDATA[')"><div class="btn_agregar" style="float:left;"></div></a>
 					<a href="#]]><xsl:value-of select="//params/edit_url" /><xsl:value-of select="id" /><![CDATA["><div class="lsted"></div></a>
 					<a href="#]]><xsl:value-of select="//params/delete_url" /><xsl:value-of select="id" /><![CDATA[" onclick="getGrid(this).setSelection(']]><xsl:value-of select="id" /><![CDATA['); return confirm(']]><xsl:value-of select="//params/mensaje_eliminacion" /><![CDATA[')"><div class="lstde"></div></a>
-					
 				]]></cell>
 				<xsl:for-each select="./*">
 					<cell><xsl:value-of select="." /></cell>

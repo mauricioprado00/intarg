@@ -68,14 +68,9 @@ Este xsl genera un html de todos los campos de un xml cuyas "cell" no sean @spec
 	 <Worksheet ss:Name="datos.xml">
 	  <Table ss:ExpandedColumnCount="10" ss:ExpandedRowCount="22" x:FullColumns="1"
 	   x:FullRows="1" ss:DefaultColumnWidth="60" ss:DefaultRowHeight="15">
-      	<xsl:for-each select="//columnas/*">
-        <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="0">
-        <!-- ss:Span="1"  es como un colspan duh!-->
-		   <xsl:attribute name="ss:Width">
-		   <xsl:value-of select="width" />
-		   </xsl:attribute>
-        </Column>
-        </xsl:for-each>
+	   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="97.5" ss:Span="1"/>
+	   <Column ss:Index="3" ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="105.75"/>
+	   <Column ss:StyleID="s62" ss:AutoFitWidth="0" ss:Width="97.5" ss:Span="6"/>
 	   <Row ss:AutoFitHeight="0" ss:Height="31.5">
 	   <Cell ss:StyleID="m63810848">
 	   <xsl:attribute name="ss:MergeAcross">

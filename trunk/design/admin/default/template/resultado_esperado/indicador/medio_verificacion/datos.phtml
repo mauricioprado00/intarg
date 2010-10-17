@@ -19,30 +19,58 @@ $x = $this->getObjectToEdit();
 			<label>Medio de Verificaci&oacute;n: </label>
 			<span><?
 				
-				$medio_verificacion = new Inta_Model_MedioVerificacion();
-				if($indicador_resultado = $x->getIndicadorResultado()){
-					$medio_verificacion
-						->setIdIndicador($indicador_resultado->getIdIndicador())
-						->setWhere(Db_Helper::equal('id_indicador'))
-					;
-				}
-				$medio_verificacions = $medio_verificacion->search();
-				$html_select = '';
-				foreach($medio_verificacions as $medio_verificacion){
-					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
-						->setValue($medio_verificacion->getId())
-						->setInnerHtml($medio_verificacion->getNombre())
-					;
-					if($medio_verificacion->getId()==$x->getIdMedioVerificacion())
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
-					->setName('medio_verificacion_indicador_resultado[id_medio_verificacion]')
-					->setId('id_medio_verificacion')
-					//->setDisabled('disabled')
-					->setInnerHtml($html_select)
-					->getHtml()
+//				$medio_verificacion = new Inta_Model_MedioVerificacion();
+//				if($indicador_resultado = $x->getIndicadorResultado()){
+//					$medio_verificacion
+//						->setIdIndicador($indicador_resultado->getIdIndicador())
+//						->setWhere(Db_Helper::equal('id_indicador'))
+//					;
+//				}
+//				$medio_verificacions = $medio_verificacion->search();
+//				$html_select = '';
+//				foreach($medio_verificacions as $medio_verificacion){
+//					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
+//						->setValue($medio_verificacion->getId())
+//						->setInnerHtml($medio_verificacion->getNombre())
+//					;
+//					if($medio_verificacion->getId()==$x->getIdMedioVerificacion())
+//						$option->setSelected('selected');
+//					$html_select .= $option->getHtml();
+//				}
+//				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
+//					->setName('medio_verificacion_indicador_resultado[id_medio_verificacion]')
+//					->setId('id_medio_verificacion')
+//					//->setDisabled('disabled')
+//					->setInnerHtml($html_select)
+//					->getHtml()
+//				;
+				
+//				echo c($selector_audiencia = $this->appendBlock('<selector_medio_verificacion />'))
+//					->setSelectedValue($x->getIdMedioVerificacion())
+//					->setData('id_indicador', $indicador_resultado->getIdIndicador())
+//					->void($selector_audiencia
+//						->getSelectControl()
+//							->setName('medio_verificacion_indicador_resultado[id_medio_verificacion]')
+//							->setId('id_medio_verificacion')
+//							->setData('data-campo', '<b>Medio Verificacion</b>')
+//							->setData('data-mensaje', 'Seleccione %field')
+//							->setData('data-validator', '{empty:false}')
+//					)
+//					->toHtml()
+//				;
+
+				echo c($selector_audiencia = $this->appendBlock('<selector_medio_verificacion_abm />'))
+					->setSelectedValue($x->getIdMedioVerificacion())
+					->setData('id_indicador', $indicador_resultado->getIdIndicador())
+					->void($selector_audiencia
+						->getSelectControl()
+							->setName('medio_verificacion_indicador_resultado[id_medio_verificacion]')
+							->setId('id_medio_verificacion')
+							->setData('data-campo', '<b>Medio Verificacion</b>')
+							->setData('data-mensaje', 'Seleccione %field')
+							->setData('data-validator', '{empty:false}')
+					)
+					->toHtml()
 				;
 			?> 
 			</span>

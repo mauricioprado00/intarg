@@ -46,30 +46,6 @@ class Admin_Reporte_Helper extends Core_Singleton{
 			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo agregar actividades'));
 			return false;
 		}
-		$usuario = Admin_User_Model_User::getLogedUser();
-		$agencia = Admin_Helper::getInstance()->getAgencia();
-		$resultado = new Core_Object();//aca usar la clase de verdad
-		$resultado
-			->setIdAgencia($agencia->getId())
-			->setNombreAgencia($agencia->getNombre())
-			->setIdUsuarioLogeado($usuario->getId())
-		;
-		
-		foreach($ids_actividades as $id_actividad){
-			$actividad = new Inta_Model_Actividad();
-			if(!$actividad->load(array('id'=>$id_actividad)))
-				continue;
-			if(!($responsable = $actividad->getResponsable())){
-				continue;
-			}
-			$resultado
-				->setIdActividad($id_actividad)
-				->setNombreActividad($actividad->getNombre())
-				->setIdResponsable($responsable->getId())
-				->setNombreResponsable($responsable->getNombre())
-			;
-			//$resultado->insert();
-		}
 		Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Se agregaron {!cantidad} actividades al reporte', (array('cantidad'=>count($ids_actividades)))));
 		return true;
 	}
