@@ -368,4 +368,11 @@ margin:0 5px;
 	height:45px;
 	width:128px;
 }
+.filtro_reporte > div{
+    float: left;
+    padding-left: 10px;
+}
+.filtro_reporte div.show_if_planificacion,.filtro_reporte div.show_if_ocupacion{
+    display: none;
+}
 .ui-selectmenu-menu,.ui-autocomplete{z-index:53!important;}/*encima de los screenblock*/

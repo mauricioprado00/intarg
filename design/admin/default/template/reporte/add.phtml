@@ -1,0 +1,391 @@
+<?
+if (!$this->hasObjectToEdit()) {
+    echo ("no hay objeto a editar " . __FILE__ . '-' . __LINE__);
+    return;
+}
+$x = $this->getObjectToEdit();
+?><? if ($this->getIdToEdit()): ?>
+    <input type="hidden" name="resultado_actividad[id]" value="<?= $x->getId() ?>" /><!-- si esta a cero o vacio es agregar --><? endif; ?>
+    <fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+        <legend><?
+    if (!$this->getIdToEdit()):
+        echo $this->__t('Nuevo Reporte');
+    else:
+        echo $this->__t('Editar Reporte');
+    endif; ?></legend>
+    <fieldset class="filtro_reporte" id="kradekk">
+        <h3>Filtros</h3>
+        <div>
+            <div>
+                <label>Agencia: </label>
+                <span><?
+        echo c($selector_agencia = $this->appendBlock('<selector_agencia />'))
+                ->setSelectedValue($x->getIdAgencia())
+                ->void($selector_agencia
+                        ->getSelectControl()
+                        ->setName('resultado_actividad[id_agencia]')
+                        ->setId('id_agencia')
+                        ->setData('data-campo', '<b>Agencia</b>')
+                        ->setData('data-mensaje', 'Seleccione %field')
+                        ->setData('data-validator', '{empty:false}')
+                )
+                ->toHtml()
+        ;
+?>
+                </span>
+            </div>
+            <div>
+                <label>Audiencia: </label>
+                <span><?
+                    echo c($selector_audiencia = $this->appendBlock('<selector_audiencia />'))
+                            ->setSelectedValue($x->getIdAgencia())
+                            ->void($selector_audiencia
+                                    ->getSelectControl()
+                                    ->setName('resultado_actividad[id_audiencia]')
+                                    ->setId('id_audiencia')
+                                    ->setData('data-campo', '<b>Audiencia</b>')
+                                    ->setData('data-mensaje', 'Seleccione %field')
+                                    ->setData('data-validator', '{empty:false}')
+                            )
+                            ->toHtml()
+?>
+                </span>
+            </div>
+            <div>
+                <label>Resultado Esperado: </label>
+                <span><?
+                    $input = Core::getObject('Core_Html_Tag_Custom', 'input');
+                    $input
+                            ->setType('text')
+                            ->setMaxlength(300)
+                            ->setId('resultado_esperado')
+                            ->setName('resultado_actividad[resultado_esperado]')
+                            ->setValue($x->getNombre())
+                            ->setData('data-campo', '<b>Resultado Esperado</b>')
+                            ->setData('data-validator', '{empty:false}')
+                    ;
+                    echo $input->getHtml();
+?>
+                </span>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label>Objetivos: </label>
+                <span><?
+                    $input = Core::getObject('Core_Html_Tag_Custom', 'input');
+                    $input
+                            ->setType('text')
+                            ->setMaxlength(300)
+                            ->setId('objetivo')
+                            ->setName('resultado_actividad[objetivo]')
+                            ->setValue($x->getNombre())
+                            ->setData('data-campo', '<b>Objetivo</b>')
+                            ->setData('data-validator', '{empty:false}')
+                    ;
+                    echo $input->getHtml();
+?>
+                </span>
+            </div>
+            <div>
+                <label>Responsable: </label>
+                <span><?
+                    echo c($selector_usuario = $this->appendBlock('<selector_usuario />'))
+                            ->setSelectedValue($x->getIdResponsable())
+                            ->void($selector_usuario
+                                    ->getSelectControl()
+                                    ->setName('resultado_actividad[id_responsable]')
+                                    ->setId('id_responsable')
+                                    ->setData('data-campo', '<b>Responsable</b>')
+                                    ->setData('data-mensaje', 'Seleccione %field')
+                                    ->setData('data-validator', '{empty:false}')
+                            )
+                            ->toHtml()
+                    ;
+?>
+                </span>
+            </div>
+            <div>
+                <label>Proyecto: </label>
+                <span><?
+                    echo c($selector_usuario = $this->appendBlock('<selector_proyecto />'))
+                            ->setSelectedValue($x->getIdResponsable())
+                            ->void($selector_usuario
+                                    ->getSelectControl()
+                                    ->setName('resultadoa_actividad[id_proyecto]')
+                                    ->setId('id_proyecto')
+                                    ->setData('data-campo', '<b>Proyecto</b>')
+                                    ->setData('data-mensaje', 'Seleccione %field')
+                                    ->setData('data-validator', '{empty:false}')
+                            )
+                            ->toHtml()
+                    ;
+?>
+                </span>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label>Usuarios Asociados: </label>
+                <span><?
+                    echo c($selector_usuario = $this->appendBlock('<selector_usuario />'))
+                            ->setSelectedValue($x->getIdResponsable())
+                            ->void($selector_usuario
+                                    ->getSelectControl()
+                                    ->setName('resultado_actividad[id_usuario][]')
+                                    ->setId('id_usuario')
+                                    ->setData('data-campo', '<b>Usuario</b>')
+                                    ->setData('data-mensaje', 'Seleccione %field')
+                                    ->setData('data-validator', '{empty:false}')
+                                    ->setData('Multiple', '')
+                            )
+                            ->toHtml()
+                    ;
+?>
+                </span>
+            </div>
+        </div>
+        <div>
+            <div>
+                <label>Filtros Extra: </label>
+                <span><?
+                    $input = Core::getObject('Core_Html_Tag_Custom', 'input');
+                    $input
+                            ->setType('radio')
+                            ->setMaxlength(300)
+                            ->setId('planificacion')
+                            ->setName('resultado_actividad[filtros_extra]')
+                            ->setValue($x->getNombre())
+                            ->setData('data-campo', '<b>Planificacion</b>')
+//                                        ->setData('radio', '')
+                    ;
+                    echo $input->getHtml();
+?>
+                </span>
+                <span>Planificacion</span>
+            </div>
+            <div>
+                <!--                            <label>Supuesto Radio: </label>-->
+                <span><?
+                    $input = Core::getObject('Core_Html_Tag_Custom', 'input');
+                    $input
+                            ->setType('radio')
+                            ->setMaxlength(300)
+                            ->setId('ocupacion')
+                            ->setName('resultado_actividad[filtros_extra]')
+                            ->setValue($x->getNombre())
+                            ->setData('data-campo', '<b>Ocupacion</b>')
+                    ;
+                    echo $input->getHtml();
+?>
+                </span>
+                <span>Ocupacion</span>
+            </div>
+            <div class="show_if_planificacion">
+                <label>Estado: </label>
+                <span><?
+                    $select = Core::getObject('Core_Html_Tag_Custom', 'select');
+                    $select
+                            ->setId('estado')
+                            ->setName('resultado_actividad[estado]')
+                            ->setData('data-campo', '<b>Estado</b>')
+                    ;
+                    $aEstados = array('' => 'Seleccione',
+                        'planificado' => 'Planificado',
+                        'parcial' => 'Parcial',
+                        'cancelado' => 'Cancelado',
+                        'realizado' => 'Realizado',
+                        'atrasado' => 'Atrasado',
+                    );
+                    foreach ($aEstados As $key => $value) {
+                        $option = Core::getObject('Core_Html_Tag_Custom', 'option');
+                        $option
+                                ->setValue($key)
+                                ->setInnerHtml($value)
+                        ;
+                        $select->appendInnerHtml($option);
+                    }
+                    echo $select->getHtml();
+?>
+                </span>
+            </div>
+            <div class="show_if_planificacion show_if_estado">
+                <label>Año: </label>
+                <span><?
+                   $input = Core::getObject('Core_Html_Tag_Custom', 'input');
+                    $input
+                            ->setType('input')
+                            ->setMaxlength(300)
+                            ->setId('ano')
+                            ->setName('resultado_actividad[ano]')
+                            ->setSize(4)
+                            ->setValue(2010)
+                            ->setData('data-campo', '<b>Año</b>')
+//                            ->setData('data-validator', '{empty:false,entero:4}')
+                    ;
+                    echo $input->getHtml();
+                    
+?>
+                </span>
+            </div>
+        </div>
+        <div>
+            <div class="show_if_planificacion show_if_estado">
+                <!--                <fieldset>-->
+                <label>Cronograma de Planeaci&oacute;n</label>
+                <div><ul class="cronograma_actividad"><?php
+                    $meses = array(
+                        array(
+                            'name' => 'mes_enero',
+                            'label' => 'Enero',
+                        ),
+                        array(
+                            'name' => 'mes_febrero',
+                            'label' => 'Febrero',
+                        ),
+                        array(
+                            'name' => 'mes_marzo',
+                            'label' => 'Marzo',
+                        ),
+                        array(
+                            'name' => 'mes_abril',
+                            'label' => 'Abril',
+                        ),
+                        array(
+                            'name' => 'mes_mayo',
+                            'label' => 'Mayo',
+                        ),
+                        array(
+                            'name' => 'mes_junio',
+                            'label' => 'Junio',
+                        ),
+                        array(
+                            'name' => 'mes_julio',
+                            'label' => 'Julio',
+                        ),
+                        array(
+                            'name' => 'mes_agosto',
+                            'label' => 'Agosto',
+                        ),
+                        array(
+                            'name' => 'mes_septiembre',
+                            'label' => 'Septiembre',
+                        ),
+                        array(
+                            'name' => 'mes_octubre',
+                            'label' => 'Octubre',
+                        ),
+                        array(
+                            'name' => 'mes_noviembre',
+                            'label' => 'Noviembre',
+                        ),
+                        array(
+                            'name' => 'mes_diciembre',
+                            'label' => 'Diciembre',
+                        ),
+                    );
+                    foreach ($meses as $data) {
+                        $mes = new Core_Object($data);
+                        $checked = $x->getData($mes->getName());
+?>
+                        <li class="<?php print $checked ? 'activo' : '' ?>">
+                            <span><?
+                            echo $input
+                                    ->setType('checkbox')
+                                    ->setId($mes->getName())
+                                    ->setName('resultado_actividad['.$mes->getName().']')
+                                    ->setValue('1')
+                                    ->getHtml()
+                            ;
+?></span>
+                            <label for="<?php print $mes->getName(); ?>"><?php print $mes->getLabel(); ?></label>
+                            <div style="clear:both;"></div>
+                        </li>
+                        <?php } ?>
+                        </ul></div>
+                </div>
+            </div>
+            <div>
+                <div class="show_if_ocupacion">
+                    <label>Fecha Desde: </label>
+                    <span><?
+                            $input = Core::getObject('Core_Html_Tag_Custom', 'input');
+                            $input
+                                    ->setType('input')
+                                    ->setMaxlength(300)
+                                    ->setId('fecha_desde')
+                                    ->setName('resultado_actividad[fecha_desde]')
+                                    ->setValue($x->getNombre())
+                                    ->setClass('datepicker')
+                                    ->setData('data-campo', '<b>Fecha Desde</b>')
+//                                    ->setData('data-validator', '{empty:false}')
+                            //                                        ->setData('radio', '')
+                            ;
+                            echo $input->getHtml();
+                        ?>
+                        </span>
+                    </div>
+                    <div class="show_if_ocupacion">
+                        <label>Fecha Hasta: </label>
+                        <span><?
+                            $input = Core::getObject('Core_Html_Tag_Custom', 'input');
+                            $input
+                                    ->setType('input')
+                                    ->setMaxlength(300)
+                                    ->setId('fecha_hasta')
+                                    ->setName('resultado_actividad[fecha_hasta]')
+                                    ->setValue($x->getNombre())
+                                    ->setClass('datepicker')
+                                    ->setData('data-campo', '<b>Fecha Hasta</b>')
+//                                    ->setData('data-validator', '{empty:false}')
+                            //                                        ->setData('radio', '')
+                            ;
+                            echo $input->getHtml();
+                        ?>
+                        </span>
+                    </div>
+                </div>
+                <div class="controls">
+            <?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
+                        </div>
+                    </fieldset>
+                    <script>
+                        function validar_agregar_reporte(formData, jqForm, options) {
+                            if(!validar({
+                                donde: '#<?php print $id_fielset; ?>',
+                estatico:true})){
+                return false;
+            }
+            return(true);
+        }
+        jQuery(document).ready(function(){
+            jQuery('.cronograma_actividad li input').change(function(){
+                if(this.checked)
+                    jQuery(this).parents('li:first').addClass('activo')
+                else
+                    jQuery(this).parents('li:first').removeClass('activo')
+            });
+            jQuery('.datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
+
+            jQuery('#planificacion').unbind('click');
+            jQuery('#planificacion').click(function(){
+                jQuery('.show_if_ocupacion').fadeOut('fast');
+                jQuery('.show_if_planificacion').fadeIn('slow');
+                jQuery('#estado').trigger('change');
+            });
+
+            jQuery('#ocupacion').unbind('click');
+            jQuery('#ocupacion').click(function(){
+                jQuery('.show_if_planificacion').fadeOut('fast');
+                jQuery('.show_if_ocupacion').fadeIn('slow');
+            })
+
+            jQuery('#estado').unbind('click');
+            jQuery('#estado').change(function(){
+                if(jQuery(this).val()=='parcial' || jQuery(this).val()=='atrasado')
+                    jQuery('.show_if_estado').fadeOut('fast');
+                else
+                    jQuery('.show_if_estado').fadeIn('slow');
+            })
+        })
+    </script>

@@ -33,9 +33,10 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 		$this->listar();
 	}
 	protected function addEdit($id_reporte=null){
+
 		Core_App::getInstance()->clearLastErrorMessages();
 		$guardado = false;
-		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Reporte()), 'w');
+		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Reporte_Actividad()), 'w');
 		if(!$permisos){
 			Core_App::getLayout()->addActions('security_restriction');
 			Admin_App::getInstance()->addShieldMessage('No tiene permitido editar Reporte.');
@@ -44,9 +45,16 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 			//return;
 		}
 		else{
+                        ini_set('display_errors','on');
+                        error_reporting(E_ERROR);
 			$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
-			$post_reporte = $post&&$post->hasReporte()?$post->GetReporte(true):null;
-			$reporte = new Inta_Model_Reporte();
+//			$post_reporte = $post&&$post->hasReporte()?$post->GetReporte(true):null;
+			$post_reporte = $post&&$post->hasResultadoActividad()?$post->GetResultadoActividad(true):null;
+
+                        if(isset($post_reporte))
+                            Admin_Reporte_Helper::buscarActividadReporte($post_reporte->getData());
+
+			$reporte = new Inta_Model_Reporte_Actividad();
 			if(isset($post_reporte)){
 				$reporte->loadFromArray($post_reporte->getData());
 				//echo Core_Helper::DebugVars($reporte->getData());
