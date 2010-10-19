@@ -2,12 +2,12 @@
 	<modules>
 		<!--<cosas_de_inta>-->
 		<Admin_Agencia/>
-		<Admin_Problema/>
+		<Admin_User/>
 		<Admin_Audiencia/>
+		<Admin_Problema/>
+		<Admin_Actividad/>
 		<Admin_Objetivo/>
 		<Admin_ResultadoEsperado/>
-		<Admin_Actividad/>
-		<Admin_User/>
 		<Admin_Reporte/>
 
 		<Admin_Inta/>
@@ -61,7 +61,6 @@
 		<Admin_Testimonio/>
 		-->
 		<!-- <Visualadmin/> -->
-		
 		<Admin_Intatheme/>
 	</modules>
 	<block>
