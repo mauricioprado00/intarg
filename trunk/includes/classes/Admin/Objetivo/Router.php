@@ -80,14 +80,16 @@ class Admin_Objetivo_Router extends Core_Router_Abstract{
 				$ids_audiencia = array();
 				foreach($audiencias as $audiencia)
 					$ids_audiencia[] = $audiencia->getId();
-				$problema = new Inta_Model_Problema();
-				if($objetivo->getId())
-					$problema->setWhere(Db_Helper::in('id_audiencia', true, $ids_audiencia),' AND (',Db_Helper::equal('id_objetivo', 0),' OR ',Db_Helper::equal('id_objetivo', $objetivo->getId()),')');
-				else 
-					$problema->setWhere(Db_Helper::in('id_audiencia', true, $ids_audiencia),' AND (',Db_Helper::equal('id_objetivo', 0),')');
-				$problemas = $problema->search();
+				$arr_problema = Admin_Helper::getInstance()->getAgencia()->getListProblema();
+				
+//				$problema = new Inta_Model_Problema();
+//				if($objetivo->getId())
+//					$problema->setWhere(Db_Helper::in('id_audiencia', true, $ids_audiencia),' AND (',Db_Helper::equal('id_objetivo', 0),' OR ',Db_Helper::equal('id_objetivo', $objetivo->getId()),')');
+//				else 
+//					$problema->setWhere(Db_Helper::in('id_audiencia', true, $ids_audiencia),' AND (',Db_Helper::equal('id_objetivo', 0),')');
+//				$problemas = $problema->search();
 				//echo Core_Helper::DebugVars($ids_audiencia, Admin_Helper::getInstance()->getIdAgencia());
-				if(!$problemas){
+				if(!$arr_problema){
 					Admin_App::getInstance()->AddWarningMessage("No hay problemas sin asignar, no puede crear el objetivo");
 					return $this->listar();
 				}
@@ -105,7 +107,7 @@ class Admin_Objetivo_Router extends Core_Router_Abstract{
 				foreach($layout->getBlocks('objetivo_add_edit_form') as $block){
 					$block->setIdToEdit($objetivo->getId());
 					$block->setObjectToEdit($objetivo);
-					$block->setProblemas($problemas);
+					$block->setProblemas($arr_problema);
 				}
 			}
 		}

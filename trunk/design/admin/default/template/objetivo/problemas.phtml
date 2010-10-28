@@ -22,14 +22,19 @@ $x = $this->getObjectToEdit();
 //				$problemas = $problema->search();
 				$problemas = $this->getProblemas();
 				$html_select = '';
-				
+				$arr_problema = $x->getListProblema();
+				if($arr_problema){
+					$arr_id_problema = c(new Core_Collection($arr_problema))->VerticalSliceSingleArray('id_problema');
+				}
 				if($problemas){
 					foreach($problemas as $problema){
 						$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 							->setValue($problema->getId())
 							->setInnerHtml($problema->getNombre())
 						;
-						if($problema->getIdObjetivo()==$x->getId())
+						//if($problema->getIdObjetivo()==$x->getId())
+						//echo Core_Helper::DebugVars(array('id_'))
+						if(in_array($problema->getId(), $arr_id_problema))
 							$option->setSelected('selected');
 						$html_select .= $option->getHtml();
 					}
@@ -48,8 +53,6 @@ $x = $this->getObjectToEdit();
 				}
 			?> 
 			</span>
-			<div>
-		</div>
 		</div>
 	</fieldset>
 	<div class="controls">

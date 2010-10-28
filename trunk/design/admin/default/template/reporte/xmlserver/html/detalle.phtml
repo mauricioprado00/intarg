@@ -1,0 +1,127 @@
+<?php
+//$arr_nodes = $this->getNodes();
+//foreach($this->getSimpleNodes() as $node){
+//	var_dump($node);
+//}
+if(!$this->getSimpleNodes()){
+	return;
+}
+$nodos = $this->getSimpleNodes();
+foreach($nodos as $nodo){
+	/** /var_dump/** / ((object)(array) $nodo);*/
+	?> 
+	<div style="position:relative;">
+	<div style="position:absolute;top:0;right:0;">
+		Comp: <?php print intval($nodo->actividad_porcentaje_cumplimiento); ?>%
+		<br />
+		Estado: <?php print $nodo->actividad_estado; ?>
+		<br />
+		Presup: <small style="color:green;font-weight:bold;"><?php print number_format($nodo->proyecto_presupuesto_total, 2, ',', ''); ?></small>
+		</div>
+	<h2 style="color:#4444AA;"><?php print $nodo->actividad_nombre; ?> (#<small><?php print $nodo->actividad_id; ?></small>)</h2><br />
+	<?
+	<<<ksdfdsf
+<b>AGENCIA</b>: <?php print $nodo->agencia_nombre?> - <?php print $nodo->actividad_ano; ?><br />
+ksdfdsf;
+
+	?>
+	
+	<?php if(trim(strip_tags($nodo->actividad_observaciones))): ?>
+	<p><b>OBSERVACIONES</b>: <?php print $nodo->actividad_observaciones; ?></p>
+	<br />
+	<?php endif; ?>
+	<p><b>RESPONSABLE</b>: <?php print $nodo->responsable_nombre_completo; ?> <small>(<?php print $nodo->responsable_email; ?>)</small></p>
+	<br />
+	<?php
+	if(count($nodo->aspecto_actividad)){?>
+		<b>ASPECTOS</b><ul><?
+		foreach($nodo->aspecto_actividad as $aspecto){?> 
+		<li>
+			<b><?php print $aspecto->aspecto_tipo_nombre; ?></b>
+			<?php print $aspecto->aspecto_nombre; ?> - 
+			<?php print $aspecto->aspecto_nombre_extendido; ?>
+		</li><?
+		}
+		?> 
+		</ul>
+		<br /><?
+	}
+	if(count($nodo->estrategia_actividad)){?>
+		<b>ESTRATEGIAS</b><?
+		$estrategias = array();
+		foreach($nodo->estrategia_actividad as $estrategia){
+			$estrategias[] = $estrategia->estrategia_nombre; 
+		}
+		echo ' '.implode(', ', $estrategias).'<br />';
+		echo '<br />';
+	}
+	if(count($nodo->proyecto_actividad)){?>
+		<b>PROYECTOS</b><ul><?
+		$proyectos = array();
+		foreach($nodo->proyecto_actividad as $proyecto){?> 
+		<li>
+			<?php print $proyecto->proyecto_nombre; ?>(<small style="color:green;font-weight:bold;"><?php print number_format($proyecto->proyecto_monto, 2, ',', ''); ?></small>)
+		</li><?
+		}?> 
+		</ul><?
+		//echo ' '.implode(', ', $proyectos).'<br />';
+	}
+	?>
+	<br />
+	<?php 
+	if(count($nodo->resultado_esperado_actividad)){?>
+	<table border="1">
+		<thead>
+			<tr>	
+				<th colspan="2">Contribuye a</th>
+			</tr>
+			<tr>	
+				<th>Objetivo</th>
+				<th>Resultado Esperado</th>
+			</tr>
+		</thead>
+		<tbody><?php
+		foreach($nodo->resultado_esperado_actividad as $rea){?> 
+			<tr>
+				<td><?php print $rea->resultado_esperado_objetivo_nombre; ?></td>
+				<td><?php print $rea->resultado_esperado_descripcion; ?></td>
+			</tr><?
+		}?> 
+		</tbody>
+	</table><?php
+	
+	}?>
+	<br />
+	<?php 
+	if(count($nodo->audiencia_actividad)){?>
+	<table border="1">
+		<thead>
+			<tr>	
+				<th colspan="4">Participacion de Audiencias</th>
+			</tr>
+			<tr>	
+				<th>Nombre</th>
+				<th>Tipo</th>
+				<th>Cantidad Esperada</th>
+				<th>Asistencia</th>
+			</tr>
+		</thead>
+		<tbody><?php
+		foreach($nodo->audiencia_actividad as $aa){?> 
+			<tr>
+				<td><?php print $aa->audiencia_tipo_nombre; ?></td>
+				<td><?php print $aa->audiencia_nombre; ?></td>
+				<td><?php print $aa->audiencia_cantidad_esperada; ?></td>
+				<td><?php print $aa->audiencia_asistencia; ?></td>
+			</tr><?
+		}?> 
+		</tbody>
+	</table><?php
+	
+	}?>
+	</div>
+	<?
+}
+
+
+?>

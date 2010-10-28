@@ -3,6 +3,12 @@ class Core_Collection extends Core_Collection_Abstract{
 	public function addFilterEq($field, $value, $match_null=false, $reverse=false){
 		return parent::_filterEq($field, $value, $match_null, $reverse);
 	}
+	public function addFilterIn($field, array $values){
+		return parent::_filterIn($field, $values);
+	}
+	public function addFilterNotIn($field, array $values){
+		return parent::_filterIn($field, $values, true);
+	}
 	protected function addFilterGt($field, $value, $match_null=false){
 		return parent::_filterGt($field, $value, $match_null);
 	}

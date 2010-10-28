@@ -229,6 +229,12 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 	protected function _filterEq($field, $value, $match_null=false, $reverse=false){
 		return $this->_filterByGeneric(array(__CLASS__,'_function_filter_eq'), $field, array('value'=>$value,'match_null'=>$match_null), $reverse);
 	}
+	private function _function_filter_in($value, $params){
+		return (isset($value)&&in_array($value, $params['values']));
+	}
+	protected function _filterIn($field, array $values, $reverse=false){
+		return $this->_filterByGeneric(array(__CLASS__,'_function_filter_in'), $field, array('values'=>$values,), $reverse);
+	}
 	private function _function_filter_gt($value, $params){
 		return ($params['match_null']&&!isset($value))||(isset($value)&&$value>$params['value']);
 	}
