@@ -6,7 +6,7 @@ class Inta_Model_View_Problema extends Inta_Db_Model_View_Abstract{
 		$view
 			->addTable('inta_problema',null,'p',array(
 				'problema_id'=>'p.id',
-				'problema_id_objetivo'=>'p.id_objetivo',
+				//'problema_id_objetivo'=>'p.id_objetivo',
 				'problema_id_audiencia'=>'p.id_audiencia',
 				'problema_nombre'=>'p.nombre',
 				'problema_importancia_economica'=>'p.importancia_economica',
@@ -38,7 +38,7 @@ class Inta_Model_View_Problema extends Inta_Db_Model_View_Abstract{
 		;	
 		$this->addView($view, 'problema', array(
 				'id'=>'problema_id',
-				'id_objetivo'=>'problema_id_objetivo',
+				//'id_objetivo'=>'problema_id_objetivo',
 				'id_audiencia'=>'problema_id_audiencia',
 				'nombre'=>'problema_nombre',
 				'importancia_economica'=>'problema_importancia_economica',

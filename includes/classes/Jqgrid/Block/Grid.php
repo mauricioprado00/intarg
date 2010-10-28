@@ -56,7 +56,12 @@ class Jqgrid_Block_Grid extends Core_Block_Template{
 		return $names;
 	}
 	public function canExport(){
+		if($this->hasData('can_export')&&!$this->getData('can_export'))
+			return false;
 		return count($this->getExportTypes())>0;
+	}
+	public function clearExportTypes(){
+		$this->_export_types = array();
 	}
 	
 	protected function generarRandomId(){
