@@ -1,5 +1,16 @@
 <?
+//Para hacer filtros personalizados, meto en el __construct:
+//$this->addAutofilterFieldInput('fecha_desde', array($this,'mifiltropersonalizadodeentrada'));
+//Después defino un método mifiltropersonalizadodeentrada en la clase y listo, esto es porque lo que va en el array pasa derecho al call_user_func
+
 class Admin_Reporte_Helper extends Core_Singleton{
+//        public function  __construct() {
+//            parent::__construct();
+//            $coreInstance->addAutofilterFieldInput('fecha_desde', array('Mysql_Helper','filterDateInput'));
+//            $coreInstance->addAutofilterFieldInput('fecha_hasta', array('Mysql_Helper','filterDateInput'));
+//        }
+
+
 	public function getInstance(){
 		return(self::getInstanceOf(__CLASS__));
 	}
@@ -42,46 +53,60 @@ class Admin_Reporte_Helper extends Core_Singleton{
 		return($reporte->setId($id_reporte)->delete());
 	}
         public static function buscarActividadReporte($data){
-            echo "<pre>";
-            var_dump($data);
-            echo "</pre>";die();
-//            $a = new Inta_Model_Actividad();
-//                  ["id_agencia"]=>
-//                  ["audiencia"]=>
-//                  ["resultado_esperado"]=>
-//                  ["objetivo"]=>
-//                  ["id_responsable"]=>
-//                  ["id_usuario"]=>
-
             $a = new Inta_Model_View_ReporteActividad();
 
             $aWheres = array();
 
-//            if(!empty($data['id_responsable']))
-//                array_push($aWheres,Db_Helper::equal('id_responsable',$data['id_responsable']));
-//            if(!empty($data['id_agencia']))
-//                array_push($aWheres,Db_Helper::equal('agencia_id',$data['id_agencia']));
-//            if(!empty($data['audiencia']))
-//                array_push($aWheres,Db_Helper::like('audiencia','%'.$data['audiencia'].'%'));
-//            if(!empty($data['resultado_esperado']))
-//                array_push($aWheres,Db_Helper::like('resultado_esperado','%'.$data['resultado_esperado'].'%'));
-//            if(!empty($data['objetivo']))
-//                array_push($aWheres,Db_Helper::like('objetivo','%'.$data['objetivo'].'%'));
-//            var_dump($data[id_usuario]);die();
-//            if(!empty($data['id_usuario'])){
-//                array_push($aWheres,Db_Helper::in('id_usuario_involucrado',true,$data['id_usuario']));
-//            }
-            if(!empty($data['estado'])&&$data['estado'] != ''){
-                array_push($aWheres,Db_Helper::equal('estado',true,$data['estado']));
-            }else{
-                array_push($aWheres,Db_Helper::equal('estado',true,'planificado'));
+            if(!empty($data['id_responsable']))
+                array_push($aWheres,Db_Helper::equal('id_responsable',$data['id_responsable']));
+            if(!empty($data['id_agencia']))
+                array_push($aWheres,Db_Helper::equal('id_agencia',$data['id_agencia']));
+            if(!empty($data['audiencia']))
+                array_push($aWheres,Db_Helper::like('audiencia','%'.$data['audiencia'].'%'));
+            if(!empty($data['resultado_esperado']))
+                array_push($aWheres,Db_Helper::like('resultado_esperado','%'.$data['resultado_esperado'].'%'));
+            if(!empty($data['objetivo']))
+                array_push($aWheres,Db_Helper::like('objetivo','%'.$data['objetivo'].'%'));
+            if(!empty($data['id_usuario'])){
+                array_push($aWheres,Db_Helper::in('id_usuario_involucrado',true,$data['id_usuario']));
             }
-            if(!empty($data['fecha_desde'])){
-                array_push($aWheres,Db_Helper::equal('fecha_inicio',true, $data['fecha_desde']));
+            if(!empty($data['estado'])&&$data['estado'] !== ''){
+                array_push($aWheres,Db_Helper::equal('estado',$data['estado']));
+            }else{
+                array_push($aWheres,Db_Helper::equal('estado','planificado'));
+            }
+            if(!empty($data['ano'])){
+                array_push($aWheres,Db_Helper::equal('ano',$data['ano']));
+            }
+            if (!empty($data['fecha_desde'])) {
+                $coreInstance = self::getInstance();
+                $coreInstance->addAutofilterFieldInput('fecha_desde', array('Mysql_Helper','filterDateInput'));
+                $coreInstance->setFechaDesde($data['fecha_desde']);
+                array_push($aWheres, Db_Helper::custom('fecha_inicio >= "'.$coreInstance->getFechaDesde().'"' ));
+//                array_push($aWheres, Db_Helper::lt('fecha_inicio', $coreInstance->getFechaDesde()));
             }
             if(!empty($data['fecha_hasta'])){
-                array_push($aWheres,Db_Helper::equal('fecha_fin',true, $this->$data['fecha_hasta']));
+                $coreInstance = empty($coreInstance)?self::getInstance():$coreInstance;
+                $coreInstance->addAutofilterFieldInput('fecha_hasta', array('Mysql_Helper','filterDateInput'));
+                $coreInstance->setFechaHasta($data['fecha_hasta']);
+                array_push($aWheres,Db_Helper::custom('fecha_fin <= "'.$coreInstance->getFechaHasta().'"'));
+//                array_push($aWheres,Db_Helper::equal('fecha_fin',$coreInstance->getFechaHasta()));
             }
+            if(!empty($data['custom_keyword'])){
+                array_push($aWheres, ' AND (');
+                array_push($aWheres,Db_Helper::like('objetivo','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres, 'OR');
+                array_push($aWheres,Db_Helper::like('nombre_actividad','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres, 'OR');
+                array_push($aWheres,Db_Helper::like('nombre_responsable','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres, 'OR');
+                array_push($aWheres,Db_Helper::like('nombre_agencia','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres, 'OR');
+                array_push($aWheres,Db_Helper::like('resultado_esperado','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres,')');
+            }
+//            var_dump($aWheres);
+
             if(!empty($data['mes_enero'])){
                 array_push($aWheres,Db_Helper::equal('mes_enero',true,1));
             }
@@ -118,27 +143,15 @@ class Admin_Reporte_Helper extends Core_Singleton{
             if(!empty($data['mes_diciembre'])){
                 array_push($aWheres,Db_Helper::equal('mes_diciembre',true,1));
             }
-            $a->setWhereByArray($aWheres);
-            $r = $a->searchGetSql();
-            var_dump($r);die();
-            $arr = $a->search(null, 'ASC',null, 0, false);
-//            $arr = $a->search();
-//            var_dump($arr[0]);die();
-//            $c = new Core_Collection($a->search());
-//
-//            $c =$c->groupBy('actividad_id');
-//            $q = $a->searchGetSql();
-//            var_dump($c);
-//            die();
+            $debug = false;
 
-            $resultadoActividad = new Inta_Model_Reporte_Actividad();
-//            $resultadoActividad->insert($arr[0]);
-//            var_dump($xc = $resultadoActividad->insert($arr[0],false,true));
-//            die();
-            $resultadoActividad ->loadFromArray($arr[0]);
-//            var_dump($resultadoActividad);die();
-            $resultadoActividad->replace();
-            return;
+            $a->setWhereByArray($aWheres);
+            if($debug){
+                $r = $a->searchGetSql();
+                var_dump($r);die();
+            }
+            $arr = $a->search(null, 'ASC',null, 0, false);
+            return($arr);
 	}
 	public static function agregarActividades($ids_actividades){
 		if(!$ids_actividades || !is_array($ids_actividades) || !count($ids_actividades)){
@@ -167,7 +180,7 @@ class Admin_Reporte_Helper extends Core_Singleton{
 				->setIdResponsable($responsable->getId())
 				->setNombreResponsable($responsable->getNombre())
 			;
-			//$resultado->insert();
+//			$resultado->insert();
 		}
 		Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Se agregaron {!cantidad} actividades al reporte', (array('cantidad'=>count($ids_actividades)))));
 		return true;

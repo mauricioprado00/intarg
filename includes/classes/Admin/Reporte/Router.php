@@ -45,59 +45,55 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 			//return;
 		}
 		else{
-                        ini_set('display_errors','on');
-                        error_reporting(E_ERROR);
+//                        ini_set('display_errors','on');
+//                        error_reporting(E_ERROR);
 			$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
-//			$post_reporte = $post&&$post->hasReporte()?$post->GetReporte(true):null;
 			$post_reporte = $post&&$post->hasResultadoActividad()?$post->GetResultadoActividad(true):null;
 
-                        if(isset($post_reporte))
-                            Admin_Reporte_Helper::buscarActividadReporte($post_reporte->getData());
+                        if(isset($post_reporte)){
+                            $aReportes = Admin_Reporte_Helper::buscarActividadReporte($post_reporte->getData());
+                            foreach ($aReportes As $oReporte){
+                                $resultadoActividad = new Inta_Model_Reporte_Actividad();
+                                $resultadoActividad ->loadFromArray($oReporte);
+                                $resultadoActividad->replace(null, false, false);
+                            }
+                            $mostrar_listado = true;
+                        }
+                        else{
 
-			$reporte = new Inta_Model_Reporte_Actividad();
-			if(isset($post_reporte)){
-				$reporte->loadFromArray($post_reporte->getData());
-				//echo Core_Helper::DebugVars($reporte->getData());
-				$guardado =
-					Admin_Reporte_Helper::actionAgregarEditarReporte($reporte)?true:false;
-			}
-			else{
-				if(isset($id_reporte)){
-					$reporte->setId($id_reporte);
-					$reporte->load();
-				}
-			}
-			$id_en_post = $post_reporte&&$post_reporte->getId();
-			$mostrar_tabs = $guardado || $id_en_post || $reporte->getId();
-			$mostrar_listado = $guardado&&$reporte->getId()&&$post_reporte&&$post_reporte->getId();
-			
-			if(!$mostrar_tabs){
-				Core_App::getLayout()
-					->addActions('entity_new')
-				;
-			}			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_reporte)?'seteado':'no seteado'));
-			if($mostrar_listado){
-				Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_reporte_action');
-				$this->listar();
-			}
-			else{
-				Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_reporte');
-				$layout = Core_App::getLoadedLayout();
+                            $reporte = new Inta_Model_Reporte_Actividad();
+                            if(!$mostrar_tabs){
+                                    Core_App::getLayout()
+                                            ->addActions('entity_new')
+                                    ;
+                            }			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_reporte)?'seteado':'no seteado'));
+                            if($mostrar_listado){
+                                    Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_reporte_action');
+                                    $this->listar();
+                            }
+                            else{
+                                    Core_App::getLayout()->addActions('entity_addedit', 'addedit_admin_reporte');
+                                    $layout = Core_App::getLoadedLayout();
 
-				if($block_add_edit_list_documentos_reporte = $layout->getBlock('add_edit_list_documentos_reporte')){
-					$block_add_edit_list_documentos_reporte->setIdEntidad($reporte->getId());
-				}
-				if($reporte->getId()&&!$id_reporte){
-					$this->cambiarUrlAjax('administrator/reporte/addEdit/'.$reporte->getId());
-				}
+                                    if($block_add_edit_list_documentos_reporte = $layout->getBlock('add_edit_list_documentos_reporte')){
+                                            $block_add_edit_list_documentos_reporte->setIdEntidad($reporte->getId());
+                                    }
+                                    if($reporte->getId()&&!$id_reporte){
+                                            $this->cambiarUrlAjax('administrator/reporte/addEdit/'.$reporte->getId());
+                                    }
 
-				$reporte->addAutofilterOutput('utf8_decode');
-				
-				foreach($layout->getBlocks('reporte_add_edit_form') as $block){
-					$block->setIdToEdit($reporte->getId());
-					$block->setObjectToEdit($reporte);
-				}
-			}
+                                    $reporte->addAutofilterOutput('utf8_decode');
+
+                                    foreach($layout->getBlocks('reporte_add_edit_form') as $block){
+                                            $block->setIdToEdit($reporte->getId());
+                                            $block->setObjectToEdit($reporte);
+                                    }
+                            }
+                        }
+                        if($mostrar_listado){
+                                Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_reporte_action');
+                                $this->listar();
+                        }
 		}
 	}
 	protected function agregarActividades(){

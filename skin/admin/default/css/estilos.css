@@ -368,10 +368,38 @@ margin:0 5px;
 	height:45px;
 	width:128px;
 }
-.filtro_reporte > div{
+.filtro_reporte > div.extraSearchFilters > div{
     float: left;
     padding-left: 10px;
 }
+.filtro_reporte > div.customSearchString{
+    float: none;
+    padding: 10px;
+    background-color: #F4F9FC;
+    border: solid 2px #CFDAE4;
+}
+.filtro_reporte > div.customSearchString label{
+    display:inline;
+}
+.filtro_reporte > div.customSearchString span a{
+    font-size: 0.7em;
+    color:blue;
+    cursor:pointer;
+}
+.filtro_reporte > div.extraSearchFilters{
+    background-color: #F4FFF2;
+    border-left: solid 2px #D3E4CF;
+    border-right: solid 2px #D3E4CF;
+    border-bottom: solid 2px #D3E4CF;
+    overflow: auto;
+    padding: 10px;
+    display: none;
+}
+.filtro_reporte > div.extraSearchFilters + div{
+    padding: 10px;
+}
+
+
 .filtro_reporte div.show_if_planificacion,.filtro_reporte div.show_if_ocupacion{
     display: none;
 }
