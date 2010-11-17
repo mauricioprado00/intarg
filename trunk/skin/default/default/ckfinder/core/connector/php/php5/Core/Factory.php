@@ -56,24 +56,10 @@ class CKFinder_Connector_Core_Factory
 
         $baseName = str_replace($namespace,"",$className);
 
-
         $className = $namespace.$baseName;
 
         if (!isset(CKFinder_Connector_Core_Factory::$instances[$className])) {
-            /*
             require_once CKFINDER_CONNECTOR_LIB_DIR . "/" . str_replace("_","/",$baseName).".php";
-            */
-
-			if($baseName=='CommandHandler_QuickUpload'&&false){
-//var_dump(CKFINDER_CONNECTOR_LIB_DIR . "/" . str_replace("_","/",$baseName).".php");
-var_dump(realpath(dirname(__FILE__) . "/../" . str_replace("_","/",$baseName).".php"));
-var_dump(CKFINDER_CONNECTOR_LIB_DIR);
-				die("hasta aca llega ".__FILE__."\n");
-				var_dump(CKFinder_Connector_Core_Factory::$instances[$className]);
-				die();
-			}
-			require_once dirname(__FILE__) . "/../" . str_replace("_","/",$baseName).".php";
-
             CKFinder_Connector_Core_Factory::$instances[$className] = new $className;
         }
 

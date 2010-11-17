@@ -42,6 +42,9 @@ $app
 //Test_DataModel::getInstance()->testXmlOutputCollectionHeterogenea();
 //Test_DataModel::getInstance()->textXmlOutputGroupedCollectionAndMethodSingle();
 //Test_DataModel::getInstance()->testXmlOutputGroupeCollectionAndMethodMultiple();
+//$i = new Inta_Model_View_ReporteActividad();
+//echo $i->searchGetSql();
+//die();
 $app->initialize();
 if(isset($_GET['dotest'])){
 	//Test_XsltTemplates::getInstance()->test1();
@@ -50,7 +53,8 @@ if(isset($_GET['dotest'])){
 //Test_XsltServer::getInstance()->testSingleFormating();
 //Test_XsltServer::getInstance()->testMultipleFormating();
 //Test_XsltServer::getInstance()->testAll();
-//
+//SELECT `id`, `id_agencia`, `estado`, `ano`, `objetivo`, `nombre_actividad`, `nombre_responsable`, `nombre_agencia`, `resultado_esperado` FROM `inta_algo` WHERE `id_agencia` = '1' AND `estado` = 'planificado' AND `ano` = '2010' AND ( `objetivo` LIKE '%de prueba%' OR `nombre_actividad` LIKE '%de prueba%' OR `nombre_responsable` LIKE '%de prueba%' OR `nombre_agencia` LIKE '%de prueba%' OR `resultado_esperado` LIKE '%de prueba%' )
+//Test_Wheres::ComplexConditions();
 ////echo $c->toXmlString();
 //$file = $app->getLayout()->getDesignFilePath('resource/xsl/test/agencia.xsl');
 //$file2 = $app->getLayout()->getDesignFilePath('resource/xsl/test/agencia2.xsl');

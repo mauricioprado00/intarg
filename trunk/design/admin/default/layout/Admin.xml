@@ -13,31 +13,31 @@
 					<script>js/jquery-1.3.2.min.js</script> 
 					-->
 					<!-- hace lio con la version actual de blockui -->
-					<script>jquery-ui-1.8.1.custom/development-bundle/jquery-1.4.2.js</script>
+					<script>jquery-ui-1.8.4-126/development-bundle/jquery-1.4.2.js</script>
 					<script>js/admin.js</script>
 					<script>js/ie_menu_fix.js</script>
 				</action>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.core.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.widget.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.mouse.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.sortable.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.tabs.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.slider.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.datepicker.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.button.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.position.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/jquery.ui.autocomplete.js</script>
-				<script>jquery-ui-1.8.1.custom/development-bundle/ui/frontierCalendar/smoothness/jquery-ui-1.8.1.custom.min.js</script>
-				<script>jquery-ui-1.8.1.custom/js/ui.autocomplete.combobox.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.core.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.widget.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.mouse.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.sortable.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.tabs.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.slider.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.datepicker.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.button.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.position.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/jquery.ui.autocomplete.js</script>
+				<script>jquery-ui-1.8.4-126/development-bundle/ui/frontierCalendar/smoothness/jquery-ui-1.8.1.custom.min.js</script>
+				<script>jquery-ui-1.8.4-126/js/ui.autocomplete.combobox.js</script>
 
-				<css>jquery-ui-1.8.1.custom/css/ui.multiselect.css</css>
-				<script>jquery-ui-1.8.1.custom/plugins/localisation/jquery.localisation-min.js</script>
-				<!-- <script>jquery-ui-1.8.1.custom/plugins/scrollTo/jquery.scrollTo-min.js</script> -->
-				<script>jquery-ui-1.8.1.custom/js/ui.multiselect.js</script>
+				<css>jquery-ui-1.8.4-126/css/ui.multiselect.css</css>
+				<script>jquery-ui-1.8.4-126/plugins/localisation/jquery.localisation-min.js</script>
+				<!-- <script>jquery-ui-1.8.4-126/plugins/scrollTo/jquery.scrollTo-min.js</script> -->
+				<script>jquery-ui-1.8.4-126/js/ui.multiselect.js</script>
 				<template template="page/multiselect-init.phtml" />
 				<script>jquery.plugins/ui.selectmenu.js</script>
 				<css>jquery.plugins/ui.selectmenu.css</css>
-				<css>jquery-ui-1.8.1.custom/development-bundle/themes/base/jquery.ui.all.css</css>
+				<css>jquery-ui-1.8.4-126/development-bundle/themes/base/jquery.ui.all.css</css>
 				
 				<script charset="utf8">js/ScreenBlock.js</script>
 				<script inline_script="true"><![CDATA[
