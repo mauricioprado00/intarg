@@ -73,6 +73,7 @@ jQuery(document).ready(function(){
 			jQuery(this).parents('li:first').css('background-color','')
 		})
 		.click(function(){
+			var that = this;
 			var jqthat = jQuery(this);
 			var jqwin = jQuery('<div></div>');
 			jqwin.html('&iquest;Desea continuar eliminando el indicador y sus medios de verificacion asociados?<br />');
@@ -86,8 +87,10 @@ jQuery(document).ready(function(){
 						'administrator/ajax/resultado_esperado/deleteIndicador/'+id_indicador_resultado+'/',
 						function (data){
 							jQuery.ScreenBlock(false);
-							jQuery('#<?php print $id_control; ?>')
-								.parents('.ui-tabs-panel:first')
+							//jQuery('#<?php print $id_control; ?>')
+							jQuery(that)
+								//.parents('.ui-tabs-panel:first')
+								.parents('.listado_indicadores_resultado_esperado:last')
 								.html(data)
 							;
 						}
@@ -167,6 +170,7 @@ jQuery(document).ready(function(){
 			jQuery(this).parents('li:first').css('background-color','')
 		})
 		.click(function(){
+			var that = this;
 			var jqthat = jQuery(this);
 			var jqwin = jQuery('<div></div>');
 			jqwin.html('&iquest;Desea continuar eliminando el medio de verificaci&oacute;n?<br />');
@@ -180,8 +184,10 @@ jQuery(document).ready(function(){
 						'administrator/ajax/resultado_esperado/deleteMedioVerificacion/'+id_medio_verificacion_indicador_resultado+'/',
 						function (data){
 							jQuery.ScreenBlock(false);
-							jQuery('#<?php print $id_control; ?>')
-								.parents('.ui-tabs-panel:first')
+							//jQuery('#<?php print $id_control; ?>')
+							jQuery(that)
+								//.parents('.ui-tabs-panel:first')
+								.parents('.listado_indicadores_resultado_esperado:last')
 								.html(data)
 							;
 						}

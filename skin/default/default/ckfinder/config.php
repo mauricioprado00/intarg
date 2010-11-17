@@ -1,7 +1,4 @@
 <?php
-//chdir(dirname(__FILE__).'/../../admin/');
-//require_once('header.inc.php');
-//chdir(dirname(__FILE__));
 session_start();
 $_SESSION['CKFinder_UserRole'] ='admin';
 /*
@@ -25,28 +22,33 @@ $_SESSION['CKFinder_UserRole'] ='admin';
  */
 function CheckAuthentication()
 {
-	//WARNING : DO NOT simply return "true". By doing so, you are allowing
-	//"anyone" to upload and list the files in your server. You must implement
-	//some kind of session validation here. Even something very simple as...
+	// WARNING : DO NOT simply return "true". By doing so, you are allowing
+	// "anyone" to upload and list the files in your server. You must implement
+	// some kind of session validation here. Even something very simple as...
 
 	// return isset($_SESSION['IsAuthorized']) && $_SESSION['IsAuthorized'];
 
-	//... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
-	//user logs in your system.
+	// ... where $_SESSION['IsAuthorized'] is set to "true" as soon as the
+	// user logs in your system. To be able to use session variables don't
+	// forget to add session_start() at the top of this file.
 	if(isset($_SESSION['CKFINDER']['CKFINDER_ALLOWED'])){
 		$val = unserialize($_SESSION['CKFINDER']['CKFINDER_ALLOWED']);
 		return($val?true:false);
 	}
 	return(false);
-
-	return(isset($_SESSION[SESSION_PREFIX . 'UsuarioId']) AND !empty($_SESSION[SESSION_PREFIX . 'UsuarioId']));
-	return true;
 }
 
 // LicenseKey : Paste your license key here. If left blank, CKFinder will be
 // fully functional, in demo mode.
 $config['LicenseName'] = '';
 $config['LicenseKey'] = '';
+
+/*
+ Uncomment lines below to enable PHP error reporting and displaying PHP errors.
+ Do not do this on a production server. Might be helpful when debugging why CKFinder does not work as expected.
+*/
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
 
 /*
 To make it easy to configure CKFinder, the $baseUrl and $baseDir can be used.
@@ -63,9 +65,8 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-//$baseUrl = '/skin/ckfinder/userfiles/';
-//$baseUrl = 'http://www.lagunacuida.org/nueva/img/uploads/';
 $baseUrl = unserialize($_SESSION['CKFINDER']['BASEURL']).'/';
+
 /*
 $baseDir : the path to the local directory (in the server) which points to the
 above $baseUrl URL. This is the path used by CKFinder to handle the files in
@@ -76,13 +77,13 @@ Examples:
 	$baseDir = '/home/login/public_html/ckfinder/files/';
 	$baseDir = 'C:/SiteDir/CKFinder/userfiles/';
 
-	// Or you may let CKFinder discover the path, based on $baseUrl:
+	// Or you may let CKFinder discover the path, based on $baseUrl.
+	// WARNING: resolveUrl() *will not work* if $baseUrl does not start with a slash ("/"),
+	// for example if $baseDir is set to  http://example.com/ckfinder/files/
 	$baseDir = resolveUrl($baseUrl);
 
 ATTENTION: The trailing slash is required.
 */
-//$baseDir = resolveUrl($baseUrl);
-//$baseDir = dirname(__FILE__).'/../../../uploads/';
 $baseDir = unserialize($_SESSION['CKFINDER']['BASEDIR']).'/';
 
 /*
@@ -161,6 +162,12 @@ $config['AccessControl'][] = Array(
 		'resourceType' => 'Images',
 		'folder' => '/Logos',
 
+		'folderView' => true,
+		'folderCreate' => true,
+		'folderRename' => true,
+		'folderDelete' => true,
+
+		'fileView' => true,
 		'fileUpload' => false,
 		'fileRename' => false,
 		'fileDelete' => false);
@@ -184,22 +191,31 @@ Available options are: G, M, K (case insensitive).
 Example: 'maxSize' => "8M",
 */
 $config['DefaultResourceTypes'] = '';
-//$config['ResourceType'][] = Array(
-//		'name' => 'Files',				// Single quotes not allowed
-//		'url' => $baseUrl,// . 'files',
-//		'directory' => $baseDir,// . 'files',
-//		'maxSize' => 0,
-//		'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,zip',
-//		'deniedExtensions' => '');
 
 //$config['ResourceType'][] = Array(
-//		'name' => 'Images',
-//		'url' => $baseUrl,// . 'image',
-//		'directory' => $baseDir,// . 'image',
+//		'name' => 'Files',				// Single quotes not allowed
+//		'url' => $baseUrl . 'files',
+//		'directory' => $baseDir . 'files',
 //		'maxSize' => 0,
-//		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png',
-//		'deniedExtensions' => ''
-//);
+//		'allowedExtensions' => '7z,aiff,asf,avi,bmp,csv,doc,docx,fla,flv,gif,gz,gzip,jpeg,jpg,mid,mov,mp3,mp4,mpc,mpeg,mpg,ods,odt,pdf,png,ppt,pptx,pxd,qt,ram,rar,rm,rmi,rmvb,rtf,sdc,sitd,swf,sxc,sxw,tar,tgz,tif,tiff,txt,vsd,wav,wma,wmv,xls,xlsx,zip',
+//		'deniedExtensions' => '');
+//
+//$config['ResourceType'][] = Array(
+//		'name' => 'Images',
+//		'url' => $baseUrl . 'images',
+//		'directory' => $baseDir . 'images',
+//		'maxSize' => "16M",
+//		'allowedExtensions' => 'bmp,gif,jpeg,jpg,png,avi,iso,mp3',
+//		'deniedExtensions' => '');
+//
+//$config['ResourceType'][] = Array(
+//		'name' => 'Flash',
+//		'url' => $baseUrl . 'flash',
+//		'directory' => $baseDir . 'flash',
+//		'maxSize' => 0,
+//		'allowedExtensions' => 'swf,flv',
+//		'deniedExtensions' => '');
+
 ob_start();
 try{
 	$ResourceTypes = unserialize($_SESSION['CKFINDER']['RESOURCETYPES']);
@@ -219,13 +235,6 @@ if($c){
 	//SI ESTO DA ERROR ES PORQUE SE ESTAN PASANDO MAL LOS PARAMETROS POR LA VARIABLE DE SESION
 }
 
-//$config['ResourceType'][] = Array(
-//		'name' => 'Flash',
-//		'url' => $baseUrl,// . 'flash',
-//		'directory' => $baseDir,// . 'flash',
-//		'maxSize' => 0,
-//		'allowedExtensions' => 'swf,flv',
-//		'deniedExtensions' => '');
 
 /*
  Due to security issues with Apache modules, it is recommended to leave the
