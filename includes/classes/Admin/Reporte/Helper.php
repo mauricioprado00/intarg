@@ -10,7 +10,12 @@ class Admin_Reporte_Helper extends Core_Singleton{
 //            $coreInstance->addAutofilterFieldInput('fecha_hasta', array('Mysql_Helper','filterDateInput'));
 //        }
 
-
+	public function getUrlExportarFormato1(){
+		return Core_App::getUrlModel()->getUrl('administrator/reporte/formato1');
+	}
+	public function getUrlExportarFormato2(){
+		return Core_App::getUrlModel()->getUrl('administrator/reporte/formato2');
+	}
 	public function getInstance(){
 		return(self::getInstanceOf(__CLASS__));
 	}
@@ -49,7 +54,7 @@ class Admin_Reporte_Helper extends Core_Singleton{
 		}
 	}
 	public static function eliminarReporte($id_reporte){
-		$reporte = new Inta_Model_Reporte();
+		$reporte = new Inta_Model_Reporte_Actividad();
 		return($reporte->setId($id_reporte)->delete());
 	}
         public static function buscarActividadReporte($data){
@@ -62,18 +67,18 @@ class Admin_Reporte_Helper extends Core_Singleton{
             if(!empty($data['id_agencia']))
                 array_push($aWheres,Db_Helper::equal('id_agencia',$data['id_agencia']));
             if(!empty($data['audiencia']))
-                array_push($aWheres,Db_Helper::like('audiencia','%'.$data['audiencia'].'%'));
+                array_push($aWheres,Db_Helper::like('audiencia','%',$data['audiencia'],'%'));
             if(!empty($data['resultado_esperado']))
-                array_push($aWheres,Db_Helper::like('resultado_esperado','%'.$data['resultado_esperado'].'%'));
+                array_push($aWheres,Db_Helper::like('resultado_esperado','%',$data['resultado_esperado'],'%'));
             if(!empty($data['objetivo']))
-                array_push($aWheres,Db_Helper::like('objetivo','%'.$data['objetivo'].'%'));
+                array_push($aWheres,Db_Helper::like('objetivo','%',$data['objetivo'],'%'));
             if(!empty($data['id_usuario'])){
                 array_push($aWheres,Db_Helper::in('id_usuario_involucrado',true,$data['id_usuario']));
             }
             if(!empty($data['estado'])&&$data['estado'] !== ''){
                 array_push($aWheres,Db_Helper::equal('estado',$data['estado']));
             }else{
-                array_push($aWheres,Db_Helper::equal('estado','planificado'));
+                //array_push($aWheres,Db_Helper::equal('estado','planificado'));
             }
             if(!empty($data['ano'])){
                 array_push($aWheres,Db_Helper::equal('ano',$data['ano']));
@@ -94,15 +99,15 @@ class Admin_Reporte_Helper extends Core_Singleton{
             }
             if(!empty($data['custom_keyword'])){
                 array_push($aWheres, ' AND (');
-                array_push($aWheres,Db_Helper::like('objetivo','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres,Db_Helper::like('objetivo','%',$data['custom_keyword'],'%'));
                 array_push($aWheres, 'OR');
-                array_push($aWheres,Db_Helper::like('nombre_actividad','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres,Db_Helper::like('nombre_actividad','%',$data['custom_keyword'],'%'));
                 array_push($aWheres, 'OR');
-                array_push($aWheres,Db_Helper::like('nombre_responsable','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres,Db_Helper::like('nombre_responsable','%',$data['custom_keyword'],'%'));
                 array_push($aWheres, 'OR');
-                array_push($aWheres,Db_Helper::like('nombre_agencia','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres,Db_Helper::like('nombre_agencia','%',$data['custom_keyword'],'%'));
                 array_push($aWheres, 'OR');
-                array_push($aWheres,Db_Helper::like('resultado_esperado','%'.$data['custom_keyword'].'%'));
+                array_push($aWheres,Db_Helper::like('resultado_esperado','%',$data['custom_keyword'],'%'));
                 array_push($aWheres,')');
             }
 //            var_dump($aWheres);
@@ -147,8 +152,9 @@ class Admin_Reporte_Helper extends Core_Singleton{
 
             $a->setWhereByArray($aWheres);
             if($debug){
-                $r = $a->searchGetSql();
-                var_dump($r);die();
+				echo Core_Helper::DebugVars($a->searchGetSql());
+//                $r = $a->searchGetSql();
+//                var_dump($r);die();
             }
             $arr = $a->search(null, 'ASC',null, 0, false);
             return($arr);
@@ -160,7 +166,7 @@ class Admin_Reporte_Helper extends Core_Singleton{
 		}
 		$usuario = Admin_User_Model_User::getLogedUser();
 		$agencia = Admin_Helper::getInstance()->getAgencia();
-		$resultado = new Core_Object();//aca usar la clase de verdad
+		$resultado = new Inta_Model_Reporte_Actividad();
 		$resultado
 			->setIdAgencia($agencia->getId())
 			->setNombreAgencia($agencia->getNombre())
@@ -180,10 +186,34 @@ class Admin_Reporte_Helper extends Core_Singleton{
 				->setIdResponsable($responsable->getId())
 				->setNombreResponsable($responsable->getNombre())
 			;
-//			$resultado->insert();
+			//echo Core_Helper::DebugVars(get_class($resultado));
+			$resultado->insert();
 		}
 		Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Se agregaron {!cantidad} actividades al reporte', (array('cantidad'=>count($ids_actividades)))));
 		return true;
+	}
+	public function clearReportesDeUsuario($id_usuario = null){
+		if(!isset($id_usuario)){
+			$id_usuario = Admin_User_Model_User::getLogedUser()->getId();
+		}
+		if(!$id_usuario){
+			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo limpiar los resultados de búsqueda'));
+		}
+		
+			
+		$reporte = new Inta_Model_Reporte_Actividad();
+		$reporte->setIdUsuarioLogeado($id_usuario);
+		if($cantidad = $reporte->searchCount()){
+			if($reporte->delete()){
+				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Se eliminaron {!cantidad} de resultados', array('cantidad'=>$cantidad)));
+			}
+			else{
+				Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudieron eliminar {!cantidad} resultados', array('cantidad'=>$cantidad)));
+			} 
+		}
+		else{
+			Admin_App::getInstance()->addInfoMessage(self::getInstance()->__t('No hay resultados resultados de busqueda a eliminar'));
+		}
 	}
 }
 ?>

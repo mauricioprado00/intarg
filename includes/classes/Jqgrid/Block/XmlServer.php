@@ -6,6 +6,18 @@ class Jqgrid_Block_XmlServer extends Core_Block_Abstract{
 	public function getHtml(){
 		return $this->toHtml();
 	}
+	public static $secuencias = null;
+	public static function resetSecuencia($tipo){
+		self::$secuencias[$tipo] = 1;
+		return null;
+	}
+	public static function secuencia($tipo,$cant=1){
+		if(!isset(self::$secuencias))
+			self::$secuencias = array();
+		if(!isset(self::$secuencias[$tipo]))
+			self::$secuencias[$tipo] = 1;
+		return self::$secuencias[$tipo]+=$cant;
+	}
 	public static function groupByTag($xml,$exclude_tags=null){
 		//var_dump($x = func_get_args());//		var_dump($xml);//		echo $xml->asXML();
 		if(!$xml||!isset($xml[0])||!($xml[0] instanceof domnode))
@@ -342,6 +354,7 @@ class Jqgrid_Block_XmlServer extends Core_Block_Abstract{
 		if($this->canLoadDataFromEntity()){
 			$class = get_class($this->getEntityToList());
 			$ent = new $class();
+			$this->prepareEntityToList($ent, 0, 0, 0, 0, array());
 			return $ent->searchCount();
 		}
 		return null;

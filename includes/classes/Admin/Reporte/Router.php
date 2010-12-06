@@ -5,7 +5,9 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 		$this->addActions(
 			'cerrar_sesion',
 			'addEdit','delete','listar','datalist','datalist2',
-			'ordenar','setorden','datalist3', 'agregarActividades'
+			'ordenar','setorden','datalist3', 'agregarActividades',
+			'clear',
+			'formato1','formato2'
 		);
 	}
 	protected function onThrought(){
@@ -19,7 +21,7 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 		}
 	}
 	protected function delete($id_reporte=null){
-		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Reporte()), 'd');
+		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Reporte_Actividad()), 'd');
 		Core_App::getInstance()->clearLastErrorMessages();
 		if(!$permisos){
 			Core_App::getLayout()->addActions('security_restriction');
@@ -52,10 +54,13 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 
                         if(isset($post_reporte)){
                             $aReportes = Admin_Reporte_Helper::buscarActividadReporte($post_reporte->getData());
+                            $id_usuario_logeado = Admin_User_Model_User::getLogedUser()->getId();
                             foreach ($aReportes As $oReporte){
-                                $resultadoActividad = new Inta_Model_Reporte_Actividad();
-                                $resultadoActividad ->loadFromArray($oReporte);
-                                $resultadoActividad->replace(null, false, false);
+                                c($resultadoActividad = new Inta_Model_Reporte_Actividad())
+									->loadFromArray($oReporte)
+									->setIdUsuarioLogeado($id_usuario_logeado)
+									->replace(null, false, false)
+								;
                             }
                             $mostrar_listado = true;
                         }
@@ -103,6 +108,12 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 		//echo Core_Helper::DebugVars($post->getIdActividad());
 	}
 	protected function listar(){
+		$reporte = new Inta_Model_Reporte_Actividad();
+		$reporte->setIdUsuarioLogeado($id_usuario);
+		if(!$cantidad = $reporte->searchCount()){
+			$this->showAddHelp();
+			return;
+		}
 		Core_App::getLayout()->addActions('entity_list', 'list_admin_reporte');
 		$this->cambiarUrlAjax('administrator/reporte/listar');
 	}
@@ -118,6 +129,19 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 		Core_Http_Header::ContentType('text/xml');
 		Core_App::getLayout()->setActions(array());//reset
 		Core_App::getLayout()->addActions('datalist', 'datalist_admin_reporte3');
+	}
+	protected function showAddHelp(){
+		Core_App::getLayout()->addActions('admin_reporte_add_help');
+	}
+	protected function formato1(){
+		Admin_Reporte_Helper_Export_Format1::getInstance()->export();
+	}
+	protected function formato2(){
+		Admin_Reporte_Helper_Export_Format2::getInstance()->export();
+	}
+	protected function clear(){
+		Admin_Reporte_Helper::getInstance()->clearReportesDeUsuario();
+		return $this->addEdit();
 	}
 	protected function dispatchNode(){
 		return;

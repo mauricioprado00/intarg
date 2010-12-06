@@ -138,3 +138,21 @@ li:hover>.listado_toolbox{
 .entity_addedit fieldset select{
 	min-width:267px;
 }
+
+
+.export-selection{
+	float:left;
+	border:1px solid black;
+	padding:5px 2px;
+	width:100px;
+	cursor:pointer;
+}
+.export-selection:hover{
+	background-color:#FFFFEE;
+}
+.export-selection.selected{
+	background-color:#DDFFDD;
+}
+.export-selection+.export-selection{
+	margin-left:10px;
+}

@@ -6,7 +6,7 @@
 //var_dump(strtotime('12:30'), time());
 //die();
 ini_set('log_errors', 'On');
-ini_set('memory_limit', '50M');
+ini_set('memory_limit', '100M');
 include_once(dirname(__FILE__).'/basic.php');
 //Core_Http_Header::ContentType('text/plain');
 //var_duMP($GLOBALS);
@@ -36,15 +36,23 @@ $app
 ////echo Inta_Db::getInstance()->getLastQuery();
 //var_dump($x);
 //die();
-
+//$doc = new DOMDocument();
+//$doc->load(realpath('/var/www/document.xml'));
+//$doc->formatOutput = true;	
+//echo $doc->saveXML();
+//die();
 //Test_DataModel::getInstance()->pruebaXmlOutputEntity();
 //Test_DataModel::getInstance()->testXmlOutputCollectionHomogenea();
 //Test_DataModel::getInstance()->testXmlOutputCollectionHeterogenea();
 //Test_DataModel::getInstance()->textXmlOutputGroupedCollectionAndMethodSingle();
 //Test_DataModel::getInstance()->testXmlOutputGroupeCollectionAndMethodMultiple();
+//Test_Inta_Reporte::getInstance()->testXmlOutputAgrupado();
+//Test_Inta_Reporte::getInstance()->testDocxOutputAgrupado();
 //$i = new Inta_Model_View_ReporteActividad();
 //echo $i->searchGetSql();
+//Test_Inta_Reporte::getInstance()->testXmlOutputAgrupado2();
 //die();
+
 $app->initialize();
 if(isset($_GET['dotest'])){
 	//Test_XsltTemplates::getInstance()->test1();

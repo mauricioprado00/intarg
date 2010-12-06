@@ -92,6 +92,9 @@ class Core_Helper extends Core_Singleton{
 		$pre->setInnerHtml($c);
 		return $pre->getHtml();
 	}
+	function Cast($o, $class){ 
+		return(unserialize(preg_replace('/O:[0-9]+:"'.get_class($o).'":/', 'O:'.strlen($class).':"'.$class.'":', serialize($o), 1)));
+	}
 
 }
 ?>

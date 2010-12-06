@@ -18,6 +18,17 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Agencia: </label>
 			<span><?
+				$id_agencia = $x->getIdAgencia()?$x->getIdAgencia():Admin_Helper::getInstance()->getIdAgencia();			
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+				$input
+					->setMaxlength(300)
+					->setType('hidden')
+					->setId('nombre')
+					->setName('objetivo[id_agencia]')
+					->setValue($id_agencia)
+				;
+				echo $input->getHtml();
+
 				$agencia = new Inta_Model_Agencia();
 				$agencias = $agencia->search();
 				$html_select = '';
@@ -26,27 +37,18 @@ $x = $this->getObjectToEdit();
 						->setValue($agencia->getId())
 						->setInnerHtml($agencia->getNombre())
 					;
-					if($agencia->getId()==$x->getIdAgencia())
+					if($agencia->getId()==$id_agencia)
 						$option->setSelected('selected');
 					$html_select .= $option->getHtml();
 				}
 				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
 					->setName('objetivo[id_agencia]')
 					->setId('id_agencia')
-					->setDisabled('disabled')
+					//->setDisabled('disabled')
+					->setReadonly('readonly')
 					->setInnerHtml($html_select)
 					->getHtml()
 				;
-				
-				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
-				$input
-					->setMaxlength(300)
-					->setType('hidden')
-					->setId('nombre')
-					->setName('audiencia[id_agencia]')
-					->setValue($x->getIdAgencia())
-				;
-				echo $input->getHtml();
 
 			?> 
 			</span>

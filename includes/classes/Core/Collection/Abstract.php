@@ -153,18 +153,28 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 	public function groupBy(){
 		$args = array(
 			'campos'=>func_get_args(),
-			'include_nulls'=>true
+			'include_nulls'=>true,
+			'clase'=>null
+		);
+		return call_user_func_array(array($this, '_groupBy'), $args);
+	}
+	public function groupByAs($campos, $clase=null){
+		$args = array(
+			'campos'=>$campos,
+			'include_nulls'=>true,
+			'clase'=>$clase
 		);
 		return call_user_func_array(array($this, '_groupBy'), $args);
 	}
 	public function groupByWithoutNulls(){
 		$args = array(
 			'campos'=>func_get_args(),
-			'include_nulls'=>false
+			'include_nulls'=>false,
+			'clase'=>null
 		);
 		return call_user_func_array(array($this, '_groupBy'), $args);
 	}
-	private function _groupBy($campos, $include_nulls=true){
+	private function _groupBy($campos, $include_nulls=true, $clase=null){
 //		if(is_array($campos))
 //			$campo = array_shift($campos);
 //		else $campo = $campos;
@@ -184,7 +194,10 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 				continue;
 			//$grouped_filtered = $grouped->_filterEq($campo, $value);
 			if(!$grouped_filtered->count()){
-				$class = get_class($this);
+				if(isset($clase)&&class_exists($clase))
+					$class = $clase;
+				else
+					$class = get_class($this);
 				$collection = new $class;
 				$key = array();
 				foreach($campos as $campo){
@@ -307,6 +320,67 @@ abstract class Core_Collection_Abstract extends Core_Object implements IteratorA
 			//parent::__childsToXmlString($writer);
 		}
 	}
-
+	protected function __toXmlStringStart($writer, $data_model){
+		if($data_model){
+			foreach($this->extendDataModel($data_model)->getModelComponents() as $component){
+				switch($component->nodeName){
+					case 'method':{
+						$method = $component->gattr('method');
+						$name = $component->gattr('name');
+						$multiplicity = $component->gattr('multiplicity');
+						try{
+							//throw(new Exception());
+							$return = $this->$method();
+						}catch(Exception $e){
+							die("invalid method $method in data model ".$data_model->saveXML());
+						}
+						if($multiplicity=='single'){
+							//var_dump($return->getData(),$return->getXmlEntityTagname());
+							$return = c(new Core_Object())->setData($name, $return);
+							//var_dump($return->getData());
+							///$return->setData($name, $return);
+							//$model = $component->getDataModelFromComponent();
+							//$return->setXmlEntityTagname($name);
+							$child_data_model = $component->getDataModelFromComponentMethodSingle($return->getXmlEntityTagname());
+							//$data_model = null;
+//							echo $data_model->saveXML();
+//							die();
+							$return->__childsToXmlString($writer, $child_data_model);
+							//$return->__toXmlString($writer, $data_model);
+						}
+						else{
+							//echo Inta_Db::getInstance()->getLastQuery();
+							if(!count($return))
+								continue;
+							if(!is_object($return)){
+								if(!is_array($return)){
+									$return = array($return);
+								}
+								$return = new Core_Collection($return);
+							}
+							else{
+								if(!($return instanceof Core_Collection)){
+									$return = new Core_Collection(array($return));
+								}
+							}
+							$return->setXmlEntityTagname($name);
+							$child_data_model = $component->getDataModelFromComponentMethodMultiple($name);
+							//echo $data_model->saveXML();
+							//var_dump($return);
+							//echo $child_data_model->saveXML().__FILE__.__LINE__;
+							//die("falta .... creo no funciona la llamada getListAudiencia, devuelve todos los datos como si no tomada el datamodel".__FILE__.__LINE__);
+							//var_dump($name);
+							//var_dump(get_class($return));
+							$return->__toXmlString($writer, $child_data_model);
+						}
+						
+						//echo "metodo $multiplicity>$method>$name>>".__FILE__.__LINE__."\n";
+						break;
+					}
+				}
+			}
+			
+		}
+	}
 }
 ?>

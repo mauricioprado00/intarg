@@ -34,7 +34,7 @@ class Inta_Model_Documento extends Core_Model_Abstract{
 
 		$tipos_recursos = Core_Session::getVar('RESOURCETYPES', 'CKFINDER');
 		if(!file_exists($baseDir.'/'.$sub_directorio.'/')){
-			mkdir($baseDir.$sub_directorio.'/',0777,true);;
+			mkdir($baseDir.'/'.$sub_directorio.'/',0777,true);
 		}
 		$tipos_recursos[$tipo_recurso] = Array(
 				'name' => $tipo_recurso,

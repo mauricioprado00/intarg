@@ -41,7 +41,7 @@ jQuery(function(){
 				return null;
 			return [{
 				id: 0,
-				label: '<span style="white-space:nowrap;">Agregar "<span style="cursor:pointer;" onclick="selector_abm_indicador.agregar(\''+request.term.split('\'').join('\\\'')+'\','+<?php print json_encode(htmlentities(json_encode($config)))?>+','+<?php print json_encode(htmlentities(json_encode($id))); ?>+','+<?php print json_encode(htmlentities(json_encode($this->getTipoIndicador()))); ?>+');"><i>'+request.term+'</i></span></span>"',
+				label: '<span style="white-space:nowrap;cursor:pointer;" onclick="selector_abm_indicador.agregar(\''+request.term.split('\'').join('\\\'')+'\','+<?php print json_encode(htmlentities(json_encode($config)))?>+','+<?php print json_encode(htmlentities(json_encode($id))); ?>+','+<?php print json_encode(htmlentities(json_encode($this->getTipoIndicador()))); ?>+');">Agregar "<span><i>'+request.term+'</i></span></span>"',
 				value: request.term
 			}];
 		}

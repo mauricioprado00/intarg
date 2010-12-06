@@ -129,12 +129,18 @@
 				action_url="actividad/addEdit"
 				ajax_target=".contenedor_main"
 				ajax_replace_with="true"
-				validador_js="validar_agregar_actividad,validar_seleccion_resultado_esperado"
-				method="post">
+				validador_js="validar_agregar_actividad"
+				method="post"
+				name="formulario_edicion_actividad">
 				<tabset>
 					<!-- cuando agregamos una nueva forzamos a que seleccionen el resultado esperado -->
 					<tab when="accion(entity_new)" title="Resultado Esperado">
 						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" allow_in_new="si_dejar" validator="validar_seleccion_resultado_esperado" />
+						<reference name="formulario_edicion_actividad">
+							<action method="setValidadorJs">
+								<valor>validar_agregar_actividad,validar_seleccion_resultado_esperado</valor>
+							</action>
+						</reference>
 					</tab>
 					<tab title="Datos de Actividad">
 						<block name="actividad_add_edit_form" as="datos" type="template" template="actividad/add.phtml">
@@ -197,6 +203,11 @@
 					-->
 					<tab when="!accion(entity_new)&amp;accion(edit_actividad_estado_planificado)" title="Resultado Esperado">
 						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" validator="validar_seleccion_resultado_esperado" />
+						<reference name="formulario_edicion_actividad">
+							<action method="setValidadorJs">
+								<valor>validar_agregar_actividad,validar_seleccion_resultado_esperado</valor>
+							</action>
+						</reference>
 					</tab>
 					<!--
 					<tab when="!accion(entity_new)" title="Documentos">

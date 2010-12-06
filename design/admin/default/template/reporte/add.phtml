@@ -42,6 +42,7 @@ $x = $this->getObjectToEdit();
                     <label>Agencia: </label>
                     <span><?
                     echo c($selector_agencia = $this->appendBlock('<selector_agencia />'))
+                            ->setSelectMessage('Cualquiera')
                             ->setSelectedValue($x->getIdAgencia())
                             ->void($selector_agencia
                                     ->getSelectControl()
@@ -60,6 +61,7 @@ $x = $this->getObjectToEdit();
                     <label>Audiencia: </label>
                     <span><?
                         echo c($selector_audiencia = $this->appendBlock('<selector_audiencia />'))
+                            	->setSelectMessage('Cualquiera')
                                 ->setSelectedValue($x->getIdAgencia())
                                 ->void($selector_audiencia
                                         ->getSelectControl()
@@ -113,6 +115,7 @@ $x = $this->getObjectToEdit();
                     <label>Responsable: </label>
                     <span><?
                         echo c($selector_usuario = $this->appendBlock('<selector_usuario />'))
+	                            ->setSelectMessage('Cualquiera')
                                 ->setSelectedValue($x->getIdResponsable())
                                 ->void($selector_usuario
                                         ->getSelectControl()
@@ -131,6 +134,7 @@ $x = $this->getObjectToEdit();
                     <label>Proyecto: </label>
                     <span><?
                         echo c($selector_usuario = $this->appendBlock('<selector_proyecto />'))
+	                            ->setSelectMessage('Cualquiera')
                                 ->setSelectedValue($x->getIdResponsable())
                                 ->void($selector_usuario
                                         ->getSelectControl()
@@ -151,6 +155,7 @@ $x = $this->getObjectToEdit();
                     <label>Usuarios Asociados: </label>
                     <span><?
                         echo c($selector_usuario = $this->appendBlock('<selector_usuario />'))
+	                            ->setSelectMessage('Cualquiera')
                                 ->setSelectedValue($x->getIdResponsable())
                                 ->void($selector_usuario
                                         ->getSelectControl()
@@ -213,7 +218,7 @@ $x = $this->getObjectToEdit();
                                 ->setName('resultado_actividad[estado]')
                                 ->setData('data-campo', '<b>Estado</b>')
                         ;
-                        $aEstados = array('' => 'Seleccione',
+                        $aEstados = array('' => 'Cualquiera',
                             'planificado' => 'Planificado',
                             'parcial' => 'Parcial',
                             'cancelado' => 'Cancelado',
