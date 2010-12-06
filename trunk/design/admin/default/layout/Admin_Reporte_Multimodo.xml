@@ -6,6 +6,9 @@
 			toolbar_delete_url="administrator/reporte/delete,id">
 		</reference>
 		-->
+		<reference name="contenedor_main">
+			<template template="reporte/jqgrid/widget/export.phtml" />
+		</reference>
 		<reference name="listado_datos_grid"
 			caption="Listado de Reporte"
 			source="administrator/reporte/datalist3"
@@ -18,7 +21,7 @@
 			can_delete="false"
 			full_width="true"
 			toolbar="top"
-			can_export_as_html="true"
+			can_export_as_html="false"
 			>
 			<!--
 			<block custom_type="boton" 
@@ -34,15 +37,15 @@
 				<sortable>false</sortable>
 				<hideinexport>1</hideinexport>
 			</action>
-			<!--<action named_args="true" method="addColumn">
-				<title>Inv No</title>
+			<action named_args="true" method="addColumn">
+				<title>Nro</title>
 				<name>id</name>
 				<index>id</index>
-				<width>55</width>
+				<width>10</width>
 				<align>left</align>
 				<sortable>true</sortable>
 			</action>
-			-->
+			<!-- -->
 			<action named_args="true" method="addColumn">
 				<title>Agencia</title>
 				<name>nombre_agencia</name>
@@ -105,4 +108,9 @@
 			</block>
 		</reference>
 	</addedit_admin_reporte>
+	<admin_reporte_add_help>
+		<reference name="contenedor_main">
+			<template template="reporte/addHelp.phtml" />
+		</reference>
+	</admin_reporte_add_help>
 </layout>

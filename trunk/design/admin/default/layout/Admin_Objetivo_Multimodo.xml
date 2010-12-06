@@ -70,7 +70,7 @@
 				ajax_target=".contenedor_main"
 				ajax_replace_with="true"
 				ajax_method="ajaxSubmit"
-				validador_js="validar_agregar_objetivo_datos"
+				validador_js="validar_agregar_objetivo_datos,validar_agregar_objetivo_problemas"
 				method="post" 
 				name="formulariox">
 				<tabset>

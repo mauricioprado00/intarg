@@ -9,7 +9,7 @@ class Core_Xslt_Server extends Core_Object{
 	private $data_model = null;
 	private $arr_xslt = array();
 	private $use_header = true;
-	public function setUseHeader(){
+	public function setUseHeader($val){
 		$this->use_header = $val?true:false;
 		return $this;
 	}

@@ -19,5 +19,11 @@ class Inta_Model_Audiencia extends Core_Model_Abstract{
 	{
 		return 'inta_audiencia';
 	}
+	public function getListProblema(){
+		$problema = new Inta_Model_Problema();
+		$problema->setIdAudiencia($this->getId());
+		$problema->setWhere(Db_Helper::equal('id_audiencia'));
+		return $problema->search();
+	}
 }
 ?>

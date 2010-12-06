@@ -1240,10 +1240,14 @@ class Core_Object
 			}
 		}
 	}
+	protected function __toXmlStringStart($writer, $data_model){}
 	protected function __toXmlString($writer, $data_model){
 		//var_dump($data_model->localName);
 		$writer->startElement($this->getXmlEntityTagname());
+		$this->__toXmlStringStart($writer, $data_model);
 		$this->__childsToXmlString($writer, $data_model);
+		$this->__toXmlStringEnd($writer, $data_model);
 		$writer->endElement();
 	}
+	protected function __toXmlStringEnd($writer, $data_model){}
 }

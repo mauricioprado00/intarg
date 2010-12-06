@@ -14,14 +14,19 @@
 		<reference name="menu_admin_reporte">
 			<block type="Admin/Menu">
 				<action method="addItem">
-					<link_url>reporte/listar</link_url>
-					<text>Listado</text>
-					<title>Listado</title>
+					<link_url>reporte/addEdit</link_url>
+					<text>Agregar por búsqueda</text>
+					<title>Agregar por búsqueda</title>
 				</action>
 				<action method="addItem">
-					<link_url>reporte/addEdit</link_url>
-					<text>Agregar</text>
-					<title>Agregar</title>
+					<link_url>reporte/listar</link_url>
+					<text>Resultados</text>
+					<title>Resultados</title>
+				</action>
+				<action method="addItem">
+					<link_url>reporte/clear</link_url>
+					<text>Limpiar resultados</text>
+					<title>Limpiar resultados</title>
 				</action>
 			</block>
 		</reference>
@@ -235,7 +240,7 @@
 				<param>resource/xsl/inta/reporte/actividad-jqgrid.xsl</param>
 			</action>
 			<action when="!req(export)" method="appendStyle">
-				<param>resource/xsl/jqgrid/standart-botones.xsl</param>
+				<param>resource/xsl/jqgrid/standart-boton-delete.xsl</param>
 			</action>
 			<action when="req(export_eq_html_view)" method="appendStyle">
 				<param>resource/xsl/inta/reporte/actividad-html-view.xsl</param>
@@ -243,6 +248,8 @@
 			<action when="req(export_eq_html_download)" method="appendStyle">
 				<param>resource/xsl/inta/reporte/actividad-html-download.xsl</param>
 			</action>
+			<!--
+			-->
 			<!--
 			
 			
@@ -264,16 +271,20 @@
 			<action when="req(export_eq_excel)" method="appendStyle">
 				<param>resource/xsl/jqgrid/export/excel.xsl</param>
 			</action>
+			-->
 			<action method="addParam">
 				<name>mensaje_eliminacion</name>
-				<value><![CDATA[¿Desea continuar eliminando la reporte?]]></value>
+				<value><![CDATA[¿Desea quitar esta actividad del reporte?]]></value>
 			</action>
-			-->
+			<action method="addParam">
+				<name>delete_url</name>
+				<value>reporte/delete/</value>
+			</action>
+			<!---
 			<action method="addParam">
 				<name>edit_url</name>
 				<value>reporte/addEdit/</value>
 			</action>
-			<!---
 			<action method="addParam">
 				<name>extra</name>
 				<config as_xml="true">
@@ -286,5 +297,4 @@
 			-->
 		</block>
 	</datalist_admin_reporte3>
-
 </layout>

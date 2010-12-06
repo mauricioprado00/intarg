@@ -65,6 +65,11 @@ class Admin_Block_Selector extends Core_Block_Template{
 		}
 		return parent::getData('select_control');
 	}
+	private $_select_message = '[Seleccione]';
+	public function setSelectMessage($message){
+		$this->_select_message = $message;
+		return $this;
+	}
 	public function createOptions(){
 		$selected_value = $this->hasSelectedValue()&&strlen($this->getSelectedValue())?$this->getSelectedValue():null;
 		$value_field = $this->getValueField();
@@ -75,7 +80,7 @@ class Admin_Block_Selector extends Core_Block_Template{
 		if(!$this->hasSelectedValue()){
 			$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
 				->setValue('')
-				->setInnerHtml('[Seleccione]')
+				->setInnerHtml($this->_select_message)
 			;
 			$options[] = $option;
 		}

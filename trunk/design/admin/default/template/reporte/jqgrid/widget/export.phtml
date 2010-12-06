@@ -1,0 +1,82 @@
+<div style="display:none;">
+	<div class="ventanaexportacion ui-dialog ui-widget ui-widget-content ui-corner-all" style="position:relative;cursor:auto;width:470px;">
+	<form> 
+		<div class="hiddenparams"></div>
+		<div class="ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix"> 
+			<span class="ui-dialog-title">Exportacion de datos</span> 
+			<a href="#" class="ui-dialog-titlebar-close ui-corner-all" title="Close"><span class="ui-icon ui-icon-closethick">Close</span></a> 
+		</div>
+		<div class="ui-dialog-content ui-widget-content" style="display:inline-block;">
+			<!-- <label>Formato: </label> -->
+			<div class="export-selection selected" data-url="<?php print Admin_Reporte_Helper::getInstance()->getUrlExportarFormato1(); ?>">
+				<img src="<?php print $this->getSkinUrl('img/48x48/doc.png'); ?>" />
+				<h5>Por tipo de actividad y por agencia</h5>
+			</div>
+			<div class="export-selection" data-url="<?php print Admin_Reporte_Helper::getInstance()->getUrlExportarFormato2(); ?>">
+				<img src="<?php print $this->getSkinUrl('img/48x48/doc.png'); ?>" />
+				<h5>Por agencia</h5>
+			</div>
+		</div>
+		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"> 
+			<button class="enviar ui-state-default ui-priority-primary ui-corner-all">Continuar</button> 
+		</div> 
+		<!--
+		<div class="ui-resizable-n ui-resizable-handle"></div> 
+		<div class="ui-resizable-s ui-resizable-handle"></div> 
+		<div class="ui-resizable-e ui-resizable-handle"></div> 
+		<div class="ui-resizable-w ui-resizable-handle"></div> 
+		<div class="ui-resizable-ne ui-resizable-handle"></div> 
+		<div class="ui-resizable-se ui-resizable-handle ui-icon ui-icon-grip-diagonal-se"></div> 
+		<div class="ui-resizable-sw ui-resizable-handle"></div> 
+		<div class="ui-resizable-nw ui-resizable-handle"></div>
+		-->
+	</form> 
+	</div>
+</div>
+
+<script>
+jQuery(function(){
+	//jQuery.blockUI({
+//		message:jQuery('.ventanaexportacion'),
+//		css:{
+//			border:'none',
+//			background:'none',
+//		}
+//	});
+	jQuery('.ventanaexportacion .ui-dialog-titlebar-close').click(function(){
+		jQuery.unblockUI();
+		return false;
+	});
+	jQuery('.ventanaexportacion .export-selection').click(function(){
+		jQuery('.ventanaexportacion .export-selection').removeClass('selected');
+		jQuery(this).addClass('selected');
+	});
+	jQuery('.ventanaexportacion .enviar').click(function(){
+		//jQuery(this).parents('form:first').submit();
+		var url = jQuery('.ventanaexportacion .export-selection.selected').attr('data-url');
+		var jqform = jQuery('.ventanaexportacion form')
+			.attr('target','_blank')
+			.attr('action', url)
+			.attr('method','post')
+			.submit()
+		;
+		jQuery.unblockUI();
+		return false;
+	});
+	
+	{jQuery(".jqgrid_export_data")
+		.css('cursor','pointer')
+		.click(function(){
+			var jqventana = jQuery('.ventanaexportacion');
+
+			jQuery.blockUI({
+				message:jqventana,
+				css:{
+					border:'none',
+					background:'none',
+				}
+			});
+		})
+	}
+});
+</script>
