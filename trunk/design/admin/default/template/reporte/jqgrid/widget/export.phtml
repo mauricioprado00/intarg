@@ -1,3 +1,9 @@
+<style>
+	.export-selection{
+		height:100px;
+		margin-bottom:10px;
+	}
+</style>
 <div style="display:none;">
 	<div class="ventanaexportacion ui-dialog ui-widget ui-widget-content ui-corner-all" style="position:relative;cursor:auto;width:470px;">
 	<form> 
@@ -15,6 +21,23 @@
 			<div class="export-selection" data-url="<?php print Admin_Reporte_Helper::getInstance()->getUrlExportarFormato2(); ?>">
 				<img src="<?php print $this->getSkinUrl('img/48x48/doc.png'); ?>" />
 				<h5>Por agencia</h5>
+			</div>
+			<div class="export-selection" data-url="<?php print Admin_Reporte_Helper::getInstance()->getUrlExportarExcelPorAgencia(); ?>">
+				<img src="<?php print $this->getSkinUrl('img/48x48/xls.png'); ?>" />
+				<h5>Por agencia</h5>
+			</div>
+			<br />
+			<div class="export-selection" data-url="<?php print Admin_Reporte_Helper::getInstance()->getUrlExportarExcelPorResponsable(); ?>">
+				<img src="<?php print $this->getSkinUrl('img/48x48/xls.png'); ?>" />
+				<h5>Por responsable</h5>
+			</div>
+			<div class="export-selection" data-url="<?php print Admin_Reporte_Helper::getInstance()->getUrlExportarExcelPorProyectoPorAgencia(); ?>">
+				<img src="<?php print $this->getSkinUrl('img/48x48/xls.png'); ?>" />
+				<h5>Por agencia y por proyectos</h5>
+			</div>
+			<div class="export-selection" data-url="<?php print Admin_Reporte_Helper::getInstance()->getUrlExportarExcelPorProyectoPorAgenciaDetallado(); ?>">
+				<img src="<?php print $this->getSkinUrl('img/48x48/xls.png'); ?>" />
+				<h5>Por agencia y por cada proyecto</h5>
 			</div>
 		</div>
 		<div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix"> 
@@ -74,6 +97,7 @@ jQuery(function(){
 				css:{
 					border:'none',
 					background:'none',
+					top:'100px',
 				}
 			});
 		})

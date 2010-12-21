@@ -304,6 +304,168 @@ class Test_Inta_Reporte extends Core_Singleton{
 //		die();
 		//die("hola ");
 	}
+	function testXmlOutputOrdenado1(){
+//		$reporte = new Inta_Model_Reporte_Actividad();
+//		$resultados = $reporte->search();
+		Core_Http_Header::ContentType('text/xml');
+		$reporte = new Inta_Model_Reporte_Actividad();
+//		var_dump($reporte->searchGetSql());
+//		die();
+		$reporte->setWhere(Db_Helper::equal('id_usuario_logeado', 4));
+		//$actividades = $reporte->search(null, 'ASC', null, 0, 'Inta_Model_Reporte_View_Actividad');
+		$actividades = $reporte->search('nombre_agencia', 'ASC', null, 0, 'Inta_Model_Reporte_Actividad');
+		
+//		foreach($actividades as $actividad){
+//			var_dump($actividad->getData());
+//		}
+		$c = new Core_Collection($actividades);
+
+//		die();
+		$g = $c;
+		if(false)echo '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>';
+		$datamodel = ('
+		<model for="entity">
+			<model for="resultado_actividad">
+				<field name="id_usuario_logeado" />
+				<field name="id_agencia" />
+				<field name="nombre_agencia" />
+				<field name="id_actividad" />
+				<field name="nombre_actividad" />
+				<field name="id_responsable" />
+				<field name="nombre_responsable" />
+				<field name="nombre_estrategia" />
+				<field name="id_estrategia" />
+				<method name="actividad_instancia" method="getActividad" multiplicity="single">
+					<model for="actividad">
+						<field name="ano" />
+						<field name="porcentaje_cumplimiento" />
+						<field name="observaciones" />
+						<!--
+						<field name="presupuesto_estimado" />
+						<field name="comentario" />
+						<field name="motivo_atrasado" />
+						<field name="motivo_cancelado" />
+						-->
+						<field name="nombre" />
+						<field name="porcentaje_tiempo" />
+						<field name="mes_enero" />
+						<field name="mes_febrero" />
+						<field name="mes_marzo" />
+						<field name="mes_abril" />
+						<field name="mes_mayo" />
+						<field name="mes_junio" />
+						<field name="mes_julio" />
+						<field name="mes_agosto" />
+						<field name="mes_septiembre" />
+						<field name="mes_octubre" />
+						<field name="mes_noviembre" />
+						<field name="mes_diciembre" />
+						<field name="estado" />
+						<method name="actividad_responsable" method="getResponsable" multiplicity="single">
+							<model for="usuario">
+								<!--
+								<field name="activo" />
+								<field name="username" />
+								<field name="password" />
+								<field name="privilegios" />
+								<field name="ultimo_acceso" />
+								-->
+								<field name="nombre" />
+								<field name="apellido" />
+								<field name="email" />
+							</model>
+						</method>
+						<method name="presupuesto_proyecto" method="getPresupuestoProyectos" multiplicity="single">
+						</method>
+					</model>
+				</method>
+				<!-- 
+				<method name="actividad_agencia" method="getAgencia" multiplicity="single" >
+					<model for="agencia">
+						<field name="nombre" />
+						<field name="id_localidad" />
+						<field name="direccion" />
+						<field name="telefono" />
+						<field name="email" />
+						<field name="agentes" />
+						<field name="descripcion" />
+						<method name="agencia_usuario" method="getListUsuario" multiplicity="multiple">
+						</method>
+					</model>
+				</method>
+				-->
+			</model>
+		</model>');
+		$ncol = 0;
+		$params = new Core_Object(array(
+			'title'=>'Listado de Actividad',
+			'columnas'=>array(
+				'item_'.$ncol++=>array(
+					'title'=>'Inv No',
+					'width'=>'40',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>'Agencia',
+					'width'=>'114',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>'Nombre',
+					'width'=>'329',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>'Responsable',
+					'width'=>'99',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>utf8_encode('Año'),
+					'width'=>'55',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>'Cumplimiento',
+					'width'=>'55',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>'Tiempo',
+					'width'=>'55',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>'Presupuesto',
+					'width'=>'55',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>'Observaciones',
+					'width'=>'187',
+				),
+				'item_'.$ncol++=>array(
+					'title'=>'Estado',
+					'width'=>'97',
+				),
+			)
+		));
+		$params->setXmlEntityTagname('params');
+		
+		$g->addItem($params);
+//		echo $g->toXmlString($datamodel);die();
+		$xs = new Core_Xslt_Server();
+		$xs->setSource($g, $datamodel);
+		$xs->appendStyle(dirname(__FILE__).'/resource/reporte3toflat.xsl');
+//		var_dump(realpath(CFG_PATH_ROOT.CONF_PATH_DESIGN.'default/default/resource/xsl/inta/actividad/standart-botones.xsl'));
+//		die();
+		$xs->appendStyle(CFG_PATH_ROOT.CONF_PATH_DESIGN.'admin/default/resource/xsl/inta/actividad/standart-botones.xsl');
+		$xs->appendStyle(CFG_PATH_ROOT.CONF_PATH_DESIGN.'default/default/resource/xsl/jqgrid/export/excel.xsl');
+		
+		//$xs->appendStyle(dirname(__FILE__).'/resource/reporte2todoc.v5.xsl');
+		//$xs->appendStyle(dirname(__FILE__).'/resource/reporte1todoc.xsl');
+		Core_Http_Header::ContentType('text/xml');
+		//echo '<?xml version="1.0" encoding="UTF-8" standalone="yes" ? >';
+		echo $xs->toXmlString();
+		die();
+
+//		die();
+//		echo $g->toXmlString();
+//		die();
+		//die("hola ");
+	}
 
 }
 ?>

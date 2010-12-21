@@ -47,14 +47,20 @@ class Inta_Model_View_ReporteActividad extends Inta_Db_Model_View_Abstract{
                         ))
                         ->addTable('inta_objetivo','re.id_objetivo = o.id', 'o', array(
                             'objetivo' => 'o.nombre',
-                        ));
+                        ))
+                        ->addTable('inta_proyecto_actividad','a.id = proa.id_actividad', 'proa', array())
+                        ->addTable('inta_proyecto','proa.id_proyecto = pro.id', 'pro', array(
+                            'proyecto' => 'pro.nombre',
+                            'id_proyecto' => 'pro.id',
+                        ))
+						;
                         $this->addView($view, 'reporte_actividad', array(
                                 'id_actividad',
                                 'nombre_actividad',
                                 'id_agencia',
                                 'nombre_agencia',
                                 'id_responsable',
-                                'nombre_responsable',
+                                'nombre_responsable'
                 ));
 	}
         protected function getColumnSelect(){

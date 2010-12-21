@@ -1,5 +1,7 @@
 <?php
 class Admin_Reporte_Helper_Export_Format1 extends Core_Singleton{
+	const USE_SHELL_EXEC = true;
+	const DOWNLOAD_FILE_NAME = 'Actividades_x_Tipo_x_Agencia.docx';
 	public function getInstance(){
 		return(self::getInstanceOf(__CLASS__));
 	}
@@ -8,19 +10,24 @@ class Admin_Reporte_Helper_Export_Format1 extends Core_Singleton{
 		if($dirname = $this->saveToFile($document_xml)){
 			$zipname = $this->createZip($dirname);
 			Core_Http_Header::ContentType('application/vnd.openxmlformats-officedocument.wordprocessingml.document');
-			Core_Http_Header::ContentDisposition('Actividades_x_Tipo_x_Agencia.docx');
+			Core_Http_Header::ContentDisposition(self::DOWNLOAD_FILE_NAME);
 			readfile($zipname);
 			unlink($zipname);
 			Core_File_Helper::getInstance()->remDir($dirname);
 		}
 		die();
 	}
+	private function useShellExec(){
+		return self::USE_SHELL_EXEC || !class_exists('ZipArchive');
+	}
 	private function createZip($dirname){
 		$zipname = realpath($dirname).'.zip';
 		if(file_exists($zipname))
 			unlink($zipname);
-		if(!class_exists('ZipArchive')){
-			`zip -R $zipname $dirname`;
+		if($this->useShellExec()){
+			chdir($dirname);
+			//`zip -R $zipname $dirname`;
+			`zip -r $zipname .`;
 		}
 		else{
 			// create object
@@ -50,8 +57,10 @@ class Admin_Reporte_Helper_Export_Format1 extends Core_Singleton{
 		return $zipname;
 	}
 	private function saveToFile($xml){
-		$dirname = tempnam(dirname(__FILE__).'/tmp/', '');
-		unlink($dirname);
+		$dirname = Core_File_Helper::getInstance()->tempnam();
+		//$dirname = tempnam(dirname(__FILE__).'/tmp/', '');
+		if(file_exists($dirname))
+			unlink($dirname);
 		mkdir($dirname);
 		Core_File_Helper::getInstance()->copyAll(dirname(__FILE__).'/resource/docx/format1', $dirname);
 		file_put_contents($dirname.'/word/document.xml', $xml);

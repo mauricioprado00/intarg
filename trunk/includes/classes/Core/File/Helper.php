@@ -48,5 +48,12 @@ class Core_File_Helper extends Core_Singleton{
 		}
 		rmdir($dir);
 	}
+	public function tempnam(){
+		$prevname = substr(md5(rand(0,500).time()), 0, 7);
+		while(file_exists(CFG_PATH_ROOT.'/var/tmp/'.$prevname)){
+			$prevname = Core_Serial_Helper::getInstance()->GenerateAlphanumeric($prevname, 1);
+		}
+		return (CFG_PATH_ROOT.'/var/tmp/'.$prevname);
+	}
 }
 ?>
