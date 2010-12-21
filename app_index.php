@@ -51,6 +51,7 @@ $app
 //$i = new Inta_Model_View_ReporteActividad();
 //echo $i->searchGetSql();
 //Test_Inta_Reporte::getInstance()->testXmlOutputAgrupado2();
+//Test_Inta_Reporte::getInstance()->testXmlOutputOrdenado1();
 //die();
 
 $app->initialize();

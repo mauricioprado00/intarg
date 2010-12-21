@@ -138,5 +138,22 @@ from inta_objetivo as o
     {
         return 'inta_actividad';
     }
+    public function getPresupuestoProyectos(){
+    	$presupuesto = 0;
+		if($proyectos = $this->getListProyecto()){
+			foreach($proyectos as $proyecto)
+				$presupuesto += $proyecto->getMonto();
+		}
+		return $presupuesto;
+	}
+	public function getNombresProyectos(){
+    	$nombres = array();
+		if($proyectos = $this->getListProyecto()){
+			foreach($proyectos as $proyecto_actividad)
+				if($proyecto = $proyecto_actividad->getProyecto())
+					$nombres[] = $proyecto->getNombre();
+		}
+		return implode(', ', $nombres);
+	}
 }
 ?>

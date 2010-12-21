@@ -7,7 +7,8 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 			'addEdit','delete','listar','datalist','datalist2',
 			'ordenar','setorden','datalist3', 'agregarActividades',
 			'clear',
-			'formato1','formato2'
+			'formato1','formato2',
+			'excel_por_agencia', 'excel_por_responsable', 'excel_por_proyecto_por_agencia', 'excel_por_proyecto_por_agencia_detallado'
 		);
 	}
 	protected function onThrought(){
@@ -53,6 +54,7 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 			$post_reporte = $post&&$post->hasResultadoActividad()?$post->GetResultadoActividad(true):null;
 
                         if(isset($post_reporte)){
+                        	//echo Core_helper::DebugVars($post_reporte);
                             $aReportes = Admin_Reporte_Helper::buscarActividadReporte($post_reporte->getData());
                             $id_usuario_logeado = Admin_User_Model_User::getLogedUser()->getId();
                             foreach ($aReportes As $oReporte){
@@ -109,7 +111,10 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 	}
 	protected function listar(){
 		$reporte = new Inta_Model_Reporte_Actividad();
-		$reporte->setIdUsuarioLogeado($id_usuario);
+		$id_usuario_logeado = Admin_User_Model_User::getLogedUser()->getId();
+		//echo Core_Helper::DebugVars($id_usuario_logeado);
+		$reporte->setIdUsuarioLogeado($id_usuario_logeado);
+		$reporte->setWhere(Db_Helper::equal('id_usuario_logeado'));
 		if(!$cantidad = $reporte->searchCount()){
 			$this->showAddHelp();
 			return;
@@ -138,6 +143,18 @@ class Admin_Reporte_Router extends Core_Router_Abstract{
 	}
 	protected function formato2(){
 		Admin_Reporte_Helper_Export_Format2::getInstance()->export();
+	}
+	protected function excel_por_agencia(){
+		Admin_Reporte_Helper_Export_ExcelPorAgencia::getInstance()->export();
+	}
+	protected function excel_por_responsable(){
+		Admin_Reporte_Helper_Export_ExcelPorResponsable::getInstance()->export();
+	}
+	protected function excel_por_proyecto_por_agencia(){
+		Admin_Reporte_Helper_Export_ExcelPorProyectoPorAgencia::getInstance()->export();
+	}
+	protected function excel_por_proyecto_por_agencia_detallado(){
+		Admin_Reporte_Helper_Export_ExcelPorProyectoPorAgenciaDetallado::getInstance()->export();
 	}
 	protected function clear(){
 		Admin_Reporte_Helper::getInstance()->clearReportesDeUsuario();

@@ -16,6 +16,18 @@ class Admin_Reporte_Helper extends Core_Singleton{
 	public function getUrlExportarFormato2(){
 		return Core_App::getUrlModel()->getUrl('administrator/reporte/formato2');
 	}
+	public function getUrlExportarExcelPorAgencia(){
+		return Core_App::getUrlModel()->getUrl('administrator/reporte/excel_por_agencia');
+	}
+	public function getUrlExportarExcelPorResponsable(){
+		return Core_App::getUrlModel()->getUrl('administrator/reporte/excel_por_responsable');
+	}
+	public function getUrlExportarExcelPorProyectoPorAgencia(){
+		return Core_App::getUrlModel()->getUrl('administrator/reporte/excel_por_proyecto_por_agencia');
+	}
+	public function getUrlExportarExcelPorProyectoPorAgenciaDetallado(){
+		return Core_App::getUrlModel()->getUrl('administrator/reporte/excel_por_proyecto_por_agencia_detallado');
+	}
 	public function getInstance(){
 		return(self::getInstanceOf(__CLASS__));
 	}
@@ -57,7 +69,7 @@ class Admin_Reporte_Helper extends Core_Singleton{
 		$reporte = new Inta_Model_Reporte_Actividad();
 		return($reporte->setId($id_reporte)->delete());
 	}
-        public static function buscarActividadReporte($data){
+	public static function buscarActividadReporte($data){
             $a = new Inta_Model_View_ReporteActividad();
 
             $aWheres = array();
@@ -66,10 +78,14 @@ class Admin_Reporte_Helper extends Core_Singleton{
                 array_push($aWheres,Db_Helper::equal('id_responsable',$data['id_responsable']));
             if(!empty($data['id_agencia']))
                 array_push($aWheres,Db_Helper::equal('id_agencia',$data['id_agencia']));
-            if(!empty($data['audiencia']))
-                array_push($aWheres,Db_Helper::like('audiencia','%',$data['audiencia'],'%'));
+            if(!empty($data['id_audiencia']))
+                array_push($aWheres,Db_Helper::equal('id_audiencia',$data['id_audiencia']));
+//            if(!empty($data['audiencia']))
+//                array_push($aWheres,Db_Helper::like('audiencia','%',$data['audiencia'],'%'));
             if(!empty($data['resultado_esperado']))
                 array_push($aWheres,Db_Helper::like('resultado_esperado','%',$data['resultado_esperado'],'%'));
+            if(!empty($data['id_proyecto']))
+                array_push($aWheres,Db_Helper::equal('id_proyecto',$data['id_proyecto']));
             if(!empty($data['objetivo']))
                 array_push($aWheres,Db_Helper::like('objetivo','%',$data['objetivo'],'%'));
             if(!empty($data['id_usuario'])){
@@ -203,6 +219,7 @@ class Admin_Reporte_Helper extends Core_Singleton{
 			
 		$reporte = new Inta_Model_Reporte_Actividad();
 		$reporte->setIdUsuarioLogeado($id_usuario);
+		$reporte->setWhere(Db_Helper::equal('id_usuario_logeado'));
 		if($cantidad = $reporte->searchCount()){
 			if($reporte->delete()){
 				Admin_App::getInstance()->addSuccessMessage(self::getInstance()->__t('Se eliminaron {!cantidad} de resultados', array('cantidad'=>$cantidad)));
