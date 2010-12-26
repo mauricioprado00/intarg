@@ -54,7 +54,14 @@ class Inta_Model_View_ResultadoEsperado extends Inta_Db_Model_View_Abstract{
 		}
 		return $this->resultado_esperado;
 	}
-	
+	public static function crearFiltroAgencia($id_agencia=null){
+		if(!isset($id_agencia))
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
+		return Db_Helper::custom('resultado_esperado_id IN (select distinct(re.id)
+from inta_objetivo as o
+    inner join inta_resultado_esperado as re on re.id_objetivo = o.id
+	where o.id_agencia={%s})', $id_agencia);
+	}
 //	public static function crearFiltroAgencia2($id_agencia=null){
 //		if(!isset($id_agencia))
 //			$id_agencia = Admin_Helper::getInstance()->getIdAgencia();

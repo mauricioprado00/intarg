@@ -129,12 +129,11 @@
 				action_url="actividad/addEdit"
 				ajax_target=".contenedor_main"
 				ajax_replace_with="true"
-				validador_js="validar_agregar_actividad,validar_seleccion_resultado_esperado"
+				validador_js="validar_agregar_actividad"
 				method="post"
 				name="formulario_edicion_actividad">
 				<tabset>
 					<!-- cuando agregamos una nueva forzamos a que seleccionen el resultado esperado -->
-					<!--
 					<tab when="accion(entity_new)" title="Resultado Esperado">
 						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" allow_in_new="si_dejar" validator="validar_seleccion_resultado_esperado" />
 						<reference name="formulario_edicion_actividad">
@@ -143,13 +142,9 @@
 							</action>
 						</reference>
 					</tab>
-					-->
 					<tab title="Datos de Actividad">
 						<block name="actividad_add_edit_form" as="datos" type="template" template="actividad/add.phtml">
 							<block as="hijos_arriba">
-								<fieldset html_style="float:none;" when="accion(entity_new)|accion(edit_actividad_estado_planificado)" caption="Resultados a los que aporta">
-									<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" allow_in_new="si_dejar" validator="validar_seleccion_resultado_esperado" />
-								</fieldset>
 								<fieldset html_style="float:none;" when="!accion(entity_new)&amp;!accion(edit_actividad_estado_planificado)" caption="Resultados a los que aporta">
 									<add_edit_list_resultado_esperado_actividad view_only="1" name="add_edit_list_resultado_esperado_actividad" />
 								</fieldset>
@@ -206,7 +201,6 @@
 					
 					<!-- solo se puede agregar resultados esperados una vez que existe la entidad 
 					-->
-					<!--
 					<tab when="!accion(entity_new)&amp;accion(edit_actividad_estado_planificado)" title="Resultado Esperado">
 						<add_edit_list_resultado_esperado_actividad name="add_edit_list_resultado_esperado_actividad" validator="validar_seleccion_resultado_esperado" />
 						<reference name="formulario_edicion_actividad">
@@ -215,7 +209,6 @@
 							</action>
 						</reference>
 					</tab>
-					-->
 					<!--
 					<tab when="!accion(entity_new)" title="Documentos">
 						<add_edit_list_documentos name="add_edit_list_documentos_actividad" tipo_entidad="actividad" />

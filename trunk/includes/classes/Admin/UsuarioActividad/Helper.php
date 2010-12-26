@@ -54,7 +54,11 @@ class Admin_UsuarioActividad_Helper extends Core_Singleton{
 	}
 	public static function eliminarUsuarioActividad($id_usuario_actividad){
 		$usuario_actividad = new Inta_Model_UsuarioActividad();
-		return($usuario_actividad->setId($id_usuario_actividad)->delete());
+		$ret = $usuario_actividad->setId($id_usuario_actividad)->delete();
+		foreach($usuario_actividad->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
+		//return($usuario_actividad->setId($id_usuario_actividad)->delete());
 	}
 }
 ?>

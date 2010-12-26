@@ -42,7 +42,11 @@ class Admin_Problema_Helper extends Core_Singleton{
 	}
 	public static function eliminarProblema($id_problema){
 		$problema = new Inta_Model_Problema();
-		return($problema->setId($id_problema)->delete());
+//		return($problema->setId($id_problema)->delete());
+		$ret = $problema->setId($id_problema)->delete();
+		foreach($problema->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

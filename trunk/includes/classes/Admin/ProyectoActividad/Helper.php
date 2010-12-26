@@ -55,7 +55,11 @@ class Admin_ProyectoActividad_Helper extends Core_Singleton{
 	}
 	public static function eliminarProyectoActividad($id_proyecto_actividad){
 		$proyecto_actividad = new Inta_Model_ProyectoActividad();
-		return($proyecto_actividad->setId($id_proyecto_actividad)->delete());
+//		return($proyecto_actividad->setId($id_proyecto_actividad)->delete());
+		$ret = $proyecto_actividad->setId($id_proyecto_actividad)->delete();
+		foreach($proyecto_actividad->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

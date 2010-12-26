@@ -5,7 +5,6 @@ if(!$this->hasIdEntidad()||!$this->hasTipoEntidad()){
 }
 //$x = $this->getObjectToEdit();
 
-
 //var_dump($this->getIdEntidad(), $this->getTipoEntidad());
 
 //echo $this->getChildHtml('listado_documentos');
@@ -91,5 +90,14 @@ jQuery(document).ready(function(){
 			);
 		})
 	;
+	<?php if($this->getFocusTab()): ?> 
+	setTimeout(
+		function(){
+			tabpanelfocus(jQuery('.<?php print $id_control; ?>'));
+		}
+		, 500
+	);
+	<?php endif; ?>
 });
+
 </script>

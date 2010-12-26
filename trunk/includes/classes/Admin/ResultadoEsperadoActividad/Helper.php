@@ -55,7 +55,11 @@ class Admin_ResultadoEsperadoActividad_Helper extends Core_Singleton{
 	}
 	public static function eliminarResultadoEsperadoActividad($id_resultado_esperado_actividad){
 		$resultado_esperado_actividad = new Inta_Model_ResultadoEsperadoActividad();
-		return($resultado_esperado_actividad->setId($id_resultado_esperado_actividad)->delete());
+//		return($resultado_esperado_actividad->setId($id_resultado_esperado_actividad)->delete());
+		$ret = $resultado_esperado_actividad->setId($id_resultado_esperado_actividad)->delete();
+		foreach($resultado_esperado_actividad->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

@@ -33,7 +33,7 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 		}
 		$this->listar();
 	}
-	protected function addEdit($id_actividad=null){
+	protected function addEdit($id_actividad=null,$id_resultado_esperado=null){
 		Core_App::getInstance()->clearLastErrorMessages();
 		$guardado = false;
 		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Actividad()), 'w');
@@ -46,35 +46,36 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 		}
 		else{
 			$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
-                        $post_actividad = $post&&$post->hasActividad()?$post->GetActividad(true):null;
-//                        Mat, meto el link actividad_proyecto
-                        $aActividadProyecto = array();
-                        $contador = 0;
-//                        var_dump($post->actividad_proyecto['id_proyecto']);
-//                        var_dump($post->actividad_proyecto['monto_proyecto']);
-						if(isset($post->actividad_proyecto))
-                        foreach($post->actividad_proyecto['id_proyecto'] As $id_proyecto){
-                            $actividad_proyecto = new Inta_Model_ActividadProyecto();
-                            $actividad_proyecto->setIdProyecto($id_proyecto);
-                            $actividad_proyecto->setMonto($post->actividad_proyecto['monto_proyecto'][$contador]);
-                            array_push($aActividadProyecto,$actividad_proyecto);
-                            $contador++;
-                        }
-//                        Mat, meto el link con resultado esperado
-                        $aResultadoEsperadoActividad = array();
-                        if(isset($post->resultado_esperado_actividad))
-                        foreach($post->resultado_esperado_actividad['id_resultado_esperado'] As $id_resultado_esperado){
-                            $resultado_esperado_actividad = new Inta_Model_ResultadoEsperadoActividad();
-                            $resultado_esperado_actividad->setIdResultadoEsperado($id_resultado_esperado);
-                            array_push($aResultadoEsperadoActividad,$resultado_esperado_actividad);
-                        }
+			$post_actividad = $post&&$post->hasActividad()?$post->GetActividad(true):null;
+//			Mat, meto el link actividad_proyecto
+			$aActividadProyecto = array();
+			$contador = 0;
+//			var_dump($post->actividad_proyecto['id_proyecto']);
+//			var_dump($post->actividad_proyecto['monto_proyecto']);
+			if(isset($post->actividad_proyecto))
+			foreach($post->actividad_proyecto['id_proyecto'] As $id_proyecto){
+			    $actividad_proyecto = new Inta_Model_ActividadProyecto();
+			    $actividad_proyecto->setIdProyecto($id_proyecto);
+			    $actividad_proyecto->setMonto($post->actividad_proyecto['monto_proyecto'][$contador]);
+			    array_push($aActividadProyecto,$actividad_proyecto);
+			    $contador++;
+			}
+//			Mat, meto el link con resultado esperado
+			$aResultadoEsperadoActividad = array();
+			if(isset($post->resultado_esperado_actividad))
+				foreach($post->resultado_esperado_actividad['id_resultado_esperado'] As $id_resultado_esperado){
+				    $resultado_esperado_actividad = new Inta_Model_ResultadoEsperadoActividad();
+				    $resultado_esperado_actividad->setIdResultadoEsperado($id_resultado_esperado);
+				    array_push($aResultadoEsperadoActividad,$resultado_esperado_actividad);
+				}
 //			$post_actividad = $post&&$post->hasActividad()?$post->GetActividad(true):null;
 			$actividad = new Inta_Model_Actividad();
+			$volver_a_listado_re = false;
 			if(isset($post_actividad)){
 				$actividad->loadFromArray($post_actividad->getData());
 				if(!$actividad->getAno())
 					$actividad->setAno(date('Y'));
-				//echo Core_Helper::DebugVars($actividad->getData());
+//			echo Core_Helper::DebugVars($actividad->getData());
 				$guardado = 
 					Admin_Actividad_Helper::actionAgregarEditarActividad($actividad,$aActividadProyecto,$aResultadoEsperadoActividad)?true:false;
 			}
@@ -83,6 +84,19 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 					$actividad->setId($id_actividad);
 					$actividad->load();
 				}
+				if(!$id_actividad && $id_resultado_esperado){
+					$volver_a_listado_re = true;
+					//guardar en sesion
+					$resultado_esperado_actividad = new Inta_Model_ResultadoEsperadoActividad();
+					$resultado_esperado_actividad
+						->setIdActividad(0)
+						->setIdResultadoEsperado($id_resultado_esperado)
+						->replace()
+					;
+				}
+			}
+			if(!$volver_a_listado_re && $post &&$post->hasData('volver_a_listado_re')){
+				$volver_a_listado_re = true;
 			}
 			$id_en_post = $post_actividad&&$post_actividad->getId();
 			$mostrar_tabs = $guardado || $id_en_post || $actividad->getId();
@@ -94,7 +108,13 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 				;
 			}
 			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_actividad)?'seteado':'no seteado'));
-			if($mostrar_listado){
+			if($volver_a_listado_re && $guardado){
+//				$url = 'administrator/ajax/resultado_esperado/listar';
+//				Core_Http_Header::Redirect(Core_App::getUrlModel()->getUrl($url));
+				$r = new Admin_ResultadoEsperado_Router();
+				return $r->route('listar');
+			}
+			elseif($mostrar_listado){
 				Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_actividad_action');
 				$this->listar();
 			}
@@ -137,6 +157,15 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 					$block->setIdToEdit($actividad->getId());
 					$block->setObjectToEdit($actividad);
 				}
+				foreach($layout->getBlocks('formulario_edicion_actividad') as $block){
+					if($volver_a_listado_re){
+						$i = $block->appendBlock('<input_text />');// ->appendXmlBlocks('<input_text />');
+						$i
+							->setValue('1')
+							->setHtmlName('volver_a_listado_re')
+						;
+					}
+				}
 			}
 		}
 	}
@@ -160,7 +189,7 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 						$filtros[$fieldname] = $args[$i];
 					}
 				}
-				$filtros['id_agencia'] = Admin_Helper::getInstance()->getIdAgencia();
+				$filtros['id_agencia'] = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
 				$block->setHardFiltros($filtros);
 			}
 		}
@@ -184,7 +213,7 @@ class Admin_Actividad_Router extends Core_Router_Abstract{
 					}
 				}
 				//$filtros['id_agencia'] = Admin_Helper::getInstance()->getIdAgencia();
-				$wheres[] = Db_Helper::equal('responsable_id_agencia', Admin_Helper::getInstance()->getIdAgencia());
+				$wheres[] = Db_Helper::equal('responsable_id_agencia', Admin_Helper::getInstance()->getIdAgenciaSeleccionada());
 				$block->setHardFiltros($wheres);
 //				var_dump($wheres);
 //				die();

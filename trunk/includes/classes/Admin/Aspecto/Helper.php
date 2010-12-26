@@ -39,7 +39,11 @@ class Admin_Aspecto_Helper extends Core_Singleton{
 	}
 	public static function eliminarAspecto($id_aspecto){
 		$aspecto = new Inta_Model_Aspecto();
-		return($aspecto->setId($id_aspecto)->delete());
+//		return($aspecto->setId($id_aspecto)->delete());
+		$ret = $aspecto->setId($id_aspecto)->delete();
+		foreach($aspecto->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

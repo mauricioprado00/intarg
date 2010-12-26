@@ -39,7 +39,11 @@ class Admin_Documento_Helper extends Core_Singleton{
 	}
 	public static function eliminarDocumento($id_documento){
 		$documento = new Inta_Model_Documento();
-		return($documento->setId($id_documento)->delete());
+//		return($documento->setId($id_documento)->delete());
+		$ret = $documento->setId($id_documento)->delete();
+		foreach($documento->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

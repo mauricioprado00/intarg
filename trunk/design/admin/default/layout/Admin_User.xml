@@ -4,6 +4,11 @@
 			<block type="Core/Template" name="login_form" template="user/login_form.phtml" />
 		</reference>
 	</login_page>
+	<seleccion_agencia_page>
+		<reference name="contenedor_main">
+			<block type="Core/Template" name="seleccion_agencia" template="user/seleccion_agencia.phtml" />
+		</reference>
+	</seleccion_agencia_page>
 	<default>
 		<reference name="menu_admin">
 			<action method="addItem">

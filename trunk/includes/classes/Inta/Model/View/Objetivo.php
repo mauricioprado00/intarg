@@ -46,7 +46,12 @@ class Inta_Model_View_Objetivo extends Inta_Db_Model_View_Abstract{
 		}
 		return $this->objetivo;
 	}
-	
+	public static function crearFiltroAgencia($id_agencia=null){
+		if(!isset($id_agencia))
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
+		return Db_Helper::equal('objetivo_id_agencia', $id_agencia);
+	}
+
 //	public static function crearFiltroAgencia2($id_agencia=null){
 //		if(!isset($id_agencia))
 //			$id_agencia = Admin_Helper::getInstance()->getIdAgencia();

@@ -14,11 +14,23 @@ class Admin_Helper extends Core_Singleton{
 //			return false;
 //		return $agencia;
 	}
+	public function getAgenciaSeleccionada(){
+		$usuario = Admin_User_Model_User::getLogedUser();
+		if(!$usuario)
+			return null;
+		return $usuario->getAgenciaSeleccionada();
+	}
 	public function getIdAgencia(){
 		$agencia = $this->getAgencia();
 		if(!$agencia)
 			return null;
 		return $agencia->getId();
+	}
+	public function getIdAgenciaSeleccionada(){
+		$agencia_seleccionada = $this->getAgenciaSeleccionada();
+		if(!$agencia_seleccionada)
+			return null;
+		return $agencia_seleccionada->getId();
 	}
 }
 ?>

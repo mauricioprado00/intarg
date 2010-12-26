@@ -39,7 +39,11 @@ class Admin_MedioVerificacion_Helper extends Core_Singleton{
 	}
 	public static function eliminarMedioVerificacion($id_medio_verificacion){
 		$medio_verificacion = new Inta_Model_MedioVerificacion();
-		return($medio_verificacion->setId($id_medio_verificacion)->delete());
+//		return($medio_verificacion->setId($id_medio_verificacion)->delete());
+		$ret = $medio_verificacion->setId($id_medio_verificacion)->delete();
+		foreach($medio_verificacion->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

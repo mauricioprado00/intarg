@@ -13,6 +13,17 @@
 li:hover>.indicador_resultado_toolbox{
 	display:inline;
 }
+.objetivo_actividad_toolbox{
+	float:left;
+	display:none;
+}
+.objetivo_actividad_toolbox:after{
+	content:' -  ';
+	margin-right:4px;
+}
+li:hover>.objetivo_actividad_toolbox{
+	display:inline;
+}
 .indicadores_resultado>li:hover{
 	background-color:#EEEEEE;
 }
@@ -155,4 +166,14 @@ li:hover>.listado_toolbox{
 }
 .export-selection+.export-selection{
 	margin-left:10px;
+}
+
+.listado_re{
+	
+}
+.listado_re ul{
+	
+}
+.listado_re li{
+	list-style-position: inside;
 }

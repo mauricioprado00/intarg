@@ -14,6 +14,10 @@
 		<type>selector_resultado_esperado</type>
 		<class>Admin_ResultadoEsperado_Block_Selector_ChainedObjetivo</class>
 	</block>
+	<block>
+		<type>selector_resultado_esperado_objetivo_simple</type>
+		<class>Admin_ResultadoEsperado_Block_Selector_ChainedObjetivoSimple</class>
+	</block>
 	<routers>
 		<Admin_ResultadoEsperado_Router>administrator/resultado_esperado</Admin_ResultadoEsperado_Router>
 	</routers>

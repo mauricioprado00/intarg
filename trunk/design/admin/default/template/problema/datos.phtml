@@ -15,13 +15,15 @@ $arr_ponderaciones = array(
 );
 ?><?if($this->getIdToEdit()):?>
 <input type="hidden" name="problema[id]" value="<?=$x->getId()?>" /><!-- si esta a cero o vacio es agregar --><?endif;?>
-<fieldset id="<?php print $id_fielset = $this->generateRandomId(); ?>">
+<fieldset id="<?php print $id_fielset = $this->generateRandomId(); $this->setFieldsetId($id_fielset); ?>">
+	<?php if(!$this->getAudienciaImplicita()): ?>
 	<legend><?if(!$this->getIdToEdit()):
 		echo $this->__t('Nuevo Problema');
 	else:
 		echo $this->__t('Editar Problema');
 	endif;?></legend>
 	<fieldset>
+	<?php endif; ?>
 		<h3>Informacion de Problema</h3>
 		<div>
 			<label>Nombre: </label>
@@ -34,12 +36,13 @@ $arr_ponderaciones = array(
 					->setSize(56)
 					->setName('problema[nombre]')
 					->setValue($x->getNombre())
-					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-campo', '<b>Nombre de Problema</b>')
 					->setData('data-validator', '{empty:false}')
 				;
 				echo $input->getHtml();
 			?> 
 			</span>
+			<?php if(!$this->getAudienciaImplicita()): ?>
 			<label>Audiencia: </label>
 			<span><?
 				/** /
@@ -71,6 +74,7 @@ $arr_ponderaciones = array(
 				//
 			?> 
 			</span>
+			<?php endif; ?>
 			<label>Importancia Econ&oacute;mica: <?
 				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
@@ -184,10 +188,13 @@ $arr_ponderaciones = array(
 			?></label>
 			<input type="button" class="actualizar" value="Actualizar Prioridad" style="display:none;" />
 		</div>
+	<?php if(!$this->getAudienciaImplicita()): ?>
 	</fieldset>
+	
 	<div class="controls">
 		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
 	</div>
+	<?php endif; ?>
 </fieldset>
 <script>
 function calcular_prioridad(){

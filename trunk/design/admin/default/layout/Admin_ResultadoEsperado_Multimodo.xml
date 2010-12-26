@@ -21,7 +21,7 @@
 				<title>Acciones</title>
 				<name>acciones</name>
 				<index>acciones</index>
-				<width>82</width>
+				<width>98</width>
 				<align>left</align>
 				<sortable>false</sortable>
 				<hideinexport>1</hideinexport>
@@ -76,6 +76,7 @@
 					<tab title="Datos Resultado">
 						<block>
 							<template name="resultado_esperado_add_edit_form" template="resultado_esperado/datos.phtml">
+								<objetivo_listado_re name="objetivo_listado_re_renderer" hide_list="1" title="Resultados Esperados" />
 								<block name="hijos_abajo">
 									<template when="!accion(entity_new)" name="resultado_esperado_add_edit_form" template="resultado_esperado/indicadores2.phtml">
 										<template name="ver_indicador_resultado_esperado" template="resultado_esperado/indicador.phtml">

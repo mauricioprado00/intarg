@@ -14,6 +14,10 @@
 		<type>selector_objetivo</type>
 		<class>Admin_Objetivo_Block_Selector_ChainedAgencia</class>
 	</block>
+	<block>
+		<type>objetivo_listado_re</type>
+		<class>Admin_Objetivo_Block_ListResultadoEsperado</class>
+	</block>
 	<routers>
 		<Admin_Objetivo_Router>administrator/objetivo</Admin_Objetivo_Router>
 	</routers>

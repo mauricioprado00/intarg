@@ -21,6 +21,9 @@ class Admin_Block_Selector extends Core_Block_Template{
 	protected function prepareEntityToList(){
 		
 	}
+	public function getAllOptions(){
+		return $this->listEntityes();
+	}
 	protected function listEntityes(){
 		if(!isset($this->_entityes)){
 			$this->prepareEntityToList();

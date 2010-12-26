@@ -32,7 +32,7 @@ class Admin_Problema_Router extends Core_Router_Abstract{
 		}
 		$this->listar();
 	}
-	protected function addEdit($id_problema=null){
+	protected function addEdit($id_problema=null, $id_audiencia=null){
 		Core_App::getInstance()->clearLastErrorMessages();
 		$guardado = false;
 		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Problema()), 'w');
@@ -72,6 +72,9 @@ class Admin_Problema_Router extends Core_Router_Abstract{
 				}
 
 				$problema->addAutofilterOutput('utf8_decode');
+				if(!$problema->hasIdAudiencia() && $id_audiencia){
+					$problema->setIdAudiencia($id_audiencia);
+				}
 				
 				foreach($layout->getBlocks('problema_add_edit_form') as $block){
 					$block->setIdToEdit($problema->getId());

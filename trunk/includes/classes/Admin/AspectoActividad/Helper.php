@@ -41,7 +41,11 @@ class Admin_AspectoActividad_Helper extends Core_Singleton{
 	}
 	public static function eliminarAspectoActividad($id_aspecto_actividad){
 		$aspecto_actividad = new Inta_Model_AspectoActividad();
-		return($aspecto_actividad->setId($id_aspecto_actividad)->delete());
+//		return($aspecto_actividad->setId($id_aspecto_actividad)->delete());
+		$ret = $aspecto_actividad->setId($id_aspecto_actividad)->delete();
+		foreach($aspecto_actividad->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

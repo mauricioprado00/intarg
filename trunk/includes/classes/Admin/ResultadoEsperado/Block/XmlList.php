@@ -8,9 +8,13 @@ class Admin_ResultadoEsperado_Block_XmlList extends Jqgrid_Block_XmlList{
 		//$resultado_esperado = new Inta_Model_ResultadoEsperado();
 		$resultado_esperado = new Inta_Model_ResultadoEsperado();
 		$resultado_esperado = new Inta_Model_View_ResultadoEsperado();
+		$wheres = array();
+		$wheres[] = $resultado_esperado->crearFiltroAgencia();
 		if($comparator!=null){
-			$resultado_esperado->setWhere($comparator);
+			//$resultado_esperado->setWhere($comparator);
+			$wheres[] = $comparator;
 		}
+		$resultado_esperado->setWhereByArray($wheres);
 		$datos = array();
 		$total_items = $resultado_esperado->searchCount();
 		$cantidad_paginas = ceil($total_items/$rows);
@@ -33,6 +37,8 @@ class Admin_ResultadoEsperado_Block_XmlList extends Jqgrid_Block_XmlList{
 		
 		//$datos = $resultado_esperado->search(null,'ASC',null,0,true,array('id', 'username', 'nombre', 'apellido', 'activo', 'privilegios', 'ultimo_acceso'));
 		$datos = $resultado_esperado->search($sidx,$sord,$rows,$rows*($page-1),get_class($resultado_esperado));
+//		echo $resultado_esperado->searchGetSql($sidx,$sord,$rows,$rows*($page-1),get_class($resultado_esperado));
+//		die();
 		//aca termina la consulta a la base
 		
 		

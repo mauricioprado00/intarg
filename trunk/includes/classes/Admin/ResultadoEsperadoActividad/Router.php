@@ -34,7 +34,7 @@ class Admin_ResultadoEsperadoActividad_Router extends Core_Router_Abstract{
 		}
 		Admin_App::getInstance()->addShieldMessage('Ocurrio un error durante eliminacion del resultado_esperado_actividad.');
 	}
-	protected function addEdit($id_actividad=null, $id_resultado_esperado_actividad=null){
+	protected function addEdit($id_actividad=null, $id_resultado_esperado_actividad=null, $id_objetivo=null){
 		Core_App::getInstance()->clearLastErrorMessages();
 		$guardado = false;
 		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_ResultadoEsperadoActividad()), 'w');
@@ -63,6 +63,9 @@ class Admin_ResultadoEsperadoActividad_Router extends Core_Router_Abstract{
 				}
 				else{
 					$resultado_esperado_actividad->setIdActividad($id_actividad);
+					if($id_objetivo){
+						$resultado_esperado_actividad->setIdObjetivo($id_objetivo);
+					}
 				}
 			}
 			if($guardado){

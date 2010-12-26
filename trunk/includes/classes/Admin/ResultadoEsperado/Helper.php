@@ -66,9 +66,14 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 			Admin_App::getInstance()->addErrorMessage(self::getInstance()->__t('No se pudo eliminar la ResultadoEsperado'));
 		}
 	}
+	//hay 3 aca
 	public static function eliminarResultadoEsperado($id_resultado_esperado){
 		$resultado_esperado = new Inta_Model_ResultadoEsperado();
-		return($resultado_esperado->setId($id_resultado_esperado)->delete());
+//		return($resultado_esperado->setId($id_resultado_esperado)->delete());
+		$ret = $resultado_esperado->setId($id_resultado_esperado)->delete();
+		foreach($resultado_esperado->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 	
 	
@@ -87,6 +92,9 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 			}
 			else{
 				Admin_App::getInstance()->addErrorMessage("No se pudo agregar la IndicadorResultado, error en la operación");
+				foreach($indicador_resultado->getTranslatedErrors() as $error)
+					Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+				echo Core_Helper::DebugVars(Inta_Db::getInstance()->getLastQuery());
 			}
 		}
 		else{/** aca hay que actualizar el registro*/
@@ -111,7 +119,11 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 	}
 	public static function eliminarIndicadorResultado($id_indicador_resultado){
 		$indicador_resultado = new Inta_Model_IndicadorResultado();
-		return($indicador_resultado->setId($id_indicador_resultado)->delete());
+//		return($indicador_resultado->setId($id_indicador_resultado)->delete());
+		$ret = $indicador_resultado->setId($id_indicador_resultado)->delete();
+		foreach($indicador_resultado->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 
 	/**
@@ -153,7 +165,11 @@ class Admin_ResultadoEsperado_Helper extends Core_Singleton{
 	}
 	public static function eliminarMedioVerificacionIndicadorResultado($id_medio_verificacion_indicador_resultado){
 		$medio_verificacion_indicador_resultado = new Inta_Model_MedioVerificacionIndicadorResultado();
-		return($medio_verificacion_indicador_resultado->setId($id_medio_verificacion_indicador_resultado)->delete());
+//		return($medio_verificacion_indicador_resultado->setId($id_medio_verificacion_indicador_resultado)->delete());
+		$ret = $medio_verificacion_indicador_resultado->setId($id_medio_verificacion_indicador_resultado)->delete();
+		foreach($medio_verificacion_indicador_resultado->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 
 }

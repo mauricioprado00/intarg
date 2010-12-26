@@ -66,17 +66,28 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 					$resultado_esperado->setId($id_resultado_esperado);
 					$resultado_esperado->load();
 				}
-				if(!$resultado_esperado->getId())
-					$resultado_esperado->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
+//				if(!$resultado_esperado->getId())
+//					$resultado_esperado->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
 				if($agregando){
 					Core_App::getLayout()
 						->addActions('entity_new')
 					;
 				}
 			}
-
+			$mostrar_listado = $guardado&&!$agregando;
+			if($guardado){
+				if($post && $post->hasCrearNuevo() && $post->getCrearNuevo()){
+					$id_objetivo = $resultado_esperado->getIdObjetivo();
+					$resultado_esperado = new Inta_Model_ResultadoEsperado();
+					$resultado_esperado->setIdObjetivo($id_objetivo);
+					Core_App::getLayout()
+						->addActions('entity_new')
+					;
+					$mostrar_listado = false;
+				}
+			}
 			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_resultado_esperado)?'seteado':'no seteado'));
-			if($guardado&&!$agregando){
+			if($mostrar_listado){
 				Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_resultado_esperado_action');
 				$this->listar();
 			}
@@ -87,7 +98,7 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 				$resultado_esperado->addAutofilterOutput('utf8_decode');
 				
 				$audiencia = new Inta_Model_Audiencia();
-				$audiencia->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
+				$audiencia->setIdAgencia(Admin_Helper::getInstance()->getIdAgenciaSeleccionada());
 				$audiencia->setWhere(Db_Helper::equal('id_agencia'));
 				$audiencias = $audiencia->search();
 				
@@ -102,6 +113,9 @@ class Admin_ResultadoEsperado_Router extends Core_Router_Abstract{
 				$problemas = $problema->search();
 				if($resultado_esperado->getId()&&!$id_resultado_esperado){
 					$this->cambiarUrlAjax('administrator/resultado_esperado/addEdit/'.$resultado_esperado->getId());
+				}
+				else{
+					$this->cambiarUrlAjax('administrator/resultado_esperado/addEdit');
 				}
 				
 				//echo Core_Helper::DebugVars($ids_audiencia);

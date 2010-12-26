@@ -28,7 +28,7 @@ class Inta_Model_Problema extends Core_Model_Abstract{
 	}
 	public static function crearFiltroAgencia($id_agencia=null){
 		if(!isset($id_agencia))
-			$id_agencia = Admin_Helper::getInstance()->getIdAgencia();
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
 		return Db_Helper::custom('id_audiencia IN (
 		SELECT DISTINCT id 
 		FROM inta_audiencia 
