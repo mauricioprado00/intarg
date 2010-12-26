@@ -1,20 +1,43 @@
 <div class="listado_resultado_esperado_actividads" id="<?php print $id_control_big = $this->generateRandomId(); ?>"><?
-$resultado_esperado_actividads = $this->getResultadoEsperadoActividads();
-if($resultado_esperado_actividads){
+$arr_resultado_esperado_actividad = $this->getResultadoEsperadoActividads();
+$c_resultado_esperado_actividad = new Core_Collection($arr_resultado_esperado_actividad);
+foreach($c_resultado_esperado_actividad as $resultado_esperado_actividad){
+	if($resultado_esperado = $resultado_esperado_actividad->getResultadoEsperado()){
+		$resultado_esperado_actividad->setIdObjetivo($resultado_esperado->getIdObjetivo());
+	}
+}
+$g_resultado_esperado_actividad = $c_resultado_esperado_actividad->groupBy('id_objetivo');
+if($arr_resultado_esperado_actividad){
 	echo '<ul class="box_listado_resultado_esperado_actividads" id="'.($id_control = $this->generateRandomId()).'">';
-	foreach($resultado_esperado_actividads as $resultado_esperado_actividad){
-		echo
-			'<li data-id="'.$resultado_esperado_actividad->getId().'">'. 
-			'<span>'.$resultado_esperado_actividad->getNombre().'</span>';
-		?>
-	<?php if(!$this->getViewOnly()&&!$this->getParentBlock()->getViewOnly()): ?> 
-		<div class="listado_toolbox listado_toolbox_resultado_esperado_actividads">
-			<div class="btn_eliminar btn_eliminar_resultado_esperado_actividad" title="Eliminar ResultadoEsperadoActividad"></div>
-			<div class="btn_editar btn_editar_resultado_esperado_actividad" title="Editar ResultadoEsperadoActividad"></div>
-		</div>
-	<?php endif; ?><?php
-	
-		echo '</li>';
+	foreach($g_resultado_esperado_actividad as $c_resultado_esperado_actividad){
+		$objetivo = new Inta_Model_Objetivo();
+		$objetivo->setId($c_resultado_esperado_actividad->getIdObjetivo());
+		if($objetivo->load()){
+			echo '<li data-id-objetivo='.$objetivo->getId().'>'; ?>
+			<?php if(!$this->getViewOnly()&&!$this->getParentBlock()->getViewOnly()): ?> 
+				<div class="objetivo_actividad_toolbox">
+					<div title="Agregar Resultado Esperado" class="btn_agregar btn_agregar_re" style="cursor: pointer;"></div>
+				</div>
+			<?php endif; ?><?php
+			echo '<b>Objetivo: '.$objetivo->getNombre().'</b><ul>';
+			//foreach($arr_resultado_esperado_actividad as $resultado_esperado_actividad){
+			foreach($c_resultado_esperado_actividad as $resultado_esperado_actividad){
+				//var_dump(($resultado_esperado_actividad->getData()));
+				echo
+					'<li data-id="'.$resultado_esperado_actividad->getId().'">'. 
+					'<span>'.$resultado_esperado_actividad->getNombre().'</span>';
+				?>
+			<?php if(!$this->getViewOnly()&&!$this->getParentBlock()->getViewOnly()): ?> 
+				<div class="listado_toolbox listado_toolbox_resultado_esperado_actividads">
+					<div class="btn_eliminar btn_eliminar_resultado_esperado_actividad" title="Eliminar ResultadoEsperadoActividad"></div>
+					<div class="btn_editar btn_editar_resultado_esperado_actividad" title="Editar ResultadoEsperadoActividad"></div>
+				</div>
+			<?php endif; ?><?php
+			
+				echo '</li>';
+			}
+			echo '</ul></li>';
+		}
 	}
 	echo '</ul>';?> 
 <script>
@@ -72,7 +95,7 @@ jQuery(document).ready(function(){
 			jqwin.ScreenBlock();
 		})
 	;
-	jQuery('#<?php print $id_control?> .btn_editar_resultado_esperado_actividad')
+	jQuery('#<?php print $id_control?>').find('.btn_editar_resultado_esperado_actividad,.btn_agregar_re')
 		.css('cursor','pointer')
 		.mouseover(function(){
 			jQuery(this).parents('li:first').css('background-color','#FFFFBB')
@@ -83,11 +106,16 @@ jQuery(document).ready(function(){
 		.click(function(){
 			var jqthat = jQuery(this);
 			var id_resultado_esperado_actividad = jqthat.parents('li:eq(0)').attr('data-id');
+			var id_objetivo = jqthat.parents('li:eq(0)').attr('data-id-objetivo');
+			if(id_objetivo==null)
+				id_objetivo = '';
+			if(id_resultado_esperado_actividad==null)
+				id_resultado_esperado_actividad = '';
 			var jqwait = jQuery('<div></div>');
 			jqwait.html('<center>Aguarde un momento ... <br /><img src="<?php print $this->getSkinUrl('img/loading.gif'); ?>" /></center>');
 			jqwait.ScreenBlock();
 			jQuery.get(
-				'<?php print 'administrator/ajax/resultado_esperado_actividad/addEdit/'.$this->getIdActividad().'/'; ?>'+id_resultado_esperado_actividad,
+				'<?php print 'administrator/ajax/resultado_esperado_actividad/addEdit/'.$this->getIdActividad().'/'; ?>'+id_resultado_esperado_actividad+'/'+id_objetivo,
 				{
 					target: '#'+jQuery('#<?php print $id_control; ?>').parents('.listado_resultado_esperado_actividads:last').attr('id')
 				},

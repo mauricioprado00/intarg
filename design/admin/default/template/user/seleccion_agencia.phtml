@@ -1,0 +1,60 @@
+<?
+$messages = Core_App::getMessages('loginerror');
+?>
+<div id="content" class="clearfix">
+  <div id="login_top">
+    <div class="content">
+      <div class="left">
+        <div class="logo"><img src="<?php print $this->getSkinUrl('legacy/img/logo.jpg'); ?>" title="Logotipo INTA"></div>
+        <div class="logo_title">Aplicaciones INTA - Marcos Juarez</div>
+        <div class="logo_subtitle">Version Beta</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="login_bottom">
+    <div class="content">
+      <div class="right">
+        <div class="title_login">Seleccion de agencia</div>
+        
+        <form name="form1" method="post" >
+          <input name="josso_cmd" value="login" type="hidden">
+          <div class="form_row">
+			<div>
+				<label>Agencia: </label>
+				<span><?
+					echo c($selector_agencia = $this->appendBlock('<selector_agencia only_alowed_to_user="1" />'))
+						//->setSelectedValue($x->getIdagencia())
+						->void(($entityes = $selector_agencia->listEntityes()) && isset($entityes[0]) && $entityes[0]->getId() && $selector_agencia->setSelectedValue($entityes[0]->getId()))
+						->void($selector_agencia
+							->getSelectControl()
+								->setName('id_agencia')
+								->setId('id_agencia')
+								->setData('data-campo', '<b>agencia</b>')
+								->setData('data-mensaje', 'Seleccione %field')
+								->setData('data-validator', '{empty:false}')
+								->setMultiple('multiple')
+								->setStyle('min-width:200px')
+						)
+						->toHtml()
+					;
+				?> 
+				</span>
+			</div>
+          </div>
+          <!-- 
+          <div class="form_row">
+            <label class="password">Contrase&ntilde;a: </label>
+            <input name="password" value="" class="text error" type="password">
+          </div>
+          -->
+          <div class="form_row actions_row">
+            <input value="Continuar" name="commit" class="button" type="submit">
+          </div>
+        </form>
+        <center><?php if($messages)
+	foreach($messages as $message){?> 
+	<b><?=$message?></b><?	
+	}?></center>
+
+      </div>

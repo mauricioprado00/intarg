@@ -60,8 +60,8 @@ class Admin_TipoAspecto_Router extends Core_Router_Abstract{
 					$tipo_aspecto->setId($id_tipo_aspecto);
 					$tipo_aspecto->load();
 				}
-				if(!$tipo_aspecto->getId())
-					$tipo_aspecto->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
+//				if(!$tipo_aspecto->getId())
+//					$tipo_aspecto->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
 			}
 			if($guardado){
 				Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_tipo_aspecto_action');

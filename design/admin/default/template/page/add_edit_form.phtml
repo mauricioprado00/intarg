@@ -30,7 +30,10 @@ if($this->hasValidadorJs()||Admin_App::getInstance()->getModoAjax()){
 			}
 		}
 		if($this->getAjaxMethod()=='ajaxSubmit'):?> 
-		jQuery('#<?=$id?>').submit(function(){<?
+		jQuery('#<?=$id?>').submit(function(event){
+			var that = this;
+			if(this.block==true)return false;
+			this.block = true;<?
 		if(Admin_App::getInstance()->getModoAjax()){?> 
 			var jqform = jQuery(this);
 			jQuery('#<?php print $id; ?>').multivalidate(function(resultado){
@@ -48,13 +51,17 @@ if($this->hasValidadorJs()||Admin_App::getInstance()->getModoAjax()){
 					$("#isajaxrequest", this).attr("value", 1);
 					jqform.ajaxSubmit(options);
 				}
+				else that.block = false;
 			});
+			//this.block = false;
 			return(false);<?
 		}
 		else{?> 
-			return jQuery('#<?php print $id; ?>').multivalidate();<?	
+			var ret = jQuery('#<?php print $id; ?>').multivalidate();
+			if(!ret)
+				this.block = true;
+			return ret;<?	
 		}?> 
-		
 		});
 		<?elseif($this->getAjaxMethod()=='ajaxForm'):?> 
 		var options = <?=json_encode($options);?>;

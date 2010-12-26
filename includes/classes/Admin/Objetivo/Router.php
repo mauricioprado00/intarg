@@ -61,7 +61,7 @@ class Admin_Objetivo_Router extends Core_Router_Abstract{
 					$objetivo->load();
 				}
 				if(!$objetivo->getId())
-					$objetivo->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
+					$objetivo->setIdAgencia(Admin_Helper::getInstance()->getIdAgenciaSeleccionada());
 			}
 			//Admin_App::getInstance()->addShieldMessage(date('His').(isset($post_objetivo)?'seteado':'no seteado'));
 			if($guardado){
@@ -72,7 +72,7 @@ class Admin_Objetivo_Router extends Core_Router_Abstract{
 				$objetivo->addAutofilterOutput('utf8_decode');
 				
 				$audiencia = new Inta_Model_Audiencia();
-				$audiencia->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
+				$audiencia->setIdAgencia(Admin_Helper::getInstance()->getIdAgenciaSeleccionada());
 				$audiencia->setWhere(Db_Helper::equal('id_agencia'));
 				$audiencias = $audiencia->search();
 				
@@ -80,7 +80,7 @@ class Admin_Objetivo_Router extends Core_Router_Abstract{
 				$ids_audiencia = array();
 				foreach($audiencias as $audiencia)
 					$ids_audiencia[] = $audiencia->getId();
-				$arr_problema = Admin_Helper::getInstance()->getAgencia()->getListProblema();
+				$arr_problema = Admin_Helper::getInstance()->getAgenciaSeleccionada()->getListProblema();
 				
 //				$problema = new Inta_Model_Problema();
 //				if($objetivo->getId())

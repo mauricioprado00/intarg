@@ -8,9 +8,13 @@ class Admin_Problema_Block_XmlList extends Jqgrid_Block_XmlList{
 		//$problema = new Inta_Model_Problema();
 		$problema = new Inta_Model_Problema();
 		$problema = new Inta_Model_View_Problema();
+		$wheres = array();
+		$wheres[] = $problema->crearFiltroAgencia();
 		if($comparator!=null){
-			$problema->setWhere($comparator);
+			//$problema->setWhere($comparator);
+			$wheres[] = $comparator;
 		}
+		$problema->setWhereByArray($wheres);
 		$datos = array();
 		$total_items = $problema->searchCount();
 		$cantidad_paginas = ceil($total_items/$rows);

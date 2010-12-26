@@ -181,7 +181,7 @@ class Admin_Reporte_Helper extends Core_Singleton{
 			return false;
 		}
 		$usuario = Admin_User_Model_User::getLogedUser();
-		$agencia = Admin_Helper::getInstance()->getAgencia();
+		$agencia = Admin_Helper::getInstance()->getAgenciaSeleccionada();
 		$resultado = new Inta_Model_Reporte_Actividad();
 		$resultado
 			->setIdAgencia($agencia->getId())
@@ -196,6 +196,7 @@ class Admin_Reporte_Helper extends Core_Singleton{
 			if(!($responsable = $actividad->getResponsable())){
 				continue;
 			}
+			
 			$resultado
 				->setIdActividad($id_actividad)
 				->setNombreActividad($actividad->getNombre())

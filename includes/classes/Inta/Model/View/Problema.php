@@ -60,6 +60,14 @@ class Inta_Model_View_Problema extends Inta_Db_Model_View_Abstract{
 //				'agencia_email',
 		));
 	}
+	public static function crearFiltroAgencia($id_agencia=null){
+		if(!isset($id_agencia))
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
+		return Db_Helper::custom('problema_id_audiencia IN (
+		SELECT DISTINCT id 
+		FROM inta_audiencia 
+		WHERE id_agencia = {%s})', $id_agencia);
+	}
 //	public static function crearFiltroAgencia2($id_agencia=null){
 //		if(!isset($id_agencia))
 //			$id_agencia = Admin_Helper::getInstance()->getIdAgencia();

@@ -168,7 +168,11 @@ class Admin_Actividad_Helper extends Core_Singleton{
 	}
 	public static function eliminarActividad($id_actividad){
 		$actividad = new Inta_Model_Actividad();
-		return($actividad->setId($id_actividad)->delete());
+//		return($actividad->setId($id_actividad)->delete());
+		$ret = $actividad->setId($id_actividad)->delete();
+		foreach($actividad->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

@@ -63,7 +63,7 @@ class Inta_Model_View_Actividad extends Inta_Db_Model_View_Abstract{
 	}
 	public static function crearFiltroAgencia2($id_agencia=null){
 		if(!isset($id_agencia))
-			$id_agencia = Admin_Helper::getInstance()->getIdAgencia();
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
 		return Db_Helper::custom('actividad_id IN (select distinct(rea.id_actividad)
 from inta_objetivo as o
     inner join inta_resultado_esperado as re on re.id_objetivo = o.id
@@ -72,7 +72,7 @@ from inta_objetivo as o
 	}
 	public static function crearFiltroAgencia($id_agencia=null){
 		if(!isset($id_agencia))
-			$id_agencia = Admin_Helper::getInstance()->getIdAgencia();
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
 		return Db_Helper::custom('actividad_id IN (select distinct(a.id)
 from 
 	inta_usuario u 

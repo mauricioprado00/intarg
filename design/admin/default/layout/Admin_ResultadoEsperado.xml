@@ -53,6 +53,7 @@
 					<a href="#resultado_esperado/listar" onclick="getGrid(this).setSelection('{!id}')"><div class="lstse" ></div></a>
 					<a href="#resultado_esperado/addEdit/{!id}"><div class="lsted"></div></a>
 					<a href="#resultado_esperado/delete/{!id}" onclick="getGrid(this).setSelection('{!id}'); return confirm('Desea continuar eliminando el resultado_esperado seleccionado?')"><div class="lstde"></div></a>
+					<a href="#actividad/addEdit//{!id}" title="agregar actividad"><div class="btn_agregar" style="float:left;"></div></a>
 					]]></param>
 			</action>
 			<!--

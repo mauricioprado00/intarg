@@ -20,7 +20,9 @@ $x = $this->getObjectToEdit();
 		<div>
 			<label>Resultado Esperado: </label>
 			<span><?
-				echo c($selector_resultado_esperado = $this->appendBlock('<selector_resultado_esperado />'))
+				//echo c($selector_resultado_esperado = $this->appendBlock('<selector_resultado_esperado />'))
+				c($selector_resultado_esperado = $this->appendBlock('<selector_resultado_esperado_objetivo_simple />'))
+				
 					->setSelectedValue($x->getIdResultadoEsperado())
 					->void($selector_resultado_esperado
 						->getSelectControl()
@@ -30,6 +32,12 @@ $x = $this->getObjectToEdit();
 							->setData('data-mensaje', 'Seleccione %field')
 							->setData('data-validator', '{empty:false}')
 					)
+				;
+				if(!$x->getIdResultadoEsperado()){
+					$opt = array($x->getIdObjetivo());
+					$selector_resultado_esperado->setChainOptions($opt);
+				}
+				echo $selector_resultado_esperado
 					->toHtml()
 				;
 			?> 

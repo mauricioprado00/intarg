@@ -42,7 +42,11 @@ class Admin_Indicador_Helper extends Core_Singleton{
 	}
 	public static function eliminarIndicador($id_indicador){
 		$indicador = new Inta_Model_Indicador();
-		return($indicador->setId($id_indicador)->delete());
+//		return($indicador->setId($id_indicador)->delete());
+		$ret = $indicador->setId($id_indicador)->delete();
+		foreach($indicador->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

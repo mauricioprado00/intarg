@@ -58,7 +58,9 @@
 				name="formulariox">
 				<tabset>
 					<tab title="Datos de audiencia">
-						<template name="audiencia_add_edit_form" main_form="true" template="audiencia/datos.phtml" />
+						<template name="audiencia_add_edit_form" main_form="true" template="audiencia/datos.phtml">
+							<template when="accion(entity_new)" name="problema_add_edit_form" template="problema/datos.phtml" />
+						</template>
 					</tab>
 					<tab when="!accion(entity_new)" title="Documentos">
 						<!--<template name="resultado_esperado_add_edit_form" template="audiencia/documentos.phtml" />-->

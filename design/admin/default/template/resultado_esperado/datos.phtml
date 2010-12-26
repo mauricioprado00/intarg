@@ -35,7 +35,8 @@ $configcke2 = array(
 		<div>
 			<label>Objetivo: </label>
 			<span><?
-				echo c($selector_tipo_objetivo = $this->appendBlock('<selector_objetivo/>'))
+				//echo c($selector_tipo_objetivo = $this->appendBlock('<selector_objetivo />'))
+				echo c($selector_tipo_objetivo = $this->appendBlock('<selector_objetivo_simple />'))
 					->setSelectedValue($x->getIdObjetivo())
 					->void($selector_tipo_objetivo
 						->getSelectControl()
@@ -47,7 +48,14 @@ $configcke2 = array(
 					)
 					->toHtml()
 				;
-
+				if($ore_renderer = $this->getChild('objetivo_listado_re_renderer')){
+					if($objetivos = $selector_tipo_objetivo->getAllOptions()){
+						foreach($objetivos as $objetivo){
+							$ore_renderer->setObjetivo($objetivo);
+							echo $ore_renderer->toHtml();
+						}
+					}
+				}
 			if(false):
 				$objetivo = new Inta_Model_Objetivo();
 				$objetivos = $objetivo->search();
@@ -96,17 +104,36 @@ $configcke2 = array(
 	<?php print $this->getChildHtml('hijos_abajo'); ?>
 	<div class="controls">
 		<?php if(in_array('entity_new',$this->getLayout()->getActions())): ?> 
-		<input type="submit" value="Continuar"/>
+		<input type="submit" id="guardar" value="<?php print $this->__t('Guardar y Cargar Indicadores'); ?>"/>
 		<?php else: ?> 
-		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
-		<?php endif; ?> 
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setId('guardar')->setValue('Guardar')->getHtml(); ?>
+		<?php endif; ?>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('hidden')->setName('crear_nuevo')->setValue('0')->getHtml(); ?>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('button')->setId('continuar')->setValue($this->__t('Guardar y crear nuevo'))->getHtml(); ?>
 	</div>
 </fieldset>
 <script>
 
 jQuery(document).ready(function(){
 	jQuery('#descripcion').ckeditor(<?php print json_encode($configcke1); ?>);
+	jQuery('#id_objetivo').change(function(){
+		var jqform = jQuery(this).parents('form:first');
+		jqform.find('.listado_re').hide();
+		if(this.value!='')
+			jqform.find('.listado_re_'+this.value).show();
+	}).change();
+	jQuery('#continuar').click(function(){
+		var jqform = jQuery(this).parents('form:first');
+		jqform.find('[name=crear_nuevo]').val(1);
+		jqform.submit();
+	});
+	jQuery('#guardar').click(function(){
+		var jqform = jQuery(this).parents('form:first');
+		jqform.find('[name=crear_nuevo]').val(0);
+		//jqform.submit();//ya es submit este
+	});
 });
+
 
 function validar_agregar_resultado_esperado_datos(formData, jqForm, options) {
 	jQuery('#descripcion').ckeditor('refresh');

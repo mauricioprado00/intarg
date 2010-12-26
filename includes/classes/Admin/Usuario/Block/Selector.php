@@ -13,7 +13,7 @@ class Admin_Usuario_Block_Selector extends Admin_Block_Selector{
 		$usuario = new Inta_Model_Usuario();
 		if(!$this->hasTodos()||!$this->getTodos())
 			$usuario
-		    	->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia())
+		    	->setIdAgencia(Admin_Helper::getInstance()->getIdAgenciaSeleccionada())
 		    	->setWhere(Db_Helper::equal('id_agencia'))
     	;
     	$this

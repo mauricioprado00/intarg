@@ -39,7 +39,10 @@ class Admin_Agencia_Helper extends Core_Singleton{
 	}
 	public static function eliminarAgencia($id_agencia){
 		$agencia = new Inta_Model_Agencia();
-		return($agencia->setId($id_agencia)->delete());
+		$ret = $agencia->setId($id_agencia)->delete();
+		foreach($agencia->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

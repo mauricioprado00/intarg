@@ -74,24 +74,83 @@ $x = $this->getObjectToEdit();
 					->setId('nombre')
 					->setName('audiencia[nombre]')
 					->setValue($x->getNombre())
-					->setData('data-campo', '<b>Nombre</b>')
+					->setData('data-campo', '<b>Nombre de Agencia</b>')
 					->setData('data-validator', '{empty:false}')
 				;
 				echo $input->getHtml();
 			?> 
 			</span>
-			<div>
+			<?php if(!$x->getId()): ?>
+			<label>Crear Problema:</label>
+			<span><?
+				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
+				$input
+					->setMaxlength(300)
+					->setType('checkbox')
+					->setId('crear_problema')
+					//->setName('audiencia[nombre]')
+//					->setValue($x->getNombre())
+//					->setData('data-campo', '<b>Nombre de Agencia</b>')
+//					->setData('data-validator', '{empty:false}')
+				;
+				echo $input->getHtml();
+			?> 
+			</span>
+			<?php endif; ?>
 		</div>
-		</div>
-	</fieldset>
+	</fieldset><?php 
+	if(!$x->getId()):
+		$child = c($this->getChild('problema_add_edit_form'))
+			->setObjectToEdit(new Core_Object())
+			->setAudienciaImplicita(true)
+		;
+		echo '<div id="contanedor_problema" style="display:none;">';
+		echo $child->getHtml();
+		echo '</div>';
+		?> 
+		<script>
+			jQuery(document).ready(function(){
+				jQuery('#<?php print $child->getFieldsetId(); ?>').setDisable(true);
+				jQuery('#crear_problema').change(function(){
+					var that = this;
+					if(this.checked){
+						jQuery('#contanedor_problema').fadeIn('slow', function(){
+							jQuery('#<?php print $child->getFieldsetId(); ?>').setDisable(!that.checked);
+						});
+					}
+					else{
+						jQuery('#contanedor_problema').fadeOut('slow', function(){
+							jQuery('#<?php print $child->getFieldsetId(); ?>').setDisable(!that.checked);
+						});
+					}
+					
+				});
+			});
+		</script><?
+	endif;
+	
+	?> 
 	<div class="controls">
-		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setValue('Guardar')->getHtml(); ?>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('submit')->setId('guardar')->setValue('Guardar')->getHtml(); ?>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('hidden')->setName('continuar')->setValue('0')->getHtml(); ?>
+		<?php if(!$x->getId()): ?>
+		<?php print Core::getObject('Core_Html_Tag_Custom', 'input')->settype('button')->setId('continuar')->setValue($this->__t('Cargar Documentos'))->getHtml(); ?>
+		<?php endif; ?>
 	</div>
 </fieldset>
 <script>
 
 jQuery(document).ready(function(){
-
+	jQuery('#continuar').click(function(){
+		var jqform = jQuery(this).parents('form:first');
+		jqform.find('[name=continuar]').val(1);
+		jqform.submit();
+	});
+	jQuery('#guardar').click(function(){
+		var jqform = jQuery(this).parents('form:first');
+		jqform.find('[name=continuar]').val(0);
+		//jqform.submit();//ya es submit este
+	});
 });
 
 function validar_agregar_audiencia_datos(formData, jqForm, options) {

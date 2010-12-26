@@ -67,5 +67,14 @@ class Inta_Model_Agencia extends Core_Model_Abstract{
 			return null;
 		return new Core_Object(array('token'=>md5($doc->getPath()).'.docx','id'=>'rCDocId'.$doc->getId()));
 	}
+	public function crearFiltroSoloPermitidasAlUsuario($user=null){
+		if(is_null($user))
+			$user = Admin_User_Model_User::getLogedUser();
+		//var_dump($user->checkPrivilegio(__CLASS__, 'pr'));
+		if(!$user->checkPrivilegio(__CLASS__, 'pr')){
+			return Db_Helper::equal('id', $user->getIdAgencia());
+		}
+		return null;
+	}
 }
 ?>

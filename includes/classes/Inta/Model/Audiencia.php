@@ -25,5 +25,12 @@ class Inta_Model_Audiencia extends Core_Model_Abstract{
 		$problema->setWhere(Db_Helper::equal('id_audiencia'));
 		return $problema->search();
 	}
+	public static function crearFiltroAgencia($id_agencia=null){
+		if(!isset($id_agencia))
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
+		return Db_Helper::equal('id_agencia', $id_agencia);
+		return Db_Helper::custom('id_agencia = {%s}', $id_agencia);
+	}
+
 }
 ?>

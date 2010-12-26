@@ -59,8 +59,8 @@ class Admin_Aspecto_Router extends Core_Router_Abstract{
 					$aspecto->setId($id_aspecto);
 					$aspecto->load();
 				}
-				if(!$aspecto->getId())
-					$aspecto->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
+//				if(!$aspecto->getId())
+//					$aspecto->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
 			}
 			if($guardado){
 				Core_App::getLayout()->addActions('entity_addedit_action', 'addedit_admin_aspecto_action');

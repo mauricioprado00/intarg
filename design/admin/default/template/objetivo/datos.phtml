@@ -15,10 +15,16 @@ $x = $this->getObjectToEdit();
 	endif;?></legend>
 	<fieldset>
 		<h3>Informacion de Objetivo</h3>
-		<div>
-			<label>Agencia: </label>
+		<div><?php 
+			$id_agencia = $x->getIdAgencia()?$x->getIdAgencia():Admin_Helper::getInstance()->getIdAgenciaSeleccionada(); 
+			$agencia = new Inta_Model_Agencia();
+			$agencia->setId($id_agencia);
+			$agencia->load();
+
+			?>
+			<label>Agencia: <?php print '<b>'.$agencia->getNombre().'</b>'; ?></label>
 			<span><?
-				$id_agencia = $x->getIdAgencia()?$x->getIdAgencia():Admin_Helper::getInstance()->getIdAgencia();			
+		
 				$input = Core::getObject('Core_Html_Tag_Custom', 'input');
 				$input
 					->setMaxlength(300)
@@ -29,26 +35,25 @@ $x = $this->getObjectToEdit();
 				;
 				echo $input->getHtml();
 
-				$agencia = new Inta_Model_Agencia();
-				$agencias = $agencia->search();
-				$html_select = '';
-				foreach($agencias as $agencia){
-					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
-						->setValue($agencia->getId())
-						->setInnerHtml($agencia->getNombre())
-					;
-					if($agencia->getId()==$id_agencia)
-						$option->setSelected('selected');
-					$html_select .= $option->getHtml();
-				}
-				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
-					->setName('objetivo[id_agencia]')
-					->setId('id_agencia')
-					//->setDisabled('disabled')
-					->setReadonly('readonly')
-					->setInnerHtml($html_select)
-					->getHtml()
-				;
+//				$agencias = $agencia->search();
+//				$html_select = '';
+//				foreach($agencias as $agencia){
+//					$option = c(Core::getObject('Core_Html_Tag_Custom', 'option'))
+//						->setValue($agencia->getId())
+//						->setInnerHtml($agencia->getNombre())
+//					;
+//					if($agencia->getId()==$id_agencia)
+//						$option->setSelected('selected');
+//					$html_select .= $option->getHtml();
+//				}
+//				echo c(Core::getObject('Core_Html_Tag_Custom', 'select'))
+//					->setName('objetivo[id_agencia]')
+//					->setId('id_agencia')
+//					//->setDisabled('disabled')
+//					->setReadonly('readonly')
+//					->setInnerHtml($html_select)
+//					->getHtml()
+//				;
 
 			?> 
 			</span>

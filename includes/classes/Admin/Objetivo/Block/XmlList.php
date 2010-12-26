@@ -8,9 +8,13 @@ class Admin_Objetivo_Block_XmlList extends Jqgrid_Block_XmlList{
 		//$objetivo = new Inta_Model_Objetivo();
 		$objetivo = new Inta_Model_Objetivo();
 		$objetivo = new Inta_Model_View_Objetivo();
+		$wheres = array();
+		$wheres[] = $objetivo->crearFiltroAgencia();
 		if($comparator!=null){
-			$objetivo->setWhere($comparator);
+			//$objetivo->setWhere($comparator);
+			$wheres[] = $comparator;
 		}
+		$objetivo->setWhereByArray($wheres);
 		$datos = array();
 		$total_items = $objetivo->searchCount();
 		$cantidad_paginas = ceil($total_items/$rows);

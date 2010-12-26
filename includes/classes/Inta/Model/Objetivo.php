@@ -88,10 +88,15 @@ class Inta_Model_Objetivo extends Core_Model_Abstract{
 //		return $result;
 //	}
 	
-
+	public static function crearFiltroAgencia($id_agencia=null){
+		if(!isset($id_agencia))
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
+		return Db_Helper::equal('id_agencia', $id_agencia);
+	}
 	public function getDbTableName() 
 	{
 		return 'inta_objetivo';
 	}
+	
 }
 ?>

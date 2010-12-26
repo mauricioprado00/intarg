@@ -42,7 +42,11 @@ class Admin_TipoAudiencia_Helper extends Core_Singleton{
 		$tipo_audiencia->setId($id_tipo_audiencia);
 		if(!$tipo_audiencia->load())
 			return false;
-		return $tipo_audiencia->delete(array('id'=>$id_tipo_audiencia));
+		$ret = $tipo_audiencia->delete(array($id_tipo_audiencia));
+		foreach($agencia->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
+//		return $tipo_audiencia->delete(array('id'=>$id_tipo_audiencia));
 	}
 }
 ?>

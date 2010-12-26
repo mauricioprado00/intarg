@@ -42,7 +42,11 @@ class Admin_Proyecto_Helper extends Core_Singleton{
 		$proyecto->setId($id_proyecto);
 		if(!$proyecto->load())
 			return false;
-		return $proyecto->delete(array('id'=>$id_proyecto));
+//		return $proyecto->delete(array('id'=>$id_proyecto));
+		$ret = $proyecto->delete(array('id'=>$id_proyecto));
+		foreach($proyecto->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

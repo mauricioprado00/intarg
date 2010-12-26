@@ -1,5 +1,7 @@
 <?
 class Admin_User_Model_User extends Core_Model_User{
+	const SESSION_VAR_AGENCIA_SELECCIONADA = 'AGENCIA_SELECCIONADA';
+	
 	public function init(){
 		parent::init();
 		$this->setId(null)
@@ -191,6 +193,7 @@ class Admin_User_Model_User extends Core_Model_User{
 	public function listarPrivilegios(){/*aca habria que hacer un search en otro objeto que maneje los privilegios desde la base*/
 		$privilegios = array(
 			array('id'=>'444','nombre'=>'Solo Vista'),
+			array('id'=>'744','nombre'=>'Solo Agencia'),
 			array('id'=>'777','nombre'=>'Todos'),
 		);
 		$ret = array();
@@ -209,10 +212,56 @@ class Admin_User_Model_User extends Core_Model_User{
 				return($this->getPrivilegios()=='444');
 				break;
 			}
+			case 'pr':{
+				switch($this->getPrivilegios()){
+					case '777':{
+						return(true);
+					}
+					case '744':{
+						return false;
+						$clases_no_permitidas = array(
+							'Inta_Model_Agencia',
+						);
+						if(in_array($privilegio, $clases_no_permitidas)){
+							return false;
+						}
+						return true;
+					}
+					case '444':{
+						return(false);
+					}
+				}
+				break;
+			}
 			case 'w':{
 				switch($this->getPrivilegios()){
 					case '777':{
 						return(true);
+					}
+					case '744':{
+						//solo agencia
+						return true;
+					}
+					case '444':{
+						return(false);
+					}
+				}
+				break;
+			}
+			case 'pw':{
+				switch($this->getPrivilegios()){
+					case '777':{
+						return(true);
+					}
+					case '744':{
+						return false;
+						$clases_no_permitidas = array(
+							'Admin_User_Model_User',
+						);
+						if(in_array($privilegio, $clases_no_permitidas)){
+							return false;
+						}
+						return true;
 					}
 					case '444':{
 						return(false);
@@ -224,6 +273,22 @@ class Admin_User_Model_User extends Core_Model_User{
 				switch($this->getPrivilegios()){
 					case '777':{
 						return(true);
+					}
+					case '744':{
+						$clases_no_permitidas = array(
+							'Inta_Model_Problema'
+							,'Inta_Model_Objetivo'
+							,'Inta_Model_ResultadoEsperado'
+							,'Inta_Model_Actividad'
+							,'Inta_Model_Agencia'
+							,'Admin_User_Model_User'
+						);
+						if(in_array($privilegio, $clases_no_permitidas)){
+							return false;
+						}
+//						echo Core_Helper::DebugVars($privilegio);
+//						return false;
+						return true;
 					}
 					default:
 						return(false);
@@ -246,6 +311,27 @@ class Admin_User_Model_User extends Core_Model_User{
 			}
 		}
 		return $this->_agencia;
+	}
+	
+	public function getIdAgenciaSeleccionada(){
+		if($id_agencia = $this->getSessionVar(self::SESSION_VAR_AGENCIA_SELECCIONADA)){
+			return $id_agencia;
+		}
+		return $this->getIdAgencia();
+	}
+	public function setIdAgenciaSeleccionada($id_agencia){
+		$this->setSessionVar(self::SESSION_VAR_AGENCIA_SELECCIONADA, $id_agencia);
+	}
+	private $_agencia_seleccionada = null;
+	public function getAgenciaSeleccionada(){
+		if(!isset($this->_agencia_seleccionada)){
+			$agencia = new Inta_Model_Agencia();
+			$agencia->setId($this->getIdAgenciaSeleccionada());
+			if($agencia->load()){
+				$this->_agencia_seleccionada = $agencia;
+			}
+		}
+		return $this->_agencia_seleccionada;
 	}
 }
 ?>

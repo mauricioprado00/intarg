@@ -55,7 +55,11 @@ class Admin_EstrategiaActividad_Helper extends Core_Singleton{
 	}
 	public static function eliminarEstrategiaActividad($id_estrategia_actividad){
 		$estrategia_actividad = new Inta_Model_EstrategiaActividad();
-		return($estrategia_actividad->setId($id_estrategia_actividad)->delete());
+//		return($estrategia_actividad->setId($id_estrategia_actividad)->delete());
+		$ret = $estrategia_actividad->setId($id_estrategia_actividad)->delete();
+		foreach($estrategia_actividad->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

@@ -64,6 +64,7 @@ abstract class Mysql_Db extends Db_Abstract{
 				return false;
 			echo Core_Helper::DebugVars($sql = $sql['debug']);
 		}
+		$this->setLastQuery($sql);
 		$r = mysql_query($sql, $this->getConnectionHandler());
 		if(!$r){
 			$this->addError(mysql_error(), mysql_errno());

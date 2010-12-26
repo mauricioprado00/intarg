@@ -39,7 +39,11 @@ class Admin_TipoAspecto_Helper extends Core_Singleton{
 	}
 	public static function eliminarTipoAspecto($id_tipo_aspecto){
 		$tipo_aspecto = new Inta_Model_TipoAspecto();
-		return($tipo_aspecto->setId($id_tipo_aspecto)->delete());
+//		return($tipo_aspecto->setId($id_tipo_aspecto)->delete());
+		$ret = $tipo_aspecto->setId($id_tipo_aspecto)->delete();
+		foreach($tipo_aspecto->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

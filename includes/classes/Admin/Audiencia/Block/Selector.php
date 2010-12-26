@@ -8,6 +8,12 @@ class Admin_Audiencia_Block_Selector extends Admin_Block_Selector{
 			//->setTextFormat('%s, %s')
 		;
 	}
+	protected function prepareEntityToList(){
+		$audiencia = $this->getEntityToList();
+		$audiencia
+			->setWhere($audiencia->crearFiltroAgencia())
+		;
+	}
     protected function _prepareLayout()
     {
 		$audiencia = new Inta_Model_Audiencia();

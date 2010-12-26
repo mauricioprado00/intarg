@@ -121,7 +121,7 @@ class Inta_Model_Actividad extends Core_Model_Abstract{
 	}
 	public static function crearFiltroAgencia($id_agencia=null){
 		if(!isset($id_agencia))
-			$id_agencia = Admin_Helper::getInstance()->getIdAgencia();
+			$id_agencia = Admin_Helper::getInstance()->getIdAgenciaSeleccionada();
 		return Db_Helper::custom('id IN (select distinct(rea.id_actividad)
 from inta_objetivo as o
     inner join inta_resultado_esperado as re on re.id_objetivo = o.id

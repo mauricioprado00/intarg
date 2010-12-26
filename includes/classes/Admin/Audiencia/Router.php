@@ -32,7 +32,7 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 		}
 		$this->listar();
 	}
-	protected function addEdit($id_audiencia=null, $nombre=null){
+	protected function addEdit($id_audiencia=null, $nombre=null, $show_tab_documentos=false){
 		Core_App::getInstance()->clearLastErrorMessages();
 		$guardado = false;
 		$permisos = Admin_User_Model_User::getLogedUser()->checkPrivilegio(get_class(new Inta_Model_Audiencia()), 'w');
@@ -46,6 +46,7 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 		else{
 			$post = Core_Http_Post::hasParameters()?Core_Http_Post::getParameters('Core_Object'):null;
 			$post_audiencia = $post&&$post->hasAudiencia()?$post->GetAudiencia(true):null;
+			$post_problema = $post&&$post->hasProblema()?$post->GetProblema(true):null;
 			$audiencia = new Inta_Model_Audiencia();
 			$guardado = false;
 			if(isset($post_audiencia)){
@@ -54,6 +55,16 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 				$guardado =
 					//false;
 					Admin_Audiencia_Helper::actionAgregarEditarAudiencia($audiencia)?true:false;
+				if($guardado){
+					if(isset($post_problema)){
+						$problema = new Inta_Model_Problema();
+						$problema->loadFromArray($post_problema->getData());
+						//echo Core_Helper::DebugVars($problema->getData());
+						$problema->setIdAudiencia($audiencia->getId());
+						$guardado = 
+							Admin_Problema_Helper::actionAgregarEditarProblema($problema)?true:false;
+					}
+				}
 			}
 			else{
 				if(isset($id_audiencia)){
@@ -61,7 +72,7 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 					$audiencia->load();
 				}
 				if(!$audiencia->getId())
-					$audiencia->setIdAgencia(Admin_Helper::getInstance()->getIdAgencia());
+					$audiencia->setIdAgencia(Admin_Helper::getInstance()->getIdAgenciaSeleccionada());
 			}
 			//aca un brain killer:
 			/*
@@ -81,7 +92,20 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 			*/
 			$id_en_post = $post_audiencia&&$post_audiencia->getId();
 			$mostrar_tabs = $guardado || $id_en_post || $audiencia->getId();
-			$mostrar_listado = $guardado&&$audiencia->getId()&&$post_audiencia&&$post_audiencia->getId();
+			
+			if($post&&$continuar = $post->hasContinuar()){
+				if($post->getContinuar()){
+					$show_tab_documentos = true;
+					$mostrar_listado = false;
+				}
+				else{
+					//$show_tab_documentos = true;
+					$mostrar_listado = true;
+				}
+			}
+			else{
+				$mostrar_listado = $guardado&&$audiencia->getId()&&$post_audiencia&&$post_audiencia->getId();
+			}
 			
 			if(!$mostrar_tabs){
 				Core_App::getLayout()
@@ -120,6 +144,11 @@ class Admin_Audiencia_Router extends Core_Router_Abstract{
 					$block->setIdToEdit($audiencia->getId());
 					$block->setObjectToEdit($audiencia);
 					
+				}
+				
+				if($show_tab_documentos){
+					$block = $layout->getBlock('add_edit_list_documentos_audiencia');
+					$block->setFocusTab(true);
 				}
 			}
 		}

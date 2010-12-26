@@ -44,7 +44,11 @@ class Admin_Objetivo_Helper extends Core_Singleton{
 	}
 	public static function eliminarObjetivo($id_objetivo){
 		$objetivo = new Inta_Model_Objetivo();
-		return($objetivo->setId($id_objetivo)->delete());
+//		return($objetivo->setId($id_objetivo)->delete());
+		$ret = $objetivo->setId($id_objetivo)->delete();
+		foreach($objetivo->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

@@ -39,7 +39,11 @@ class Admin_Audiencia_Helper extends Core_Singleton{
 	}
 	public static function eliminarAudiencia($id_audiencia){
 		$audiencia = new Inta_Model_Audiencia();
-		return($audiencia->setId($id_audiencia)->delete());
+//		return($audiencia->setId($id_audiencia)->delete());
+		$ret = $audiencia->setId($id_audiencia)->delete();
+		foreach($audiencia->getTranslatedErrors() as $error)
+			Admin_App::getInstance()->addErrorMessage($error->getTranslatedDescription());
+		return($ret);
 	}
 }
 ?>

@@ -1,0 +1,41 @@
+<?php 
+if(!($objetivo = $this->getObjetivo())){
+	echo 'error no hay objetivo para '.__FILE__;
+	return;
+}
+if(! $objetivo instanceof Inta_Model_Objetivo){
+	$id_objetivo = $objetivo->getId();
+	$objetivo = new Inta_Model_Objetivo();
+	$objetivo->setId($id_objetivo);
+	if(!$objetivo->load())	
+		return;
+}
+
+if($arr_resultado_esperado = $objetivo->getListResultadoEsperado()){
+	$div = Core::getObject('Core_Html_Tag_Custom', 'div');
+	$html_ul = '';
+	$div->setClass('listado_re listado_re_ '. 'listado_re listado_re_'.$objetivo->getId());
+	if($this->getHideList())
+		$div->setStyle('display:none;');
+	$html_div = '';
+	if($title = $this->getTitle()){
+		$html_div .= c($h3 = Core::getObject('Core_Html_Tag_Custom', 'h3'))
+			->setInnerHtml($title)
+			->getHtml()
+		;	
+	}
+	foreach($arr_resultado_esperado as $resultado_esperado){
+		$html_ul .= c(Core::getObject('Core_Html_Tag_Custom', 'li'))
+			->setInnerHtml(strip_tags($resultado_esperado->getDescripcion()))
+			->getHtml()
+		;
+	}
+	$ul = c(Core::getObject('Core_Html_Tag_Custom', 'ul'))
+		->setInnerHtml($html_ul)
+	;
+	echo $div
+		->setInnerHtml($html_div.$ul->getHtml())
+		->getHtml()
+	;
+}
+?>
